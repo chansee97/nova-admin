@@ -1,5 +1,6 @@
 
 <div align="center">
+  <img src="./public/pixel.svg"/>
 	<h1>Ench Admin</h1>
 </div>
 
@@ -7,7 +8,10 @@
 
 ## Demo
 
-- [示例网页](https://ench-admin.vercel.app/)
+- [示例网页](https://ench-
+
+
+admin.vercel.app/)
   
 ## 代码仓库
 
