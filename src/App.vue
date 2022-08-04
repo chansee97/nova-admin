@@ -7,10 +7,10 @@ import HelloWorld from './components/HelloWorld.vue';
 <template>
 	<div>
 		<a href="https://vitejs.dev" target="_blank">
-			<img src="/pixel.svg" class="logo" alt="Vite logo" />
+			<img src="/pixel.svg" class="logo" />
 		</a>
 	</div>
-	<HelloWorld msg="Vite + Vue 的中后台模板" />
+	<HelloWorld msg="Ench-Admin 中后台模板" />
 </template>
 
 <style scoped>
@@ -20,9 +20,6 @@ import HelloWorld from './components/HelloWorld.vue';
 	will-change: filter;
 }
 .logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
+	filter: drop-shadow(0 0 2em #ed9d0aaa);
 }
 </style>
