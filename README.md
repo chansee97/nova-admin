@@ -7,9 +7,7 @@
 
 ## Demo
 
-- [示例网页](https://ench-
-
-admin.vercel.app/)
+- [示例网页](https://ench-admin.vercel.app/)
 
 ## 代码仓库
 
