@@ -43,6 +43,12 @@ pnpm dev
 pnpm build
 ```
 
+- cz规范提交git
+
+```bash
+npx cz
+```
+
 ## 素材来源
 
 [iconfont-阿里巴巴矢量图标库](https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=39973)

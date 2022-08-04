@@ -7,7 +7,7 @@ import HelloWorld from './components/HelloWorld.vue';
 <template>
   <div>
     <a href="https://vitejs.dev" target="_blank">
-      <img src="/pixel.svg" class="logo" />
+      <img src="/pixel.svg" class="logo" alt="" />
     </a>
   </div>
   <HelloWorld msg="Ench-Admin 中后台模板" />
