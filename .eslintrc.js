@@ -27,6 +27,7 @@ module.exports = { //https://eslint.org/docs/latest/
     '@vue/typescript/recommended'
   ],
   rules: {
+    // TSESLint docs https://typescript-eslint.io/rules/
     'no-var': 'error', // 禁止使用var
     'no-console': 'warn', // 禁止出现console
     "no-debugger": "off", // 关闭debugger警告
