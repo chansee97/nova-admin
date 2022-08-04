@@ -10,6 +10,11 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.json --fix",
     "prepare": "husky install"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-customizable"
+    }
+  },
   "dependencies": {
     "vue": "^3.2.37"
   },
@@ -21,6 +26,8 @@
     "@vitejs/plugin-vue": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",
+    "commitizen": "^4.2.5",
+    "cz-customizable": "^6.9.1",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-alias": "^1.1.2",
