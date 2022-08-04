@@ -1,0 +1,40 @@
+.DS_Store
+node_modules
+node_modules/**/*
+node_modules/**/*.*
+/dist
+
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+
+# 重要的环境依赖文件
+package.json
+package.lock.json
+
+# 代码格式化插件的配置文件
+.prettierrc
+.prettierignore
+
+# git忽略文件
+.gitignore
+
+# 不对markdown进行格式化, 容易打乱自己编排的样式
+*.md

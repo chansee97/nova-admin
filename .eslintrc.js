@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = { //https://eslint.org/docs/latest/
   root: true,
   // 环境变量 https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-environments
   env: {
@@ -27,10 +27,8 @@ module.exports = {
     '@vue/typescript/recommended'
   ],
   rules: {
-    'no-var': 'error',
-    // 禁止出现console
-    'no-console': 'warn',
-    // 关闭debugger警告
-    "no-debugger": "off",
+    'no-var': 'error', // 禁止使用var
+    'no-console': 'warn', // 禁止出现console
+    "no-debugger": "off", // 关闭debugger警告
   }
 };
