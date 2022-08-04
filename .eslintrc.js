@@ -1,4 +1,5 @@
-module.exports = { //https://eslint.org/docs/latest/
+module.exports = {
+  //https://eslint.org/docs/latest/
   root: true,
   // 环境变量 https://eslint.org/docs/latest/user-guide/configuring/language-options#specifying-environments
   env: {
@@ -13,7 +14,7 @@ module.exports = { //https://eslint.org/docs/latest/
   parserOptions: {
     ecmaVersion: 12,
     parser: '@typescript-eslint/parser',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   // 想要Linting规则的插件 https://eslint.org/docs/latest/user-guide/configuring/plugins
   plugins: ['vue', '@typescript-eslint', 'prettier'],
@@ -24,12 +25,12 @@ module.exports = { //https://eslint.org/docs/latest/
     'plugin:prettier/recommended',
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
-    '@vue/typescript/recommended'
+    '@vue/typescript/recommended',
   ],
   rules: {
     // TSESLint docs https://typescript-eslint.io/rules/
     'no-var': 'error', // 禁止使用var
     'no-console': 'warn', // 禁止出现console
-    "no-debugger": "off", // 关闭debugger警告
-  }
+    'no-debugger': 'off', // 关闭debugger警告
+  },
 };

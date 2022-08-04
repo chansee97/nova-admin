@@ -1,0 +1,20 @@
+{
+  // 主题
+  // "workbench.colorTheme": "Atom One Light",
+  // 缩进
+  "editor.tabSize": 2,
+  // 保存eslint校验
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.format.enable": true,
+  // 校验那些文件
+  "eslint.validate": ["typescript", "javascript", "vue", "html"],
+  "nuxt.isNuxtApp": false,
+  // 终端显示
+  "eslint.alwaysShowStatus": true,
+  // 加载配置文件
+  "eslint.options": { "configFile": ".eslintrc.js" },
+  // 保存自动格式化
+  "editor.formatOnSave": true
+}
