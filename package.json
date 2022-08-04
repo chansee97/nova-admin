@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.json --fix",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "cz"
   },
   "config": {
     "commitizen": {
@@ -16,7 +17,7 @@
     }
   },
   "lint-staged": {
-    "./src/**/*.{ts,tsx}": "lint",
+    "./src/**/*.{vue,js,jsx,ts,tsx,json}": "eslint --fix",
     "./src/**/*.{js,jsx,ts,tsx,less,json}": "prettier --loglevel warn --write"
   },
   "dependencies": {

@@ -43,10 +43,10 @@ pnpm dev
 pnpm build
 ```
 
-- cz规范提交git
+- cz插件提交git
 
 ```bash
-npx cz
+pnpm commit
 ```
 
 ## 素材来源
