@@ -6,9 +6,13 @@
 一个基于Vue3、vite3、ts、pinia、NaiveUI,Vue-Router4的后台管理项目
 
 ## Demo
+
+- [示例网页](https://ench-admin.vercel.app/)
+  
 ## 代码仓库
 
 - [github](https://github.com/chen-see/ench-admin)
+
 
 ## 安装使用
 
@@ -39,5 +43,4 @@ pnpm dev
 
 ```bash
 pnpm build
-```
 ```
