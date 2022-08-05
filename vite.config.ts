@@ -12,11 +12,11 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const viteEnv = loadEnv(mode, process.cwd(), '');
+  const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    base: viteEnv.VITE_BASE_URL,
-    plugins: setVitePlugins(viteEnv),
+    base: env.VITE_BASE_URL,
+    plugins: setVitePlugins(env),
     resolve: {
       alias: {
         '~': rootPath,
@@ -27,7 +27,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       host: '0.0.0.0',
       port: 5200,
       open: false,
-      proxy: createViteProxy(viteEnv),
+      proxy: createViteProxy(env),
     },
     preview: {
       port: 5211,

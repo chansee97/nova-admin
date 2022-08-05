@@ -25,14 +25,14 @@ const serviceEnv = {
 
 /**
  * @description: 生成vite代理字段
- * @param {*} viteEnv - 环境变量配置
+ * @param {*} env - 环境变量配置
  */
-export function createViteProxy(viteEnv) {
+export function createViteProxy(env) {
   //判断是否需要开启代理
-  const isOpenProxy = viteEnv.VITE_HTTP_PROXY === 'Y';
+  const isOpenProxy = env.VITE_HTTP_PROXY === 'Y';
   if (!isOpenProxy) return undefined;
 
   // 返回对应代理
-  const { VITE_SERVICE_ENV = 'dev' } = viteEnv;
+  const { VITE_SERVICE_ENV = 'dev' } = env;
   return serviceEnv[VITE_SERVICE_ENV];
 }
