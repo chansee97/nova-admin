@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv, ConfigEnv } from 'vite';
-import { createViteProxy } from './build';
-import vue from '@vitejs/plugin-vue';
+import { createViteProxy, setVitePlugins } from './build';
 import { resolve } from 'path';
 
 // 当前执行node命令时文件夹的地址（工作目录）
@@ -13,10 +12,11 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const env = loadEnv(mode, process.cwd(), '');
+  const viteEnv = loadEnv(mode, process.cwd(), '');
+
   return {
-    base: env.VITE_BASE_URL,
-    plugins: [vue()],
+    base: viteEnv.VITE_BASE_URL,
+    plugins: setVitePlugins(viteEnv),
     resolve: {
       alias: {
         '~': rootPath,
@@ -27,7 +27,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       host: '0.0.0.0',
       port: 5200,
       open: false,
-      proxy: createViteProxy(env),
+      proxy: createViteProxy(viteEnv),
     },
     preview: {
       port: 5211,
