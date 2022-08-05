@@ -32,5 +32,6 @@ module.exports = {
     'no-var': 'error', // 禁止使用var
     'no-console': 'warn', // 禁止出现console
     'no-debugger': 'off', // 关闭debugger警告
+    'vue/multi-word-component-names': 0, // 关闭文件名多单词
   },
 };
