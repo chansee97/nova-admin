@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 // 当前执行node命令时文件夹的地址（工作目录）
 const rootPath: string = resolve(process.cwd());
-const srcPath: string = `${rootPath}/src`;
+const srcPath = `${rootPath}/src`;
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv) => {

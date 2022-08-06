@@ -28,4 +28,4 @@ stats.html
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
-
+/src/types/components.d.ts
