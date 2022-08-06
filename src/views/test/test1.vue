@@ -1,6 +1,5 @@
 <template>
-  <div text-center bg-green-500 rounded c-rose>I prove that you have made the jump test1.</div>
-  <div text-center c-yellow>Uno css</div>
+  <div text-center c-blue>I prove that you have made the jump test1.</div>
 </template>
 
 <script setup lang="ts">

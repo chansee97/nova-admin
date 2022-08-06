@@ -1,5 +1,5 @@
 <template>
-  <div style="text-align: center">I prove that you have made the jump test3.</div>
+  <div text-center c-red>I prove that you have made the jump test3.</div>
 </template>
 
 <script setup lang="ts">
