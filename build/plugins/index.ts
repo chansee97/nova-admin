@@ -2,6 +2,7 @@ import vue from './vue';
 import compress from './compress';
 import html from './html';
 import unocss from './unocss';
+import visualizer from './visualizer';
 
 /**
  * @description: 设置vite插件配置
@@ -10,10 +11,13 @@ import unocss from './unocss';
  */
 export function setVitePlugins(env) {
   const plugins = [...vue, html(env), unocss];
-
+  // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y') {
     plugins.push(compress(env));
   }
-
+  // 是否依赖分析
+  if (env.VITE_VISUALIZER === 'Y') {
+    plugins.push(visualizer);
+  }
   return plugins;
 }

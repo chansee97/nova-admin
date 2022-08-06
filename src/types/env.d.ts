@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_HTTP_PROXY?: 'Y' | 'N';
   /** 是否开启打包压缩 */
   readonly VITE_COMPRESS?: 'Y' | 'N';
+  /** 是否开启打包依赖分析 */
+  readonly VITE_VISUALIZER?: 'Y' | 'N';
   /** 压缩算法类型 */
   readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
   /** hash路由模式 */
