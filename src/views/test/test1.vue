@@ -1,6 +1,5 @@
 <template>
-  <div style="text-align: center">I prove that you have made the jump.</div>
-  <a href="" @click="router.back()">to back</a>
+  <div style="text-align: center">I prove that you have made the jump test1.</div>
 </template>
 
 <script setup lang="ts">
