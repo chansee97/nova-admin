@@ -16,7 +16,7 @@ const themeOverrides: GlobalThemeOverrides = {
 </script>
 
 <template>
-  <n-config-provider :theme="null" :locale="locale" :date-locale="dateLocale" :theme-overrides="themeOverrides">
+  <n-config-provider wh-full :theme="null" :locale="locale" :date-locale="dateLocale" :theme-overrides="themeOverrides">
     <router-view />
   </n-config-provider>
 </template>

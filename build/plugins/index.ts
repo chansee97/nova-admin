@@ -10,7 +10,7 @@ import unplugin from './unplugin';
  * @param {*} env - 环境变量配置
  * @return {*}
  */
-export function setVitePlugins(env) {
+export function setVitePlugins(env: ImportMetaEnv) {
   const plugins = [...vue, html(env), unocss, ...unplugin];
   // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y') {

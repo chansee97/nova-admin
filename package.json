@@ -24,6 +24,7 @@
     "./src/**/*.{js,jsx,ts,tsx,less,json}": "prettier --loglevel warn --write"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "vue": "^3.2.37",
     "vue-router": "^4.1.3"
   },
