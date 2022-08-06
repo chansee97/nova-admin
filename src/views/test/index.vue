@@ -1,5 +1,5 @@
 <template>
-  <div>I prove that you have made the jump.</div>
+  <div style="text-align: center">I prove that you have made the jump.</div>
   <a href="" @click="router.back()">to back</a>
 </template>
 
