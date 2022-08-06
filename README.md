@@ -43,11 +43,14 @@ pnpm dev
 pnpm build
 ```
 
-- cz插件提交git
-
+Git 提交规范
+项目已经内置angular提交规范，通过git cz 代替git commit 命令即可。
 ```bash
+pnpm cz
+or
 pnpm commit
 ```
+
 
 ## 素材来源
 

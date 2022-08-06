@@ -1,7 +1,9 @@
 <template>
   <div style="text-align: center">
     <h1>{{ msg }}</h1>
-    <span>Already configured: vue3、vite3、eslint、prettier、ts、tsx、conventional、husk、lint-staged、vue-router</span>
+    <span>
+      Already configured: vue3、vite3、unocss、eslint、prettier、ts、tsx、conventional、husk、lint-staged、vue-router
+    </span>
     <div><router-link to="/">Go to layout</router-link></div>
   </div>
 </template>
