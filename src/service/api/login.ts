@@ -1,4 +1,5 @@
 import { request } from '../http';
+import { mockRequest } from '../http';
 
 interface Itest {
   data: string;
@@ -22,4 +23,8 @@ export function fetachPut(params: Itest) {
 /* patch方法测试 */
 export function fetachPatch(params: Itest) {
   return request.patch('/patchAPI', params);
+}
+/* mock方法测试 */
+export function fetchMock() {
+  return mockRequest.post('/login');
 }

@@ -2,8 +2,9 @@ import vue from './vue';
 import compress from './compress';
 import html from './html';
 import unocss from './unocss';
-import visualizer from './visualizer';
+import visualizer from '../../visualizer';
 import unplugin from './unplugin';
+import mock from './mock';
 
 /**
  * @description: 设置vite插件配置
@@ -11,7 +12,7 @@ import unplugin from './unplugin';
  * @return {*}
  */
 export function setVitePlugins(env: ImportMetaEnv) {
-  const plugins = [...vue, html(env), unocss, ...unplugin];
+  const plugins = [...vue, html(env), unocss, ...unplugin, mock];
   // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y') {
     plugins.push(compress(env));

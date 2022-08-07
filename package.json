@@ -49,6 +49,7 @@
     "eslint-plugin-vue": "^9.3.0",
     "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
+    "mockjs": "^1.1.0",
     "naive-ui": "^2.32.1",
     "prettier": "^2.7.1",
     "rollup-plugin-visualizer": "^5.7.1",
@@ -58,6 +59,7 @@
     "vite": "^3.0.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-html": "^3.2.0",
+    "vite-plugin-mock": "^2.9.6",
     "vue-tsc": "^0.38.4"
   }
 }

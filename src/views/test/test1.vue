@@ -7,11 +7,12 @@
     <div hover:c-blue @click="delete2">click to delete</div>
     <div hover:c-blue @click="put">click to put</div>
     <div hover:c-blue @click="patch">click to patch</div>
+    <div hover:c-blue @click="mock">click to use mock</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { fetachGet, fetachPost, fetachDelete, fetachPut, fetachPatch } from '@/service/api';
+import { fetachGet, fetachPost, fetachDelete, fetachPut, fetachPatch, fetchMock } from '@/service/api';
 
 const pinter = () => {
   console.log('打印环境配置', import.meta.env);
@@ -47,6 +48,11 @@ const patch = () => {
     data: '2022-2-2',
   };
   fetachPatch(params).then((res) => {
+    console.log(res);
+  });
+};
+const mock = () => {
+  fetchMock().then((res) => {
     console.log(res);
   });
 };

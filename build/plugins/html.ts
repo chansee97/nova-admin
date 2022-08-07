@@ -1,6 +1,6 @@
 import { createHtmlPlugin } from 'vite-plugin-html'; // https://github.com/vbenjs/vite-plugin-html/blob/main/README.zh_CN.md
 
-export default (env) => {
+export default (env: ImportMetaEnv) => {
   return createHtmlPlugin({
     minify: true, // 压缩HTML
     inject: {
