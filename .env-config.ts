@@ -4,23 +4,23 @@ type ServiceEnv = Record<ServiceEnvType, ServiceEnvConfig>;
 /** 不同请求服务的环境配置 */
 const serviceEnv: ServiceEnv = {
   dev: {
-    url: 'http://localhost:8080',
+    url: 'https://mock.mengxuegu.com/mock/61e4df7c17249f68847fc191/api',
     urlPattern: '/url-pattern',
     secondUrl: 'http://localhost:8081',
-    secondUrlPattern: '/second-url-pattern'
+    secondUrlPattern: '/second-url-pattern',
   },
   test: {
     url: 'http://localhost:8080',
     urlPattern: '/url-pattern',
     secondUrl: 'http://localhost:8081',
-    secondUrlPattern: '/second-url-pattern'
+    secondUrlPattern: '/second-url-pattern',
   },
   prod: {
     url: 'http://localhost:8080',
     urlPattern: '/url-pattern',
     secondUrl: 'http://localhost:8081',
-    secondUrlPattern: '/second-url-pattern'
-  }
+    secondUrlPattern: '/second-url-pattern',
+  },
 };
 
 /**
