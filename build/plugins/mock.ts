@@ -1,7 +1,9 @@
-import { viteMockServe } from 'vite-plugin-mock';
+import { viteMockServe } from 'vite-plugin-mock'; // https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md
 
 export default viteMockServe({
   mockPath: 'mock',
-  watchFiles: true, // 监视文件更改
-  // localEnabled: command === 'serve',
+  injectCode: `
+		import { setupMockServer } from '../mock';
+		setupMockServer();
+	`,
 });
