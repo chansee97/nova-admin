@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import { setupRouter } from './router';
 import { setupAssets } from './plugins';
+import { setupStore } from './store';
 
 async function setupApp() {
   // 引入静态资源
@@ -10,6 +11,8 @@ async function setupApp() {
   const app = createApp(App);
   // 安装router
   await setupRouter(app);
+  // 安装pinia全局状态库
+  setupStore(app);
   // 挂载
   app.mount('#app');
 }
