@@ -1,22 +1,46 @@
+// {
+//   "compilerOptions": {
+//     "baseUrl": ".",
+//     "target": "ESNext",
+//     "useDefineForClassFields": true,
+//     "module": "ESNext",
+//     "moduleResolution": "Node",
+//     "strict": true,
+//     "jsx": "preserve",
+//     "sourceMap": true,
+//     "resolveJsonModule": true,
+//     "isolatedModules": true,
+//     "esModuleInterop": true,
+//     "lib": ["ESNext", "DOM"],
+//     "skipLibCheck": true,
+//     "paths": {
+//       "~/*": ["./*"],
+//       "@/*": ["./src/*"]
+//     },
+//     "types": ["node", "vite/client", "naive-ui/volar"]
+//   }
+//   // "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
+// }
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
+    "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "ESNext",
+    "lib": ["DOM", "ESNext"],
     "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./src/*"]
     },
-    "types": ["naive-ui/volar"]
+    "types": ["node", "naive-ui/volar"]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "exclude": ["node_modules", "dist"]
 }

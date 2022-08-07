@@ -16,5 +16,5 @@
   // 加载配置文件
   "eslint.options": { "configFile": ".eslintrc.js" },
   // 保存自动格式化
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
 }
