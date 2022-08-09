@@ -2,7 +2,7 @@ import vue from './vue';
 import compress from './compress';
 import html from './html';
 import unocss from './unocss';
-import visualizer from '../../visualizer';
+import visualizer from './visualizer';
 import unplugin from './unplugin';
 import mock from './mock';
 

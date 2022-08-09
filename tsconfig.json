@@ -21,6 +21,6 @@
     },
     "types": ["node", "vite/client", "naive-ui/volar"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  // "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }
