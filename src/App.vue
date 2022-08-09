@@ -1,18 +1,12 @@
 <script setup lang="ts">
 // import { darkTheme } from 'naive-ui';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
+import json from './theme.json';
 
 const locale = zhCN;
 const dateLocale = dateZhCN;
 
-const themeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#316C72FF',
-    primaryColorHover: '#316C72E3',
-    primaryColorPressed: '#2B4C59FF',
-    primaryColorSuppl: '#316C7263',
-  },
-};
+const themeOverrides: GlobalThemeOverrides = {} || json;
 </script>
 
 <template>
