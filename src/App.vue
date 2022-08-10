@@ -2,9 +2,7 @@
 // import { darkTheme } from 'naive-ui';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
 import json from './theme.json';
-// import { useLoadingBar } from 'naive-ui';
-// const loadingBar = useLoadingBar();
-// loadingBar.start();
+
 const locale = zhCN;
 const dateLocale = dateZhCN;
 

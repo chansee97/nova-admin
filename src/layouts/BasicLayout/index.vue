@@ -1,5 +1,5 @@
 <template>
-  <n-layout has-sider wh-full>
+  <n-layout has-sider class="wh-full">
     <n-layout-sider
       bordered
       show-trigger
@@ -9,7 +9,7 @@
       @collapse="collapsed = true"
       @expand="collapsed = false"
     >
-      <div h-60px text-4xl flex-center>Logo</div>
+      <Logo :collapsed="collapsed" />
       <n-menu
         :value="activeKey"
         :collapsed="collapsed"
@@ -21,14 +21,18 @@
       />
     </n-layout-sider>
 
-    <n-layout h-full bg-hex-f3f4f6 :native-scrollbar="false">
-      <n-layout-header bordered text-2xl h-60px flex-y-center>layout-page</n-layout-header>
-      <div p-16px>
+    <n-layout class="h-full bg-hex-f3f4f6" :native-scrollbar="false">
+      <n-layout-header bordered class="text-2xl h-60px flex-y-center">
+        <div class="hover:bg-hex-F3F4F6 h-full px-2 flex-center cursor-pointer">
+          <Icon icon="icon-park-outline:mindmap-list" />
+        </div>
+      </n-layout-header>
+      <div class="p-16px">
         <n-layout-content>
           <router-view></router-view>
         </n-layout-content>
       </div>
-      <n-layout-footer position="absolute" text-center op-80 bg-transparent>Ench admin</n-layout-footer>
+      <n-layout-footer position="absolute" class="text-center op-80 bg-transparent">Ench admin</n-layout-footer>
     </n-layout>
   </n-layout>
 </template>
@@ -38,6 +42,7 @@ import type { MenuOption } from 'naive-ui';
 import { h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
+import Logo from '../components/logo.vue';
 
 const router = useRouter();
 const collapsed = ref(false);
@@ -46,7 +51,7 @@ function renderIcon(icon: string) {
   return () => h(Icon, { icon });
 }
 const activeKey = ref('');
-const handleClickMenu = (key: string, item: MenuOption) => {
+const handleClickMenu = (key: string, _item: MenuOption) => {
   router.push(key);
 };
 const menuOptions: MenuOption[] = [

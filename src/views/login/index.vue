@@ -40,7 +40,7 @@ import { FormInst } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue';
-// import IconParkAdProduct from '~icons/icon-park/ad-product';
+
 const router = useRouter();
 const swiperList = ref([
   'https://images.unsplash.com/photo-1659991689791-db84493f8544?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80',

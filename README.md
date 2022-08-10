@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./public/favicon.svg"/>
+  <img src="./public/logo.svg"/>
     <h1>Ench Admin</h1>
 </div>
 
