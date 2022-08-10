@@ -11,7 +11,7 @@
     >
       <n-menu :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" />
     </n-layout-sider>
-    <n-layout h-full bg-hex-f3-f4-f6 :native-scrollbar="false">
+    <n-layout h-full bg-hex-f3f4f6 :native-scrollbar="false">
       <n-layout-header bordered text-2xl h-60px flex-y-center>layout-page</n-layout-header>
       <div p-16px>
         <n-layout-content>
@@ -46,7 +46,7 @@ const menuOptions: MenuOption[] = [
         { default: () => 'test1' },
       ),
     key: 'test1',
-    icon: renderIcon('icon-park:ad-product'),
+    icon: renderIcon('icon-park-outline:alarm'),
   },
   {
     label: () =>
@@ -60,7 +60,7 @@ const menuOptions: MenuOption[] = [
         { default: () => 'test2' },
       ),
     key: 'test2',
-    icon: renderIcon('icon-park:ad-product'),
+    icon: renderIcon('icon-park-outline:alarm'),
   },
   {
     label: () =>
@@ -74,7 +74,7 @@ const menuOptions: MenuOption[] = [
         { default: () => 'test3' },
       ),
     key: 'test3',
-    icon: renderIcon('icon-park:ad-product'),
+    icon: renderIcon('icon-park-outline:alarm'),
   },
   {
     label: () =>
@@ -88,12 +88,12 @@ const menuOptions: MenuOption[] = [
         { default: () => '登录页' },
       ),
     key: '登录页',
-    icon: renderIcon('icon-park:ad-product'),
+    icon: renderIcon('icon-park-outline:alarm'),
   },
   {
     label: '舞，舞，舞',
     key: 'dance-dance-dance',
-    icon: renderIcon('icon-park:arithmetic'),
+    icon: renderIcon('icon-park-outline:alarm'),
     children: [
       {
         label: '饮品',
