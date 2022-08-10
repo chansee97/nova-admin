@@ -2,15 +2,25 @@
   <n-layout has-sider wh-full>
     <n-layout-sider
       bordered
-      :collapsed="collapsed"
       show-trigger
-      collapse-mode="width"
+      :collapsed="collapsed"
       :collapsed-width="64"
+      collapse-mode="width"
       @collapse="collapsed = true"
       @expand="collapsed = false"
     >
-      <n-menu :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" />
+      <div h-60px text-4xl flex-center>Logo</div>
+      <n-menu
+        :value="activeKey"
+        :collapsed="collapsed"
+        :collapsed-width="64"
+        :collapsed-icon-size="24"
+        :indent="20"
+        :options="menuOptions"
+        @update:value="handleClickMenu"
+      />
     </n-layout-sider>
+
     <n-layout h-full bg-hex-f3f4f6 :native-scrollbar="false">
       <n-layout-header bordered text-2xl h-60px flex-y-center>layout-page</n-layout-header>
       <div p-16px>
@@ -26,68 +36,38 @@
 <script lang="ts" setup>
 import type { MenuOption } from 'naive-ui';
 import { h, ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 
+const router = useRouter();
 const collapsed = ref(false);
+
 function renderIcon(icon: string) {
   return () => h(Icon, { icon });
 }
+const activeKey = ref('');
+const handleClickMenu = (key: string, item: MenuOption) => {
+  router.push(key);
+};
 const menuOptions: MenuOption[] = [
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: '/test1',
-          },
-        },
-        { default: () => 'test1' },
-      ),
-    key: 'test1',
+    label: 'test1',
+    key: '/test1',
     icon: renderIcon('icon-park-outline:alarm'),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: '/test2',
-          },
-        },
-        { default: () => 'test2' },
-      ),
-    key: 'test2',
+    label: 'test2',
+    key: '/test2',
     icon: renderIcon('icon-park-outline:alarm'),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: '/test3',
-          },
-        },
-        { default: () => 'test3' },
-      ),
-    key: 'test3',
+    label: 'test3',
+    key: '/test3',
     icon: renderIcon('icon-park-outline:alarm'),
   },
   {
-    label: () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            path: '/login',
-          },
-        },
-        { default: () => '登录页' },
-      ),
-    key: '登录页',
+    label: '登录页',
+    key: '/login',
     icon: renderIcon('icon-park-outline:alarm'),
   },
   {

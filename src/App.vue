@@ -2,7 +2,9 @@
 // import { darkTheme } from 'naive-ui';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
 import json from './theme.json';
-
+// import { useLoadingBar } from 'naive-ui';
+// const loadingBar = useLoadingBar();
+// loadingBar.start();
 const locale = zhCN;
 const dateLocale = dateZhCN;
 
@@ -10,9 +12,17 @@ const themeOverrides: GlobalThemeOverrides = {} || json;
 </script>
 
 <template>
-  <n-config-provider wh-full :theme="null" :locale="locale" :date-locale="dateLocale" :theme-overrides="themeOverrides">
-    <router-view />
-  </n-config-provider>
+  <n-loading-bar-provider>
+    <n-config-provider
+      wh-full
+      :theme="null"
+      :locale="locale"
+      :date-locale="dateLocale"
+      :theme-overrides="themeOverrides"
+    >
+      <router-view />
+    </n-config-provider>
+  </n-loading-bar-provider>
 </template>
 
 <style scoped></style>
