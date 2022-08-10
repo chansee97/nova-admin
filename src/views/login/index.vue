@@ -6,13 +6,10 @@
     <div flex-1 flex-center>
       <div b-rd-2 bg-white w-md h-xl shadow-lg p-5xl>
         <n-h1>
-          <!-- <Icon icon="icon-park:ad-product" :inline="true" /> -->
-          <!-- <icon-icon-park-ad-product /> -->
-          <!-- <span class="iconify" data-icon="icon-park:ad-product" data-inline="false" style="color: #888888"></span> -->
-          <n-icon size="40" :depth="2" :component="IconParkAdProduct" />
+          <Icon icon="icon-park:ad-product" inline-block />
           Ench Admin
         </n-h1>
-        <n-p depth="3">高效、简约、有点好玩</n-p>
+        <n-p depth="3">高效、简约、可能对你有点帮助</n-p>
         <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
           <n-form-item path="account">
             <n-input v-model:value="formValue.account" placeholder="输入账号" round />
@@ -42,8 +39,8 @@
 import { FormInst } from 'naive-ui';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-// import { Icon } from '@iconify/vue';
-import IconParkAdProduct from '~icons/icon-park/ad-product';
+import { Icon } from '@iconify/vue';
+// import IconParkAdProduct from '~icons/icon-park/ad-product';
 const router = useRouter();
 const swiperList = ref([
   'https://images.unsplash.com/photo-1659991689791-db84493f8544?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80',
@@ -53,9 +50,9 @@ const swiperList = ref([
 ]);
 
 const formValue = ref({
-  account: '',
-  pwd: '',
-  code: '',
+  account: 'admin',
+  pwd: '123456',
+  code: '1234',
 });
 const rules = {
   account: {
