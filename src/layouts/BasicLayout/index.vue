@@ -52,6 +52,7 @@ import { h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
 import Logo from '../components/logo.vue';
+import { computed } from 'vue';
 
 const router = useRouter();
 const collapsed = ref(false);
@@ -117,7 +118,7 @@ const menuOptions: MenuOption[] = [
     ],
   },
 ];
-import { computed } from 'vue';
+
 const routes = computed(() => {
   return router.currentRoute.value.matched.filter((item) => {
     return item.meta.title;
