@@ -11,7 +11,6 @@
     >
       <Logo :collapsed="collapsed" />
       <n-menu
-        :value="activeKey"
         :collapsed="collapsed"
         :collapsed-width="64"
         :collapsed-icon-size="24"
@@ -22,10 +21,20 @@
     </n-layout-sider>
 
     <n-layout class="h-full bg-hex-f3f4f6" :native-scrollbar="false">
-      <n-layout-header bordered class="text-2xl h-60px flex-y-center">
-        <div class="hover:bg-hex-F3F4F6 h-full px-2 flex-center cursor-pointer">
-          <Icon icon="icon-park-outline:mindmap-list" />
+      <n-layout-header bordered class="h-60px flex-y-center">
+        <div class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-2 flex-center cursor-pointer">
+          <Icon icon="carbon:list" class="inline-block" width="18" />
         </div>
+        <n-breadcrumb>
+          <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
+            <Icon :icon="item.meta.icon" class="inline-block" width="18" />
+            {{ item.meta.title }}
+          </n-breadcrumb-item>
+          <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
+            <Icon :icon="item.meta.icon" class="inline-block" width="18" />
+            {{ item.meta.title }}
+          </n-breadcrumb-item>
+        </n-breadcrumb>
       </n-layout-header>
       <div class="p-16px">
         <n-layout-content>
@@ -50,7 +59,7 @@ const collapsed = ref(false);
 function renderIcon(icon: string) {
   return () => h(Icon, { icon });
 }
-const activeKey = ref('');
+// const activeKey = ref('');
 const handleClickMenu = (key: string, _item: MenuOption) => {
   router.push(key);
 };
@@ -108,6 +117,12 @@ const menuOptions: MenuOption[] = [
     ],
   },
 ];
+import { computed } from 'vue';
+const routes = computed(() => {
+  return router.currentRoute.value.matched.filter((item) => {
+    return item.meta.title;
+  });
+});
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

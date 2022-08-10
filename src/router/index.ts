@@ -14,16 +14,28 @@ const routes: RouteRecordRaw[] = [
         path: '/test1',
         name: 'test1',
         component: () => import('~/src/views/test/test1.vue'),
+        meta: {
+          title: '测试1',
+          icon: 'icon-park-outline:game-three',
+        },
       },
       {
         path: '/test2',
         name: 'test2',
         component: () => import('~/src/views/test/test2.vue'),
+        meta: {
+          title: '测试2',
+          icon: 'carbon:aperture',
+        },
       },
       {
         path: '/test3',
         name: 'test3',
         component: () => import('~/src/views/test/test3.vue'),
+        meta: {
+          title: '测试3',
+          icon: 'carbon:breaking-change',
+        },
       },
     ],
   },

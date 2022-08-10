@@ -20,7 +20,6 @@ import { ref } from 'vue';
 const msg = ref();
 const pinter = () => {
   msg.value = import.meta.env;
-  console.log('打印环境配置', import.meta.env);
 };
 const get = () => {
   fetachGet().then((res) => {

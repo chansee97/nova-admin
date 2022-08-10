@@ -1,7 +1,7 @@
 <template>
   <div class="h-60px text-2xl flex-center">
     <SvgIcon name="logo" class="w-9 h-9" />
-    <span v-show="!props.collapsed" class="font-bold mx-5">{{ props.title }}</span>
+    <span v-show="!props.collapsed" class="mx-5">{{ props.title }}</span>
   </div>
 </template>
 

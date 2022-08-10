@@ -5,8 +5,8 @@
     </n-carousel>
     <div flex-1 flex-center>
       <div b-rd-2 bg-white w-md h-xl shadow-lg p-5xl>
-        <n-h1>
-          <Icon icon="icon-park:ad-product" inline-block />
+        <n-h1 c-blue>
+          <Icon icon="icon-park-outline:plastic-surgery" inline-block />
           Ench Admin
         </n-h1>
         <n-p depth="3">高效、简约、可能对你有点帮助</n-p>

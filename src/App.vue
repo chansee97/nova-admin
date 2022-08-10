@@ -12,7 +12,7 @@ const themeOverrides: GlobalThemeOverrides = {} || json;
 <template>
   <n-loading-bar-provider>
     <n-config-provider
-      wh-full
+      class="wh-full"
       :theme="null"
       :locale="locale"
       :date-locale="dateLocale"
