@@ -1,11 +1,16 @@
 <template>
-  <div class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-2 flex-center cursor-pointer">
-    <Icon icon="icon-park-outline:music-list" class="inline-block" width="18" />
+  <div
+    class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-2 flex-center cursor-pointer"
+    @click="appStore.switchCollapse()"
+  >
+    <e-icon v-show="appStore.collapsed" icon="icon-park-outline:menu-unfold" />
+    <e-icon v-show="!appStore.collapsed" icon="icon-park-outline:menu-fold" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
+import { useApp } from '@/store';
+const appStore = useApp();
 </script>
 
 <style scoped></style>

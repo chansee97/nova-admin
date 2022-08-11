@@ -1,21 +1,13 @@
 <template>
-  <div class="h-60px text-2xl flex-center">
+  <div class="h-60px text-2xl flex-center overflow-hidden">
     <SvgIcon name="logo" class="w-9 h-9" />
-    <span v-show="!props.collapsed" class="mx-5">{{ props.title }}</span>
+    <div v-show="!appStore.collapsed" class="mx-5">{{ appStore.title }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-const props = defineProps({
-  title: {
-    type: String,
-    default: 'Logo2',
-  },
-  collapsed: {
-    type: Boolean,
-    default: false,
-  },
-});
+import { useApp } from '@/store';
+const appStore = useApp();
 </script>
 
 <style scoped></style>
