@@ -2,7 +2,6 @@
 // import { darkTheme } from 'naive-ui';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
 import json from './theme.json';
-// import NativeProvider from '@/components/NativeProvider.vue';
 
 const locale = zhCN;
 const dateLocale = dateZhCN;

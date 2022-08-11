@@ -11,10 +11,10 @@
           <Breadcrumb />
         </div>
         <div class="flex-y-center h-full">
+          <Notices />
           <Github />
           <FullScreen />
           <DarkMode />
-          <Notices />
           <Setting />
           <UserCenter />
         </div>
@@ -24,8 +24,8 @@
           <router-view></router-view>
         </n-layout-content>
       </div>
-      <n-layout-footer position="absolute" class="text-center op-80 bg-transparent">
-        {{ appStore.title }}
+      <n-layout-footer position="absolute" bordered class="flex-center bg-white h-40px">
+        {{ appStore.footerText }}
       </n-layout-footer>
     </n-layout>
   </n-layout>

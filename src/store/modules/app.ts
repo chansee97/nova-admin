@@ -7,6 +7,7 @@ export const useAppStore = defineStore('app-store', {
       fullScreen: false,
       darkMode: false,
       title: import.meta.env.VITE_APP_TITLE,
+      footerText: '哲学的基本问题是思维和存在的关系问题',
     };
   },
   actions: {
