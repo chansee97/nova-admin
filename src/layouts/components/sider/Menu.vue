@@ -10,18 +10,13 @@
 </template>
 
 <script setup lang="ts">
-import { useApp } from '@/store';
-import { Icon } from '@iconify/vue';
+import { useAppStore } from '@/store';
 import { useRouter } from 'vue-router';
-import { h } from 'vue';
 import type { MenuOption } from 'naive-ui';
+import { renderIcon } from '@/utils/icon';
 
-const appStore = useApp();
+const appStore = useAppStore();
 const router = useRouter();
-
-function renderIcon(icon: string) {
-  return () => h(Icon, { icon });
-}
 
 const handleClickMenu = (key: string) => {
   router.push(key);

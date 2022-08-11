@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { useApp } from '@/store';
-const appStore = useApp();
+import { useAppStore } from '@/store';
+const appStore = useAppStore();
 </script>
 
 <style scoped></style>

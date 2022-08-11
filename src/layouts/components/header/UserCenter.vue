@@ -1,16 +1,18 @@
 <template>
   <n-dropdown trigger="hover" :options="options" @select="handleSelect">
-    <div class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-4 flex-center cursor-pointer">Admin chen</div>
+    <HeaderButton>
+      <n-avatar size="large" src="https://z3.ax1x.com/2021/10/29/5jnWgf.jpg" />
+      {{ authStore.name }}
+    </HeaderButton>
   </n-dropdown>
 </template>
 
 <script setup lang="ts">
-import { Icon } from '@iconify/vue';
-import { h } from 'vue';
+import HeaderButton from '../common/HeaderButton.vue';
+import { renderIcon } from '@/utils/icon';
+import { useAuthStore } from '@/store';
 
-function renderIcon(icon: string) {
-  return () => h(Icon, { icon });
-}
+const authStore = useAuthStore();
 
 const options = [
   {

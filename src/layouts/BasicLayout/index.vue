@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useApp } from '@/store';
+import { useAppStore } from '@/store';
 import {
   Breadcrumb,
   CollapaseButton,
@@ -46,7 +46,7 @@ import {
   UserCenter,
 } from '../components';
 
-const appStore = useApp();
+const appStore = useAppStore();
 </script>
 
 <style scoped></style>
