@@ -22,19 +22,8 @@
 
     <n-layout class="h-full bg-hex-f3f4f6" :native-scrollbar="false">
       <n-layout-header bordered class="h-60px flex-y-center">
-        <div class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-2 flex-center cursor-pointer">
-          <Icon icon="carbon:list" class="inline-block" width="18" />
-        </div>
-        <n-breadcrumb>
-          <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
-            <Icon :icon="item.meta.icon" class="inline-block" width="18" />
-            {{ item.meta.title }}
-          </n-breadcrumb-item>
-          <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
-            <Icon :icon="item.meta.icon" class="inline-block" width="18" />
-            {{ item.meta.title }}
-          </n-breadcrumb-item>
-        </n-breadcrumb>
+        <CollapaseButton />
+        <Breadcrumb />
       </n-layout-header>
       <div class="p-16px">
         <n-layout-content>
@@ -51,8 +40,9 @@ import type { MenuOption } from 'naive-ui';
 import { h, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue';
-import Logo from '../components/logo.vue';
-import { computed } from 'vue';
+import Logo from '../components/Logo.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
+import CollapaseButton from '../components/CollapaseButton.vue';
 
 const router = useRouter();
 const collapsed = ref(false);
@@ -118,12 +108,6 @@ const menuOptions: MenuOption[] = [
     ],
   },
 ];
-
-const routes = computed(() => {
-  return router.currentRoute.value.matched.filter((item) => {
-    return item.meta.title;
-  });
-});
 </script>
 
 <style scoped></style>

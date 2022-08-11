@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import('~/src/views/test/test3.vue'),
         meta: {
           title: '测试3',
-          icon: 'carbon:breaking-change',
+          icon: 'icon-park-outline:music-list',
         },
       },
     ],
