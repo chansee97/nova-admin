@@ -23,7 +23,7 @@ function renderIcon(icon: string) {
   return () => h(Icon, { icon });
 }
 
-const handleClickMenu = (key: string, _item: MenuOption) => {
+const handleClickMenu = (key: string) => {
   router.push(key);
 };
 const menuOptions: MenuOption[] = [

@@ -1,5 +1,5 @@
 <template>
-  <n-breadcrumb>
+  <n-breadcrumb class="px-5">
     <n-breadcrumb-item class="align-middle">
       <e-icon icon="icon-park-outline:home-two" />
       首页
@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { Icon } from '@iconify/vue';
 
 const router = useRouter();
 const routes = computed(() => {
