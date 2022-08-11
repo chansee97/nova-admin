@@ -2,6 +2,7 @@
 // import { darkTheme } from 'naive-ui';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
 import json from './theme.json';
+// import NativeProvider from '@/components/NativeProvider.vue';
 
 const locale = zhCN;
 const dateLocale = dateZhCN;
@@ -10,17 +11,15 @@ const themeOverrides: GlobalThemeOverrides = {} || json;
 </script>
 
 <template>
-  <n-loading-bar-provider>
-    <n-config-provider
-      class="wh-full"
-      :theme="null"
-      :locale="locale"
-      :date-locale="dateLocale"
-      :theme-overrides="themeOverrides"
-    >
-      <router-view />
-    </n-config-provider>
-  </n-loading-bar-provider>
+  <n-config-provider
+    class="wh-full"
+    :theme="null"
+    :locale="locale"
+    :date-locale="dateLocale"
+    :theme-overrides="themeOverrides"
+  >
+    <naive-provider><router-view /></naive-provider>
+  </n-config-provider>
 </template>
 
 <style scoped></style>

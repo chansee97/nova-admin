@@ -1,11 +1,12 @@
 <template>
   <div text-center c-red>I prove that you have made the jump test3.</div>
-  <n-button strong secondary type="success" @click="loadingBar.start()">loading-bar</n-button>
+  <n-button strong secondary type="success" @click="testMsg">testMsg</n-button>
 </template>
 
 <script setup lang="ts">
-import { useLoadingBar } from 'naive-ui';
-const loadingBar = useLoadingBar();
+const testMsg = () => {
+  window.$message.error('Once upon a time you dressed so fine');
+};
 </script>
 
 <style scoped></style>

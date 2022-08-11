@@ -5,9 +5,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { useStore } from '@/store';
+import { useAuthStore } from '@/store';
 
-const userStore = useStore();
+const userStore = useAuthStore();
 
 const router = useRouter();
 </script>
