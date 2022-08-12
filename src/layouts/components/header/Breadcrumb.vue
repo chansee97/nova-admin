@@ -1,9 +1,5 @@
 <template>
   <n-breadcrumb class="px-5">
-    <n-breadcrumb-item class="align-middle">
-      <e-icon icon="icon-park-outline:home-two" />
-      首页
-    </n-breadcrumb-item>
     <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
       <e-icon :icon="item.meta.icon" />
       {{ item.meta.title }}

@@ -1,19 +1,17 @@
 <template>
-  <Icon :icon="props.icon" class="inline-block" :width="props.size" />
+  <n-icon :size="props.size || 18" :depth="props.depth" :color="props.color">
+    <Icon :icon="props.icon" />
+  </n-icon>
 </template>
 
 <script setup lang="ts">
 import { Icon } from '@iconify/vue';
-const props = defineProps({
-  icon: {
-    type: String,
-    default: 'icon-park-outline:game',
-  },
-  size: {
-    type: Number,
-    default: 18,
-  },
-});
+const props = defineProps<{
+  icon: string;
+  color?: string;
+  size?: number;
+  depth?: 1 | 2 | 3 | 4 | 5;
+}>();
 </script>
 
 <style scoped></style>

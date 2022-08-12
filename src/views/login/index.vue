@@ -12,13 +12,40 @@
         <n-p depth="3">高效、简约、可能对你有点帮助</n-p>
         <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
           <n-form-item path="account">
-            <n-input v-model:value="formValue.account" placeholder="输入账号" round />
+            <n-input v-model:value="formValue.account" placeholder="输入账号" round>
+              <template #prefix>
+                <e-icon icon="icon-park-outline:woman" />
+              </template>
+            </n-input>
           </n-form-item>
           <n-form-item path="pwd">
-            <n-input v-model:value="formValue.pwd" type="password" placeholder="输入密码" round />
+            <n-input
+              v-model:value="formValue.pwd"
+              type="password"
+              placeholder="输入密码"
+              show-password-on="click"
+              round
+            >
+              <template #prefix>
+                <e-icon icon="icon-park-outline:lock" />
+              </template>
+              <template #password-invisible-icon>
+                <e-icon icon="icon-park-outline:preview-close-one" />
+              </template>
+              <template #password-visible-icon>
+                <e-icon icon="icon-park-outline:preview-open" />
+              </template>
+            </n-input>
           </n-form-item>
           <n-form-item path="code">
-            <n-input v-model:value="formValue.code" placeholder="输入验证码" round />
+            <n-space align="center">
+              <n-input v-model:value="formValue.code" placeholder="输入验证码" round>
+                <template #prefix>
+                  <e-icon icon="icon-park-outline:message" />
+                </template>
+              </n-input>
+              <span>这边可以放点什么</span>
+            </n-space>
           </n-form-item>
           <n-space vertical :size="24">
             <div class="flex-y-center justify-between">
@@ -28,7 +55,6 @@
             <n-button w-full type="primary" round size="large" @click="validateAll">登录</n-button>
           </n-space>
         </n-form>
-
         <n-divider><span op-50>其他登录</span></n-divider>
       </div>
     </div>
