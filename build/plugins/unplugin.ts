@@ -12,6 +12,7 @@ export default [
   }),
   Icons({
     /* options */
+    compiler: 'vue3',
   }),
   createSvgIconsPlugin({
     // 指定需要缓存的图标文件夹
