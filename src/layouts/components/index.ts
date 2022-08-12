@@ -12,7 +12,7 @@ import Github from './header/Github.vue';
 import Notices from './header/Notices.vue';
 import UserCenter from './header/UserCenter.vue';
 import Search from './header/Search.vue';
-import Refresh from './header/Refresh.vue';
+import Reload from './header/Reload.vue';
 
 export {
   Breadcrumb,
@@ -26,5 +26,5 @@ export {
   Notices,
   UserCenter,
   Search,
-  Refresh,
+  Reload,
 };

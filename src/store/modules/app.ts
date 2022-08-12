@@ -1,24 +1,27 @@
 import { defineStore } from 'pinia';
+import { nextTick } from 'vue';
 import { darkTheme, GlobalTheme } from 'naive-ui';
 
 interface AppStatus {
+  title: string;
+  footerText: string;
   collapsed: boolean;
   fullScreen: boolean;
   darkMode: boolean;
   darkTheme: GlobalTheme | null;
-  title: string;
-  footerText: string;
+  loadFlag: boolean;
 }
 
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
+      title: import.meta.env.VITE_APP_TITLE,
+      footerText: '哲学的基本问题是思维和存在的关系问题',
       collapsed: false,
       fullScreen: false,
       darkMode: false,
       darkTheme: null,
-      title: import.meta.env.VITE_APP_TITLE,
-      footerText: '哲学的基本问题是思维和存在的关系问题',
+      loadFlag: true,
     };
   },
   actions: {
@@ -43,6 +46,22 @@ export const useAppStore = defineStore('app-store', {
         this.darkTheme = darkTheme;
       } else {
         this.darkTheme = null;
+      }
+    },
+    /**
+     * @description: 页面内容重载
+     * @param {number} delay - 延迟毫秒数
+     * @return {*}
+     */
+    async reloadPage(delay = 100) {
+      this.loadFlag = false;
+      await nextTick();
+      if (delay) {
+        setTimeout(() => {
+          this.loadFlag = true;
+        }, delay);
+      } else {
+        this.loadFlag = true;
       }
     },
   },

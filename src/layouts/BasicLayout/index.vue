@@ -11,7 +11,7 @@
           <Breadcrumb />
         </div>
         <div class="flex-y-center h-full">
-          <Refresh />
+          <Reload />
           <Search />
           <Notices />
           <Github />
@@ -23,7 +23,11 @@
       </n-layout-header>
       <div class="p-16px">
         <n-layout-content>
-          <router-view></router-view>
+          <router-view v-slot="{ Component }">
+            <transition name="fade-slide" appear mode="out-in">
+              <component :is="Component" v-if="appStore.loadFlag" />
+            </transition>
+          </router-view>
         </n-layout-content>
       </div>
       <n-layout-footer position="absolute" bordered class="flex-center bg-white h-40px">
@@ -47,7 +51,7 @@ import {
   Notices,
   UserCenter,
   Search,
-  Refresh,
+  Reload,
 } from '../components';
 
 const appStore = useAppStore();
