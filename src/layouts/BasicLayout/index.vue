@@ -4,7 +4,7 @@
       <Logo />
       <Menu />
     </n-layout-sider>
-    <n-layout class="h-full bg-hex-f3f4f6" :native-scrollbar="false">
+    <n-layout class="h-full" :native-scrollbar="false" embedded>
       <n-layout-header bordered class="h-60px flex-y-center justify-between">
         <div class="flex-y-center h-full">
           <CollapaseButton />
@@ -30,7 +30,7 @@
           </router-view>
         </n-layout-content>
       </div>
-      <n-layout-footer position="absolute" bordered class="flex-center bg-white h-40px">
+      <n-layout-footer position="absolute" bordered class="flex-center h-40px">
         {{ appStore.footerText }}
       </n-layout-footer>
     </n-layout>

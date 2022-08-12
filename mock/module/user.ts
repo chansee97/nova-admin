@@ -1,23 +1,17 @@
 import Mock from 'mockjs';
-function resultSuccess(data: any, { msg = 'success' } = {}) {
-  return Mock.mock({
-    code: 200,
-    data,
-    msg,
-  });
-}
+import { resultSuccess } from '../utils';
 
 const Random = Mock.Random;
 
 const token = Random.string('upper', 32, 32);
 
-const adminInfo = {
+const userInfo = {
   userId: '1',
-  username: 'admin',
-  realName: 'Admin',
-  avatar: Random.image(),
-  desc: 'manager',
-  password: Random.string('upper', 4, 16),
+  userName: 'admin',
+  realName: '管理员大人',
+  avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+  role: 'admin',
+  password: '123456',
   token,
   permissions: [
     {
@@ -28,18 +22,6 @@ const adminInfo = {
       label: '监控页',
       value: 'dashboard_monitor',
     },
-    {
-      label: '工作台',
-      value: 'dashboard_workplace',
-    },
-    {
-      label: '基础列表',
-      value: 'basic_list',
-    },
-    {
-      label: '基础列表删除',
-      value: 'basic_list_delete',
-    },
   ],
 };
 
@@ -49,17 +31,7 @@ export default [
     timeout: 1000,
     method: 'post',
     response: () => {
-      return resultSuccess({ token });
-    },
-  },
-  {
-    url: '/mock/admin_info',
-    timeout: 1000,
-    method: 'get',
-    response: () => {
-      // const token = getRequestToken(request);
-      // if (!token) return resultError('Invalid token');
-      return resultSuccess(adminInfo);
+      return resultSuccess(userInfo);
     },
   },
 ];

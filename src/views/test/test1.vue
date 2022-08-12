@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { fetachGet, fetachPost, fetachDelete, fetachPut, fetachPatch, fetchMock } from '@/service/api';
+import { fetachGet, fetachPost, fetachDelete, fetachPut, fetachPatch, fetchMock } from '@/service';
 import { ref } from 'vue';
 const msg = ref();
 const pinter = () => {

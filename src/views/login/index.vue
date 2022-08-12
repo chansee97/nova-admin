@@ -1,12 +1,12 @@
 <template>
   <div flex-center wh-full bg-hex-F3F4F6>
-    <n-carousel autoplay trigger="hover" dot-type="line" effect="fade" :interval="3000" w-lg sm:hidden xl:block>
-      <img v-for="(item, index) in swiperList" :key="index" h-screen object-cover :src="item" />
+    <n-carousel autoplay trigger="hover" dot-type="line" effect="fade" class="w-3/4">
+      <img v-for="(item, index) in swiperList" :key="index" class="h-screen object-cover" :src="item" />
     </n-carousel>
     <div flex-1 flex-center>
-      <div b-rd-2 bg-white w-md h-xl shadow-lg p-5xl>
+      <div w-full h-xl px-6xl>
         <n-h1 c-blue>
-          <Icon icon="icon-park-outline:plastic-surgery" inline-block />
+          <e-icon icon="icon-park-outline:plastic-surgery" :size="28" />
           Ench Admin
         </n-h1>
         <n-p depth="3">高效、简约、可能对你有点帮助</n-p>
@@ -52,7 +52,7 @@
               <n-checkbox>记住我</n-checkbox>
               <n-button :text="true">忘记密码？</n-button>
             </div>
-            <n-button w-full type="primary" round size="large" @click="validateAll">登录</n-button>
+            <n-button w-full type="primary" round size="large" @click="handleLogin">登录</n-button>
           </n-space>
         </n-form>
         <n-divider><span op-50>其他登录</span></n-divider>
@@ -63,16 +63,15 @@
 
 <script setup lang="ts">
 import { FormInst } from 'naive-ui';
-import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/store';
 import { ref } from 'vue';
-import { Icon } from '@iconify/vue';
 
-const router = useRouter();
+const authStore = useAuthStore();
 const swiperList = ref([
-  'https://images.unsplash.com/photo-1659991689791-db84493f8544?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80',
-  'https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-  'https://images.unsplash.com/photo-1657299156568-c94580e20fb6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-  'https://images.unsplash.com/photo-1659983391845-47ea9d99e7bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
+  'https://images.unsplash.com/photo-1546414809-22c82b5e2ad4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+  'https://images.unsplash.com/photo-1659533982925-09cb4f3f7876?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80',
+  'https://images.unsplash.com/photo-1630771077377-674b39a13f58?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+  'https://images.unsplash.com/photo-1543782248-03e2c5a93e18?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80',
 ]);
 
 const formValue = ref({
@@ -100,12 +99,12 @@ const rules = {
 };
 const formRef = ref<FormInst | null>(null);
 
-const validateAll = () => {
+const handleLogin = () => {
   formRef.value?.validate((errors) => {
-    if (errors) {
-      return console.error(errors);
-    }
-    router.push('/');
+    if (errors) return console.error(errors);
+
+    const { account, pwd } = formValue.value;
+    authStore.login(account, pwd);
   });
 };
 </script>
