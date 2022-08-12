@@ -11,6 +11,8 @@
           <Breadcrumb />
         </div>
         <div class="flex-y-center h-full">
+          <Refresh />
+          <Search />
           <Notices />
           <Github />
           <FullScreen />
@@ -44,6 +46,8 @@ import {
   Github,
   Notices,
   UserCenter,
+  Search,
+  Refresh,
 } from '../components';
 
 const appStore = useAppStore();
