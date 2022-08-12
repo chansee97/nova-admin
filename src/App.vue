@@ -1,10 +1,11 @@
 <script setup lang="ts">
-// import { darkTheme } from 'naive-ui';
+import { useAppStore } from './store';
 import { zhCN, dateZhCN, GlobalThemeOverrides } from 'naive-ui';
 import json from './theme.json';
 
 const locale = zhCN;
 const dateLocale = dateZhCN;
+const appStore = useAppStore();
 
 const themeOverrides: GlobalThemeOverrides = {} || json;
 </script>
@@ -12,7 +13,7 @@ const themeOverrides: GlobalThemeOverrides = {} || json;
 <template>
   <n-config-provider
     class="wh-full"
-    :theme="null"
+    :theme="appStore.darkTheme"
     :locale="locale"
     :date-locale="dateLocale"
     :theme-overrides="themeOverrides"

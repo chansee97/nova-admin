@@ -1,11 +1,22 @@
 import { defineStore } from 'pinia';
+import { darkTheme, GlobalTheme } from 'naive-ui';
+
+interface AppStatus {
+  collapsed: boolean;
+  fullScreen: boolean;
+  darkMode: boolean;
+  darkTheme: GlobalTheme | null;
+  title: string;
+  footerText: string;
+}
 
 export const useAppStore = defineStore('app-store', {
-  state: () => {
+  state: (): AppStatus => {
     return {
       collapsed: false,
       fullScreen: false,
       darkMode: false,
+      darkTheme: null,
       title: import.meta.env.VITE_APP_TITLE,
       footerText: '哲学的基本问题是思维和存在的关系问题',
     };
@@ -28,6 +39,11 @@ export const useAppStore = defineStore('app-store', {
     /* 切换主题 亮/深色 */
     toggleDarkMode() {
       this.darkMode = !this.darkMode;
+      if (this.darkMode) {
+        this.darkTheme = darkTheme;
+      } else {
+        this.darkTheme = null;
+      }
     },
   },
 });
