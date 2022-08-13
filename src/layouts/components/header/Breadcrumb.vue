@@ -1,5 +1,5 @@
 <template>
-  <n-breadcrumb class="px-5">
+  <n-breadcrumb class="px-4">
     <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
       <e-icon :icon="item.meta.icon" />
       {{ item.meta.title }}

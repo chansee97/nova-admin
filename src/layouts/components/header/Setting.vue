@@ -3,7 +3,7 @@
     <template #trigger>
       <HeaderButton @click="openSetting">
         <div>
-          <e-icon icon="icon-park-outline:setting-two" />
+          <i-icon-park-outline-setting-two class="text-18px" />
           <n-drawer v-model:show="drawerActive" :width="300">
             <n-drawer-content title="系统设置">这是系统设置，但是暂时还没有内容</n-drawer-content>
           </n-drawer>

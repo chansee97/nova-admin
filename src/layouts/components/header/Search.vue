@@ -1,7 +1,9 @@
 <template>
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
-      <HeaderButton @click="handleSearch"><e-icon icon="icon-park-outline:search" /></HeaderButton>
+      <HeaderButton @click="handleSearch">
+        <i-icon-park-outline-search class="text-18px" />
+      </HeaderButton>
     </template>
     <span>搜索</span>
   </n-tooltip>

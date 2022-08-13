@@ -1,5 +1,5 @@
 <template>
-  <n-icon :size="props.size || 18" :depth="props.depth" :color="props.color">
+  <n-icon :size="props.size || 20" :depth="props.depth" :color="props.color">
     <Icon :icon="props.icon" />
   </n-icon>
 </template>

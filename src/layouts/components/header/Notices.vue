@@ -3,7 +3,9 @@
     <template #trigger>
       <n-tooltip placement="bottom" trigger="hover">
         <template #trigger>
-          <HeaderButton @click="openNotice"><e-icon icon="icon-park-outline:remind" /></HeaderButton>
+          <HeaderButton @click="openNotice">
+            <i-icon-park-outline-remind class="text-18px" />
+          </HeaderButton>
         </template>
         <span>消息通知</span>
       </n-tooltip>
