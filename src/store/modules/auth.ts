@@ -4,6 +4,7 @@ import { setUserInfo, getUserInfo, getToken, setToken, clearAuthStorage } from '
 import { router } from '@/router';
 import { useAppRouter } from '@/hook';
 import { unref } from 'vue';
+import { useRouteStore } from './route';
 
 export const useAuthStore = defineStore('auth-store', {
   state: () => {
@@ -49,7 +50,7 @@ export const useAuthStore = defineStore('auth-store', {
       // 等待数据写入完成
       const catchSuccess = await this.catchUserInfo(data);
       // 初始化侧边菜单
-
+      await this.setRouterStore(data.permissions);
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
@@ -80,6 +81,12 @@ export const useAuthStore = defineStore('auth-store', {
       catchSuccess = true;
 
       return catchSuccess;
+    },
+
+    /* 将路由表等信息推送到routeStore */
+    async setRouterStore(permissions: Auth.UserInfoPermissions[]) {
+      const { setMenus } = useRouteStore();
+      setMenus(permissions);
     },
   },
 });

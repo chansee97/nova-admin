@@ -26,6 +26,12 @@ declare namespace Auth {
     /* token */
     token: string;
     /* 权限路由 */
-    permissions: [];
+    permissions: UserInfoPermissions[];
+  }
+  interface UserInfoPermissions {
+    label: string;
+    key: string;
+    icon: any;
+    children: UserInfoPermissions[];
   }
 }
