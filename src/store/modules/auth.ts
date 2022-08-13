@@ -21,10 +21,10 @@ export const useAuthStore = defineStore('auth-store', {
     /* 用户登录 */
     async login(userName: string, password: string) {
       this.loginLoading = true;
-      const data = await fetchLogin({ userName, password });
+      const { data } = await fetchLogin({ userName, password });
 
       // 处理登录信息
-      this.handleAfterLogin(data as any);
+      await this.handleAfterLogin(data as any);
 
       this.loginLoading = false;
     },

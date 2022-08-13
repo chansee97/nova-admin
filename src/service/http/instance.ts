@@ -50,7 +50,7 @@ export default class createAxiosInstance {
         switch (code) {
           case this.backendConfig.successCode:
             // code === 200 代表没有错误,直接返回约定的数据内容
-            return apiData[this.backendConfig.dataKey];
+            return apiData;
           default:
             // 不是正确的 Code,返回错误提示信息
             return Promise.reject(new Error(`Error:${this.backendConfig.dataKey}`));
