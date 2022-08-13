@@ -17,10 +17,12 @@ const userInfo = {
     {
       label: '主控台',
       value: 'dashboard_console',
+      icon: 'icon-park-outline:alarm',
     },
     {
       label: '监控页',
       value: 'dashboard_monitor',
+      icon: 'icon-park-outline:anchor',
     },
   ],
 };

@@ -1,8 +1,3 @@
-import 'vue-router';
-declare module 'vue-router' {
-  interface RouteMeta extends AppRoute.RouteMeta {}
-}
-
 declare namespace AppRoute {
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   interface Route {

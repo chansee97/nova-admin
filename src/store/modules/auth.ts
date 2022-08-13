@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth-store', {
       const { data } = await fetchLogin({ userName, password });
 
       // 处理登录信息
-      await this.handleAfterLogin(data as any);
+      await this.handleAfterLogin(data as any); // TODO 避免any
 
       this.loginLoading = false;
     },
@@ -48,6 +48,7 @@ export const useAuthStore = defineStore('auth-store', {
     async handleAfterLogin(data: Auth.UserInfo) {
       // 等待数据写入完成
       const catchSuccess = await this.catchUserInfo(data);
+      // 初始化侧边菜单
 
       // 登录写入信息成功
       if (catchSuccess) {
