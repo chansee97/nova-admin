@@ -2,10 +2,8 @@ import { defineStore } from 'pinia';
 import { fetchLogin } from '@/service';
 import { setUserInfo, getUserInfo, getToken, setToken, clearAuthStorage } from '@/utils/auth';
 import { router } from '@/router';
-import { useERouter } from '@/hook';
+import { useAppRouter } from '@/hook';
 import { unref } from 'vue';
-
-// const { routerPush, routerReplace } = useERouter(false);
 
 export const useAuthStore = defineStore('auth-store', {
   state: () => {
@@ -25,7 +23,7 @@ export const useAuthStore = defineStore('auth-store', {
     /* 登录退出，重置用户信息等 */
     resetAuthStore() {
       const route = unref(router.currentRoute);
-      const { toLogin } = useERouter(false);
+      const { toLogin } = useAppRouter(false);
       // 清除本地缓存
       clearAuthStorage();
       // 清空pinia
@@ -54,7 +52,7 @@ export const useAuthStore = defineStore('auth-store', {
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
-        const { toLoginRedirect } = useERouter(false);
+        const { toLoginRedirect } = useAppRouter(false);
         toLoginRedirect();
 
         // 触发用户提示

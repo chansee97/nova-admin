@@ -6,7 +6,7 @@ import { router as gobalRouter } from '@/router';
  * @param {*} isSetup
  * @return {*}
  */
-export function useERouter(isSetup = true) {
+export function useAppRouter(isSetup = true) {
   const router = isSetup ? useRouter() : gobalRouter;
   const route = router.currentRoute;
 

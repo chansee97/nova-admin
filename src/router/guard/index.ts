@@ -1,7 +1,7 @@
 import type { Router } from 'vue-router';
 import { getToken } from '@/utils/auth';
 
-// const authStore = useAuthStore();
+const appTitle = import.meta.env.VITE_APP_TITLE;
 
 export function setupRouterGuard(router: Router) {
   const isLogin = Boolean(getToken());
@@ -17,6 +17,8 @@ export function setupRouterGuard(router: Router) {
       }
       return false;
     }
+    // 修改网页标题
+    document.title = `${to.meta.title}——${appTitle}`;
     next();
   });
   // router.afterEach((_to) => {});

@@ -11,15 +11,15 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { useAppRouter } from '@/hook';
 import type { MenuOption } from 'naive-ui';
 import { renderIcon } from '@/utils/icon';
 
+const { routerPush } = useAppRouter();
 const appStore = useAppStore();
-const router = useRouter();
 
 const handleClickMenu = (key: string) => {
-  router.push(key);
+  routerPush(key);
 };
 const menuOptions: MenuOption[] = [
   {
