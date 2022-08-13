@@ -38,11 +38,6 @@ const menuOptions: MenuOption[] = [
     icon: renderIcon('icon-park-outline:pic'),
   },
   {
-    label: '登录页',
-    key: '/login',
-    icon: renderIcon('icon-park-outline:save'),
-  },
-  {
     label: '舞，舞，舞',
     key: 'dance-dance-dance',
     icon: renderIcon('icon-park-outline:command'),

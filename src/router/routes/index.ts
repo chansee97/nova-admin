@@ -1,9 +1,6 @@
-import type { App } from 'vue';
-import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import { setupRouterGuard } from './guard';
-import { BasicLayout } from '../layouts/index';
+import { BasicLayout } from '@/layouts/index';
 
-const routes: RouteRecordRaw[] = [
+export const constantRoutes: AppRoute.Route[] = [
   {
     path: '/',
     name: 'root',
@@ -53,7 +50,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/inherit-page/not-permission/index.vue'),
     meta: {
       title: '无权限',
-      singleLayout: 'blank',
     },
   },
   {
@@ -62,7 +58,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/inherit-page/service-error/index.vue'),
     meta: {
       title: '服务器错误',
-      singleLayout: 'blank',
     },
   },
   {
@@ -74,16 +69,3 @@ const routes: RouteRecordRaw[] = [
     },
   },
 ];
-
-const { VITE_HASH_ROUTE = 'N', VITE_BASE_URL } = import.meta.env;
-export const router = createRouter({
-  history: VITE_HASH_ROUTE === 'Y' ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
-  routes,
-});
-// 安装vue路由
-export async function setupRouter(app: App) {
-  // 添加路由守卫
-  setupRouterGuard(router);
-  app.use(router);
-  await router.isReady(); //https://router.vuejs.org/zh/api/index.html#isready
-}

@@ -17,7 +17,7 @@ const authStore = useAuthStore();
 const options = [
   {
     label: '个人中心',
-    key: 'personal center',
+    key: '/presonalCenter',
     icon: renderIcon('icon-park-outline:grinning-face'),
   },
   {
@@ -26,13 +26,14 @@ const options = [
   },
   {
     label: '退出登录',
-    key: 'login out',
+    key: 'loginOut',
     icon: renderIcon('icon-park-outline:logout'),
   },
 ];
 const handleSelect = (key: string | number) => {
-  console.log('%c [key]-32', 'font-size:13px; background:pink; color:#bf2c9f;', key);
-  // message.info(String(key));
+  if (key === 'loginOut') {
+    authStore.resetAuthStore();
+  }
 };
 </script>
 
