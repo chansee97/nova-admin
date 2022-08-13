@@ -6,7 +6,8 @@
     <div flex-1 flex-center>
       <div w-full h-xl px-6xl>
         <n-h1 c-blue>
-          <e-icon icon="icon-park-outline:plastic-surgery" :size="28" />
+          <!-- <e-icon icon="icon-park-outline:plastic-surgery" :size="28" /> -->
+          <i-icon-park-outline-plastic-surgery />
           Ench Admin
         </n-h1>
         <n-p depth="3">高效、简约、可能对你有点帮助</n-p>
@@ -52,7 +53,14 @@
               <n-checkbox>记住我</n-checkbox>
               <n-button :text="true">忘记密码？</n-button>
             </div>
-            <n-button w-full type="primary" round size="large" @click="handleLogin">登录</n-button>
+            <n-button w-full type="primary" round size="large" :loading="authStore.loginLoading" @click="handleLogin">
+              <template #icon>
+                <n-icon>
+                  <i-icon-park-outline-six-points />
+                </n-icon>
+              </template>
+              登录
+            </n-button>
           </n-space>
         </n-form>
         <n-divider><span op-50>其他登录</span></n-divider>

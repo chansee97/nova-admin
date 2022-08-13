@@ -1,7 +1,7 @@
 <template>
   <n-dropdown trigger="click" :options="options" @select="handleSelect">
     <HeaderButton>
-      <n-avatar round size="large" src="https://z3.ax1x.com/2021/10/29/5jnWgf.jpg" />
+      <n-avatar round size="large" :src="authStore.userInfo?.avatar" />
       {{ authStore.userInfo?.realName }}
     </HeaderButton>
   </n-dropdown>
