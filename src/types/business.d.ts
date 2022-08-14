@@ -29,9 +29,9 @@ declare namespace Auth {
     permissions: UserInfoPermissions[];
   }
   interface UserInfoPermissions {
-    label: string;
-    key: string;
-    icon: any;
-    children: UserInfoPermissions[];
+    name: string;
+    path: string;
+    meta: AppRoute.RouteMeta;
+    children?: UserInfoPermissions[];
   }
 }

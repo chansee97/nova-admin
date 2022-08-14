@@ -1,5 +1,6 @@
 import { setLocal, getLocal, removeLocal } from './storage';
 import { EnumStorageKey } from '@/enum';
+const DURATION = 6 * 60 * 60;
 
 /* 获取当前token */
 export function getToken() {
@@ -7,7 +8,7 @@ export function getToken() {
 }
 /* 设置token */
 export function setToken(data: string) {
-  setLocal(EnumStorageKey.token, data);
+  setLocal(EnumStorageKey.token, data, DURATION);
 }
 /* 移除token */
 export function removeToken() {

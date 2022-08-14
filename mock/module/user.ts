@@ -15,58 +15,69 @@ const userInfo = {
   token,
   permissions: [
     {
-      label: '主控台',
-      key: 'dashboard_console',
-      icon: 'icon-park-outline:alarm',
-    },
-    {
-      label: '监控页',
-      key: 'dashboard_monitor',
-      icon: 'icon-park-outline:anchor',
-    },
-    {
-      label: 'test1',
-      key: '/test1',
-      icon: 'icon-park-outline:alarm',
-    },
-    {
-      label: 'test2',
-      key: '/test2',
-      icon: 'icon-park-outline:pic',
-    },
-    {
-      label: 'test3',
-      key: '/test3',
-      icon: 'icon-park-outline:tool',
-    },
-    {
-      label: '舞，舞，舞',
-      key: 'dance-dance-dance',
-      icon: 'icon-park-outline:command',
+      name: 'dashboard',
+      path: '/dashboard',
+      meta: {
+        title: '分析页',
+        requiresAuth: true,
+        icon: 'icon-park-outline:analysis',
+      },
       children: [
         {
-          label: '饮品',
-          key: 'beverage',
-          children: [
-            {
-              label: '威士忌',
-              key: 'whisky',
-            },
-          ],
+          name: 'dashboard_console',
+          path: '/dashboard/console',
+          meta: {
+            title: '主控台',
+            requiresAuth: true,
+            icon: 'icon-park-outline:alarm',
+          },
         },
         {
-          label: '食物',
-          key: 'food',
-          children: [
-            {
-              label: '三明治',
-              key: 'sandwich',
-            },
-          ],
+          name: 'dashboard_monitor',
+          path: '/dashboard/monitor',
+          meta: {
+            title: '监控页',
+            requiresAuth: true,
+            icon: 'icon-park-outline:anchor',
+          },
+        },
+      ],
+    },
+    {
+      name: 'test',
+      path: '/test',
+      meta: {
+        title: '测试专题',
+        requiresAuth: true,
+        icon: 'icon-park-outline:ambulance',
+      },
+      children: [
+        {
+          name: 'test1',
+          path: '/test/test1',
+          meta: {
+            title: '测试专题1',
+            requiresAuth: true,
+            icon: 'icon-park-outline:alarm',
+          },
         },
         {
-          label: '过去增多，未来减少',
-          key: 'the-past-increases-the-future-recedes',
+          name: 'test2',
+          path: '/test/test2',
+          meta: {
+            title: '测试专题2',
+            requiresAuth: true,
+            icon: 'icon-park-outline:pic',
+          },
+        },
+        {
+          name: 'test3',
+          path: '/test/test3',
+          meta: {
+            title: '测试专题3',
+            requiresAuth: true,
+            icon: 'icon-park-outline:tool',
+          },
         },
       ],
     },

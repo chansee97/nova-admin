@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getToken } from '@/utils';
 
 /**
  * @description: 封装axios请求类
@@ -33,8 +34,7 @@ export default class createAxiosInstance {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
         // 一般会请求拦截里面加token
-        // const token = localStorage.getItem('token') as string;
-        // config.headers!.Authorization = token;
+        config.headers!.Authorization = getToken();
         return config;
       },
       (err: any) => Promise.reject(err),
