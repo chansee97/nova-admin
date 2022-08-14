@@ -27,10 +27,6 @@ export const constantRoutes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: 'not-found-page',
-    component: () => import('@/views/inherit-page/not-found/index.vue'),
-    meta: {
-      title: '找不到页面',
-    },
+    redirect: '/no-found',
   },
 ];

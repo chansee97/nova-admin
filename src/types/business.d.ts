@@ -33,5 +33,6 @@ declare namespace Auth {
     path: string;
     meta: AppRoute.RouteMeta;
     children?: UserInfoPermissions[];
+    redirect: string;
   }
 }
