@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'root',
-    redirect: '/test1',
+    redirect: '/test/test1',
     component: BasicLayout,
     children: [
       {

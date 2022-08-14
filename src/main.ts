@@ -9,10 +9,10 @@ async function setupApp() {
   setupAssets();
   // 创建vue实例
   const app = createApp(App);
-  // 安装router
-  await setupRouter(app);
   // 安装pinia全局状态库
   setupStore(app);
+  // 安装router
+  await setupRouter(app);
   // 挂载
   app.mount('#app');
 }

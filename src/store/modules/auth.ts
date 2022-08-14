@@ -50,7 +50,8 @@ export const useAuthStore = defineStore('auth-store', {
       // 等待数据写入完成
       const catchSuccess = await this.catchUserInfo(data);
       // 初始化侧边菜单
-      await this.setRouterStore(data.permissions);
+      const { setMenus } = useRouteStore();
+      await setMenus();
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
@@ -65,7 +66,9 @@ export const useAuthStore = defineStore('auth-store', {
         });
         return;
       }
-      // 如果不成功写到后面
+
+      // 如果不成功则重置存储
+      this.resetAuthStore();
     },
 
     /* 缓存用户信息 */
@@ -81,12 +84,6 @@ export const useAuthStore = defineStore('auth-store', {
       catchSuccess = true;
 
       return catchSuccess;
-    },
-
-    /* 将路由表等信息推送到routeStore */
-    async setRouterStore(permissions: Auth.UserInfoPermissions[]) {
-      const { setMenus } = useRouteStore();
-      setMenus(permissions);
     },
   },
 });

@@ -35,10 +35,12 @@ declare namespace AppRoute {
     /* 是否开启页面缓存 */
     keepAlive?: boolean;
     /* 有些路由我们并不想在菜单中显示，比如某些编辑页面。 */
-    hideMenu?: boolean;
+    hide?: boolean;
     /* 菜单排序。 */
     order?: number;
     /* 嵌套外链  */
     herf?: string;
+    /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
+    activeMenu?: RouteKey;
   }
 }

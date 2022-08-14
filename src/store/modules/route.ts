@@ -1,23 +1,29 @@
 import { defineStore } from 'pinia';
-import { renderIcon } from '@/utils/icon';
+import { renderIcon, getUserInfo } from '@/utils';
 import type { MenuOption } from 'naive-ui';
+// import { useAuthStore } from './auth';
 
-interface RuutesStatus {
+// const authStore = useAuthStore();
+
+interface RoutesStatus {
+  isInitAuthRoute: boolean;
   menus: any;
 }
 export const useRouteStore = defineStore('route-store', {
-  state: (): RuutesStatus => {
+  state: (): RoutesStatus => {
     return {
+      isInitAuthRoute: false,
       menus: [],
     };
   },
   actions: {
-    setMenus(data: Auth.UserInfoPermissions[]) {
-      this.menus = this.transformAuthRoutesToMenus(data);
+    async setMenus() {
+      const { userRoutes } = getUserInfo();
+      this.menus = this.transformAuthRoutesToMenus(userRoutes);
     },
     // 将返回的路由表渲染成侧边栏
-    transformAuthRoutesToMenus(data: Auth.UserInfoPermissions[]): MenuOption[] {
-      return data.map((item) => {
+    transformAuthRoutesToMenus(userRoutes: Auth.UserInfoPermissions[]): MenuOption[] {
+      return userRoutes.map((item) => {
         const target: MenuOption = {
           label: item.meta.title,
           key: item.path,
@@ -32,6 +38,11 @@ export const useRouteStore = defineStore('route-store', {
         }
         return target;
       });
+    },
+
+    async initAuthRoute() {
+      await this.setMenus();
+      this.isInitAuthRoute = true;
     },
   },
 });

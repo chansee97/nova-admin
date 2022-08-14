@@ -2,6 +2,14 @@
 
 export const constantRoutes = [
   {
+    path: '/no-found',
+    name: 'not-found',
+    component: () => import('@/views/inherit-page/not-found/index.vue'),
+    meta: {
+      title: '找不到页面',
+    },
+  },
+  {
     path: '/no-permission',
     name: 'no-permission',
     component: () => import('@/views/inherit-page/not-permission/index.vue'),
@@ -19,10 +27,10 @@ export const constantRoutes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    name: '404',
+    name: 'not-found-page',
     component: () => import('@/views/inherit-page/not-found/index.vue'),
     meta: {
-      title: '错误404',
+      title: '找不到页面',
     },
   },
 ];

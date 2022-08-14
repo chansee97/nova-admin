@@ -13,7 +13,7 @@ const userInfo = {
   role: 'admin',
   password: '123456',
   token,
-  permissions: [
+  userRoutes: [
     {
       name: 'dashboard',
       path: '/dashboard',

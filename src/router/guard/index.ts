@@ -1,25 +1,20 @@
 import type { Router } from 'vue-router';
-import { getToken } from '@/utils/auth';
+
+import { createPermissionGuard } from './permission';
 
 const appTitle = import.meta.env.VITE_APP_TITLE;
 
 export function setupRouterGuard(router: Router) {
-  const isLogin = Boolean(getToken());
-
-  router.beforeEach((to, _from, next) => {
-    // 登录鉴权
-    if (!isLogin) {
-      if (to.name === 'login') {
-        next();
-      } else {
-        const redirect = to.fullPath;
-        next({ path: '/login', query: { redirect } });
-      }
-      return false;
-    }
+  router.beforeEach(async (to, from, next) => {
+    // 开始 loadingBar
+    window.$loadingBar?.start();
+    // 权限操作
+    await createPermissionGuard(to, from, next);
+  });
+  router.afterEach((to) => {
     // 修改网页标题
     document.title = `${to.meta.title}——${appTitle}`;
-    next();
+    // 结束 loadingBar
+    window.$loadingBar?.finish();
   });
-  // router.afterEach((_to) => {});
 }
