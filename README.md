@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="./public/logo.svg"/>
-    <h1>Ench Admin</h1>
+    <h1> <img src="./src/assets/svg/logo.svg" style="width:30px"/>  Ench Admin</h1>
 </div>
 
 一个基于Vue3、vite3、ts、pinia、NaiveUI,Vue-Router4的后台管理项目
@@ -50,8 +49,3 @@ pnpm cz
 or
 pnpm commit
 ```
-
-
-## 素材来源
-
-[iconfont-阿里巴巴矢量图标库](https://www.iconfont.cn/collections/detail?spm=a313x.7781069.1998910419.d9df05512&cid=39973)

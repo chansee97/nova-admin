@@ -1,6 +1,6 @@
 <template>
-  <svg aria-hidden="true">
-    <use :xlink:href="symbolId" :fill="color" />
+  <svg aria-hidden="true" :width="`${props.size}px`">
+    <use :xlink:href="symbolId" fill="currentColor" />
   </svg>
 </template>
 
@@ -15,9 +15,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  color: {
-    type: String,
-    default: '#333',
+  size: {
+    type: Number,
+    default: 18,
   },
 });
 const symbolId = computed(() => `#${props.prefix}-${props.name}`);

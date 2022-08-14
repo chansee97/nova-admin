@@ -46,6 +46,9 @@ const routes: RouteRecordRaw[] = [
     path: '/login',
     name: 'login',
     component: () => import('@/views/login/index.vue'), // 注意这里要带上 文件后缀.vue
+    meta: {
+      title: '登录',
+    },
   },
   {
     path: '/no-permission',
@@ -53,7 +56,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/inherit-page/not-permission/index.vue'),
     meta: {
       title: '无权限',
-      singleLayout: 'blank',
     },
   },
   {
@@ -62,7 +64,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('@/views/inherit-page/service-error/index.vue'),
     meta: {
       title: '服务器错误',
-      singleLayout: 'blank',
     },
   },
   {
