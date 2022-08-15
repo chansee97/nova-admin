@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { router } from '@/router';
 import { BasicLayout } from '@/layouts/index';
-import { constantRoutes } from '../routes';
 
 export async function setDynamicRoutes() {
   const vueRoutes: RouteRecordRaw[] = [
@@ -41,7 +40,26 @@ export async function setDynamicRoutes() {
             requiresAuth: true,
           },
         },
-        ...constantRoutes,
+        {
+          path: '/dashboard/workbench',
+          name: 'workbench',
+          component: () => import('@/views/dashboard/workbench/index.vue'),
+          meta: {
+            title: '工作台',
+            icon: 'icon-park-outline:music-list',
+            requiresAuth: true,
+          },
+        },
+        {
+          path: '/dashboard/monitor',
+          name: 'monitor',
+          component: () => import('@/views/dashboard/monitor/index.vue'),
+          meta: {
+            title: '控制页',
+            icon: 'icon-park-outline:music-list',
+            requiresAuth: true,
+          },
+        },
       ],
     },
   ];

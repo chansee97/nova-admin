@@ -24,9 +24,9 @@ export async function createPermissionGuard(
       }
       return false;
     }
-
+    // debugger;
     // 有登录但是没有路由，初始化路由、侧边菜单等
-    await setDynamicRoutes();
+    // await setDynamicRoutes();
     await routeStore.initAuthRoute();
     // 动态路由加载完回到根路由
     next({ name: 'root' });

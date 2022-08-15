@@ -24,10 +24,10 @@ const userInfo = {
       },
       children: [
         {
-          name: 'dashboard_console',
-          path: '/dashboard/console',
+          name: 'dashboard_workbench',
+          path: '/dashboard/workbench',
           meta: {
-            title: '主控台',
+            title: '工作台',
             requiresAuth: true,
             icon: 'icon-park-outline:alarm',
           },

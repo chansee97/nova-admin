@@ -2,6 +2,7 @@ import type { App } from 'vue';
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { setupRouterGuard } from './guard';
 import { BasicLayout } from '@/layouts/index';
+import { constantRoutes } from './routes';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -9,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     name: 'root',
     redirect: '/test/test1',
     component: BasicLayout,
-    children: [],
+    children: [...constantRoutes],
   },
   {
     path: '/login',

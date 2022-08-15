@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { renderIcon, getUserInfo } from '@/utils';
 import { MenuOption, radioGroupProps } from 'naive-ui';
-// import { setDynamicRoutes } from '@/router/guard/dynamic';
+import { setDynamicRoutes } from '@/router/guard/dynamic';
+import { router } from '@/router';
 
 interface RoutesStatus {
   isInitAuthRoute: boolean;
@@ -17,6 +18,14 @@ export const useRouteStore = defineStore('route-store', {
     };
   },
   actions: {
+    resetRouteStore() {
+      this.resetRoutes();
+      this.$reset();
+    },
+    resetRoutes() {
+      /* 删除后面添加的路由 */
+      router.removeRoute('test');
+    },
     async setUserRoutes() {
       this.userRoutes = getUserInfo().userRoutes;
     },
@@ -61,7 +70,7 @@ export const useRouteStore = defineStore('route-store', {
 
     async initAuthRoute() {
       await this.setMenus();
-      // await setDynamicRoutes();
+      await setDynamicRoutes();
       this.isInitAuthRoute = true;
     },
   },

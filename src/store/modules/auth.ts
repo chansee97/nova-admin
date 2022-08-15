@@ -25,9 +25,11 @@ export const useAuthStore = defineStore('auth-store', {
     resetAuthStore() {
       const route = unref(router.currentRoute);
       const { toLogin } = useAppRouter(false);
+      const { resetRouteStore } = useRouteStore();
       // 清除本地缓存
       clearAuthStorage();
-      // 清空pinia
+      // 清空路由、菜单等数据
+      resetRouteStore();
       this.$reset();
       if (route.meta.requiresAuth) {
         toLogin();
