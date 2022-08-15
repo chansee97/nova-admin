@@ -19,7 +19,8 @@ export async function createPermissionGuard(
       if (to.name === 'login') {
         next();
       } else {
-        const redirect = to.fullPath;
+        // login除了404，其余在登录后重定向到之前的网页
+        const redirect = to.name === 'not-found' ? undefined : to.fullPath;
         next({ path: '/login', query: { redirect } });
       }
       return false;
