@@ -1,8 +1,16 @@
 import type { App } from 'vue';
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { setupRouterGuard } from './guard';
+import { BasicLayout } from '@/layouts/index';
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'root',
+    redirect: '/test/test1',
+    component: BasicLayout,
+    children: [],
+  },
   {
     path: '/login',
     name: 'login',

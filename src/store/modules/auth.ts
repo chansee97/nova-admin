@@ -50,8 +50,10 @@ export const useAuthStore = defineStore('auth-store', {
       // 等待数据写入完成
       const catchSuccess = await this.catchUserInfo(data);
       // 初始化侧边菜单
-      const { setMenus } = useRouteStore();
+      const { setMenus, setUserRoutes } = useRouteStore();
+      await setUserRoutes(data.userRoutes);
       await setMenus();
+
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
