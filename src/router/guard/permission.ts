@@ -26,8 +26,11 @@ export async function createPermissionGuard(
     }
 
     // 有登录但是没有路由，初始化路由、侧边菜单等
-    await routeStore.initAuthRoute();
     await setDynamicRoutes();
+    await routeStore.initAuthRoute();
+    // 动态路由加载完回到根路由
+    next({ name: 'root' });
+    return false;
   }
   // 权限路由已经加载，仍然未找到，重定向到not-found
   // if (to.name === 'not-found-page') {

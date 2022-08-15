@@ -6,13 +6,13 @@ import { constantRoutes } from '../routes';
 export async function setDynamicRoutes() {
   const vueRoutes: RouteRecordRaw[] = [
     {
-      path: '/',
-      name: 'root',
+      path: '/test',
+      name: 'test',
       redirect: '/test/test1',
       component: BasicLayout,
       children: [
         {
-          path: '/test/test1',
+          path: 'test1',
           name: 'test1',
           component: () => import(`@/views/test/test1.vue`),
           meta: {
@@ -22,7 +22,7 @@ export async function setDynamicRoutes() {
           },
         },
         {
-          path: '/test/test2',
+          path: 'test2',
           name: 'test2',
           component: () => import('@/views/test/test2.vue'),
           meta: {
@@ -32,7 +32,7 @@ export async function setDynamicRoutes() {
           },
         },
         {
-          path: '/test/test3',
+          path: 'test3',
           name: 'test3',
           component: () => import('@/views/test/test3.vue'),
           meta: {

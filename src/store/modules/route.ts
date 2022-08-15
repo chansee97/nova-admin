@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { renderIcon, getUserInfo } from '@/utils';
 import { MenuOption, radioGroupProps } from 'naive-ui';
-import { setDynamicRoutes } from '@/router/guard/dynamic';
+// import { setDynamicRoutes } from '@/router/guard/dynamic';
 
 interface RoutesStatus {
   isInitAuthRoute: boolean;
@@ -17,11 +17,12 @@ export const useRouteStore = defineStore('route-store', {
     };
   },
   actions: {
-    async setMenus() {
-      this.menus = this.transformAuthRoutesToMenus(this.userRoutes);
+    async setUserRoutes() {
+      this.userRoutes = getUserInfo().userRoutes;
     },
-    async setUserRoutes(routes: any) {
-      this.userRoutes = routes;
+    async setMenus() {
+      this.setUserRoutes();
+      this.menus = this.transformAuthRoutesToMenus(this.userRoutes);
     },
     // 将返回的路由表渲染成侧边栏
     transformAuthRoutesToMenus(userRoutes: Auth.UserInfoPermissions[]): MenuOption[] {
@@ -60,7 +61,7 @@ export const useRouteStore = defineStore('route-store', {
 
     async initAuthRoute() {
       await this.setMenus();
-      await setDynamicRoutes();
+      // await setDynamicRoutes();
       this.isInitAuthRoute = true;
     },
   },
