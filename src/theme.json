@@ -1,29 +1,24 @@
 {
-  "Card": {
-    "titleFontSizeSmall": "17px"
-  },
   "common": {
-    "primaryColor": "#0F72EFFF",
-    "primaryColorHover": "#3892F2FF",
-    "primaryColorPressed": "#0958C6FF",
-    "primaryColorSuppl": "#63AEF5FF",
-    "successColor": "#00C18BFF",
+    "primaryColor": "#165DFFFF",
+    "primaryColorHover": "#4080FFFF",
+    "primaryColorPressed": "#0E42D2FF",
+    "primaryColorSuppl": "#4080FFFF",
+    "successColor": "#00B42AFF",
     "successColorHover": "#23C343FF",
     "successColorPressed": "#009A29FF",
-    "successColorSuppl": "#4CD263FF",
-    "warningColor": "#FFA145FF",
-    "warningColorHover": "#FFB766FF",
-    "warningColorPressed": "#D2792BFF",
-    "warningColorSuppl": "#FFCB86FF",
-    "errorColor": "#FF5169FF",
-    "errorColorHover": "#FF6F7EFF",
-    "errorColorPressed": "#D2324DFF",
-    "errorColorSuppl": "#FF8D95FF",
-    "textColorBase": "#E61D1DFF",
-    "textColor1": "#252631FF",
-    "textColor2": "#778CA2FF",
-    "bodyColor": "#F2F3F5FF",
-    "textColor3": "#A6B6C6FF",
-    "textColorDisabled": "#C9CDD4FF"
+    "successColorSuppl": "#23C343FF",
+    "warningColor": "#FF7D00FF",
+    "warningColorHover": "#FF9A2EFF",
+    "warningColorSuppl": "#FF9A2EFF",
+    "warningColorPressed": "#D25F00FF",
+    "errorColor": "#F53F3FFF",
+    "errorColorHover": "#F76560FF",
+    "errorColorSuppl": "#F76560FF",
+    "errorColorPressed": "#CB272DFF",
+    "textColorBase": "#1D2129FF",
+    "textColor1": "#4E5969FF",
+    "textColor2": "#4E5969FF",
+    "textColor3": "#86909CFF"
   }
 }

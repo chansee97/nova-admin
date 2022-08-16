@@ -7,7 +7,7 @@ const locale = zhCN;
 const dateLocale = dateZhCN;
 const appStore = useAppStore();
 
-const themeOverrides: GlobalThemeOverrides = {} || json;
+const themeOverrides: GlobalThemeOverrides = json;
 </script>
 
 <template>
