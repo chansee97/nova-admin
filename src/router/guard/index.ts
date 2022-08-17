@@ -13,7 +13,7 @@ export function setupRouterGuard(router: Router) {
   });
   router.afterEach((to) => {
     // 修改网页标题
-    document.title = `${to.meta.title}——${appTitle}`;
+    document.title = `${to.meta.title} — ${appTitle}`;
     // 结束 loadingBar
     window.$loadingBar?.finish();
   });

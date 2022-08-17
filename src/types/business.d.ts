@@ -7,7 +7,6 @@ declare namespace Auth {
    * - user: 用户
    * - custom: 自定义角色
    */
-  // type RoleType = keyof typeof import('@/enum').EnumUserRole;
 
   /** 用户信息 */
   interface loginToken {
@@ -28,11 +27,4 @@ declare namespace Auth {
     /* 密码 */
     password: string;
   }
-  // interface userRoutes {
-  //   name: string;
-  //   path: string;
-  //   meta: AppRoute.RouteMeta;
-  //   children?: userRoutes[];
-  //   redirect: string;
-  // }
 }

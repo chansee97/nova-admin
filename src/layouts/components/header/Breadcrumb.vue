@@ -10,9 +10,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRouteStore } from '~/src/store';
 
 const router = useRouter();
+const routeStore = useRouteStore();
 const routes = computed(() => {
+  // return routeStore.createBreadcrumbInRoutes(router.currentRoute.value.name, routeStore.userRoutes);
   return router.currentRoute.value.matched.filter((item) => {
     return item.meta.title;
   });

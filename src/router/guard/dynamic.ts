@@ -37,6 +37,10 @@ export async function createDynamicRoutes(routes: AppRoute.Route[]) {
     name: 'appRoot',
     redirect: '/dashboard/workbench',
     component: BasicLayout,
+    meta: {
+      title: '首页',
+      icon: 'icon-park-outline:home',
+    },
     children: [],
   };
   // 根据角色过滤后的插入根路由中

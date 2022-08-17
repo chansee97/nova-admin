@@ -1,7 +1,6 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { getToken } from '@/utils/auth';
 import { useRouteStore } from '@/store';
-// import { setDynamicRoutes } from './dynamic';
 
 export async function createPermissionGuard(
   to: RouteLocationNormalized,
@@ -26,7 +25,6 @@ export async function createPermissionGuard(
       return false;
     }
     // 有登录但是没有路由，初始化路由、侧边菜单等
-    // await setDynamicRoutes();
     await routeStore.initAuthRoute();
     // 动态路由加载完回到根路由
     next({ name: 'root' });
@@ -37,6 +35,12 @@ export async function createPermissionGuard(
   //   next({ name: 'not-found-page', replace: true });
   // }
 
-  // next({ name: 'root' });
+  // 设置菜单高亮
+  if (to.meta.activeMenu) {
+    routeStore.setActiveMenu(to.meta.activeMenu);
+  } else {
+    routeStore.setActiveMenu(to.fullPath);
+  }
+
   next();
 }

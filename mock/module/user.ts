@@ -5,79 +5,6 @@ const Random = Mock.Random;
 
 const token = Random.string('upper', 32, 32);
 
-const routeData = {
-  admin: [
-    {
-      name: 'dashboard',
-      path: '/dashboard',
-      meta: {
-        title: '分析页',
-        requiresAuth: true,
-        icon: 'icon-park-outline:analysis',
-      },
-      children: [
-        {
-          name: 'dashboard_workbench',
-          path: '/dashboard/workbench',
-          meta: {
-            title: '工作台',
-            requiresAuth: true,
-            icon: 'icon-park-outline:alarm',
-          },
-        },
-        {
-          name: 'dashboard_monitor',
-          path: '/dashboard/monitor',
-          meta: {
-            title: '监控页',
-            requiresAuth: true,
-            icon: 'icon-park-outline:anchor',
-          },
-        },
-      ],
-    },
-    {
-      name: 'test',
-      path: '/test',
-      meta: {
-        title: '测试专题',
-        requiresAuth: true,
-        icon: 'icon-park-outline:ambulance',
-      },
-      children: [
-        {
-          name: 'test1',
-          path: '/test/test1',
-          meta: {
-            title: '测试专题1',
-            requiresAuth: true,
-            icon: 'icon-park-outline:alarm',
-          },
-        },
-        {
-          name: 'test2',
-          path: '/test/test2',
-          meta: {
-            title: '测试专题2',
-            requiresAuth: true,
-            icon: 'icon-park-outline:pic',
-          },
-        },
-        {
-          name: 'test3',
-          path: '/test/test3',
-          meta: {
-            title: '测试专题3',
-            requiresAuth: true,
-            icon: 'icon-park-outline:tool',
-          },
-        },
-      ],
-    },
-  ],
-  user: [],
-};
-
 const userInfo = {
   userId: '1',
   userName: 'admin',
@@ -144,6 +71,19 @@ const userRoutes = [
           requiresAuth: true,
           icon: 'icon-park-outline:pic',
         },
+        children: [
+          {
+            name: 'test2_detail',
+            path: '/test/test2/detail',
+            meta: {
+              title: '测试专题2的详情页',
+              requiresAuth: true,
+              icon: 'icon-park-outline:tool',
+              hide: true,
+              activeMenu: '/test/test2',
+            },
+          },
+        ],
       },
       {
         name: 'test3',
@@ -153,6 +93,17 @@ const userRoutes = [
           requiresAuth: true,
           icon: 'icon-park-outline:tool',
         },
+        children: [
+          {
+            name: 'test4',
+            path: '/test/test3/test4',
+            meta: {
+              title: '测试专题4',
+              requiresAuth: true,
+              icon: 'icon-park-outline:tool',
+            },
+          },
+        ],
       },
     ],
   },
