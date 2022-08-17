@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
 import { renderIcon, getUserInfo } from '@/utils';
-import { MenuOption, radioGroupProps } from 'naive-ui';
-import { setDynamicRoutes } from '@/router/guard/dynamic';
+import { MenuOption } from 'naive-ui';
+import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';
+import { fetchUserRoutes } from '@/service';
 
 interface RoutesStatus {
   isInitAuthRoute: boolean;
@@ -24,17 +25,25 @@ export const useRouteStore = defineStore('route-store', {
     },
     resetRoutes() {
       /* 删除后面添加的路由 */
-      router.removeRoute('test');
+      router.removeRoute('appRoot');
     },
-    async setUserRoutes() {
-      this.userRoutes = getUserInfo().userRoutes;
+    createMenus(userRoutes: AppRoute.Route[]) {
+      this.userRoutes = userRoutes;
+      this.menus = this.transformAuthRoutesToMenus(userRoutes);
     },
-    async setMenus() {
-      this.setUserRoutes();
-      this.menus = this.transformAuthRoutesToMenus(this.userRoutes);
+    async initDynamicRoute() {
+      // 根据用户id来获取用户的路由
+      const { userId } = getUserInfo();
+      const { data } = await fetchUserRoutes(userId);
+      // 根据用户返回的路由表来生成真实路由
+      const appRoutes = await createDynamicRoutes(data);
+      // 更具返回的生成侧边菜单
+      await this.createMenus(data);
+      // 插入路由表
+      router.addRoute(appRoutes);
     },
     // 将返回的路由表渲染成侧边栏
-    transformAuthRoutesToMenus(userRoutes: Auth.UserInfoPermissions[]): MenuOption[] {
+    transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
       return userRoutes.map((item) => {
         const target: MenuOption = {
           label: item.meta.title,
@@ -52,25 +61,8 @@ export const useRouteStore = defineStore('route-store', {
       });
     },
 
-    /* 将路由树转换成一维数组 */
-    FlatAuthRoutes(routes: AppRoute.Route[]) {
-      let result: AppRoute.Route[] = [];
-      routes.forEach((item) => {
-        if (Object.prototype.hasOwnProperty.call(item, 'children')) {
-          const temp = item.children || [];
-          delete item.children;
-          result.push(item);
-          result = [...result, ...this.FlatAuthRoutes(temp)];
-        } else {
-          result.push(item);
-        }
-      });
-      return result;
-    },
-
     async initAuthRoute() {
-      await this.setMenus();
-      await setDynamicRoutes();
+      await this.initDynamicRoute();
       this.isInitAuthRoute = true;
     },
   },

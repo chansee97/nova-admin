@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { fetchLogin } from '@/service';
+import { fetchLogin, fetchUserInfo } from '@/service';
 import { setUserInfo, getUserInfo, getToken, setToken, clearAuthStorage } from '@/utils/auth';
 import { router } from '@/router';
 import { useAppRouter } from '@/hook';
@@ -40,20 +40,19 @@ export const useAuthStore = defineStore('auth-store', {
     async login(userName: string, password: string) {
       this.loginLoading = true;
       const { data } = await fetchLogin({ userName, password });
-
       // 处理登录信息
-      await this.handleAfterLogin(data as any); // TODO 避免any
+      await this.handleAfterLogin(data); // TODO 避免any
 
       this.loginLoading = false;
     },
 
     /* 登录后的处理函数 */
-    async handleAfterLogin(data: Auth.UserInfo) {
-      // 等待数据写入完成
+    async handleAfterLogin(data: Auth.loginToken) {
+      // 将token和userInfo保存下来
       const catchSuccess = await this.catchUserInfo(data);
       // 初始化侧边菜单
-      const { initAuthRoute } = useRouteStore();
-      await initAuthRoute();
+      // const { initAuthRoute } = useRouteStore();
+      // await initAuthRoute();
 
       // 登录写入信息成功
       if (catchSuccess) {
@@ -75,14 +74,18 @@ export const useAuthStore = defineStore('auth-store', {
     },
 
     /* 缓存用户信息 */
-    async catchUserInfo(data: Auth.UserInfo) {
+    async catchUserInfo(userToken: Auth.loginToken) {
       let catchSuccess = false;
+      // 先存储token
+      const { token } = userToken;
+      setToken(token);
 
-      // 存储用户信息
+      // 请求/存储用户信息
+      const { data } = await fetchUserInfo();
       setUserInfo(data);
-      setToken(data.token);
+      // 再将token和userInfo初始化
       this.userInfo = data;
-      this.token = data.token;
+      this.token = token;
 
       catchSuccess = true;
 

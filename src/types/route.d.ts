@@ -18,7 +18,7 @@ declare namespace AppRoute {
     /** 子路由 */
     children?: Route[];
     /** 路由描述 */
-    meta?: RouteMeta;
+    meta: RouteMeta;
     /** 路由属性 */
     // props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
   }

@@ -10,6 +10,10 @@ declare namespace Auth {
   // type RoleType = keyof typeof import('@/enum').EnumUserRole;
 
   /** 用户信息 */
+  interface loginToken {
+    token: string;
+  }
+
   interface UserInfo {
     /** 用户id */
     userId: string;
@@ -23,16 +27,12 @@ declare namespace Auth {
     role: RoleType;
     /* 密码 */
     password: string;
-    /* token */
-    token: string;
-    /* 权限路由 */
-    userRoutes: UserInfoPermissions[];
   }
-  interface UserInfoPermissions {
-    name: string;
-    path: string;
-    meta: AppRoute.RouteMeta;
-    children?: UserInfoPermissions[];
-    redirect: string;
-  }
+  // interface userRoutes {
+  //   name: string;
+  //   path: string;
+  //   meta: AppRoute.RouteMeta;
+  //   children?: userRoutes[];
+  //   redirect: string;
+  // }
 }
