@@ -64,7 +64,7 @@ export const useAuthStore = defineStore('auth-store', {
         // 触发用户提示
         window.$notification?.success({
           title: '登录成功!',
-          content: `欢迎回来，${this.userInfo.realName}!`,
+          content: `欢迎回来😊，${this.userInfo.realName}!`,
           duration: 3000,
         });
         return;

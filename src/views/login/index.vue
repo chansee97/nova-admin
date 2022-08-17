@@ -1,12 +1,11 @@
 <template>
   <div flex-center wh-full bg-hex-F3F4F6>
     <n-carousel autoplay trigger="hover" dot-type="line" effect="fade" class="w-3/4">
-      <img v-for="(item, index) in swiperList" :key="index" class="h-screen object-cover" :src="item" />
+      <img v-for="(item, index) in swiperList" :key="index" class="wh-full object-cover" :src="item" />
     </n-carousel>
     <div flex-1 flex-center>
       <div w-full h-xl px-6xl>
         <n-h1 c-blue>
-          <!-- <e-icon icon="icon-park-outline:plastic-surgery" :size="28" /> -->
           <i-icon-park-outline-plastic-surgery />
           Ench Admin
         </n-h1>
@@ -15,7 +14,7 @@
           <n-form-item path="account">
             <n-input v-model:value="formValue.account" placeholder="输入账号" round>
               <template #prefix>
-                <e-icon icon="icon-park-outline:woman" />
+                <i-icon-park-outline-woman />
               </template>
             </n-input>
           </n-form-item>
@@ -28,13 +27,13 @@
               round
             >
               <template #prefix>
-                <e-icon icon="icon-park-outline:lock" />
+                <i-icon-park-outline-lock />
               </template>
               <template #password-invisible-icon>
-                <e-icon icon="icon-park-outline:preview-close-one" />
+                <i-icon-park-outline-preview-close-one />
               </template>
               <template #password-visible-icon>
-                <e-icon icon="icon-park-outline:preview-open" />
+                <i-icon-park-outline-preview-open />
               </template>
             </n-input>
           </n-form-item>
@@ -42,10 +41,10 @@
             <n-space align="center">
               <n-input v-model:value="formValue.code" placeholder="输入验证码" round>
                 <template #prefix>
-                  <e-icon icon="icon-park-outline:message" />
+                  <i-icon-park-outline-message />
                 </template>
               </n-input>
-              <span>这边可以放点什么</span>
+              <span>验证码什么的</span>
             </n-space>
           </n-form-item>
           <n-space vertical :size="24">
