@@ -1,6 +1,6 @@
 <template>
   <n-layout has-sider class="wh-full">
-    <n-layout-sider bordered :collapsed="appStore.collapsed" :collapsed-width="64" collapse-mode="width">
+    <n-layout-sider bordered :collapsed="appStore.collapsed" :collapsed-width="64" collapse-mode="width" :width="220">
       <Logo />
       <Menu />
     </n-layout-sider>

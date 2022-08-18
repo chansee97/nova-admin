@@ -1,6 +1,6 @@
 <template>
   <n-breadcrumb class="px-4">
-    <n-breadcrumb-item v-for="(item, index) in routes" :key="index">
+    <n-breadcrumb-item v-for="(item, index) in routes" :key="index" @click="routerPush(item.path)">
       <e-icon :icon="item.meta.icon" />
       {{ item.meta.title }}
     </n-breadcrumb-item>
@@ -10,15 +10,14 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useRouteStore } from '~/src/store';
+import { useRouteStore } from '@/store';
+import { useAppRouter } from '@/hook';
 
 const router = useRouter();
 const routeStore = useRouteStore();
+const { routerPush } = useAppRouter();
 const routes = computed(() => {
-  // return routeStore.createBreadcrumbInRoutes(router.currentRoute.value.name, routeStore.userRoutes);
-  return router.currentRoute.value.matched.filter((item) => {
-    return item.meta.title;
-  });
+  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string, routeStore.userRoutes);
 });
 </script>
 

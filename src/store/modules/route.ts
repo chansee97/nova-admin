@@ -30,26 +30,37 @@ export const useRouteStore = defineStore('route-store', {
       router.removeRoute('appRoot');
     },
     /* 根据当前路由的name生成面包屑数据 */
-    createBreadcrumbInRoutes(name = '/', userRoutes: AppRoute.Route[]) {
-      return userRoutes.filter((item) => {
-        if (item.name === name) {
-          return true;
-        }
-        if (item.children) {
-          return this.hasNameInBreadcrumbsChildren(name, item.children);
-        }
-      });
+    createBreadcrumbFromRoutes(routeName = '/', userRoutes: AppRoute.Route[]) {
+      const path: AppRoute.Route[] = [];
+      // 筛选所有包含目标的各级路由组合成一维数组
+      const getPathfromRoutes = (routeName: string, userRoutes: AppRoute.Route[]) => {
+        userRoutes.forEach((item) => {
+          if (this.hasPathinAllPath(routeName, item)) {
+            path.push(item);
+            if (item.children && item.children.length !== 0) {
+              getPathfromRoutes(routeName, item.children);
+            }
+          }
+        });
+      };
+      getPathfromRoutes(routeName, userRoutes);
+      return path;
     },
-    /* 判断子路由中是否存在为name的路由 */
-    hasNameInBreadcrumbsChildren(name: string, userRoutes: AppRoute.Route[]): boolean {
-      return userRoutes.some((item) => {
-        if (item.name === name) {
-          return true;
-        }
-        if (item.children) {
-          return this.hasNameInBreadcrumbsChildren(name, item.children);
-        }
-      });
+    /* 判断当前路由和子路由中是否存在为routeName的路由 */
+    hasPathinAllPath(routeName: string, userRoutes: AppRoute.Route) {
+      if (userRoutes.name === routeName) {
+        return true;
+      }
+      if (userRoutes.children && userRoutes.children.length !== 0) {
+        const arr: boolean[] = [];
+        userRoutes.children.forEach((item) => {
+          arr.push(this.hasPathinAllPath(routeName, item));
+        });
+        return arr.some((item) => {
+          return item;
+        });
+      }
+      return false;
     },
     /* 设置当前高亮的菜单key */
     setActiveMenu(key: string) {
