@@ -21,6 +21,7 @@
           <UserCenter />
         </div>
       </n-layout-header>
+      <n-layout-header bordered class="h-40px"><TabBar /></n-layout-header>
       <div class="p-16px">
         <n-layout-content>
           <router-view v-slot="{ Component }">
@@ -52,6 +53,7 @@ import {
   UserCenter,
   Search,
   Reload,
+  TabBar,
 } from '../components';
 
 const appStore = useAppStore();

@@ -14,6 +14,9 @@ import UserCenter from './header/UserCenter.vue';
 import Search from './header/Search.vue';
 import Reload from './header/Reload.vue';
 
+/* 标签栏组件  */
+import TabBar from './tab/TabBar.vue';
+
 export {
   Breadcrumb,
   CollapaseButton,
@@ -27,4 +30,5 @@ export {
   UserCenter,
   Search,
   Reload,
+  TabBar,
 };

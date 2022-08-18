@@ -27,7 +27,7 @@ export function useAppRouter(isSetup = true) {
 
   /* 跳转根页方法 */
   function toRoot() {
-    routerPush({ name: 'root' });
+    routerPush({ name: 'appRoot' });
   }
   /* 跳转至登录页 */
   function toLogin(redirectUrl?: string) {
