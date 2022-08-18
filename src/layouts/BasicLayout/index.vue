@@ -21,9 +21,9 @@
           <UserCenter />
         </div>
       </n-layout-header>
-      <n-layout-header bordered class="h-40px"><TabBar /></n-layout-header>
+      <n-layout-header bordered class="h-45px"><TabBar /></n-layout-header>
       <div class="p-16px">
-        <n-layout-content>
+        <n-layout-content class="bg-transparent">
           <router-view v-slot="{ Component }">
             <transition name="fade-slide" appear mode="out-in">
               <component :is="Component" v-if="appStore.loadFlag" />

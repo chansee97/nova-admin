@@ -1,6 +1,6 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 import { getToken } from '@/utils/auth';
-import { useRouteStore } from '@/store';
+import { useRouteStore, useTabStore } from '@/store';
 
 export async function createPermissionGuard(
   to: RouteLocationNormalized,
@@ -9,6 +9,7 @@ export async function createPermissionGuard(
 ) {
   const isLogin = Boolean(getToken());
   const routeStore = useRouteStore();
+  const tabStore = useTabStore();
 
   // 判断路由有无进行初始化
   if (!routeStore.isInitAuthRoute) {
@@ -41,6 +42,7 @@ export async function createPermissionGuard(
   } else {
     routeStore.setActiveMenu(to.fullPath);
   }
-
+  // 添加动态tabs
+  tabStore.addTab(to);
   next();
 }

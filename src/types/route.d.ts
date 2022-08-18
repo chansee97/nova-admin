@@ -25,7 +25,7 @@ declare namespace AppRoute {
   /** 路由描述 */
   interface RouteMeta {
     /* 页面标题，通常必选。 */
-    title?: string;
+    title: string;
     /* 图标，一般配合菜单使用 */
     icon?: string;
     /* 是否需要登录权限。*/
