@@ -53,7 +53,7 @@ export const useAppStore = defineStore('app-store', {
      * @param {number} delay - 延迟毫秒数
      * @return {*}
      */
-    async reloadPage(delay = 100) {
+    async reloadPage(delay = 600) {
       this.loadFlag = false;
       await nextTick();
       if (delay) {

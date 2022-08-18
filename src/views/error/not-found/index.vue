@@ -1,5 +1,5 @@
 <template>
-  <div>404</div>
+  <ErrorTip type="404" />
 </template>
 
 <script setup lang="ts"></script>

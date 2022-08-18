@@ -1,5 +1,5 @@
 <template>
-  <div>500</div>
+  <ErrorTip type="500" />
 </template>
 
 <script setup lang="ts"></script>

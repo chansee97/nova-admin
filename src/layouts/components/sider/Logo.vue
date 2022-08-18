@@ -8,8 +8,8 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store';
 import { useAppRouter } from '@/hook';
-const appStore = useAppStore();
 const { toRoot } = useAppRouter();
+const appStore = useAppStore();
 </script>
 
 <style scoped></style>

@@ -14,7 +14,7 @@ export const constantRoutes = [
     name: 'no-permission',
     component: () => import('@/views/error/not-permission/index.vue'),
     meta: {
-      title: '无权限',
+      title: '用户无权限',
       icon: 'icon-park-outline:error',
     },
   },
