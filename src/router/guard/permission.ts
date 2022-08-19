@@ -42,7 +42,10 @@ export async function createPermissionGuard(
   } else {
     routeStore.setActiveMenu(to.fullPath);
   }
-  // 添加动态tabs
+
+  // 添加tabs
   tabStore.addTab(to);
+  // 设置高亮标签;
+  tabStore.setCurrentTab(to.name as string);
   next();
 }

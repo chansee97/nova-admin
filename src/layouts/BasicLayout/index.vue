@@ -21,7 +21,7 @@
           <UserCenter />
         </div>
       </n-layout-header>
-      <n-layout-header bordered class="h-45px"><TabBar /></n-layout-header>
+      <n-layout-header class="h-45px"><TabBar /></n-layout-header>
       <div class="p-16px">
         <n-layout-content class="bg-transparent">
           <router-view v-slot="{ Component }">
