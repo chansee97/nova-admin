@@ -1,26 +1,7 @@
 import type { App } from 'vue';
 import { createRouter, createWebHistory, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { setupRouterGuard } from './guard';
-import { BasicLayout } from '@/layouts/index';
-import { constantRoutes } from './routes';
-
-const routes: RouteRecordRaw[] = [
-  {
-    path: '/',
-    name: 'root',
-    redirect: 'appRoot',
-    component: BasicLayout,
-    children: [...constantRoutes],
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/login/index.vue'), // 注意这里要带上 文件后缀.vue
-    meta: {
-      title: '登录',
-    },
-  },
-];
+import { routes } from './routes';
 
 const { VITE_HASH_ROUTE = 'N', VITE_BASE_URL } = import.meta.env;
 export const router = createRouter({

@@ -4,12 +4,14 @@ import { MenuOption } from 'naive-ui';
 import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';
 import { fetchUserRoutes } from '@/service';
+import { staticRoutes } from '@/router/modules';
 
 interface RoutesStatus {
   isInitAuthRoute: boolean;
   menus: any;
   userRoutes: AppRoute.Route[];
   activeMenu: string | null;
+  authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE'];
 }
 export const useRouteStore = defineStore('route-store', {
   state: (): RoutesStatus => {
@@ -18,6 +20,7 @@ export const useRouteStore = defineStore('route-store', {
       isInitAuthRoute: false,
       menus: [],
       activeMenu: null,
+      authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
     };
   },
   actions: {
@@ -83,6 +86,14 @@ export const useRouteStore = defineStore('route-store', {
       // 插入路由表
       router.addRoute(appRoutes);
     },
+    /* 初始化静态路由 */
+    async initStaticRoute() {
+      /* 将静态路由转换为侧边菜单 */
+      staticRoutes.forEach((route) => {
+        // 插入路由表
+        router.addRoute(route);
+      });
+    },
     //* 将返回的路由表渲染成侧边栏 */
     transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
       return userRoutes
@@ -111,7 +122,11 @@ export const useRouteStore = defineStore('route-store', {
     },
     async initAuthRoute() {
       this.isInitAuthRoute = false;
-      await this.initDynamicRoute();
+      if (this.authRouteMode === 'dynamic') {
+        await this.initDynamicRoute();
+      } else {
+        await this.initStaticRoute();
+      }
       this.isInitAuthRoute = true;
     },
   },

@@ -32,6 +32,8 @@ interface ImportMetaEnv {
   readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
   /** hash路由模式 */
   readonly VITE_HASH_ROUTE?: 'Y' | 'N';
+  /** 路由加载模式 */
+  readonly VITE_AUTH_ROUTE_MODE?: 'static' | 'dynamic';
   /** 本地存储前缀 */
   readonly VITE_STORAGE_PREFIX?: string;
   /** 后端服务的环境类型 */

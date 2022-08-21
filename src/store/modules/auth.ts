@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth-store', {
       this.loginLoading = true;
       const { data } = await fetchLogin({ userName, password });
       // 处理登录信息
-      await this.handleAfterLogin(data); // TODO 避免any
+      await this.handleAfterLogin(data);
 
       this.loginLoading = false;
     },
@@ -50,9 +50,6 @@ export const useAuthStore = defineStore('auth-store', {
     async handleAfterLogin(data: Auth.loginToken) {
       // 将token和userInfo保存下来
       const catchSuccess = await this.catchUserInfo(data);
-      // 初始化侧边菜单
-      // const { initAuthRoute } = useRouteStore();
-      // await initAuthRoute();
 
       // 登录写入信息成功
       if (catchSuccess) {
@@ -68,9 +65,14 @@ export const useAuthStore = defineStore('auth-store', {
         });
         return;
       }
-
       // 如果不成功则重置存储
       this.resetAuthStore();
+      // 登录失败提示
+      window.$notification?.error({
+        title: '登录失败!',
+        content: `验证失败，请检查账号密码`,
+        duration: 3000,
+      });
     },
 
     /* 缓存用户信息 */

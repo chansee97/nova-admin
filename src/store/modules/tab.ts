@@ -9,6 +9,7 @@ interface TabState {
     path: string;
   }[];
   tabs: RouteLocationNormalized[];
+  tabWhiteList: string[];
   currentTab: string;
 }
 export const useTabStore = defineStore('tab-store', {
@@ -22,6 +23,7 @@ export const useTabStore = defineStore('tab-store', {
         },
       ],
       tabs: [],
+      tabWhiteList: ['not-found', 'no-permission', 'service-error', 'login'],
       currentTab: 'dashboard_workbench',
     };
   },
@@ -42,6 +44,10 @@ export const useTabStore = defineStore('tab-store', {
       if (this.hasExistTab(route.name as string)) {
         return;
       }
+      // 如果在白名单内则不添加,错误页等
+      if (this.tabWhiteList.includes(route.name as string)) {
+        return;
+      }
       this.tabs.push(route);
     },
     closeTab(name: string) {
@@ -56,7 +62,7 @@ export const useTabStore = defineStore('tab-store', {
         if (this.currentTab === name && !isLast) {
           // 跳转到后一个标签
           routerPush(this.tabs[index + 1].path);
-        } else {
+        } else if (this.currentTab === name && isLast) {
           // 已经是最后一个了，就跳转前一个
           routerPush(this.tabs[index - 1].path);
         }
@@ -84,5 +90,8 @@ export const useTabStore = defineStore('tab-store', {
         return item.name === name;
       });
     },
+  },
+  persist: {
+    enabled: true,
   },
 });

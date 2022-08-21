@@ -28,8 +28,13 @@ export async function createPermissionGuard(
     // 有登录但是没有路由，初始化路由、侧边菜单等
     await routeStore.initAuthRoute();
     // 动态路由加载完回到根路由
-    next({ name: 'appRoot' });
-    return false;
+    if (to.name === 'not-found') {
+      // 动态路由没有加载导致被not-found-page路由捕获，等待权限路由加载好了，回到之前的路由
+      // 若路由是从根路由重定向过来的，重新回到根路由
+      const path = to.redirectedFrom?.fullPath;
+      next({ path, replace: true, query: to.query, hash: to.hash });
+      return false;
+    }
   }
   // 权限路由已经加载，仍然未找到，重定向到not-found
   // if (to.name === 'not-found-page') {

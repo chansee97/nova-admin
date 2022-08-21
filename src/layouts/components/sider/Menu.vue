@@ -4,6 +4,7 @@
     :collapsed-width="64"
     :collapsed-icon-size="24"
     :indent="20"
+    accordion
     :options="routesStore.menus"
     :value="routesStore.activeMenu"
     @update:value="handleClickMenu"
