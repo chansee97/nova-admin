@@ -107,6 +107,36 @@ const userRoutes = [
       },
     ],
   },
+  {
+    name: 'list',
+    path: '/list',
+    redirect: '/list/commonList',
+    meta: {
+      title: '列表页',
+      requiresAuth: true,
+      icon: 'icon-park-outline:list-two',
+    },
+    children: [
+      {
+        name: 'list_commonList',
+        path: '/list/commonList',
+        meta: {
+          title: '常用列表',
+          requiresAuth: true,
+          icon: 'icon-park-outline:list-view',
+        },
+      },
+      {
+        name: 'list_cardList',
+        path: '/list/cardList',
+        meta: {
+          title: '卡片列表',
+          requiresAuth: true,
+          icon: 'icon-park-outline:view-grid-list',
+        },
+      },
+    ],
+  },
 ];
 
 export default [

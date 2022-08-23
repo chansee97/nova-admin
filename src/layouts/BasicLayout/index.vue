@@ -59,4 +59,11 @@ import {
 const appStore = useAppStore();
 </script>
 
-<style scoped></style>
+<style scoped>
+.n-layout-sider {
+  box-shadow: 2px 0 8px #1d23290d;
+}
+.n-layout-header {
+  box-shadow: 0 1px 2px #00152914;
+}
+</style>
