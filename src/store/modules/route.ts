@@ -88,11 +88,12 @@ export const useRouteStore = defineStore('route-store', {
     },
     /* 初始化静态路由 */
     async initStaticRoute() {
-      /* 将静态路由转换为侧边菜单 */
-      staticRoutes.forEach((route) => {
-        // 插入路由表
-        router.addRoute(route);
-      });
+      // 根据静态路由表来生成真实路由
+      const appRoutes = await createDynamicRoutes(staticRoutes);
+      // 更具返回的生成侧边菜单
+      await this.createMenus(staticRoutes);
+      // 插入路由表
+      router.addRoute(appRoutes);
     },
     //* 将返回的路由表渲染成侧边栏 */
     transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {

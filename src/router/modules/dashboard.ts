@@ -1,12 +1,9 @@
-import { RouteRecordRaw } from 'vue-router';
-import { BasicLayout } from '@/layouts/index';
-export const dashboard: RouteRecordRaw = {
-  path: '/dashboard',
+export const dashboard = {
   name: 'dashboard',
+  path: '/dashboard',
   redirect: '/dashboard/workbench',
-  component: BasicLayout,
   meta: {
-    title: '分析页',
+    title: '分析页-static',
     requiresAuth: true,
     icon: 'icon-park-outline:analysis',
   },
@@ -14,7 +11,6 @@ export const dashboard: RouteRecordRaw = {
     {
       name: 'dashboard_workbench',
       path: '/dashboard/workbench',
-      component: () => import('@/views/dashboard/workbench/index.vue'),
       meta: {
         title: '工作台',
         requiresAuth: true,
@@ -24,7 +20,6 @@ export const dashboard: RouteRecordRaw = {
     {
       name: 'dashboard_monitor',
       path: '/dashboard/monitor',
-      component: () => import('@/views/dashboard/monitor/index.vue'),
       meta: {
         title: '监控页',
         requiresAuth: true,
