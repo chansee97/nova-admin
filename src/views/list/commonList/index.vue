@@ -1,10 +1,10 @@
 <template>
   <n-space vertical size="large">
     <n-card>
-      <n-grid :x-gap="12" :y-gap="8" :cols="23">
+      <n-grid :x-gap="24" :cols="23">
         <n-gi :span="5">
           <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">条件1</n-grid-item>
+            <n-grid-item :span="1" class="flex-center justify-start">条件1</n-grid-item>
             <n-grid-item :span="4"><n-input v-model:value="model.condition_1" placeholder="Input" /></n-grid-item>
           </n-grid>
         </n-gi>
@@ -56,7 +56,8 @@
             下载
           </n-button>
         </div>
-        <n-data-table :bordered="false" :columns="columns" :data="listData" :pagination="pagination" />
+        <n-data-table :bordered="false" :columns="columns" :data="listData" />
+        <Pagination :count="0" @change="changePage" />
       </n-space>
     </n-card>
   </n-space>
@@ -65,7 +66,7 @@
 <script setup lang="tsx">
 import { onMounted, ref, h } from 'vue';
 import { fetchUserList } from '~/src/service/api/mock';
-import type { DataTableColumns, PaginationProps } from 'naive-ui';
+import type { DataTableColumns } from 'naive-ui';
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui';
 
 const model = ref({
@@ -111,8 +112,9 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'disabled',
     render: (row) => {
+      const rowData = row as unknown as UserList;
       return (
-        <NSwitch value={row.disabled} onUpdateValue={(disabled) => handleUpdateDisabled(disabled, row.id)}>
+        <NSwitch value={rowData.disabled} onUpdateValue={(disabled) => handleUpdateDisabled(disabled, rowData.id)}>
           {{ checked: () => '启用', unchecked: () => '禁用' }}
         </NSwitch>
       );
@@ -123,13 +125,13 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'actions',
     render: (row) => {
-      // const rowData = row as unknown as UserManagement.UserTable;
+      const rowData = row as unknown as UserList;
       return (
         <NSpace justify={'center'}>
-          <NButton size={'small'} onClick={() => sendMail(row.id)}>
+          <NButton size={'small'} onClick={() => sendMail(rowData.id)}>
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => sendMail(row.id)}>
+          <NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size={'small'}>删除</NButton>,
@@ -140,23 +142,35 @@ const columns: DataTableColumns = [
     },
   },
 ];
-const sendMail = (id) => {
-  console.log('%c 🚀 ~ [row]-122', 'font-size:13px; background:pink; color:#bf2c9f;', id);
+const sendMail = (id: number) => {
+  window.$message.success(`用户id:${id}`);
 };
-const handleUpdateDisabled = (disabled, id) => {
+function handleUpdateDisabled(disabled: boolean, id: number) {
   const index = listData.value.findIndex((item) => item.id === id);
   if (index > -1) {
     listData.value[index].disabled = disabled;
   }
-};
-const listData = ref();
-const pagination = {};
+}
+interface UserList {
+  id: number;
+  name: string;
+  age: number;
+  gender: string;
+  email: string;
+  address: string;
+  role: string;
+  disabled: boolean;
+}
+const listData = ref<UserList[]>([]);
 
 onMounted(() => {
   fetchUserList().then((res) => {
     listData.value = res.data;
   });
 });
+function changePage(page: number, size: number) {
+  window.$message.success(`分页器:${page},${size}`);
+}
 </script>
 
 <style scoped></style>

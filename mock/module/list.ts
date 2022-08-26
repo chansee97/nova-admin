@@ -2,7 +2,7 @@ import Mock from 'mockjs';
 import { resultSuccess } from '../utils';
 
 const userList = Mock.mock({
-  'list|20': [
+  'list|10': [
     {
       id: '@id',
       name: '@cname',
