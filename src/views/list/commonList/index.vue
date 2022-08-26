@@ -4,25 +4,25 @@
       <n-grid :x-gap="24" :cols="23">
         <n-gi :span="5">
           <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center justify-start">条件1</n-grid-item>
+            <n-grid-item :span="1" class="flex-center justify-start">姓名</n-grid-item>
             <n-grid-item :span="4"><n-input v-model:value="model.condition_1" placeholder="Input" /></n-grid-item>
           </n-grid>
         </n-gi>
         <n-gi :span="5">
           <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">条件2</n-grid-item>
+            <n-grid-item :span="1" class="flex-center">年龄</n-grid-item>
             <n-grid-item :span="4"><n-input v-model:value="model.condition_2" placeholder="Input" /></n-grid-item>
           </n-grid>
         </n-gi>
         <n-gi :span="5">
           <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">条件3</n-grid-item>
+            <n-grid-item :span="1" class="flex-center">性别</n-grid-item>
             <n-grid-item :span="4"><n-input v-model:value="model.condition_3" placeholder="Input" /></n-grid-item>
           </n-grid>
         </n-gi>
         <n-gi :span="5">
           <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">条件4</n-grid-item>
+            <n-grid-item :span="1" class="flex-center">地址</n-grid-item>
             <n-grid-item :span="4"><n-input v-model:value="model.condition_4" placeholder="Input" /></n-grid-item>
           </n-grid>
         </n-gi>
@@ -56,8 +56,8 @@
             下载
           </n-button>
         </div>
-        <n-data-table :bordered="false" :columns="columns" :data="listData" />
-        <Pagination :count="0" @change="changePage" />
+        <n-data-table :columns="columns" :data="listData" :loading="loading" />
+        <Pagination :count="100" @change="changePage" />
       </n-space>
     </n-card>
   </n-space>
@@ -68,7 +68,9 @@ import { onMounted, ref, h } from 'vue';
 import { fetchUserList } from '~/src/service/api/mock';
 import type { DataTableColumns } from 'naive-ui';
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui';
+import { useLoading } from '@/hook';
 
+const { loading, startLoading, endLoading } = useLoading(false);
 const model = ref({
   condition_1: '',
   condition_2: '',
@@ -164,10 +166,15 @@ interface UserList {
 const listData = ref<UserList[]>([]);
 
 onMounted(() => {
-  fetchUserList().then((res) => {
-    listData.value = res.data;
-  });
+  getUserList();
 });
+async function getUserList() {
+  startLoading();
+  await fetchUserList().then((res) => {
+    listData.value = res.data;
+    endLoading();
+  });
+}
 function changePage(page: number, size: number) {
   window.$message.success(`分页器:${page},${size}`);
 }
