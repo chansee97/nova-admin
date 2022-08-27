@@ -2,7 +2,7 @@
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
       <HeaderButton @click="toMyGithub">
-        <i-icon-park-outline-github class="text-18px" />
+        <i-icon-park-outline-github />
       </HeaderButton>
     </template>
     <span>Github</span>

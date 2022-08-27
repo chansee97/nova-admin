@@ -17,7 +17,7 @@ const router = useRouter();
 const routeStore = useRouteStore();
 const { routerPush } = useAppRouter();
 const routes = computed(() => {
-  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string!, routeStore.userRoutes);
+  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string, routeStore.userRoutes);
 });
 </script>
 

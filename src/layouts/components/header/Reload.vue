@@ -2,7 +2,7 @@
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
       <HeaderButton @click="handleReload">
-        <i-icon-park-outline-refresh class="text-18px" :class="{ 'animate-spin': loading }" />
+        <i-icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
       </HeaderButton>
     </template>
     <span>刷新页面</span>

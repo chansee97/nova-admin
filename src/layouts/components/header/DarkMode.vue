@@ -2,8 +2,8 @@
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
       <HeaderButton @click="appStore.toggleDarkMode()">
-        <i-icon-park-outline-moon v-if="appStore.darkMode" class="text-18px" />
-        <i-icon-park-outline-sun v-else class="text-18px" />
+        <i-icon-park-outline-moon v-if="appStore.darkMode" />
+        <i-icon-park-outline-sun v-else />
       </HeaderButton>
     </template>
     <span>切换主题模式</span>

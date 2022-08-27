@@ -5,7 +5,7 @@
         <template #trigger>
           <HeaderButton>
             <n-badge :value="massageCount" :max="99" style="color: unset">
-              <i-icon-park-outline-remind class="text-18px" />
+              <i-icon-park-outline-remind />
             </n-badge>
           </HeaderButton>
         </template>

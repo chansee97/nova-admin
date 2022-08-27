@@ -1,7 +1,7 @@
 <template>
   <HeaderButton @click="appStore.toggleCollapse()">
-    <i-icon-park-outline-menu-unfold v-if="appStore.collapsed" class="text-18px" />
-    <i-icon-park-outline-menu-fold v-else class="text-18px" />
+    <i-icon-park-outline-menu-unfold v-if="appStore.collapsed" />
+    <i-icon-park-outline-menu-fold v-else />
   </HeaderButton>
 </template>
 
