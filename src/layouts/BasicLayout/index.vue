@@ -14,7 +14,7 @@
           <Reload />
           <!-- <Search /> -->
           <Notices />
-          <!-- <Github /> -->
+          <Github />
           <FullScreen />
           <DarkMode />
           <Setting />
@@ -22,7 +22,7 @@
         </div>
       </n-layout-header>
       <n-layout-header class="h-45px"><TabBar /></n-layout-header>
-      <div class="p-16px">
+      <div class="p-16px p-b-52px">
         <n-layout-content class="bg-transparent">
           <router-view v-slot="{ Component }">
             <transition name="fade-slide" appear mode="out-in">
@@ -30,6 +30,7 @@
             </transition>
           </router-view>
         </n-layout-content>
+        <BackTop />
       </div>
       <n-layout-footer position="absolute" bordered class="flex-center h-40px">
         {{ appStore.footerText }}
@@ -54,6 +55,7 @@ import {
   Search,
   Reload,
   TabBar,
+  BackTop,
 } from '../components';
 
 const appStore = useAppStore();

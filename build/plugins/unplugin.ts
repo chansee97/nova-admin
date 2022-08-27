@@ -7,7 +7,7 @@ import path from 'path';
 
 export default [
   Components({
-    dts: 'src/types/components.d.ts',
+    dts: 'src/typings/components.d.ts',
     resolvers: [IconsResolver(), NaiveUiResolver()],
   }),
   Icons({

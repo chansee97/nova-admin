@@ -28,3 +28,22 @@ declare namespace Auth {
     password: string;
   }
 }
+/* 系统消息 */
+declare namespace Message {
+  interface Tab {
+    key: number;
+    name: string;
+    badgeProps?: import('naive-ui').BadgeProps;
+    list: List[];
+  }
+  interface List {
+    id: number;
+    title: string;
+    icon: string;
+    tagTitle?: string;
+    tagType?: 'error' | 'info' | 'success' | 'warning';
+    description?: string;
+    isRead?: boolean;
+    date: string;
+  }
+}

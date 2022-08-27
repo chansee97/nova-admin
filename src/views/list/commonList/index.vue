@@ -1,44 +1,34 @@
 <template>
   <n-space vertical size="large">
     <n-card>
-      <n-grid :x-gap="24" :cols="23">
-        <n-gi :span="5">
-          <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center justify-start">姓名</n-grid-item>
-            <n-grid-item :span="4"><n-input v-model:value="model.condition_1" placeholder="Input" /></n-grid-item>
-          </n-grid>
-        </n-gi>
-        <n-gi :span="5">
-          <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">年龄</n-grid-item>
-            <n-grid-item :span="4"><n-input v-model:value="model.condition_2" placeholder="Input" /></n-grid-item>
-          </n-grid>
-        </n-gi>
-        <n-gi :span="5">
-          <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">性别</n-grid-item>
-            <n-grid-item :span="4"><n-input v-model:value="model.condition_3" placeholder="Input" /></n-grid-item>
-          </n-grid>
-        </n-gi>
-        <n-gi :span="5">
-          <n-grid :cols="5">
-            <n-grid-item :span="1" class="flex-center">地址</n-grid-item>
-            <n-grid-item :span="4"><n-input v-model:value="model.condition_4" placeholder="Input" /></n-grid-item>
-          </n-grid>
-        </n-gi>
-        <n-gi :span="3">
-          <n-space justify="end">
+      <n-form ref="formRef" :model="model" label-placement="left" :show-feedback="false">
+        <n-grid :x-gap="30" :cols="18">
+          <n-form-item-gi :span="4" label="姓名" path="condition_1">
+            <n-input v-model:value="model.condition_1" placeholder="请输入" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="4" label="年龄" path="condition_2">
+            <n-input v-model:value="model.condition_2" placeholder="请输入" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="4" label="性别" path="condition_3">
+            <n-input v-model:value="model.condition_3" placeholder="请输入" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="4" label="地址" path="condition_4">
+            <n-input v-model:value="model.condition_4" placeholder="请输入" />
+          </n-form-item-gi>
+          <n-gi :span="1">
             <n-button type="primary">
               <template #icon><i-icon-park-outline-search /></template>
               搜索
             </n-button>
-            <n-button strong secondary>
+          </n-gi>
+          <n-gi :span="1">
+            <n-button strong secondary @click="handleResetSearch">
               <template #icon><i-icon-park-outline-redo /></template>
               重置
             </n-button>
-          </n-space>
-        </n-gi>
-      </n-grid>
+          </n-gi>
+        </n-grid>
+      </n-form>
     </n-card>
     <n-card>
       <n-space vertical size="large">
@@ -65,19 +55,17 @@
 
 <script setup lang="tsx">
 import { onMounted, ref, h } from 'vue';
-import { fetchUserList } from '~/src/service/api/mock';
+import { fetchUserList } from '@/service';
 import type { DataTableColumns } from 'naive-ui';
-import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui';
+import { NButton, NPopconfirm, NSpace, NSwitch, NTag, FormInst } from 'naive-ui';
 import { useLoading } from '@/hook';
 
 const { loading, startLoading, endLoading } = useLoading(false);
-const model = ref({
-  condition_1: '',
-  condition_2: '',
-  condition_3: '',
-  condition_4: '',
-});
 
+const initialModel = { condition_1: '', condition_2: '', condition_3: '', condition_4: '' };
+const model = ref({ ...initialModel });
+
+const formRef = ref<FormInst | null>();
 const columns: DataTableColumns = [
   {
     title: '姓名',
@@ -93,6 +81,22 @@ const columns: DataTableColumns = [
     title: '性别',
     align: 'center',
     key: 'gender',
+    render: (row) => {
+      const rowData = row as unknown as UserList;
+      const tagType = {
+        '0': {
+          label: '女',
+          type: 'primary',
+        },
+        '1': {
+          label: '男',
+          type: 'success',
+        },
+      } as const;
+      if (rowData.gender) {
+        return <NTag type={tagType[rowData.gender].type}>{tagType[rowData.gender].label}</NTag>;
+      }
+    },
   },
   {
     title: '邮箱',
@@ -108,6 +112,15 @@ const columns: DataTableColumns = [
     title: '角色',
     align: 'center',
     key: 'role',
+    render: (row) => {
+      const rowData = row as unknown as UserList;
+      const tagType = {
+        super: 'primary',
+        admin: 'warning',
+        user: 'success',
+      } as const;
+      return <NTag type={tagType[rowData.role]}>{rowData.role}</NTag>;
+    },
   },
   {
     title: '状态',
@@ -115,6 +128,7 @@ const columns: DataTableColumns = [
     key: 'disabled',
     render: (row) => {
       const rowData = row as unknown as UserList;
+
       return (
         <NSwitch value={rowData.disabled} onUpdateValue={(disabled) => handleUpdateDisabled(disabled, rowData.id)}>
           {{ checked: () => '启用', unchecked: () => '禁用' }}
@@ -157,10 +171,10 @@ interface UserList {
   id: number;
   name: string;
   age: number;
-  gender: string;
+  gender: '0' | '1' | null;
   email: string;
   address: string;
-  role: string;
+  role: 'super' | 'admin' | 'user';
   disabled: boolean;
 }
 const listData = ref<UserList[]>([]);
@@ -177,6 +191,9 @@ async function getUserList() {
 }
 function changePage(page: number, size: number) {
   window.$message.success(`分页器:${page},${size}`);
+}
+function handleResetSearch() {
+  model.value = { ...initialModel };
 }
 </script>
 

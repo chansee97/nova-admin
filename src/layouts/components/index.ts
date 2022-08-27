@@ -17,6 +17,9 @@ import Reload from './header/Reload.vue';
 /* 标签栏组件  */
 import TabBar from './tab/TabBar.vue';
 
+/* 其他组件 */
+// 返回顶部
+import BackTop from './common/BackTop.vue';
 export {
   Breadcrumb,
   CollapaseButton,
@@ -31,4 +34,5 @@ export {
   Search,
   Reload,
   TabBar,
+  BackTop,
 };

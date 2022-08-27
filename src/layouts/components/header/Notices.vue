@@ -1,24 +1,26 @@
 <template>
-  <n-popover placement="bottom" trigger="click" arrow-point-to-center style="width: 400px">
+  <n-popover placement="bottom" trigger="click" arrow-point-to-center class="!p-0">
     <template #trigger>
       <n-tooltip placement="bottom" trigger="hover">
         <template #trigger>
-          <HeaderButton @click="openNotice">
-            <i-icon-park-outline-remind class="text-18px" />
+          <HeaderButton>
+            <n-badge :value="massageCount" :max="99" style="color: unset">
+              <i-icon-park-outline-remind class="text-18px" />
+            </n-badge>
           </HeaderButton>
         </template>
         <span>消息通知</span>
       </n-tooltip>
     </template>
-    <n-tabs type="line" animated justify-content="space-evenly">
-      <n-tab-pane name="chap1" tab="通知">
-        我这辈子最疯狂的事，发生在我在 Amazon 当软件工程师的时候，故事是这样的：
-      </n-tab-pane>
-      <n-tab-pane name="chap2" tab="消息">
-        “威尔！着火了！快来帮忙！”我听到女朋友大喊。现在一个难题在我面前——是恢复一个重要的 Amazon 服务，还是救公寓的火。
-      </n-tab-pane>
-      <n-tab-pane name="chap3" tab="待办">
-        但是忽然，公寓的烟味消失，火警也停了。我的女朋友走进了房间，让我震惊的是，她摘下了自己的假发，她是 Jeff
+    <n-tabs v-model:value="currentTab" type="line" animated justify-content="space-evenly" class="w-390px">
+      <n-tab-pane v-for="item in MassageData" :key="item.key" :name="item.key">
+        <template #tab>
+          <n-space class="w-130px" justify="center">
+            {{ item.name }}
+            <n-badge v-bind="item.badgeProps" :value="item.list.filter((item) => !item.isRead).length" :max="99" />
+          </n-space>
+        </template>
+        <NoticeList :list="item.list" @read="handleRead" />
       </n-tab-pane>
     </n-tabs>
   </n-popover>
@@ -26,9 +28,108 @@
 
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue';
-const openNotice = () => {
-  console.log('消息通知');
-};
+import NoticeList from '../common/NoticeList.vue';
+import { ref, computed } from 'vue';
+
+const MassageData = ref<Message.Tab[]>([
+  {
+    key: 0,
+    name: '通知',
+    badgeProps: { type: 'warning' },
+    list: [
+      {
+        id: 0,
+        title: 'EnchAdmin 已经完成40%了！',
+        icon: 'icon-park-outline:tips-one',
+        tagTitle: '未开始',
+        tagType: 'info',
+        description: '项目稳定推进中，很快就能看到正式版了',
+        date: '2022-2-2 12:22',
+      },
+      {
+        id: 1,
+        title: 'EnchAdmin 已经添加通知功能！',
+        icon: 'icon-park-outline:comment-one',
+        tagTitle: '未开始',
+        tagType: 'success',
+        date: '2022-2-2 12:22',
+      },
+      {
+        id: 2,
+        title: 'EnchAdmin 已经添加路由功能！',
+        icon: 'icon-park-outline:message-emoji',
+        tagTitle: '未开始',
+        tagType: 'warning',
+        description: '项目稳定推进中...',
+        date: '2022-2-5 18:32',
+      },
+      {
+        id: 3,
+        title:
+          'EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！',
+        icon: 'icon-park-outline:tips-one',
+        tagTitle: '未开始',
+        tagType: 'error',
+        description:
+          '项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...',
+        date: '2022-2-5 18:32',
+      },
+      {
+        id: 4,
+        title: 'EnchAdmin开始启动了！',
+        icon: 'icon-park-outline:tips-one',
+        tagTitle: '未开始',
+        description: '项目稳定推进中...',
+        date: '2022-2-5 18:32',
+      },
+    ],
+  },
+  {
+    key: 1,
+    name: '消息',
+    badgeProps: { type: 'info' },
+    list: [
+      {
+        id: 0,
+        title: '相见恨晚??',
+        icon: 'icon-park-outline:comment',
+        description: '项目稳定推进中，很快就能看到正式版了',
+        date: '2022-2-2 12:22',
+      },
+      {
+        id: 1,
+        title: '动态路由已完成！',
+        icon: 'icon-park-outline:comment',
+        description: '项目稳定推进中，很快就能看到正式版了',
+        date: '2022-2-25 12:22',
+      },
+    ],
+  },
+  {
+    key: 2,
+    name: '待办',
+    badgeProps: { type: 'error' },
+    list: [
+      {
+        id: 0,
+        title: '接下来需要完善一些',
+        icon: 'icon-park-outline:beach-umbrella',
+        tagTitle: '未开始',
+        description: '项目稳定推进中，很快就能看到正式版了',
+        date: '2022-2-2 12:22',
+      },
+    ],
+  },
+]);
+const currentTab = ref(0);
+function handleRead(index: number) {
+  MassageData.value[currentTab.value].list[index].isRead = true;
+}
+const massageCount = computed(() => {
+  return MassageData.value.reduce((pre, cur) => {
+    return pre + cur.list.filter((item) => !item.isRead).length;
+  }, 0);
+});
 </script>
 
 <style scoped></style>
