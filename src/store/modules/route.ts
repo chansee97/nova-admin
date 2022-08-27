@@ -33,7 +33,7 @@ export const useRouteStore = defineStore('route-store', {
       router.removeRoute('appRoot');
     },
     /* 根据当前路由的name生成面包屑数据 */
-    createBreadcrumbFromRoutes(routeName: string, userRoutes: AppRoute.Route[]) {
+    createBreadcrumbFromRoutes(routeName = '/', userRoutes: AppRoute.Route[]) {
       const path: AppRoute.Route[] = [];
       // 筛选所有包含目标的各级路由组合成一维数组
       const getPathfromRoutes = (routeName: string, userRoutes: AppRoute.Route[]) => {
