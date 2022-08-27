@@ -51,6 +51,10 @@ export const useAuthStore = defineStore('auth-store', {
       // 将token和userInfo保存下来
       const catchSuccess = await this.catchUserInfo(data);
 
+      // 添加路由和菜单
+      const { initAuthRoute } = useRouteStore();
+      await initAuthRoute();
+
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
