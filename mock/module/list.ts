@@ -1,7 +1,7 @@
-import Mock from 'mockjs';
+import { mock } from 'mockjs';
 import { resultSuccess } from '../utils';
 
-const userList = Mock.mock({
+const userList = mock({
   'list|20': [
     {
       id: '@id',
