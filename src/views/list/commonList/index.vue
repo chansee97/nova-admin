@@ -33,7 +33,7 @@
     <n-card>
       <n-space vertical size="large">
         <div class="flex gap-4">
-          <n-button type="primary">
+          <n-button type="primary" @click="handleAddTable">
             <template #icon><i-icon-park-outline-add-one /></template>
             新建
           </n-button>
@@ -48,6 +48,7 @@
         </div>
         <n-data-table :columns="columns" :data="listData" :loading="loading" />
         <Pagination :count="100" @change="changePage" />
+        <TableModal v-model:visible="visible" :type="modalType" :modal-data="editData" />
       </n-space>
     </n-card>
   </n-space>
@@ -58,9 +59,11 @@ import { onMounted, ref, h } from 'vue';
 import { fetchUserList } from '@/service';
 import type { DataTableColumns } from 'naive-ui';
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag, FormInst } from 'naive-ui';
-import { useLoading } from '@/hook';
+import { useLoading, useBoolean } from '@/hook';
+import TableModal from './components/TableModal.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);
+const { bool: visible, setTrue: openModal } = useBoolean(false);
 
 const initialModel = { condition_1: '', condition_2: '', condition_3: '', condition_4: '' };
 const model = ref({ ...initialModel });
@@ -82,7 +85,7 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'gender',
     render: (row) => {
-      const rowData = row as unknown as UserList;
+      const rowData = row as unknown as CommonList.UserList;
       const tagType = {
         '0': {
           label: '女',
@@ -113,7 +116,7 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'role',
     render: (row) => {
-      const rowData = row as unknown as UserList;
+      const rowData = row as unknown as CommonList.UserList;
       const tagType = {
         super: 'primary',
         admin: 'warning',
@@ -127,7 +130,7 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'disabled',
     render: (row) => {
-      const rowData = row as unknown as UserList;
+      const rowData = row as unknown as CommonList.UserList;
 
       return (
         <NSwitch value={rowData.disabled} onUpdateValue={(disabled) => handleUpdateDisabled(disabled, rowData.id)}>
@@ -141,10 +144,10 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'actions',
     render: (row) => {
-      const rowData = row as unknown as UserList;
+      const rowData = row as unknown as CommonList.UserList;
       return (
         <NSpace justify={'center'}>
-          <NButton size={'small'} onClick={() => sendMail(rowData.id)}>
+          <NButton size={'small'} onClick={() => handleEditTable(rowData)}>
             编辑
           </NButton>
           <NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
@@ -167,17 +170,8 @@ function handleUpdateDisabled(disabled: boolean, id: number) {
     listData.value[index].disabled = disabled;
   }
 }
-interface UserList {
-  id: number;
-  name: string;
-  age: number;
-  gender: '0' | '1' | null;
-  email: string;
-  address: string;
-  role: 'super' | 'admin' | 'user';
-  disabled: boolean;
-}
-const listData = ref<UserList[]>([]);
+
+const listData = ref<CommonList.UserList[]>([]);
 
 onMounted(() => {
   getUserList();
@@ -194,6 +188,27 @@ function changePage(page: number, size: number) {
 }
 function handleResetSearch() {
   model.value = { ...initialModel };
+}
+
+type ModalType = 'add' | 'edit';
+const modalType = ref<ModalType>('add');
+function setModalType(type: ModalType) {
+  modalType.value = type;
+}
+
+const editData = ref<CommonList.UserList | null>(null);
+function setEditData(data: CommonList.UserList | null) {
+  editData.value = data;
+}
+
+function handleEditTable(rowData: CommonList.UserList) {
+  setEditData(rowData);
+  setModalType('edit');
+  openModal();
+}
+function handleAddTable() {
+  openModal();
+  setModalType('add');
 }
 </script>
 

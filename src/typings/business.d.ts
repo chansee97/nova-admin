@@ -47,3 +47,16 @@ declare namespace Message {
     date: string;
   }
 }
+
+declare namespace CommonList {
+  interface UserList {
+    id: number;
+    name: string;
+    age: number;
+    gender: '0' | '1' | null;
+    email: string;
+    address: string;
+    role: 'super' | 'admin' | 'user';
+    disabled: boolean;
+  }
+}
