@@ -14,6 +14,11 @@ async function setupApp() {
   // 安装router
   await setupRouter(app);
   // 挂载
-  app.mount('#app');
+  await app.mount('#app');
+  closeAppLoading();
 }
 setupApp();
+
+function closeAppLoading() {
+  document.querySelector('#loading-container')!.remove();
+}
