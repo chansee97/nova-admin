@@ -4,12 +4,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  gap: 10vh;
+  position: fixed;
+  background-color: aliceblue;
+  z-index: 1;
 }
 .app-loading {
   width: 88px;
   height: 88px;
   animation: app-loading-y0fdc1 2s infinite ease;
   transform-style: preserve-3d;
+}
+.loading-title{
+  font-size: 2em;
 }
 
 .app-loading > div {
