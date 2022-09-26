@@ -1,28 +1,47 @@
 <template>
   <n-layout has-sider class="wh-full">
-    <n-layout-sider bordered :collapsed="appStore.collapsed" :collapsed-width="64" collapse-mode="width" :width="220">
-      <Logo />
+    <n-layout-sider
+      bordered
+      :collapsed="appStore.collapsed"
+      :collapsed-width="64"
+      collapse-mode="width"
+      :width="220"
+      :inverted="appStore.invertedSider"
+    >
+      <Logo v-if="appStore.showLogo" />
       <Menu />
     </n-layout-sider>
     <n-layout class="h-full" :native-scrollbar="false" embedded>
-      <n-layout-header bordered class="h-60px flex-y-center justify-between">
-        <div class="flex-y-center h-full">
-          <CollapaseButton />
-          <Breadcrumb />
-        </div>
-        <div class="flex-y-center h-full">
-          <Reload />
-          <!-- <Search /> -->
-          <Notices />
-          <Github />
-          <FullScreen />
-          <DarkMode />
-          <Setting />
-          <UserCenter />
+      <n-layout-header
+        :position="appStore.fixedHeader ? 'absolute' : 'static'"
+        :inverted="appStore.invertedHeader"
+        class="z-1"
+      >
+        <div class="h-60px flex-y-center justify-between">
+          <div class="flex-y-center h-full">
+            <CollapaseButton />
+            <Breadcrumb v-if="appStore.showBreadcrumb" />
+          </div>
+          <div class="flex-y-center h-full">
+            <Reload />
+            <!-- <Search /> -->
+            <Notices />
+            <Github />
+            <FullScreen />
+            <DarkMode />
+            <Setting />
+            <UserCenter />
+          </div>
         </div>
       </n-layout-header>
-      <n-layout-header class="h-45px"><TabBar /></n-layout-header>
-      <div class="p-16px p-b-52px">
+      <n-layout-header
+        :position="appStore.fixedHeader ? 'absolute' : 'static'"
+        class="z-1"
+        :class="{ 'm-t-60px': appStore.fixedHeader }"
+      >
+        <TabBar v-if="appStore.showTabs" class="h-45px" />
+      </n-layout-header>
+      <div class="p-16px" :class="{ 'p-t-121px': appStore.fixedHeader, 'p-b-56px': appStore.fixedFooter }">
         <n-layout-content class="bg-transparent">
           <router-view v-slot="{ Component }">
             <transition name="fade-slide" appear mode="out-in">
@@ -32,7 +51,7 @@
         </n-layout-content>
         <BackTop />
       </div>
-      <n-layout-footer position="absolute" bordered class="flex-center h-40px">
+      <n-layout-footer :position="appStore.fixedFooter ? 'absolute' : 'static'" bordered class="flex-center h-40px">
         {{ appStore.footerText }}
       </n-layout-footer>
     </n-layout>

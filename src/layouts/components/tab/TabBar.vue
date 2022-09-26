@@ -1,5 +1,5 @@
 <template>
-  <div class="wh-full flex items-end">
+  <div class="wh-full flex items-end tabs">
     <n-tabs type="card" size="small" :tabs-padding="15" :value="tabStore.currentTab" @close="handleClose">
       <n-tab v-for="item in tabStore.inherentTab" :key="item.path" :name="item.name" @click="toRoot">
         {{ item.title }}
@@ -34,4 +34,8 @@ const handleClose = (name: string) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.tabs {
+  box-shadow: inset 0px 5px 10px #b2c0d277;
+}
+</style>

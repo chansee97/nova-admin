@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue';
 const toMyGithub = () => {
-  window.open('https://github.com/chen-see');
+  window.open('https://github.com/iam-see');
 };
 </script>
 

@@ -8,20 +8,40 @@ interface AppStatus {
   collapsed: boolean;
   fullScreen: boolean;
   darkMode: boolean;
+  grayMode: boolean;
+  colorWeak: boolean;
   darkTheme: GlobalTheme | null;
   loadFlag: boolean;
+  showLogo: boolean;
+  showTabs: boolean;
+  showBreadcrumb: boolean;
+  fixedHeader: boolean;
+  fixedFooter: boolean;
+  invertedSider: boolean;
+  invertedHeader: boolean;
 }
+
+const docEle = document.documentElement;
 
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
       title: import.meta.env.VITE_APP_TITLE,
-      footerText: '哲学的基本问题是思维和存在的关系问题',
+      footerText: 'Copyright ©2022 Ench Admin',
       collapsed: false,
       fullScreen: false,
       darkMode: false,
+      grayMode: false,
+      colorWeak: false,
       darkTheme: null,
       loadFlag: true,
+      showLogo: true,
+      showTabs: true,
+      showBreadcrumb: true,
+      fixedHeader: false,
+      fixedFooter: true,
+      invertedSider: false,
+      invertedHeader: false,
     };
   },
   actions: {
@@ -63,6 +83,44 @@ export const useAppStore = defineStore('app-store', {
       } else {
         this.loadFlag = true;
       }
+    },
+    /* 切换色弱模式 */
+    toggleColorWeak() {
+      docEle.classList.toggle('color-weak');
+      this.colorWeak = docEle.classList.contains('color-weak');
+    },
+    /* 切换灰色模式 */
+    toggleGrayMode() {
+      docEle.classList.toggle('gray-mode');
+      this.grayMode = docEle.classList.contains('gray-mode');
+    },
+    /* 切换显示logo */
+    toggleShowLogo() {
+      this.showLogo = !this.showLogo;
+    },
+    /* 切换显示多页签 */
+    toggleShowTabs() {
+      this.showTabs = !this.showTabs;
+    },
+    /* 切换显示多页签 */
+    toggleShowBreadcrumb() {
+      this.showBreadcrumb = !this.showBreadcrumb;
+    },
+    /* 切换固定头部和标签页 */
+    toggleFixedHeader() {
+      this.fixedHeader = !this.fixedHeader;
+    },
+    /* 切换固定底部 */
+    toggleFixedFooter() {
+      this.fixedFooter = !this.fixedFooter;
+    },
+    /* 切换固定底部 */
+    toggleInvertedSider() {
+      this.invertedSider = !this.invertedSider;
+    },
+    /* 切换固定底部 */
+    toggleInvertedHeader() {
+      this.invertedHeader = !this.invertedHeader;
     },
   },
 });
