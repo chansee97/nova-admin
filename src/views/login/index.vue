@@ -3,7 +3,7 @@
     <n-carousel autoplay trigger="hover" dot-type="line" effect="fade">
       <img v-for="(item, index) in swiperList" :key="index" class="wh-full object-cover" :src="item" />
     </n-carousel>
-    <div class="h-xl py-10 px-6xl rounded-lg backdrop-blur-md shadow-md fixed bg-hex-ffffffd5 op-90">
+    <div class="h-xl py-10 px-6xl rounded-lg backdrop-blur-xl shadow-md fixed bg-hex-ffffffd0 op-90">
       <n-h1 class="c-blue">
         <i-icon-park-outline-plastic-surgery />
         Ench Admin

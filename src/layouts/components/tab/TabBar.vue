@@ -1,5 +1,5 @@
 <template>
-  <div class="wh-full flex items-end tabs">
+  <div class="wh-full flex items-end">
     <n-tabs type="card" size="small" :tabs-padding="15" :value="tabStore.currentTab" @close="handleClose">
       <n-tab v-for="item in tabStore.inherentTab" :key="item.path" :name="item.name" @click="toRoot">
         {{ item.title }}
@@ -17,11 +17,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useTabStore } from '@/store';
 import { useAppRouter } from '~/src/hook';
 import { RouteLocationNormalized } from 'vue-router';
-import { defineComponent } from 'vue';
 
 const tabStore = useTabStore();
 const { routerPush, toRoot } = useAppRouter();
@@ -34,8 +33,4 @@ const handleClose = (name: string) => {
 };
 </script>
 
-<style scoped>
-.tabs {
-  box-shadow: inset 0px 5px 10px #b2c0d277;
-}
-</style>
+<style scoped></style>

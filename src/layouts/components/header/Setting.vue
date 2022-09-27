@@ -4,7 +4,7 @@
       <HeaderButton @click="openSetting">
         <div>
           <i-icon-park-outline-setting-two />
-          <n-drawer v-model:show="drawerActive" :width="400">
+          <n-drawer v-model:show="drawerActive" :width="300">
             <n-drawer-content title="系统设置">
               <n-divider>主题设置</n-divider>
               <n-space vertical>

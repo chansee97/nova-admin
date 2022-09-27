@@ -16,6 +16,7 @@
         :position="appStore.fixedHeader ? 'absolute' : 'static'"
         :inverted="appStore.invertedHeader"
         class="z-1"
+        bordered
       >
         <div class="h-60px flex-y-center justify-between">
           <div class="flex-y-center h-full">
