@@ -1,5 +1,5 @@
 <template>
-  <div text-center c-yellow>I prove that you have made the ju mp test2-deail.</div>
+  <div text-center>这是详情子页，他不会出现在侧边栏</div>
 </template>
 
 <script setup lang="ts"></script>

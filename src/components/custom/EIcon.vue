@@ -8,7 +8,7 @@
 import { Icon } from '@iconify/vue';
 const props = withDefaults(
   defineProps<{
-    icon: string;
+    icon?: string;
     color?: string;
     size?: number;
     depth?: 1 | 2 | 3 | 4 | 5;

@@ -19,7 +19,7 @@ const userRoutes = [
     path: '/dashboard',
     redirect: '/dashboard/workbench',
     meta: {
-      title: '分析页',
+      title: '仪表盘',
       requiresAuth: true,
       icon: 'icon-park-outline:analysis',
     },
@@ -49,7 +49,7 @@ const userRoutes = [
     path: '/test',
     redirect: '/test/test1',
     meta: {
-      title: '测试专题',
+      title: '多级菜单演示',
       requiresAuth: true,
       icon: 'icon-park-outline:ambulance',
     },
@@ -58,7 +58,7 @@ const userRoutes = [
         name: 'test1',
         path: '/test/test1',
         meta: {
-          title: '测试专题1',
+          title: '多级菜单1',
           requiresAuth: true,
           icon: 'icon-park-outline:alarm',
         },
@@ -67,7 +67,7 @@ const userRoutes = [
         name: 'test2',
         path: '/test/test2',
         meta: {
-          title: '测试专题2',
+          title: '多级菜单2',
           requiresAuth: true,
           icon: 'icon-park-outline:pic',
         },
@@ -76,7 +76,7 @@ const userRoutes = [
             name: 'test2_detail',
             path: '/test/test2/detail',
             meta: {
-              title: '测试专题2的详情页',
+              title: '多级菜单2的详情页',
               requiresAuth: true,
               icon: 'icon-park-outline:tool',
               hide: true,
@@ -89,7 +89,7 @@ const userRoutes = [
         name: 'test3',
         path: '/test/test3',
         meta: {
-          title: '测试专题3',
+          title: '多级菜单3',
           requiresAuth: true,
           icon: 'icon-park-outline:tool',
         },
@@ -98,7 +98,7 @@ const userRoutes = [
             name: 'test4',
             path: '/test/test3/test4',
             meta: {
-              title: '测试专题4',
+              title: '多级菜单3-1',
               requiresAuth: true,
               icon: 'icon-park-outline:tool',
             },

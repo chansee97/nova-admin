@@ -36,22 +36,31 @@
         </div>
       </n-layout-header>
       <n-layout-header
+        v-if="appStore.showTabs"
         :position="appStore.fixedHeader ? 'absolute' : 'static'"
         class="z-1"
-        :class="{ 'm-t-60px': appStore.fixedHeader }"
+        :class="{ 'm-t-61px': appStore.fixedHeader }"
       >
-        <TabBar v-if="appStore.showTabs" class="h-45px" />
+        <TabBar class="h-45px" />
       </n-layout-header>
-      <div class="p-16px" :class="{ 'p-t-121px': appStore.fixedHeader, 'p-b-56px': appStore.fixedFooter }">
-        <n-layout-content class="bg-transparent">
+
+      <n-layout-content class="bg-transparent">
+        <div
+          class="p-16px"
+          :class="{
+            'p-b-56px': appStore.fixedFooter,
+            'p-t-122px': appStore.fixedHeader && appStore.showTabs,
+            'p-t-77px': appStore.fixedHeader && !appStore.showTabs,
+          }"
+        >
           <router-view v-slot="{ Component }">
             <transition name="fade-slide" appear mode="out-in">
               <component :is="Component" v-if="appStore.loadFlag" />
             </transition>
           </router-view>
-        </n-layout-content>
+        </div>
         <BackTop />
-      </div>
+      </n-layout-content>
       <n-layout-footer :position="appStore.fixedFooter ? 'absolute' : 'static'" bordered class="flex-center h-40px">
         {{ appStore.footerText }}
       </n-layout-footer>
