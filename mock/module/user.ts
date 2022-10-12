@@ -223,6 +223,15 @@ const userRoutes = [
           icon: 'icon-park-outline:clipboard',
         },
       },
+      {
+        name: 'plugin_icons',
+        path: '/plugin/icons',
+        meta: {
+          title: '图标',
+          requiresAuth: true,
+          icon: 'icon-park-outline:winking-face-with-open-eyes',
+        },
+      },
     ],
   },
   {

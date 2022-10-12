@@ -1,7 +1,7 @@
 <template>
   <n-card>
     <n-input-group>
-      <n-input v-model:value="text" />
+      <n-input v-model:value="text" placeholder="请输入要复制的内容" />
       <n-button type="primary" @click="handleCopy">复制</n-button>
     </n-input-group>
   </n-card>
