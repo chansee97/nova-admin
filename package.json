@@ -24,8 +24,11 @@
     "./src/**/*.{js,jsx,ts,tsx,less,json}": "prettier --loglevel warn --write"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.1.21",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^0.27.2",
     "echarts": "^5.4.0",
+    "md-editor-v3": "^2.3.0",
     "pinia": "^2.0.20",
     "pinia-plugin-persist": "^1.0.0",
     "vue": "^3.2.37",
