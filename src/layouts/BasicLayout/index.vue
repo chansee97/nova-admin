@@ -43,7 +43,6 @@
       >
         <TabBar class="h-45px" />
       </n-layout-header>
-
       <n-layout-content class="bg-transparent">
         <div
           class="p-16px"
@@ -59,8 +58,8 @@
             </transition>
           </router-view>
         </div>
-        <BackTop />
       </n-layout-content>
+      <BackTop />
       <n-layout-footer :position="appStore.fixedFooter ? 'absolute' : 'static'" bordered class="flex-center h-40px">
         {{ appStore.footerText }}
       </n-layout-footer>

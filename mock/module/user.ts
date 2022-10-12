@@ -51,7 +51,7 @@ const userRoutes = [
     meta: {
       title: '多级菜单演示',
       requiresAuth: true,
-      icon: 'icon-park-outline:ambulance',
+      icon: 'icon-park-outline:list',
     },
     children: [
       {
@@ -136,6 +136,94 @@ const userRoutes = [
         },
       },
     ],
+  },
+  {
+    name: 'plugin',
+    path: '/plugin',
+    redirect: '/plugin/charts',
+    meta: {
+      title: '组件示例',
+      requiresAuth: true,
+      icon: 'icon-park-outline:application-one',
+    },
+    children: [
+      {
+        name: 'plugin_charts',
+        path: '/plugin/charts',
+        meta: {
+          title: '图表',
+          requiresAuth: true,
+          icon: 'icon-park-outline:chart-line',
+        },
+        children: [
+          {
+            name: 'echarts',
+            path: '/plugin/charts/echarts',
+            meta: {
+              title: 'ECharts',
+              requiresAuth: true,
+              icon: 'icon-park-outline:chart-proportion',
+            },
+          },
+          {
+            name: 'antV',
+            path: '/plugin/charts/antV',
+            meta: {
+              title: 'antV',
+              requiresAuth: true,
+              icon: 'ant-design:ant-design-outlined',
+            },
+          },
+        ],
+      },
+      {
+        name: 'plugin_map',
+        path: '/plugin/map',
+        meta: {
+          title: '地图',
+          requiresAuth: true,
+          icon: 'carbon:map',
+        },
+      },
+      {
+        name: 'plugin_editor',
+        path: '/plugin/editor',
+        meta: {
+          title: '编辑器',
+          requiresAuth: true,
+          icon: 'icon-park-outline:editor',
+        },
+        children: [
+          {
+            name: 'md',
+            path: '/plugin/editor/md',
+            meta: {
+              title: 'MarkDown',
+              requiresAuth: true,
+              icon: 'ri:markdown-line',
+            },
+          },
+          {
+            name: 'rich',
+            path: '/plugin/editor/rich',
+            meta: {
+              title: '富文本',
+              requiresAuth: true,
+              icon: 'icon-park-outline:edit-one',
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'about',
+    path: '/about',
+    meta: {
+      title: '关于',
+      requiresAuth: true,
+      icon: 'icon-park-outline:info',
+    },
   },
 ];
 
