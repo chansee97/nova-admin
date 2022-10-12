@@ -1,4 +1,4 @@
-export const icons = [
+export const icons: string[] = [
   'icon-park-outline:ad-product',
   'icon-park-outline:all-application',
   'icon-park-outline:hamburger-button',
