@@ -60,7 +60,7 @@ const userRoutes = [
         meta: {
           title: '多级菜单1',
           requiresAuth: true,
-          icon: 'icon-park-outline:alarm',
+          icon: 'icon-park-outline:list',
         },
       },
       {
@@ -69,7 +69,7 @@ const userRoutes = [
         meta: {
           title: '多级菜单2',
           requiresAuth: true,
-          icon: 'icon-park-outline:pic',
+          icon: 'icon-park-outline:list',
         },
         children: [
           {
@@ -78,7 +78,7 @@ const userRoutes = [
             meta: {
               title: '多级菜单2的详情页',
               requiresAuth: true,
-              icon: 'icon-park-outline:tool',
+              icon: 'icon-park-outline:list',
               hide: true,
               activeMenu: '/test/test2',
             },
@@ -91,7 +91,7 @@ const userRoutes = [
         meta: {
           title: '多级菜单3',
           requiresAuth: true,
-          icon: 'icon-park-outline:tool',
+          icon: 'icon-park-outline:list',
         },
         children: [
           {
@@ -100,7 +100,7 @@ const userRoutes = [
             meta: {
               title: '多级菜单3-1',
               requiresAuth: true,
-              icon: 'icon-park-outline:tool',
+              icon: 'icon-park-outline:list',
             },
           },
         ],
