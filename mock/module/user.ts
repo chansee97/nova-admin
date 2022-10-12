@@ -214,6 +214,15 @@ const userRoutes = [
           },
         ],
       },
+      {
+        name: 'plugin_clipboard',
+        path: '/plugin/clipboard',
+        meta: {
+          title: '剪贴板',
+          requiresAuth: true,
+          icon: 'icon-park-outline:clipboard',
+        },
+      },
     ],
   },
   {
