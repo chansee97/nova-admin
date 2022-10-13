@@ -244,6 +244,45 @@ const userRoutes = [
     ],
   },
   {
+    name: 'docments',
+    path: '/docments',
+    redirect: '/docments/not-found',
+    meta: {
+      title: '外链文档',
+      requiresAuth: true,
+      icon: 'icon-park-outline:error-computer',
+    },
+    children: [
+      {
+        name: 'docments_vue',
+        path: '/docments/vue',
+        meta: {
+          title: 'vue',
+          requiresAuth: true,
+          icon: 'icon-park-outline:error',
+        },
+      },
+      {
+        name: 'docments_vite',
+        path: '/docments/vite',
+        meta: {
+          title: 'vite',
+          requiresAuth: true,
+          icon: 'carbon:error',
+        },
+      },
+      // {
+      //   name: 'service-error',
+      //   path: '/docments/service-error',
+      //   meta: {
+      //     title: '500页',
+      //     requiresAuth: true,
+      //     icon: 'carbon:data-error',
+      //   },
+      // },
+    ],
+  },
+  {
     name: 'error',
     path: '/error',
     redirect: '/error/not-found',

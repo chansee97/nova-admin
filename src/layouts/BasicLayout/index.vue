@@ -43,9 +43,9 @@
       >
         <TabBar class="h-45px" />
       </n-layout-header>
-      <n-layout-content class="bg-transparent">
+      <n-layout-content class="bg-transparent h-full">
         <div
-          class="p-16px"
+          class="p-16px h-full"
           :class="{
             'p-b-56px': appStore.fixedFooter,
             'p-t-122px': appStore.fixedHeader && appStore.showTabs,
