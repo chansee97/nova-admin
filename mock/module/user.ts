@@ -235,6 +235,45 @@ const userRoutes = [
     ],
   },
   {
+    name: 'error',
+    path: '/error',
+    redirect: '/error/not-found',
+    meta: {
+      title: '异常页',
+      requiresAuth: true,
+      icon: 'icon-park-outline:error-computer',
+    },
+    children: [
+      {
+        name: 'not-found',
+        path: '/error/not-found',
+        meta: {
+          title: '404页',
+          requiresAuth: true,
+          icon: 'icon-park-outline:error',
+        },
+      },
+      {
+        name: 'not-permission',
+        path: '/error/not-permission',
+        meta: {
+          title: '403页',
+          requiresAuth: true,
+          icon: 'carbon:error',
+        },
+      },
+      {
+        name: 'service-error',
+        path: '/error/service-error',
+        meta: {
+          title: '500页',
+          requiresAuth: true,
+          icon: 'carbon:data-error',
+        },
+      },
+    ],
+  },
+  {
     name: 'about',
     path: '/about',
     meta: {

@@ -24,6 +24,7 @@
     "./src/**/*.{js,jsx,ts,tsx,less,json}": "prettier --loglevel warn --write"
   },
   "dependencies": {
+    "@vueuse/core": "^9.3.0",
     "@wangeditor/editor": "^5.1.21",
     "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^0.27.2",

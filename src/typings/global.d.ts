@@ -4,3 +4,6 @@ interface Window {
   $message?: import('naive-ui').MessageApiInjection;
   $notification?: import('naive-ui').NotificationApiInjection;
 }
+
+declare const AMap: any;
+declare const BMap: any;

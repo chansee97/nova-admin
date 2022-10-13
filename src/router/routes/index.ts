@@ -19,8 +19,8 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: '/no-permission',
-        name: 'no-permission',
+        path: '/not-permission',
+        name: 'not-permission',
         component: () => import('@/views/error/not-permission/index.vue'),
         meta: {
           title: '用户无权限',

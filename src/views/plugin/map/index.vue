@@ -1,7 +1,29 @@
 <template>
-  <div>地图示例</div>
+  <n-card title="地图示例">
+    <n-tabs type="line" animated>
+      <n-tab-pane v-for="item in maps" :key="item.id" :name="item.id" :tab="item.label" class="h-600px">
+        <component :is="item.component" />
+      </n-tab-pane>
+    </n-tabs>
+  </n-card>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import AMap from './components/AMap.vue';
+import BMap from './components/BMap.vue';
+
+const maps = [
+  {
+    id: 'AMap',
+    label: '高德地图',
+    component: AMap,
+  },
+  {
+    id: 'BMap',
+    label: '百度地图',
+    component: BMap,
+  },
+];
+</script>
 
 <style scoped></style>
