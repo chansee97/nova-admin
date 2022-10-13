@@ -232,6 +232,15 @@ const userRoutes = [
           icon: 'icon-park-outline:winking-face-with-open-eyes',
         },
       },
+      {
+        name: 'plugin_QRCode',
+        path: '/plugin/QRCode',
+        meta: {
+          title: '二维码',
+          requiresAuth: true,
+          icon: 'icon-park-outline:two-dimensional-code',
+        },
+      },
     ],
   },
   {
@@ -269,6 +278,54 @@ const userRoutes = [
           title: '500页',
           requiresAuth: true,
           icon: 'carbon:data-error',
+        },
+      },
+    ],
+  },
+  {
+    name: 'setting',
+    path: '/setting',
+    redirect: '/setting/account',
+    meta: {
+      title: '系统设置',
+      requiresAuth: true,
+      icon: 'icon-park-outline:setting',
+    },
+    children: [
+      {
+        name: 'not-found',
+        path: '/setting/account',
+        meta: {
+          title: '用户设置',
+          requiresAuth: true,
+          icon: 'icon-park-outline:user',
+        },
+      },
+      {
+        name: 'dictionary',
+        path: '/setting/dictionary',
+        meta: {
+          title: '字典设置',
+          requiresAuth: true,
+          icon: 'icon-park-outline:book-one',
+        },
+      },
+      {
+        name: 'menu',
+        path: '/setting/menu',
+        meta: {
+          title: '菜单设置',
+          requiresAuth: true,
+          icon: 'icon-park-outline:application-menu',
+        },
+      },
+      {
+        name: 'system',
+        path: '/setting/system',
+        meta: {
+          title: '系统配置',
+          requiresAuth: true,
+          icon: 'icon-park-outline:coordinate-system',
         },
       },
     ],
