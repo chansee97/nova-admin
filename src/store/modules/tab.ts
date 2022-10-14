@@ -76,6 +76,25 @@ export const useTabStore = defineStore('tab-store', {
         toRoot();
       }
     },
+
+    closeOtherTabs(name: string) {
+      const index = this.getTabIndex(name);
+      this.tabs = this.tabs.filter((item, i) => i === index);
+    },
+    closeLeftTabs(name: string) {
+      const index = this.getTabIndex(name);
+      this.tabs = this.tabs.filter((item, i) => i >= index);
+    },
+    closeRightTabs(name: string) {
+      const index = this.getTabIndex(name);
+      this.tabs = this.tabs.filter((item, i) => i <= index);
+    },
+    closeAllTabs() {
+      const { toRoot } = useAppRouter(false);
+      this.tabs.length = 0;
+      toRoot();
+    },
+
     hasExistTab(name: string) {
       return this.tabs.some((item) => {
         return item.name === name;

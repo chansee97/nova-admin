@@ -11,7 +11,7 @@
       <Logo v-if="appStore.showLogo" />
       <Menu />
     </n-layout-sider>
-    <n-layout class="h-full" :native-scrollbar="false" embedded>
+    <n-layout class="h-full" embedded :native-scrollbar="false">
       <n-layout-header
         :position="appStore.fixedHeader ? 'absolute' : 'static'"
         :inverted="appStore.invertedHeader"
@@ -43,9 +43,9 @@
       >
         <TabBar class="h-45px" />
       </n-layout-header>
-      <n-layout-content class="bg-transparent h-full">
+      <n-layout-content class="bg-transparent">
         <div
-          class="p-16px h-full"
+          class="p-16px"
           :class="{
             'p-b-56px': appStore.fixedFooter,
             'p-t-122px': appStore.fixedHeader && appStore.showTabs,

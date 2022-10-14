@@ -157,7 +157,7 @@ const userRoutes = [
         },
         children: [
           {
-            name: 'echarts',
+            name: 'plugin_echarts',
             path: '/plugin/charts/echarts',
             meta: {
               title: 'ECharts',
@@ -166,7 +166,7 @@ const userRoutes = [
             },
           },
           {
-            name: 'antV',
+            name: 'plugin_antV',
             path: '/plugin/charts/antV',
             meta: {
               title: 'antV',
@@ -195,7 +195,7 @@ const userRoutes = [
         },
         children: [
           {
-            name: 'md',
+            name: 'plugin_md',
             path: '/plugin/editor/md',
             meta: {
               title: 'MarkDown',
@@ -204,7 +204,7 @@ const userRoutes = [
             },
           },
           {
-            name: 'rich',
+            name: 'plugin_rich',
             path: '/plugin/editor/rich',
             meta: {
               title: '富文本',
@@ -250,7 +250,7 @@ const userRoutes = [
     meta: {
       title: '外链文档',
       requiresAuth: true,
-      icon: 'icon-park-outline:error-computer',
+      icon: 'icon-park-outline:file-doc',
     },
     children: [
       {
@@ -259,7 +259,7 @@ const userRoutes = [
         meta: {
           title: 'vue',
           requiresAuth: true,
-          icon: 'icon-park-outline:error',
+          icon: 'logos:vue',
         },
       },
       {
@@ -268,18 +268,9 @@ const userRoutes = [
         meta: {
           title: 'vite',
           requiresAuth: true,
-          icon: 'carbon:error',
+          icon: 'logos:vitejs',
         },
       },
-      // {
-      //   name: 'service-error',
-      //   path: '/docments/service-error',
-      //   meta: {
-      //     title: '500页',
-      //     requiresAuth: true,
-      //     icon: 'carbon:data-error',
-      //   },
-      // },
     ],
   },
   {
@@ -332,7 +323,7 @@ const userRoutes = [
     },
     children: [
       {
-        name: 'not-found',
+        name: 'setting_account',
         path: '/setting/account',
         meta: {
           title: '用户设置',
@@ -341,7 +332,7 @@ const userRoutes = [
         },
       },
       {
-        name: 'dictionary',
+        name: 'setting_dictionary',
         path: '/setting/dictionary',
         meta: {
           title: '字典设置',
@@ -350,7 +341,7 @@ const userRoutes = [
         },
       },
       {
-        name: 'menu',
+        name: 'setting_menu',
         path: '/setting/menu',
         meta: {
           title: '菜单设置',
@@ -359,7 +350,7 @@ const userRoutes = [
         },
       },
       {
-        name: 'system',
+        name: 'setting_system',
         path: '/setting/system',
         meta: {
           title: '系统配置',
