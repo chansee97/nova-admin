@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/store';
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 const { toRoot } = useAppRouter();
 const appStore = useAppStore();
 </script>

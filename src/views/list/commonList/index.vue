@@ -59,7 +59,7 @@ import { onMounted, ref, h } from 'vue';
 import { fetchUserList } from '@/service';
 import type { DataTableColumns } from 'naive-ui';
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag, FormInst } from 'naive-ui';
-import { useLoading, useBoolean } from '@/hook';
+import { useLoading, useBoolean } from '@/hooks';
 import TableModal from './components/TableModal.vue';
 
 const { loading, startLoading, endLoading } = useLoading(false);

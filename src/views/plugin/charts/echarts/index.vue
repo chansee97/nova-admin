@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import type { Ref } from 'vue';
-import { type ECOption, useEcharts } from '@/hook';
+import { type ECOption, useEcharts } from '@/hooks';
 
 const pieOptions = ref<ECOption>({
   title: {

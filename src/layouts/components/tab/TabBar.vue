@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { useTabStore, useAppStore } from '@/store';
-import { useAppRouter } from '~/src/hook';
+import { useAppRouter } from '@/hooks';
 import { RouteLocationNormalized } from 'vue-router';
 import { ref, nextTick } from 'vue';
 import { renderIcon } from '@/utils';

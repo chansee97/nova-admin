@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { RouteLocationNormalized } from 'vue-router';
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 
 interface TabState {
   inherentTab: {

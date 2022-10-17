@@ -40,7 +40,6 @@ export async function createPermissionGuard(
   // if (to.name === 'not-found-page') {
   //   next({ name: 'not-found-page', replace: true });
   // }
-
   // 设置菜单高亮
   if (to.meta.activeMenu) {
     routeStore.setActiveMenu(to.meta.activeMenu);

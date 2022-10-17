@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from '@/store';
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 import { useRouteStore } from '~/src/store/modules/route';
 import type { MenuOption } from 'naive-ui';
 

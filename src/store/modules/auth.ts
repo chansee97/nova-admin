@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { fetchLogin, fetchUserInfo } from '@/service';
 import { setUserInfo, getUserInfo, getToken, setToken, clearAuthStorage } from '@/utils/auth';
 import { router } from '@/router';
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 import { unref } from 'vue';
 import { useRouteStore } from './route';
 

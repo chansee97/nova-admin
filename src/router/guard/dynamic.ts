@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts/index';
+import { useRouteStore } from '@/store';
 
 // 引入所有页面
 const modules = import.meta.glob('../../views/**/*.vue');
@@ -20,9 +21,20 @@ function FlatAuthRoutes(routes: AppRoute.Route[]) {
   });
   return result;
 }
+
+function createCatheRoutes(routes: AppRoute.Route[]) {
+  return routes
+    .filter((item) => {
+      return item.meta.keepAlive;
+    })
+    .map((item) => item.name);
+}
 export async function createDynamicRoutes(routes: AppRoute.Route[]) {
   // 数组降维成一维数组,然后删除所有的childen
   const flatRoutes = FlatAuthRoutes(routes);
+  // 对降维后的数组过滤需要缓存的路由name数组
+  const routeStore = useRouteStore();
+  routeStore.cacheRoutes = createCatheRoutes(flatRoutes);
   // 生成路由，有redirect的不需要引入文件
   const mapRoutes = flatRoutes.map((item) => {
     if (!item.redirect) {

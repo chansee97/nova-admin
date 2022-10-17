@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 const { routerPush } = useAppRouter();
 </script>
 

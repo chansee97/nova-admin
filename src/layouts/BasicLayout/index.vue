@@ -52,9 +52,11 @@
             'p-t-77px': appStore.fixedHeader && !appStore.showTabs,
           }"
         >
-          <router-view v-slot="{ Component }">
-            <transition name="fade-slide" appear mode="out-in">
-              <component :is="Component" v-if="appStore.loadFlag" />
+          <router-view v-slot="{ Component, route }">
+            <transition name="fade-slide" mode="out-in">
+              <keep-alive :include="routeStore.cacheRoutes">
+                <component :is="Component" v-if="appStore.loadFlag" :key="route.fullPath" />
+              </keep-alive>
             </transition>
           </router-view>
         </div>
@@ -68,7 +70,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useAppStore } from '@/store';
 import {
   Breadcrumb,
   CollapaseButton,
@@ -85,7 +86,9 @@ import {
   TabBar,
   BackTop,
 } from '../components';
+import { useAppStore, useRouteStore } from '@/store';
 
+const routeStore = useRouteStore();
 const appStore = useAppStore();
 </script>
 

@@ -12,6 +12,7 @@ interface RoutesStatus {
   userRoutes: AppRoute.Route[];
   activeMenu: string | null;
   authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE'];
+  cacheRoutes: string[];
 }
 export const useRouteStore = defineStore('route-store', {
   state: (): RoutesStatus => {
@@ -21,6 +22,7 @@ export const useRouteStore = defineStore('route-store', {
       menus: [],
       activeMenu: null,
       authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
+      cacheRoutes: [],
     };
   },
   actions: {
@@ -81,7 +83,7 @@ export const useRouteStore = defineStore('route-store', {
       const { data } = await fetchUserRoutes(userId);
       // 根据用户返回的路由表来生成真实路由
       const appRoutes = await createDynamicRoutes(data);
-      // 更具返回的生成侧边菜单
+      // 生成侧边菜单
       await this.createMenus(data);
       // 插入路由表
       router.addRoute(appRoutes);
@@ -90,7 +92,7 @@ export const useRouteStore = defineStore('route-store', {
     async initStaticRoute() {
       // 根据静态路由表来生成真实路由
       const appRoutes = await createDynamicRoutes(staticRoutes);
-      // 更具返回的生成侧边菜单
+      // 生成侧边菜单
       await this.createMenus(staticRoutes);
       // 插入路由表
       router.addRoute(appRoutes);

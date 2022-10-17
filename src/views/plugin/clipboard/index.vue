@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useClipBoard } from '@/hook';
+import { useClipBoard } from '@/hooks';
 
 const { copy } = useClipBoard();
 const text = ref('Hello Clipboard');

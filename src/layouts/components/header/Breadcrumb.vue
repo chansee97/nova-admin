@@ -11,7 +11,7 @@
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useRouteStore } from '@/store';
-import { useAppRouter } from '@/hook';
+import { useAppRouter } from '@/hooks';
 
 const router = useRouter();
 const routeStore = useRouteStore();

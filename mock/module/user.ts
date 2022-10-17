@@ -183,6 +183,7 @@ const userRoutes = [
           title: '地图',
           requiresAuth: true,
           icon: 'carbon:map',
+          keepAlive: true,
         },
       },
       {
@@ -269,6 +270,16 @@ const userRoutes = [
           title: 'vite',
           requiresAuth: true,
           icon: 'logos:vitejs',
+        },
+      },
+      {
+        name: 'docments_vueuse',
+        path: '/docments/vueuse',
+        meta: {
+          title: 'VueUse（外链）',
+          requiresAuth: true,
+          icon: 'logos:vueuse',
+          herf: 'https://vueuse.org/guide/',
         },
       },
     ],

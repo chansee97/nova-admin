@@ -7,14 +7,6 @@ declare namespace AppRoute {
     path: string;
     /** 路由重定向 */
     redirect?: string;
-    /**
-     * 路由组件
-     * - basic: 基础布局，具有公共部分的布局
-     * - blank: 空白布局
-     * - multi: 多级路由布局(三级路由或三级以上时，除第一级路由和最后一级路由，其余的采用该布局)
-     * - self: 作为子路由，使用自身的布局(作为最后一级路由，没有子路由)
-     */
-    component?: any;
     /** 子路由 */
     children?: Route[];
     /** 路由描述 */
