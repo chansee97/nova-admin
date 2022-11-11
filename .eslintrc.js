@@ -17,14 +17,12 @@ module.exports = {
     sourceType: 'module',
   },
   // 想要Linting规则的插件 https://eslint.org/docs/latest/user-guide/configuring/plugins
-  plugins: ['vue', '@typescript-eslint', 'prettier'],
+  plugins: ['vue', '@typescript-eslint'],
   // 指定扩展的配置，配置支持递归扩展，支持规则的覆盖和聚合。
   extends: [
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended',
     '@vue/eslint-config-typescript/recommended',
-    '@vue/eslint-config-prettier',
     '@vue/typescript/recommended',
   ],
   overrides: [
