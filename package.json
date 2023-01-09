@@ -17,7 +17,7 @@
 		"dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
 		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
-		"lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.json --fix",
+		"lint": "eslint . --fix",
 		"prepare": "husky install",
 		"commit": "cz",
 		"changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
