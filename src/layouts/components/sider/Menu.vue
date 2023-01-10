@@ -2,7 +2,6 @@
   <n-menu
     :collapsed="appStore.collapsed"
     :collapsed-width="64"
-    :collapsed-icon-size="24"
     :indent="20"
     accordion
     :options="routesStore.menus"
@@ -22,7 +21,7 @@ const appStore = useAppStore();
 const routesStore = useRouteStore();
 
 const handleClickMenu = (key: string, item: MenuOption) => {
-  routerPush(key);
+	routerPush(key);
 };
 </script>
 

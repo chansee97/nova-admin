@@ -1,12 +1,27 @@
 <template>
-  <n-space
-    align="center"
-    class="hover:bg-hex-F3F4F6 hover:shadow-inner h-full px-3 cursor-pointer transition duration-300 dark:bg-hex-f90"
+  <n-el
+    tag="div"
+    class="el h-full px-3 cursor-pointer"
   >
-    <slot />
-  </n-space>
+    <n-space
+      align="center"
+      class="h-full"
+    >
+      <slot />
+    </n-space>
+  </n-el>
 </template>
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+.el {
+	color: var(--n-text-color);
+	background-color: var(--n-color);
+	transition: 0.3s var(--cubic-bezier-ease-in-out);
+}
+.el:hover {
+	background-color: var(--button-color-2-hover);
+	color: var(--n-text-color-hover);
+}
+</style>
