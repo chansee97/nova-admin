@@ -1,8 +1,7 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from '@/utils';
-// import { handleHttpError, handleResponseError, handleBusinessError } from './help';
-import { handleHttpError } from './help';
+import { handleAxiosError, handleResponseError, handleBusinessError } from './handle';
 
 /**
  * @description: 封装axios请求类
@@ -34,34 +33,44 @@ export default class createAxiosInstance {
 	// 设置类拦截器的函数
 	setInterceptor() {
 		this.instance.interceptors.request.use(
-			(config: AxiosRequestConfig) => {
-				// 一般会请求拦截里面加token
-				config.headers!.Authorization = getToken();
-				return config;
+			async (config) => {
+				const handleConfig = { ...config };
+				if (handleConfig.headers) {
+					// 设置token
+					typeof handleConfig.headers.set === 'function' &&
+						handleConfig.headers.set('Authorization', `Bearer ${getToken() || ''}`);
+				}
+				return handleConfig;
 			},
-			(err: any) => Promise.reject(err)
+			(axiosError: AxiosError) => {
+				const error = handleAxiosError(axiosError);
+				Promise.reject(error);
+			}
 		);
 		this.instance.interceptors.response.use(
-			// 因为接口的数据都在res.data下，所以直接返回res.data
-			// 系统如果有自定义code也可以在这里处理
-			(res: AxiosResponse) => {
-				// apiData 是 API 返回的数据
-				const apiData = res.data;
-				// 这个 Code 是和后端约定的业务 Code
-				const code = String(res.data[this.backendConfig.codeKey]);
-				switch (code) {
-					case this.backendConfig.successCode:
-						// code === 200 代表没有错误,直接返回约定的数据内容
+			async (response) => {
+				const { status } = response;
+				if (status === 200) {
+					// 获取返回的数据
+					const apiData = response.data;
+					const { codeKey, successCode } = this.backendConfig;
+					// 请求成功
+					if (apiData[codeKey] == successCode) {
+						// return apiData[dataKey];
 						return apiData;
-					default:
-						// 不是正确的 Code,返回错误提示信息
-						return Promise.reject(new Error(`Error:${this.backendConfig.dataKey}`));
+					}
+					//TODO 添加刷新token的操作
+					// 业务请求失败
+					const error = handleBusinessError(apiData, this.backendConfig);
+					return Promise.reject(error);
 				}
+				// 接口请求失败
+				const error = handleResponseError(response);
+				return Promise.reject(error);
 			},
-			(err: AxiosError) => {
-				// 这里用来处理http常见错误，进行全局提示等
-				const error = handleHttpError(err);
-				// 这里是AxiosError类型，所以一般我们只reject我们需要的响应即可
+			(axiosError: AxiosError) => {
+				// 处理http常见错误，进行全局提示等
+				const error = handleAxiosError(axiosError);
 				return Promise.reject(error);
 			}
 		);

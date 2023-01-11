@@ -10,13 +10,13 @@ import {
 } from '@/config';
 type ErrorStatus = keyof typeof ERROR_STATUS;
 /**
- * @description: 处理axios返回的http错误
+ * @description: 处理axios或http错误
  * @param {AxiosError} err
  * @return {*}
  */
-export function handleHttpError(err: AxiosError) {
+export function handleAxiosError(err: AxiosError) {
 	const error = {
-		type: 'axios',
+		type: 'Axios',
 		code: DEFAULT_REQUEST_ERROR_CODE,
 		msg: DEFAULT_REQUEST_ERROR_MSG,
 	};
@@ -43,9 +43,42 @@ export function handleHttpError(err: AxiosError) {
 
 /**
  * @description: 处理axios请求成功，但返回后端服务器报错
- * @param {AxiosResponse} err
+ * @param {AxiosResponse} response
  * @return {*}
  */
-// export function handleResponseError(err: AxiosResponse) {}
+export function handleResponseError(response: AxiosResponse) {
+	const error = {
+		type: 'Axios',
+		code: DEFAULT_REQUEST_ERROR_CODE,
+		msg: DEFAULT_REQUEST_ERROR_MSG,
+	};
 
-// export function handleBusinessError() {}
+	if (!window.navigator.onLine) {
+		// 网路错误
+		Object.assign(error, { code: NETWORK_ERROR_CODE, msg: NETWORK_ERROR_MSG });
+	} else {
+		// 请求成功的状态码非200的错误
+		const errorCode: ErrorStatus = response.status as ErrorStatus;
+		const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
+		Object.assign(error, { type: 'Response', code: errorCode, msg });
+	}
+
+	return error;
+}
+
+/**
+ * @description:
+ * @param {Record} apiData 接口返回的后台数据
+ * @param {Service} config axios字段配置
+ * @return {*}
+ */
+export function handleBusinessError(apiData: Record<string, any>, config: Service.BackendResultConfig) {
+	const { codeKey, msgKey } = config;
+	const error = {
+		type: 'Business',
+		code: apiData[codeKey],
+		msg: apiData[msgKey],
+	};
+
+	return error;
+}
