@@ -11,6 +11,7 @@ async function setupApp() {
 	// 载入全局loading加载状态
 	const appLoading = createApp(AppLoading);
 	appLoading.mount('#appLoading');
+
 	// 创建vue实例
 	const app = createApp(App);
 	// 安装pinia全局状态库
@@ -19,5 +20,7 @@ async function setupApp() {
 	await setupRouter(app);
 	// 挂载
 	await app.mount('#app');
+	// 卸载载入动画
+	appLoading.unmount();
 }
 setupApp();
