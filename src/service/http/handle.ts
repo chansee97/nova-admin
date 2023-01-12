@@ -1,5 +1,6 @@
-import type { AxiosResponse, AxiosError } from 'axios';
+import type { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import {
+	ERROR_MSG_DURATION,
 	DEFAULT_REQUEST_ERROR_CODE,
 	DEFAULT_REQUEST_ERROR_MSG,
 	NETWORK_ERROR_CODE,
@@ -7,15 +8,22 @@ import {
 	REQUEST_TIMEOUT_CODE,
 	REQUEST_TIMEOUT_MSG,
 	ERROR_STATUS,
+	ERROR_NO_TIP_STATUS,
 } from '@/config';
+import { useAuthStore } from '@/store';
+import { getRefreshToken } from '@/utils';
+import { fetchUpdateToken } from '@/service';
+import { setToken, setRefreshToken } from '@/utils';
+
 type ErrorStatus = keyof typeof ERROR_STATUS;
+
 /**
  * @description: 处理axios或http错误
  * @param {AxiosError} err
  * @return {*}
  */
 export function handleAxiosError(err: AxiosError) {
-	const error = {
+	const error: Service.RequestError = {
 		type: 'Axios',
 		code: DEFAULT_REQUEST_ERROR_CODE,
 		msg: DEFAULT_REQUEST_ERROR_MSG,
@@ -38,6 +46,8 @@ export function handleAxiosError(err: AxiosError) {
 		Object.assign(error, { code: errorCode, msg });
 	}
 
+	showError(error);
+
 	return error;
 }
 
@@ -47,7 +57,7 @@ export function handleAxiosError(err: AxiosError) {
  * @return {*}
  */
 export function handleResponseError(response: AxiosResponse) {
-	const error = {
+	const error: Service.RequestError = {
 		type: 'Axios',
 		code: DEFAULT_REQUEST_ERROR_CODE,
 		msg: DEFAULT_REQUEST_ERROR_MSG,
@@ -63,6 +73,8 @@ export function handleResponseError(response: AxiosResponse) {
 		Object.assign(error, { type: 'Response', code: errorCode, msg });
 	}
 
+	showError(error);
+
 	return error;
 }
 
@@ -72,13 +84,69 @@ export function handleResponseError(response: AxiosResponse) {
  * @param {Service} config axios字段配置
  * @return {*}
  */
-export function handleBusinessError(apiData: Record<string, any>, config: Service.BackendResultConfig) {
+export function handleBusinessError(data: Record<string, any>, config: Service.BackendResultConfig) {
 	const { codeKey, msgKey } = config;
-	const error = {
+	const error: Service.RequestError = {
 		type: 'Business',
-		code: apiData[codeKey],
-		msg: apiData[msgKey],
+		code: data[codeKey],
+		msg: data[msgKey],
 	};
 
+	showError(error);
+
 	return error;
+}
+
+/**
+ * @description: 统一成功和失败返回类型
+ * @param {any} data
+ * @param {Service} error
+ * @return {*} result
+ */
+export async function handleServiceResult<T = any>(data: any, error: Service.RequestError | null) {
+	if (error) {
+		const fail: Service.FailedResult = {
+			error,
+			data: null,
+		};
+		return fail;
+	}
+	const success: Service.SuccessResult<T> = {
+		error: null,
+		data,
+	};
+	return success;
+}
+
+/**
+ * @description: 处理接口token刷新
+ * @param {AxiosRequestConfig} config axios字段配置
+ * @return {*}
+ */
+export async function handleRefreshToken(config: AxiosRequestConfig) {
+	const { resetAuthStore } = useAuthStore();
+	const refreshToken = getRefreshToken();
+	const { data } = await fetchUpdateToken(refreshToken);
+	if (data) {
+		setRefreshToken(data.token);
+		setToken(data.refreshToken);
+
+		// 设置token
+		if (config.headers) {
+			typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.token || ''}`);
+		}
+
+		return config;
+	}
+	resetAuthStore();
+	return null;
+}
+
+export function showError(error: Service.RequestError) {
+	// 如果error不需要提示,则跳过
+	const code = Number(error.code);
+	if (ERROR_NO_TIP_STATUS.includes(code)) return;
+
+	window.console.warn(error.code, error.msg);
+	window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
 }

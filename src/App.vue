@@ -12,13 +12,7 @@
 
 <script setup lang="ts">
 import { useAppStore } from './store';
-import {
-	zhCN,
-	dateZhCN,
-	GlobalThemeOverrides,
-	useOsTheme,
-	darkTheme,
-} from 'naive-ui';
+import { zhCN, dateZhCN, GlobalThemeOverrides, useOsTheme } from 'naive-ui';
 import themeConfig from './theme.json';
 
 const locale = zhCN;

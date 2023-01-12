@@ -1,35 +1,49 @@
-import { setLocal, getLocal, removeLocal } from './storage';
+import { loacl } from './storage';
 import { EnumStorageKey } from '@/enum';
+
 const DURATION = 6 * 60 * 60;
 
 /* 获取当前token */
 export function getToken() {
-  return getLocal(EnumStorageKey.token);
+	return loacl.get(EnumStorageKey.token);
 }
 /* 设置token */
 export function setToken(data: string) {
-  setLocal(EnumStorageKey.token, data, DURATION);
+	loacl.set(EnumStorageKey.token, data, DURATION);
 }
 /* 移除token */
 export function removeToken() {
-  removeLocal(EnumStorageKey.token);
+	loacl.remove(EnumStorageKey.token);
+}
+/* 获取当前refreshToken */
+export function getRefreshToken() {
+	return loacl.get(EnumStorageKey.refreshToken);
+}
+/* 设置refreshToken */
+export function setRefreshToken(data: string) {
+	loacl.set(EnumStorageKey.refreshToken, data, DURATION);
+}
+/* 移除refreshToken */
+export function removeRefreshToken() {
+	loacl.remove(EnumStorageKey.refreshToken);
 }
 
 /* 获取用户详情 */
 export function getUserInfo() {
-  return getLocal(EnumStorageKey.userInfo);
+	return loacl.get(EnumStorageKey.userInfo);
 }
 /* 设置用户详情 */
 export function setUserInfo(data: any) {
-  setLocal(EnumStorageKey.userInfo, data);
+	loacl.set(EnumStorageKey.userInfo, data);
 }
 /* 移除用户详情 */
 export function removeUserInfo() {
-  removeLocal(EnumStorageKey.userInfo);
+	loacl.remove(EnumStorageKey.userInfo);
 }
 
 /** 去除用户相关缓存 */
 export function clearAuthStorage() {
-  removeToken();
-  removeUserInfo();
+	removeToken();
+	removeRefreshToken();
+	removeUserInfo();
 }

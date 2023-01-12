@@ -1,3 +1,20 @@
+/** 默认实例的Aixos配置 */
+export const DEFAULT_AXIOS_OPTIONS = {
+	// 请求超时时间,默认15秒
+	timeout: 15 * 1000,
+};
+
+/** 默认实例的后端字段配置 */
+export const DEFAULT_BACKEND_OPTIONS = {
+	codeKey: 'code',
+	dataKey: 'data',
+	msgKey: 'msg',
+	successCode: 200,
+};
+
+/** 错误信息的显示时间 */
+export const ERROR_MSG_DURATION = 3 * 1000;
+
 /** 默认的请求错误code */
 export const DEFAULT_REQUEST_ERROR_CODE = 'DEFAULT';
 
@@ -32,3 +49,9 @@ export const ERROR_STATUS = {
 	505: '505: http版本不支持该请求~',
 	[DEFAULT_REQUEST_ERROR_CODE]: DEFAULT_REQUEST_ERROR_MSG,
 };
+
+/** token刷新的code */
+export const REFRESH_TOKEN_CODE = [888, 999];
+
+/** 没有错误提示的code */
+export const ERROR_NO_TIP_STATUS = [10000];

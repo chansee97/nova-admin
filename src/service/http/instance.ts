@@ -1,7 +1,16 @@
 import axios from 'axios';
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import type { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
 import { getToken } from '@/utils';
-import { handleAxiosError, handleResponseError, handleBusinessError } from './handle';
+import { REFRESH_TOKEN_CODE } from '@/config';
+import {
+	handleAxiosError,
+	handleResponseError,
+	handleBusinessError,
+	handleServiceResult,
+	handleRefreshToken,
+} from './handle';
+
+import { DEFAULT_AXIOS_OPTIONS, DEFAULT_BACKEND_OPTIONS } from '@/config';
 
 /**
  * @description: 封装axios请求类
@@ -14,26 +23,16 @@ export default class createAxiosInstance {
 	// 基础配置
 	axiosConfig: AxiosRequestConfig = {};
 
-	constructor(
-		axiosConfig: AxiosRequestConfig,
-		backendConfig: Service.BackendResultConfig = {
-			codeKey: 'code',
-			dataKey: 'data',
-			msgKey: 'msg',
-			successCode: '200',
-		}
-	) {
-		this.backendConfig = backendConfig;
+	constructor(axiosConfig: AxiosRequestConfig, backendConfig: Service.BackendResultConfig) {
 		// 设置了axios实例上的一些默认配置,新配置会覆盖默认配置
-		this.instance = axios.create({ timeout: 60000, ...axiosConfig });
-
+		this.instance = axios.create({ ...DEFAULT_AXIOS_OPTIONS, ...axiosConfig });
+		this.backendConfig = { ...DEFAULT_BACKEND_OPTIONS, ...backendConfig };
 		this.setInterceptor();
 	}
-
 	// 设置类拦截器的函数
 	setInterceptor() {
 		this.instance.interceptors.request.use(
-			async (config) => {
+			(config) => {
 				const handleConfig = { ...config };
 				if (handleConfig.headers) {
 					// 设置token
@@ -42,36 +41,41 @@ export default class createAxiosInstance {
 				}
 				return handleConfig;
 			},
-			(axiosError: AxiosError) => {
-				const error = handleAxiosError(axiosError);
-				Promise.reject(error);
+			(error: AxiosError) => {
+				const errorResult = handleAxiosError(error);
+				return handleServiceResult(null, errorResult);
 			}
 		);
 		this.instance.interceptors.response.use(
-			async (response) => {
+			async (response): Promise<any> => {
 				const { status } = response;
 				if (status === 200) {
 					// 获取返回的数据
 					const apiData = response.data;
-					const { codeKey, successCode } = this.backendConfig;
+					const { codeKey, successCode, dataKey } = this.backendConfig;
 					// 请求成功
 					if (apiData[codeKey] == successCode) {
-						// return apiData[dataKey];
-						return apiData;
+						return handleServiceResult(apiData[dataKey], null);
 					}
-					//TODO 添加刷新token的操作
+					// token失效, 刷新token
+					if (REFRESH_TOKEN_CODE.includes(apiData[codeKey])) {
+						const config = await handleRefreshToken(response.config);
+						if (config) {
+							return this.instance.request(config);
+						}
+					}
 					// 业务请求失败
-					const error = handleBusinessError(apiData, this.backendConfig);
-					return Promise.reject(error);
+					const errorResult = handleBusinessError(apiData, this.backendConfig);
+					return handleServiceResult(null, errorResult);
 				}
 				// 接口请求失败
-				const error = handleResponseError(response);
-				return Promise.reject(error);
+				const errorResult = handleResponseError(response);
+				return handleServiceResult(null, errorResult);
 			},
-			(axiosError: AxiosError) => {
+			(error: AxiosError) => {
 				// 处理http常见错误，进行全局提示等
-				const error = handleAxiosError(axiosError);
-				return Promise.reject(error);
+				const errorResult = handleAxiosError(error);
+				return handleServiceResult(null, errorResult);
 			}
 		);
 	}

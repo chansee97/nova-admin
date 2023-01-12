@@ -26,9 +26,9 @@
         <div />
       </div>
     </div>
-    <h2 class="text-28px font-500 text-#646464">
+    <n-h1 class="z-1">
       {{ title }}
-    </h2>
+    </n-h1>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ const { title } = useAppInfo();
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
-	gap: 10vh;
+	gap: 15vh;
 	position: fixed;
 	background-color: aliceblue;
 	z-index: 1;
@@ -112,8 +112,7 @@ const { title } = useAppInfo();
 	right: var(--right);
 	bottom: var(--bottom);
 	left: var(--left);
-	transform: rotateY(var(--rotateY)) rotateX(var(--rotateX))
-		translateZ(var(--translateZ));
+	transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
 }
 
 .boxes .box > div:nth-child(1) {
