@@ -9,6 +9,7 @@ import {
 	handleServiceResult,
 	handleRefreshToken,
 } from './handle';
+import { transformRequestData } from './utils';
 
 import { DEFAULT_AXIOS_OPTIONS, DEFAULT_BACKEND_OPTIONS } from '@/config';
 
@@ -32,9 +33,15 @@ export default class createAxiosInstance {
 	// 设置类拦截器的函数
 	setInterceptor() {
 		this.instance.interceptors.request.use(
-			(config) => {
+			async (config) => {
 				const handleConfig = { ...config };
 				if (handleConfig.headers) {
+					// 数据格式转换
+					// handleConfig.headers.setContentType('application/json');
+					// const contentType = handleConfig.headers.get('Content-Type');
+					const contentType = 'application/json';
+					handleConfig.data = await transformRequestData(handleConfig.data, contentType);
+
 					// 设置token
 					typeof handleConfig.headers.set === 'function' &&
 						handleConfig.headers.set('Authorization', `Bearer ${getToken() || ''}`);

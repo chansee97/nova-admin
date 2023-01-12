@@ -9,3 +9,9 @@ export enum EnumStorageKey {
 	/* 标签栏信息 */
 	tabsRoutes = '__TABS_ROUTES__',
 }
+
+export enum EnumContentType {
+	json = 'application/json',
+	formUrlencoded = 'application/x-www-form-urlencoded',
+	formData = 'multipart/form-data',
+}

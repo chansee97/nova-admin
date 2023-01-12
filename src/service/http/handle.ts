@@ -1,6 +1,5 @@
 import type { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
 import {
-	ERROR_MSG_DURATION,
 	DEFAULT_REQUEST_ERROR_CODE,
 	DEFAULT_REQUEST_ERROR_MSG,
 	NETWORK_ERROR_CODE,
@@ -8,12 +7,11 @@ import {
 	REQUEST_TIMEOUT_CODE,
 	REQUEST_TIMEOUT_MSG,
 	ERROR_STATUS,
-	ERROR_NO_TIP_STATUS,
 } from '@/config';
 import { useAuthStore } from '@/store';
-import { getRefreshToken } from '@/utils';
 import { fetchUpdateToken } from '@/service';
-import { setToken, setRefreshToken } from '@/utils';
+import { setToken, setRefreshToken, getRefreshToken } from '@/utils';
+import { showError } from './utils';
 
 type ErrorStatus = keyof typeof ERROR_STATUS;
 
@@ -140,13 +138,4 @@ export async function handleRefreshToken(config: AxiosRequestConfig) {
 	}
 	resetAuthStore();
 	return null;
-}
-
-export function showError(error: Service.RequestError) {
-	// 如果error不需要提示,则跳过
-	const code = Number(error.code);
-	if (ERROR_NO_TIP_STATUS.includes(code)) return;
-
-	window.console.warn(error.code, error.msg);
-	window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION });
 }

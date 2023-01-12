@@ -31,6 +31,7 @@
 		"./src/**/*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
 	},
 	"dependencies": {
+		"@types/qs": "^6.9.7",
 		"@vueuse/core": "^9.10.0",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",
@@ -39,6 +40,7 @@
 		"md-editor-v3": "^2.7.2",
 		"pinia": "^2.0.28",
 		"pinia-plugin-persist": "^1.0.0",
+		"qs": "^6.11.0",
 		"vue": "^3.2.45",
 		"vue-qr": "^4.0.9",
 		"vue-router": "^4.1.6"
