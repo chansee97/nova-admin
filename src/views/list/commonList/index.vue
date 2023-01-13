@@ -255,7 +255,7 @@ onMounted(() => {
 });
 async function getUserList() {
 	startLoading();
-	await fetchUserList().then((res) => {
+	await fetchUserList().then((res: any) => {
 		listData.value = res.data;
 		endLoading();
 	});

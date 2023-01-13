@@ -14,7 +14,7 @@ export function fetachPost(params: Itest) {
 }
 /* delete方法测试 */
 export function fetachDelete() {
-	return request.Delete('/deleteAPI');
+	return request.delete('/deleteAPI');
 }
 /* put方法测试 */
 export function fetachPut(params: Itest) {

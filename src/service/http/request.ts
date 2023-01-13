@@ -1,5 +1,31 @@
-import type { AxiosRequestConfig } from 'axios';
+import type { AxiosRequestConfig, AxiosInstance } from 'axios';
 import createAxiosInstance from './instance';
+
+type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
+interface RequestParam {
+	url: string;
+	method?: RequestMethod;
+	data?: any;
+	config?: AxiosRequestConfig;
+}
+
+async function getRequestResponse(params: {
+	instance: AxiosInstance;
+	method: RequestMethod;
+	url: string;
+	data?: any;
+	config?: AxiosRequestConfig;
+}) {
+	const { instance, method, url, data, config } = params;
+
+	let res: any;
+	if (method === 'get' || method === 'delete') {
+		res = await instance[method](url, config);
+	} else {
+		res = await instance[method](url, data, config);
+	}
+	return res;
+}
 
 /**
  * @description:
@@ -7,88 +33,80 @@ import createAxiosInstance from './instance';
  * @param {Service} backendConfig - 后台字段配置
  * @return {*}
  */
-export function createRequest(
-	axiosConfig: AxiosRequestConfig,
-	backendConfig?: Service.BackendResultConfig
-) {
+export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: Service.BackendResultConfig) {
 	const axiosInstance = new createAxiosInstance(axiosConfig, backendConfig);
-	const { instance } = axiosInstance;
-
 	/**
-	 * @description: 通用请求方法
-	 * @param {string} url- 请求地址
-	 * @param {RequestMethod} method - 请求方法
-	 * @param {any} data - 请求数据体
-	 * @param {AxiosRequestConfig} config - 请求配置
-	 * @return {*}
+	 * 异步promise请求
+	 * @param param - 请求参数
+	 * - url: 请求地址
+	 * - method: 请求方法(默认get)
+	 * - data: 请求的body的data
+	 * - config: axios配置
 	 */
-	type RequestMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
-	const request = async (
-		url: string,
-		method: RequestMethod = 'get',
-		data: any,
-		config?: AxiosRequestConfig
-	) => {
-		return instance(url, { method, data, ...config });
-	};
-
+	async function asyncRequest<T>(param: RequestParam): Promise<Service.RequestResult<T>> {
+		const { url, method = 'get', data, config } = param;
+		const { instance } = axiosInstance;
+		const res = (await getRequestResponse({
+			instance,
+			method,
+			url,
+			data,
+			config,
+		})) as Service.RequestResult<T>;
+		return res;
+	}
 	/**
-	 * @description: get请求
-	 * @param {string} url - 请求地址
-	 * @return {*}
+	 * get请求
+	 * @param url - 请求地址
+	 * @param config - axios配置
 	 */
-	const get = async (url: string, config?: AxiosRequestConfig) => {
-		return instance.get(url, config);
-	};
+	function get<T>(url: string, config?: AxiosRequestConfig) {
+		return asyncRequest<T>({ url, config: config });
+	}
 
 	/**
-	 * @description: post请求
+	 * post请求
 	 * @param url - 请求地址
 	 * @param data - 请求的body的data
 	 * @param config - axios配置
 	 */
-	const post = async (url: string, data?: any, config?: AxiosRequestConfig) => {
-		return instance.post(url, data, config);
-	};
+	function post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+		return asyncRequest<T>({ url, method: 'post', data, config: config });
+	}
 
 	/**
-	 * @description: delete请求
+	 * delete请求
 	 * @param url - 请求地址
 	 * @param config - axios配置
 	 */
-	const Delete = async (url: string, config?: AxiosRequestConfig) => {
-		return instance.delete(url, config);
-	};
+	function handleDelete<T>(url: string, config?: AxiosRequestConfig) {
+		return asyncRequest<T>({ url, method: 'delete', config: config });
+	}
 
 	/**
-	 * @description: put请求
-	 * @param url - 请求地址
-	 * @param data - 请求的body的data
-	 * @param config - axios配置
-	 */
-	const put = async (url: string, data?: any, config?: AxiosRequestConfig) => {
-		return instance.put(url, data, config);
-	};
-
-	/**
-	 * @description: patch请求
+	 * put请求
 	 * @param url - 请求地址
 	 * @param data - 请求的body的data
 	 * @param config - axios配置
 	 */
-	const patch = async (
-		url: string,
-		data?: any,
-		config?: AxiosRequestConfig
-	) => {
-		return instance.patch(url, data, config);
-	};
+	function put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+		return asyncRequest<T>({ url, method: 'put', data, config: config });
+	}
+
+	/**
+	 * patch请求
+	 * @param url - 请求地址
+	 * @param data - 请求的body的data
+	 * @param config - axios配置
+	 */
+	function patch<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+		return asyncRequest<T>({ url, method: 'patch', data, config: config });
+	}
 
 	return {
-		request,
 		get,
 		post,
-		Delete,
+		delete: handleDelete,
 		put,
 		patch,
 	};

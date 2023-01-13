@@ -24,10 +24,10 @@ export default class createAxiosInstance {
 	// 基础配置
 	axiosConfig: AxiosRequestConfig = {};
 
-	constructor(axiosConfig: AxiosRequestConfig, backendConfig: Service.BackendResultConfig) {
+	constructor(axiosConfig: AxiosRequestConfig, backendConfig: Service.BackendResultConfig = DEFAULT_BACKEND_OPTIONS) {
 		// 设置了axios实例上的一些默认配置,新配置会覆盖默认配置
-		this.instance = axios.create({ ...DEFAULT_AXIOS_OPTIONS, ...axiosConfig });
 		this.backendConfig = { ...DEFAULT_BACKEND_OPTIONS, ...backendConfig };
+		this.instance = axios.create({ ...DEFAULT_AXIOS_OPTIONS, ...axiosConfig });
 		this.setInterceptor();
 	}
 	// 设置类拦截器的函数
@@ -39,6 +39,7 @@ export default class createAxiosInstance {
 					// 数据格式转换
 					// handleConfig.headers.setContentType('application/json');
 					// const contentType = handleConfig.headers.get('Content-Type');
+
 					const contentType = 'application/json';
 					handleConfig.data = await transformRequestData(handleConfig.data, contentType);
 
