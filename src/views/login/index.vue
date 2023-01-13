@@ -78,7 +78,9 @@
           :size="24"
         >
           <div class="flex-y-center justify-between">
-            <n-checkbox>记住我</n-checkbox>
+            <n-checkbox v-model:checked="isRemember">
+              记住我
+            </n-checkbox>
             <n-button :text="true">
               忘记密码？
             </n-button>
@@ -107,7 +109,8 @@
 <script setup lang="ts">
 import { FormInst } from 'naive-ui';
 import { useAuthStore } from '@/store';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { local } from '@/utils';
 
 const authStore = useAuthStore();
 const swiperList = [
@@ -118,10 +121,12 @@ const swiperList = [
 ];
 
 const formValue = ref({
-	account: 'admin',
-	pwd: '123456',
-	code: '1234',
+	account: '',
+	pwd: '',
+	code: '',
 });
+
+const isRemember = ref(false);
 const rules = {
 	account: {
 		required: true,
@@ -142,14 +147,31 @@ const rules = {
 };
 const formRef = ref<FormInst | null>(null);
 
-const handleLogin = () => {
+function handleLogin() {
 	formRef.value?.validate((errors) => {
-		if (errors) return console.error(errors);
+		if (errors) return;
 
 		const { account, pwd } = formValue.value;
+
+		if (isRemember.value) {
+			local.set('login_account', { account, pwd });
+		}
+
 		authStore.login(account, pwd);
 	});
-};
+}
+
+function checkUserAccount() {
+	const loginAccount = local.get('login_account');
+	if (!loginAccount) return;
+
+	formValue.value = loginAccount;
+	isRemember.value = true;
+}
+
+onMounted(() => {
+	checkUserAccount();
+});
 </script>
 
 <style scoped></style>

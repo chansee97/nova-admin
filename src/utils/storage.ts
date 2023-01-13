@@ -34,7 +34,7 @@ function createLocalStorage() {
 				return value;
 			}
 		}
-		loacl.remove(key);
+		local.remove(key);
 		return null;
 	}
 
@@ -81,5 +81,5 @@ function createSessionStorage() {
 	}
 }
 
-export const loacl = createLocalStorage();
+export const local = createLocalStorage();
 export const session = createSessionStorage();
