@@ -31,11 +31,13 @@
 		"./src/**/*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
 	},
 	"dependencies": {
+		"@types/crypto-js": "^4.1.1",
 		"@types/qs": "^6.9.7",
 		"@vueuse/core": "^9.10.0",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",
 		"axios": "^1.2.2",
+		"crypto-js": "^4.1.1",
 		"echarts": "^5.4.1",
 		"md-editor-v3": "^2.7.2",
 		"pinia": "^2.0.28",

@@ -1,3 +1,4 @@
+import { encrypto, decrypto } from './crypto';
 // 读取缓存前缀
 const prefix = import.meta.env.VITE_STORAGE_PREFIX as string;
 
@@ -17,7 +18,7 @@ function createLocalStorage() {
 			value,
 			expire: new Date().getTime() + expire * 1000,
 		};
-		const json = JSON.stringify(storageData);
+		const json = encrypto(storageData);
 		window.localStorage.setItem(prefix + key, json);
 	}
 
@@ -26,7 +27,11 @@ function createLocalStorage() {
 		if (!json) return null;
 
 		let storageData: StorageData | null = null;
-		storageData = JSON.parse(json as string);
+		try {
+			storageData = decrypto(json);
+		} catch {
+			// 防止解析失败
+		}
 
 		if (storageData) {
 			const { value, expire } = storageData;
@@ -34,7 +39,7 @@ function createLocalStorage() {
 				return value;
 			}
 		}
-		local.remove(key);
+		remove(key);
 		return null;
 	}
 
@@ -58,20 +63,24 @@ function createLocalStorage() {
 
 function createSessionStorage() {
 	function set(key: string, value: any) {
-		const json = JSON.stringify(value);
+		const json = encrypto(value);
 		window.sessionStorage.setItem(prefix + key, json);
 	}
 	function get<T>(key: string) {
 		const json = sessionStorage.getItem(prefix + key);
-		let data: T | null = null;
-		if (json) {
-			try {
-				data = JSON.parse(json);
-			} catch {
-				// 防止解析失败
-			}
+		if (!json) return null;
+
+		let storageData;
+		try {
+			storageData = decrypto(json);
+		} catch {
+			// 防止解析失败
 		}
-		return data;
+
+		if (storageData) {
+			return storageData;
+		}
+		return null;
 	}
 	function remove(key: string) {
 		window.sessionStorage.removeItem(prefix + key);
@@ -79,6 +88,13 @@ function createSessionStorage() {
 	function clear() {
 		window.sessionStorage.clear();
 	}
+
+	return {
+		set,
+		get,
+		remove,
+		clear,
+	};
 }
 
 export const local = createLocalStorage();

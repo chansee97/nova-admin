@@ -35,6 +35,7 @@
         <n-form-item path="account">
           <n-input
             v-model:value="formValue.account"
+            clearable
             placeholder="输入账号"
           >
             <template #prefix>
@@ -47,6 +48,7 @@
             v-model:value="formValue.pwd"
             type="password"
             placeholder="输入密码"
+            clearable
             show-password-on="click"
           >
             <template #prefix>
@@ -64,7 +66,9 @@
           <n-space align="center">
             <n-input
               v-model:value="formValue.code"
+              clearable
               placeholder="输入验证码"
+              :maxlength="4"
             >
               <template #prefix>
                 <i-icon-park-outline-message />
@@ -155,6 +159,8 @@ function handleLogin() {
 
 		if (isRemember.value) {
 			local.set('login_account', { account, pwd });
+		} else {
+			local.remove('login_account');
 		}
 
 		authStore.login(account, pwd);
