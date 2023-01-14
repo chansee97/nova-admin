@@ -1,10 +1,10 @@
 /**
  *后台服务的环境类型
- * - dev: 后台开发环境
+ * - development: 后台开发环境
  * - test: 后台测试环境
- * - prod: 后台生产环境
+ * - production: 后台生产环境
  */
-type ServiceEnvType = 'dev' | 'test' | 'prod';
+type ServiceEnvType = 'development' | 'test' | 'production';
 
 /** 后台服务的环境配置 */
 interface ServiceEnvConfig {
@@ -44,7 +44,7 @@ interface ImportMetaEnv {
 	readonly VITE_STORAGE_ENCRYPT_SECRET: string;
 
 	/** 后端服务的环境类型 */
-	readonly VITE_SERVICE_ENV?: ServiceEnvType;
+	readonly MODE?: ServiceEnvType;
 }
 
 interface ImportMeta {

@@ -1,7 +1,7 @@
 import { getServiceEnvConfig } from '@/config';
 import { createRequest } from './request';
 
-const { url, urlPattern } = getServiceEnvConfig(import.meta.env);
+const { url, urlPattern } = getServiceEnvConfig(import.meta.env.MODE);
 
 const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y';
 

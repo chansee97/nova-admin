@@ -14,9 +14,9 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 	// 根据当前工作目录中的 `mode` 加载 .env 文件
 	// 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
 	const env = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv;
-
 	const isOpenProxy = env.VITE_HTTP_PROXY === 'Y';
-	const envConfig = getServiceEnvConfig(env);
+
+	const envConfig = getServiceEnvConfig(mode as ServiceEnvType);
 
 	return {
 		base: env.VITE_BASE_URL,
@@ -31,7 +31,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 			host: '0.0.0.0',
 			port: 3000,
 			open: true,
-			proxy: createViteProxy(isOpenProxy, envConfig),
+			proxy: isOpenProxy ? createViteProxy(envConfig) : undefined,
 		},
 		preview: {
 			port: 5211,

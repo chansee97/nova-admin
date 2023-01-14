@@ -12,9 +12,9 @@
 		"admin"
 	],
 	"scripts": {
-		"dev": "cross-env VITE_SERVICE_ENV=dev vite",
-		"dev:test": "cross-env VITE_SERVICE_ENV=test vite",
-		"dev:prod": "cross-env VITE_SERVICE_ENV=prod vite",
+		"dev": "vite",
+		"dev:test": "vite --mode test",
+		"dev:prod": "vite --mode production",
 		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview",
 		"lint": "eslint . --fix",
@@ -63,7 +63,6 @@
 		"@vitejs/plugin-vue-jsx": "^3.0.0",
 		"@vue/eslint-config-typescript": "^11.0.2",
 		"commitizen": "^4.2.6",
-		"cross-env": "^7.0.3",
 		"cz-conventional-changelog": "^3.3.0",
 		"cz-customizable": "^7.0.0",
 		"eslint": "^8.31.0",
