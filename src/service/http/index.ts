@@ -1,4 +1,4 @@
-import { getServiceEnvConfig } from '~/.env-config';
+import { getServiceEnvConfig } from '@/config';
 import { createRequest } from './request';
 
 const { url, urlPattern } = getServiceEnvConfig(import.meta.env);

@@ -11,5 +11,4 @@ lib
 /docs
 .vscode
 .local
-!.env-config.ts
 components.d.ts
