@@ -3,6 +3,4 @@ import 'uno.css';
 import '@/styles/css/index.css';
 import 'virtual:svg-icons-register';
 
-export default function setupAssets() {
-  //
-}
+export default function setupAssets() {}

@@ -1,7 +1,8 @@
 import CryptoJS from 'crypto-js';
 import { isObject } from './is';
 
-const { VITE_STORAGE_ENCRYPT, VITE_STORAGE_ENCRYPT_SECRET } = import.meta.env;
+const { VITE_STORAGE_ENCRYPT } = import.meta.env;
+import { STORAGE_ENCRYPT_SECRET } from '@/config';
 
 /**
  * 加密数据
@@ -18,7 +19,7 @@ export function encrypto(data: any) {
 		return newData;
 	}
 
-	return CryptoJS.AES.encrypt(newData, VITE_STORAGE_ENCRYPT_SECRET).toString();
+	return CryptoJS.AES.encrypt(newData, STORAGE_ENCRYPT_SECRET).toString();
 }
 
 /**
@@ -30,7 +31,7 @@ export function decrypto(cipherText: string) {
 		return JSON.parse(cipherText);
 	}
 
-	const bytes = CryptoJS.AES.decrypt(cipherText, VITE_STORAGE_ENCRYPT_SECRET);
+	const bytes = CryptoJS.AES.decrypt(cipherText, STORAGE_ENCRYPT_SECRET);
 	const originalText = bytes.toString(CryptoJS.enc.Utf8);
 
 	if (originalText) {

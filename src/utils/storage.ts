@@ -1,6 +1,6 @@
 import { encrypto, decrypto } from './crypto';
 // 读取缓存前缀
-const prefix = import.meta.env.VITE_STORAGE_PREFIX as string;
+import { STORAGE_PREFIX, STORAGE_DEFAULT_CACHE_TIME } from '@/config';
 
 interface StorageData {
 	value: any;
@@ -11,19 +11,18 @@ interface StorageData {
  */
 function createLocalStorage() {
 	// 默认缓存期限为7天
-	const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 
-	function set(key: string, value: any, expire: number = DEFAULT_CACHE_TIME) {
+	function set(key: string, value: any, expire: number = STORAGE_DEFAULT_CACHE_TIME) {
 		const storageData: StorageData = {
 			value,
 			expire: new Date().getTime() + expire * 1000,
 		};
 		const json = encrypto(storageData);
-		window.localStorage.setItem(prefix + key, json);
+		window.localStorage.setItem(STORAGE_PREFIX + key, json);
 	}
 
 	function get(key: string) {
-		const json = window.localStorage.getItem(prefix + key);
+		const json = window.localStorage.getItem(STORAGE_PREFIX + key);
 		if (!json) return null;
 
 		let storageData: StorageData | null = null;
@@ -44,7 +43,7 @@ function createLocalStorage() {
 	}
 
 	function remove(key: string) {
-		window.localStorage.removeItem(prefix + key);
+		window.localStorage.removeItem(STORAGE_PREFIX + key);
 	}
 
 	function clear() {
@@ -64,10 +63,10 @@ function createLocalStorage() {
 function createSessionStorage() {
 	function set(key: string, value: any) {
 		const json = encrypto(value);
-		window.sessionStorage.setItem(prefix + key, json);
+		window.sessionStorage.setItem(STORAGE_PREFIX + key, json);
 	}
-	function get<T>(key: string) {
-		const json = sessionStorage.getItem(prefix + key);
+	function get(key: string) {
+		const json = sessionStorage.getItem(STORAGE_PREFIX + key);
 		if (!json) return null;
 
 		let storageData;
@@ -83,7 +82,7 @@ function createSessionStorage() {
 		return null;
 	}
 	function remove(key: string) {
-		window.sessionStorage.removeItem(prefix + key);
+		window.sessionStorage.removeItem(STORAGE_PREFIX + key);
 	}
 	function clear() {
 		window.sessionStorage.clear();

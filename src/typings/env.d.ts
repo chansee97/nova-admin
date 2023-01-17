@@ -36,12 +36,8 @@ interface ImportMetaEnv {
 	readonly VITE_HASH_ROUTE?: 'Y' | 'N';
 	/** 路由加载模式 */
 	readonly VITE_AUTH_ROUTE_MODE?: 'static' | 'dynamic';
-	/** 本地存储前缀 */
-	readonly VITE_STORAGE_PREFIX?: string;
 	/** 本地存储内容开启加密 */
 	readonly VITE_STORAGE_ENCRYPT?: 'Y' | 'N';
-	/** 本地存储加密密钥 */
-	readonly VITE_STORAGE_ENCRYPT_SECRET: string;
 
 	/** 后端服务的环境类型 */
 	readonly MODE?: ServiceEnvType;

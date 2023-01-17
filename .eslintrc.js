@@ -34,6 +34,7 @@ module.exports = {
       },
       rules: {
         'no-undef': 'off'
+
       }
     },
     {
@@ -52,6 +53,7 @@ module.exports = {
     'vue/multi-word-component-names': 0, // 关闭文件名多单词
     // 'import/no-unresolved': ['error', { ignore: ['~icons/*'] }],
     "@typescript-eslint/no-explicit-any": ["off"], // 允许使用any
+    "@typescript-eslint/no-empty-function": 'off', // 允许空函数
     '@typescript-eslint/no-empty-interface': [
       'error',
       {
