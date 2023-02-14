@@ -142,6 +142,11 @@ const delete2 = () => {
 const post = () => {
 	const params = {
 		data: '2022-2-2',
+		data1: [],
+		data2: {},
+		data3: '',
+		data4: null,
+		data5: undefined,
 	};
 	fetachPost(params).then((res) => {
 		msg.value = res;

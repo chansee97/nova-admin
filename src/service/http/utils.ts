@@ -1,5 +1,5 @@
 import { ERROR_MSG_DURATION, ERROR_NO_TIP_STATUS } from '@/config';
-import { isArray, isFile } from '@/utils';
+import { isArray, isFile, isEmpty, isNullOrUnDef } from '@/utils';
 import { EnumContentType } from '@/enum';
 import qs from 'qs';
 
@@ -18,14 +18,16 @@ export function showError(error: Service.RequestError) {
  */
 export async function transformRequestData(requestData: any, contentType?: string) {
 	// application/json类型不处理
-	let data = requestData;
+	let data = clearInvalidParameters(requestData);
+	// let data = requestData;
+
 	// form类型转换
 	if (contentType === EnumContentType.formUrlencoded) {
-		data = qs.stringify(requestData);
+		data = qs.stringify(data);
 	}
 	// form-data类型转换
 	if (contentType === EnumContentType.formData) {
-		data = await handleFormData(requestData);
+		data = await handleFormData(data);
 	}
 
 	return data;
@@ -66,4 +68,17 @@ async function transformFile(formData: FormData, key: string, file: File[] | Fil
 		// 单文件
 		formData.append(key, file);
 	}
+}
+
+/**
+ * 接口提交的参数去除无效字段
+ * @param requestData -接口提交的参数
+ */
+function clearInvalidParameters(requestData: Record<string, any>) {
+	const result: Record<string, any> = {};
+	for (const key in requestData) {
+		if (isEmpty(requestData[key]) || isNullOrUnDef(requestData[key])) continue;
+		result[key] = requestData[key];
+	}
+	return result;
 }

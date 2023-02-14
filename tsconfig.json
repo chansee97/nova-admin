@@ -1,25 +1,25 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    // "sourceMap": true,
-    "removeComments": false, //编译删除注释
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
-    "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"]
-    },
-    "types": ["node", "vite/client", "naive-ui/volar"]
-  },
-  // "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules", "dist"]
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"strict": true,
+		"jsx": "preserve",
+		// "sourceMap": true,
+		"removeComments": false, //编译删除注释
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"lib": ["ESNext", "DOM"],
+		"skipLibCheck": true,
+		"paths": {
+			"~/*": ["./*"],
+			"@/*": ["./src/*"]
+		},
+		"types": ["node", "vite/client", "naive-ui/volar"]
+	},
+	// "include": ["src/**/*.d.ts", "src/**/*.vue", "./*.d.ts"]
+	"exclude": ["node_modules", "dist"]
 }

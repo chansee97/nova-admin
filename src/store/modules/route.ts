@@ -80,7 +80,7 @@ export const useRouteStore = defineStore('route-store', {
 		async initDynamicRoute() {
 			// 根据用户id来获取用户的路由
 			const { userId } = getUserInfo();
-			const { data: routes } = await fetchUserRoutes(userId);
+			const { data: routes } = await fetchUserRoutes({ userId });
 			// 根据用户返回的路由表来生成真实路由
 			const appRoutes = await createDynamicRoutes(routes);
 			// 生成侧边菜单
