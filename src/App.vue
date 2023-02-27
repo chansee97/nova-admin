@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { useAppStore } from './store';
 import { zhCN, dateZhCN, GlobalThemeOverrides, useOsTheme } from 'naive-ui';
-import themeConfig from './theme.json';
+// import themeConfig from './theme.json';
 
 const locale = zhCN;
 const dateLocale = dateZhCN;
@@ -22,7 +22,7 @@ const appStore = useAppStore();
 const osThemeRef = useOsTheme();
 appStore.setDarkMode(osThemeRef.value === 'dark');
 
-const themeOverrides: GlobalThemeOverrides = themeConfig;
+const themeOverrides: GlobalThemeOverrides = {};
 </script>
 
 <style scoped></style>
