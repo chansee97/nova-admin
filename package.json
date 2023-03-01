@@ -31,8 +31,6 @@
 		"./src/**/*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
 	},
 	"dependencies": {
-		"@types/crypto-js": "^4.1.1",
-		"@types/qs": "^6.9.7",
 		"@vueuse/core": "^9.10.0",
 		"@wangeditor/editor": "^5.1.23",
 		"@wangeditor/editor-for-vue": "^5.1.12",
@@ -52,8 +50,10 @@
 		"@commitlint/config-conventional": "^17.4.0",
 		"@iconify-json/icon-park-outline": "^1.1.9",
 		"@iconify/vue": "^4.0.2",
+		"@types/crypto-js": "^4.1.1",
 		"@types/mockjs": "^1.0.7",
 		"@types/node": "^18.11.18",
+		"@types/qs": "^6.9.7",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
 		"@unocss/preset-attributify": "^0.48.3",

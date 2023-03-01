@@ -76,27 +76,6 @@ export const useRouteStore = defineStore('route-store', {
 			this.userRoutes = userRoutes;
 			this.menus = this.transformAuthRoutesToMenus(userRoutes);
 		},
-		/* 初始化动态路由 */
-		async initDynamicRoute() {
-			// 根据用户id来获取用户的路由
-			const { userId } = getUserInfo();
-			const { data: routes } = await fetchUserRoutes({ userId });
-			// 根据用户返回的路由表来生成真实路由
-			const appRoutes = await createDynamicRoutes(routes);
-			// 生成侧边菜单
-			await this.createMenus(routes);
-			// 插入路由表
-			router.addRoute(appRoutes);
-		},
-		/* 初始化静态路由 */
-		async initStaticRoute() {
-			// 根据静态路由表来生成真实路由
-			const appRoutes = await createDynamicRoutes(staticRoutes);
-			// 生成侧边菜单
-			await this.createMenus(staticRoutes);
-			// 插入路由表
-			router.addRoute(appRoutes);
-		},
 		//* 将返回的路由表渲染成侧边栏 */
 		transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
 			return userRoutes
@@ -123,6 +102,28 @@ export const useRouteStore = defineStore('route-store', {
 					return target;
 				});
 		},
+		/* 初始化动态路由 */
+		async initDynamicRoute() {
+			// 根据用户id来获取用户的路由
+			const { userId } = getUserInfo();
+			const { data: routes } = await fetchUserRoutes({ userId });
+			// 根据用户返回的路由表来生成真实路由
+			const appRoutes = await createDynamicRoutes(routes);
+			// 生成侧边菜单
+			await this.createMenus(routes);
+			// 插入路由表
+			router.addRoute(appRoutes);
+		},
+		/* 初始化静态路由 */
+		async initStaticRoute() {
+			// 根据静态路由表来生成真实路由
+			const appRoutes = await createDynamicRoutes(staticRoutes);
+			// 生成侧边菜单
+			await this.createMenus(staticRoutes);
+			// 插入路由表
+			router.addRoute(appRoutes);
+		},
+
 		async initAuthRoute() {
 			this.isInitAuthRoute = false;
 			if (this.authRouteMode === 'dynamic') {
