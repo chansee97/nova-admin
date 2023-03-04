@@ -57,7 +57,6 @@
         <div
           class="h-full"
           :class="{
-            'p-b-40px': appStore.fixedFooter,
             'p-t-122px': appStore.fixedHeader && appStore.showTabs,
             'p-t-77px': appStore.fixedHeader && !appStore.showTabs,
           }"
@@ -79,14 +78,7 @@
         </div>
       </n-layout-content>
       <BackTop />
-      <n-layout-footer
-        :position="appStore.fixedFooter ? 'absolute' : 'static'"
-        bordered
-        class="flex-center h-40px"
-        style="margin-top: auto"
-      >
-        {{ appStore.footerText }}
-      </n-layout-footer>
+      <Watermark :show-watermark="appStore.showWatermark" />
     </n-layout>
   </n-layout>
 </template>
@@ -107,6 +99,7 @@ import {
 	Reload,
 	TabBar,
 	BackTop,
+	Watermark,
 } from '../components';
 import { useAppStore, useRouteStore } from '@/store';
 

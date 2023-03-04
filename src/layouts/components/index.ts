@@ -20,19 +20,22 @@ import TabBar from './tab/TabBar.vue';
 /* 其他组件 */
 // 返回顶部
 import BackTop from './common/BackTop.vue';
+import Watermark from './common/Watermark.vue';
+
 export {
-  Breadcrumb,
-  CollapaseButton,
-  Menu,
-  Logo,
-  FullScreen,
-  DarkMode,
-  Setting,
-  Github,
-  Notices,
-  UserCenter,
-  Search,
-  Reload,
-  TabBar,
-  BackTop,
+	Breadcrumb,
+	CollapaseButton,
+	Menu,
+	Logo,
+	FullScreen,
+	DarkMode,
+	Setting,
+	Github,
+	Notices,
+	UserCenter,
+	Search,
+	Reload,
+	TabBar,
+	BackTop,
+	Watermark,
 };

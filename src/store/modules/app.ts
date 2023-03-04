@@ -15,9 +15,9 @@ interface AppStatus {
 	showTabs: boolean;
 	showBreadcrumb: boolean;
 	fixedHeader: boolean;
-	fixedFooter: boolean;
 	invertedSider: boolean;
 	invertedHeader: boolean;
+	showWatermark: boolean;
 }
 
 const docEle = document.documentElement;
@@ -37,9 +37,9 @@ export const useAppStore = defineStore('app-store', {
 			showTabs: true,
 			showBreadcrumb: true,
 			fixedHeader: false,
-			fixedFooter: true,
 			invertedSider: false,
 			invertedHeader: false,
+			showWatermark: false,
 		};
 	},
 	actions: {
@@ -119,16 +119,16 @@ export const useAppStore = defineStore('app-store', {
 			this.fixedHeader = !this.fixedHeader;
 		},
 		/* 切换固定底部 */
-		toggleFixedFooter() {
-			this.fixedFooter = !this.fixedFooter;
-		},
-		/* 切换固定底部 */
 		toggleInvertedSider() {
 			this.invertedSider = !this.invertedSider;
 		},
 		/* 切换固定底部 */
 		toggleInvertedHeader() {
 			this.invertedHeader = !this.invertedHeader;
+		},
+		/* 切换固定底部 */
+		toggleShowWatermark() {
+			this.showWatermark = !this.showWatermark;
 		},
 	},
 });
