@@ -17,10 +17,10 @@ export default [
   }),
   createSvgIconsPlugin({
     // 指定需要缓存的图标文件夹
-    iconDirs: [path.resolve(process.cwd(), 'src/assets/svg')],
+    iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
     // 指定symbolId格式
     symbolId: 'icon-[dir]-[name]',
-    inject: 'body-last',
-    customDomId: '__svg__icons__dom__',
+    // inject: 'body-last',
+    // customDomId: '__svg__icons__dom__',
   }),
 ];
