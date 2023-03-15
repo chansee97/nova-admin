@@ -18,7 +18,7 @@ export function showError(error: Service.RequestError) {
  */
 export async function transformRequestData(requestData: any, contentType?: string) {
 	// application/json类型不处理
-	let data = clearInvalidParameters(requestData);
+	let data: any = clearInvalidParameters(requestData);
 	// let data = requestData;
 
 	// form类型转换

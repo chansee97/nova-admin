@@ -1,7 +1,7 @@
 <template>
   <div class="wh-full flex-center bg-[#EBECF0]">
     <n-el
-      class="w-1400px h-70% flex-center shadow-2xl b-rd-22px p-10px"
+      class="w-1400px h-80% flex-center shadow-2xl b-rd-22px p-10px"
       style="background: var(--card-color)"
     >
       <n-grid
@@ -163,9 +163,9 @@ const authStore = useAuthStore();
 const appStore = useAppStore();
 
 const formValue = ref({
-	account: '',
-	pwd: '',
-	code: '',
+	account: 'admin',
+	pwd: '000000',
+	code: '1234',
 });
 
 const isRemember = ref(false);

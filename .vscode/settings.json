@@ -8,10 +8,8 @@
 	"eslint.format.enable": true,
 	// 校验那些文件
 	"eslint.validate": ["typescript", "javascript", "vue", "html"],
-	// 终端显示
-	"eslint.alwaysShowStatus": true,
 	// 加载配置文件
 	"eslint.options": { "configFile": ".eslintrc.js" },
 	// 保存自动格式化
-	"editor.formatOnSave": true
+	"editor.formatOnSave": false,
 }

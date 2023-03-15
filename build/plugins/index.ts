@@ -1,3 +1,4 @@
+import type { PluginOption } from 'vite';
 import vue from './vue';
 import compress from './compress';
 import html from './html';
@@ -19,7 +20,7 @@ export function setVitePlugins(env: ImportMetaEnv) {
   }
   // 是否依赖分析
   if (env.VITE_VISUALIZER === 'Y') {
-    plugins.push(visualizer);
+    plugins.push(visualizer as PluginOption);
   }
   return plugins;
 }
