@@ -1,8 +1,7 @@
 import type { Router } from 'vue-router';
-
 import { createPermissionGuard } from './permission';
-
 import { useAppInfo } from '@/hooks';
+
 const { title } = useAppInfo();
 
 export function setupRouterGuard(router: Router) {

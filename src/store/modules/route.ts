@@ -105,12 +105,12 @@ export const useRouteStore = defineStore('route-store', {
 		/* 初始化动态路由 */
 		async initDynamicRoute() {
 			// 根据用户id来获取用户的路由
-			const { userId } = getUserInfo();
+			const { userId } = getUserInfo()
 			const { data: routes } = await fetchUserRoutes({ userId });
 			// 根据用户返回的路由表来生成真实路由
 			const appRoutes = await createDynamicRoutes(routes);
 			// 生成侧边菜单
-			await this.createMenus(routes);
+			this.createMenus(routes);
 			// 插入路由表
 			router.addRoute(appRoutes);
 		},
@@ -119,7 +119,7 @@ export const useRouteStore = defineStore('route-store', {
 			// 根据静态路由表来生成真实路由
 			const appRoutes = await createDynamicRoutes(staticRoutes);
 			// 生成侧边菜单
-			await this.createMenus(staticRoutes);
+			this.createMenus(staticRoutes);
 			// 插入路由表
 			router.addRoute(appRoutes);
 		},

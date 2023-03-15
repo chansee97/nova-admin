@@ -45,7 +45,7 @@ export async function createDynamicRoutes(routes: AppRoute.Route[]) {
 	});
 
 	const appRootRoute: RouteRecordRaw = {
-		path: '/',
+		path: '/appRoot',
 		name: 'appRoot',
 		redirect: '/dashboard/workbench',
 		component: BasicLayout,
