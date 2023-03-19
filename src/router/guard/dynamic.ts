@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import { BasicLayout } from '@/layouts/index';
-import { useRouteStore } from '@/store';
+import { useRouteStore, useAuthStore } from '@/store';
+import { usePermission } from '@/hooks'
 
 // 引入所有页面
 const modules = import.meta.glob('../../views/**/*.vue');
@@ -22,6 +23,13 @@ function FlatAuthRoutes(routes: AppRoute.Route[]) {
 	return result;
 }
 
+function filterPermissionRoutes(routes: AppRoute.Route[]) {
+	const { hasPermission } = usePermission();
+	return routes.filter((route) => {
+		return hasPermission(route.meta.roles)
+	})
+}
+
 function createCatheRoutes(routes: AppRoute.Route[]) {
 	return routes
 		.filter((item) => {
@@ -32,11 +40,13 @@ function createCatheRoutes(routes: AppRoute.Route[]) {
 export async function createDynamicRoutes(routes: AppRoute.Route[]) {
 	// 数组降维成一维数组,然后删除所有的childen
 	const flatRoutes = FlatAuthRoutes(routes);
-	// 对降维后的数组过滤需要缓存的路由name数组
+	/* 路由权限过滤 */
+	const permissionRoutes = filterPermissionRoutes(flatRoutes)
+	// 过滤需要缓存的路由name数组
 	const routeStore = useRouteStore();
-	routeStore.cacheRoutes = createCatheRoutes(flatRoutes);
+	routeStore.cacheRoutes = createCatheRoutes(permissionRoutes);
 	// 生成路由，有redirect的不需要引入文件
-	const mapRoutes = flatRoutes.map((item: any) => {
+	const mapRoutes = permissionRoutes.map((item: any) => {
 		if (!item.redirect) {
 			// 动态加载对应页面
 			item['component'] = modules[`../../views${item.path}/index.vue`];

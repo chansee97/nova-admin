@@ -13,7 +13,7 @@ declare namespace Auth {
 		token: string;
 		refreshToken: string;
 	}
-
+	type RoleType = 'super' | 'admin' | 'manage' | 'user';
 	interface UserInfo {
 		/** 用户id */
 		userId: string;
@@ -57,7 +57,7 @@ declare namespace CommonList {
 		gender: '0' | '1' | null;
 		email: string;
 		address: string;
-		role: 'super' | 'admin' | 'user';
+		role: RoleType;
 		disabled: boolean;
 	}
 }

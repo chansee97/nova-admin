@@ -10,7 +10,7 @@ export const routes: RouteRecordRaw[] = [
     component: BasicLayout,
     children: [
       {
-        path: '/no-found',
+        path: '/not-found',
         name: 'not-found',
         component: () => import('@/views/error/not-found/index.vue'),
         meta: {
@@ -38,7 +38,7 @@ export const routes: RouteRecordRaw[] = [
       },
       {
         path: '/:pathMatch(.*)*',
-        redirect: '/no-found',
+        redirect: '/not-found',
       },
     ],
   },

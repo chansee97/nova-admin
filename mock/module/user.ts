@@ -7,11 +7,10 @@ const token = () => Random.string('upper', 32, 32);
 
 const userInfo = {
 	userId: '1',
-	userName: 'admin',
+	userName: 'iamsee',
 	realName: '管理员大人',
 	avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
-	role: 'admin',
-	password: '123456',
+	role: "user",
 };
 const userRoutes = [
 	{
@@ -285,6 +284,37 @@ const userRoutes = [
 		],
 	},
 	{
+		name: 'permission',
+		path: '/permission',
+		redirect: '/permission/permission',
+		meta: {
+			title: '权限示例',
+			requiresAuth: true,
+			icon: 'icon-park-outline:people-safe',
+		},
+		children: [
+			{
+				name: 'permission_permission',
+				path: '/permission/permission',
+				meta: {
+					title: '权限示例',
+					requiresAuth: true,
+					icon: 'icon-park-outline:right-user',
+				},
+			},
+			{
+				name: 'permission_justSuper',
+				path: '/permission/justSuper',
+				meta: {
+					title: '超管super可见',
+					requiresAuth: true,
+					roles:['super'],
+					icon: 'icon-park-outline:wrong-user',
+				},
+			},
+		]
+	},
+	{
 		name: 'error',
 		path: '/error',
 		redirect: '/error/not-found',
@@ -292,6 +322,7 @@ const userRoutes = [
 			title: '异常页',
 			requiresAuth: true,
 			icon: 'icon-park-outline:error-computer',
+			
 		},
 		children: [
 			{

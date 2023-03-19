@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia';
-import { renderIcon, getUserInfo } from '@/utils';
+import { renderIcon, getUserInfo ,isEmpty} from '@/utils';
 import { MenuOption } from 'naive-ui';
 import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import { staticRoutes } from '@/router/modules';
+import { useAuthStore } from '@/store';
+import { usePermission } from '@/hooks'
 
 interface RoutesStatus {
 	isInitAuthRoute: boolean;
@@ -78,20 +80,28 @@ export const useRouteStore = defineStore('route-store', {
 		},
 		//* 将返回的路由表渲染成侧边栏 */
 		transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
+			const authStore = useAuthStore()
+			const { role } = authStore.userInfo
 			return userRoutes
+				/** 隐藏不需要显示的菜单 */
 				.filter((item) => {
 					return !item.meta.hide;
 				})
+				.filter((item: AppRoute.Route) => {
+					const { hasPermission } = usePermission();
+					return hasPermission(item.meta.roles)
+				})
+				/** 转换为侧边菜单数据结构 */
 				.map((item) => {
 					const target: MenuOption = {
 						label: item.meta.title,
 						key: item.path,
 					};
-					// 判断有无图标
+					/** 判断有无图标 */
 					if (item.meta.icon) {
 						target.icon = renderIcon(item.meta.icon);
 					}
-					// 判断子元素
+					/** 判断子元素 */
 					if (item.children) {
 						const children = this.transformAuthRoutesToMenus(item.children);
 						// 只有子元素有且不为空时才添加

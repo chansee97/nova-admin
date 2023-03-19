@@ -1,3 +1,7 @@
+import { useAuthStore } from '@/store';
+import { isArray, isString } from '@/utils';
+
+
 interface AppInfo {
 	/** 项目名称 */
 	name: string;
@@ -21,3 +25,31 @@ export function useAppInfo(): AppInfo {
 		desc,
 	};
 }
+
+/** 权限判断 */
+export function usePermission() {
+	const authStore = useAuthStore()
+
+	function hasPermission(permission: Auth.RoleType | Auth.RoleType[] | undefined) {
+
+		if (!permission) return true
+
+		const { role } = authStore.userInfo
+
+		let has = role === 'super';
+		if (!has) {
+			if (isArray(permission)) {
+				has = (permission as Auth.RoleType[]).includes(role);
+			}
+			if (isString(permission)) {
+				has = (permission as Auth.RoleType) === role;
+			}
+		}
+		return has;
+	}
+
+	return {
+		hasPermission
+	};
+}
+

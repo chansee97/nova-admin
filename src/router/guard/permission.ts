@@ -13,6 +13,7 @@ export async function createPermissionGuard(
 
   // 判断有无TOKEN,登录鉴权
   const isLogin = Boolean(getToken());
+
   if (!isLogin) {
     if (to.name === 'login') {
       next();
@@ -36,9 +37,16 @@ export async function createPermissionGuard(
     }
   }
 
+  // 权限路由已经加载，仍然未找到，重定向到404
+  if (to.name === 'not-found') {
+    next({ name: 'not-found', replace: true });
+    return false;
+  }
+
   // 判断当前页是否在login,则定位去首页
   if (to.name === 'login') {
     next({ path: '/appRoot' })
+    return false;
   }
 
   // 设置菜单高亮
@@ -52,5 +60,5 @@ export async function createPermissionGuard(
   tabStore.addTab(to);
   // 设置高亮标签;
   tabStore.setCurrentTab(to.name as string);
-  next();
+  next()
 }

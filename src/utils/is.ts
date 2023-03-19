@@ -5,16 +5,40 @@ export function is(val: unknown, type: string) {
 	return toString.call(val) === `[object ${type}]`;
 }
 
-export function isDef<T = unknown>(val?: T): val is T {
-	return typeof val !== 'undefined';
+export function isString(val: unknown): val is string {
+	return is(val, 'String');
+}
+
+export function isNumber(val: unknown): val is number {
+	return is(val, 'Number');
+}
+
+export function isBoolean(val: unknown): val is boolean {
+	return is(val, 'Boolean');
+}
+
+export function isNull(val: unknown): val is null {
+	return val === null;
 }
 
 export function isUnDef<T = unknown>(val?: T): val is T {
 	return !isDef(val);
 }
 
+export function isDef<T = unknown>(val?: T): val is T {
+	return typeof val !== 'undefined';
+}
+
+export function isNullOrUnDef(val: unknown): val is null | undefined {
+	return isUnDef(val) || isNull(val);
+}
+
 export function isObject(val: any): val is Record<any, any> {
 	return val !== null && is(val, 'Object');
+}
+
+export function isArray(val: any): val is Array<any> {
+	return val && Array.isArray(val);
 }
 
 export function isEmpty<T = unknown>(val: T): val is T {
@@ -37,29 +61,11 @@ export function isDate(val: unknown): val is Date {
 	return is(val, 'Date');
 }
 
-export function isNull(val: unknown): val is null {
-	return val === null;
-}
-
-export function isNullAndUnDef(val: unknown): val is null | undefined {
-	return isUnDef(val) && isNull(val);
-}
-
-export function isNullOrUnDef(val: unknown): val is null | undefined {
-	return isUnDef(val) || isNull(val);
-}
-
-export function isNumber(val: unknown): val is number {
-	return is(val, 'Number');
-}
 
 export function isPromise<T = any>(val: unknown): val is Promise<T> {
 	return is(val, 'Promise') && isObject(val) && isFunction(val.then) && isFunction(val.catch);
 }
 
-export function isString(val: unknown): val is string {
-	return is(val, 'String');
-}
 
 export function isFunction(val: unknown): val is Function {
 	return typeof val === 'function';
@@ -69,16 +75,9 @@ export function isFile<T extends File>(val: T | unknown): val is T {
 	return is(val, 'File');
 }
 
-export function isBoolean(val: unknown): val is boolean {
-	return is(val, 'Boolean');
-}
 
 export function isRegExp(val: unknown): val is RegExp {
 	return is(val, 'RegExp');
-}
-
-export function isArray(val: any): val is Array<any> {
-	return val && Array.isArray(val);
 }
 
 export function isWindow(val: any): val is Window {
@@ -93,9 +92,8 @@ export const isServer = typeof window === 'undefined';
 
 export const isClient = !isServer;
 
-export function isUrl<T>(path: T): boolean {
+export function isUrl(path: string): boolean {
 	const reg =
 		/(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
-	// @ts-expect-error
 	return reg.test(path);
 }
