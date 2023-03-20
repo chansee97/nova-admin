@@ -5,7 +5,7 @@ import { usePermission } from '@/hooks'
 
 // 引入所有页面
 const modules = import.meta.glob('../../views/**/*.vue');
-/* 将路由树转换成一维数组 */
+/* 路由树转换成一维数组 */
 function FlatAuthRoutes(routes: AppRoute.Route[]) {
 	let result: AppRoute.Route[] = [];
 	// 浅拷贝一层去降维，否则影响原数组
@@ -22,7 +22,7 @@ function FlatAuthRoutes(routes: AppRoute.Route[]) {
 	});
 	return result;
 }
-
+/* 路由无权限过滤 */
 function filterPermissionRoutes(routes: AppRoute.Route[]) {
 	const { hasPermission } = usePermission();
 	return routes.filter((route) => {
