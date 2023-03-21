@@ -9,37 +9,6 @@ export const routes: RouteRecordRaw[] = [
     redirect: '/appRoot',
     component: BasicLayout,
     children: [
-      {
-        path: '/not-found',
-        name: 'not-found',
-        component: () => import('@/views/error/not-found/index.vue'),
-        meta: {
-          title: '找不到页面',
-          icon: 'icon-park-outline:ghost',
-        },
-      },
-      {
-        path: '/not-permission',
-        name: 'not-permission',
-        component: () => import('@/views/error/not-permission/index.vue'),
-        meta: {
-          title: '用户无权限',
-          icon: 'icon-park-outline:error',
-        },
-      },
-      {
-        path: '/service-error',
-        name: 'service-error',
-        component: () => import('@/views/error/service-error/index.vue'),
-        meta: {
-          title: '服务器错误',
-          icon: 'icon-park-outline:close-wifi',
-        },
-      },
-      {
-        path: '/:pathMatch(.*)*',
-        redirect: '/not-found',
-      },
     ],
   },
   {
@@ -50,4 +19,36 @@ export const routes: RouteRecordRaw[] = [
       title: '登录',
     },
   },
+  {
+    path: '/403',
+    name: '403',
+    component: () => import('@/views/error/403/index.vue'),
+    meta: {
+      title: '用户无权限',
+      icon: 'icon-park-outline:error',
+    },
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/error/404/index.vue'),
+    meta: {
+      title: '找不到页面',
+      icon: 'icon-park-outline:ghost',
+    },
+  },
+  {
+    path: '/500',
+    name: '500',
+    component: () => import('@/views/error/500/index.vue'),
+    meta: {
+      title: '服务器错误',
+      icon: 'icon-park-outline:close-wifi',
+    },
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+  },
+  
 ];

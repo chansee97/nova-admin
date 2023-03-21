@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { renderIcon, getUserInfo ,isEmpty} from '@/utils';
+import { renderIcon, getUserInfo} from '@/utils';
 import { MenuOption } from 'naive-ui';
 import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';

@@ -246,7 +246,7 @@ const userRoutes = [
 	{
 		name: 'docments',
 		path: '/docments',
-		redirect: '/docments/not-found',
+		redirect: '/docments/vue',
 		meta: {
 			title: '外链文档',
 			requiresAuth: true,
@@ -317,7 +317,7 @@ const userRoutes = [
 	{
 		name: 'error',
 		path: '/error',
-		redirect: '/error/not-found',
+		redirect: '/error/404',
 		meta: {
 			title: '异常页',
 			requiresAuth: true,
@@ -326,17 +326,8 @@ const userRoutes = [
 		},
 		children: [
 			{
-				name: 'not-found',
-				path: '/error/not-found',
-				meta: {
-					title: '404页',
-					requiresAuth: true,
-					icon: 'icon-park-outline:error',
-				},
-			},
-			{
-				name: 'not-permission',
-				path: '/error/not-permission',
+				name: '403',
+				path: '/error/403',
 				meta: {
 					title: '403页',
 					requiresAuth: true,
@@ -344,8 +335,17 @@ const userRoutes = [
 				},
 			},
 			{
-				name: 'service-error',
-				path: '/error/service-error',
+				name: '404',
+				path: '/error/404',
+				meta: {
+					title: '404页',
+					requiresAuth: true,
+					icon: 'icon-park-outline:error',
+				},
+			},
+			{
+				name: '500',
+				path: '/error/500',
 				meta: {
 					title: '500页',
 					requiresAuth: true,

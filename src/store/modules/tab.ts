@@ -23,7 +23,7 @@ export const useTabStore = defineStore('tab-store', {
         },
       ],
       tabs: [],
-      tabWhiteList: ['not-found', 'not-permission', 'service-error', 'login'],
+      tabWhiteList: ['404', '403', '500', 'login'],
       currentTab: 'dashboard_workbench',
     };
   },
