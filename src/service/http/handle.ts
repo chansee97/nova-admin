@@ -10,7 +10,7 @@ import {
 } from '@/config';
 import { useAuthStore } from '@/store';
 import { fetchUpdateToken } from '@/service';
-import { setToken, setRefreshToken, getRefreshToken } from '@/utils';
+import { local } from '@/utils';
 import { showError } from './utils';
 
 type ErrorStatus = keyof typeof ERROR_STATUS;
@@ -123,11 +123,11 @@ export async function handleServiceResult<T = any>(data: any, error: Service.Req
  */
 export async function handleRefreshToken(config: AxiosRequestConfig) {
 	const { resetAuthStore } = useAuthStore();
-	const refreshToken = getRefreshToken();
+	const refreshToken = local.get('refreshToken');
 	const { data } = await fetchUpdateToken(refreshToken);
 	if (data) {
-		setRefreshToken(data.token);
-		setToken(data.refreshToken);
+		local.set('refreshToken', data.token, )
+		local.set('token', data.refreshToken)
 
 		// 设置token
 		if (config.headers) {

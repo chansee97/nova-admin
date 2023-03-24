@@ -1,5 +1,5 @@
 import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { getToken } from '@/utils/auth';
+import { local } from '@/utils';
 import { useRouteStore } from '@/store';
 
 export async function createPermissionGuard(
@@ -10,7 +10,7 @@ export async function createPermissionGuard(
   const routeStore = useRouteStore();
 
   // 判断有无TOKEN,登录鉴权
-  const isLogin = Boolean(getToken());
+  const isLogin = Boolean(local.get('token'));
   if (!isLogin) {
     if (to.name == 'login') {
       next()

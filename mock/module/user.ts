@@ -6,7 +6,7 @@ const Random = Mock.Random;
 const token = () => Random.string('upper', 32, 32);
 
 const userInfo = {
-	userId: '1',
+	userId: 1,
 	userName: 'iamsee',
 	realName: '管理员大人',
 	avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
@@ -308,7 +308,7 @@ const userRoutes = [
 				meta: {
 					title: '超管super可见',
 					requiresAuth: true,
-					roles:['super'],
+					roles: ['super'],
 					icon: 'icon-park-outline:wrong-user',
 				},
 			},
@@ -322,7 +322,7 @@ const userRoutes = [
 			title: '异常页',
 			requiresAuth: true,
 			icon: 'icon-park-outline:error-computer',
-			
+
 		},
 		children: [
 			{

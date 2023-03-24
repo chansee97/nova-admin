@@ -1,16 +1,16 @@
 import { defineStore } from 'pinia';
 import { fetchLogin, fetchUserInfo } from '@/service';
-import { setUserInfo, getUserInfo, getToken, setToken, clearAuthStorage, setRefreshToken } from '@/utils/auth';
 import { router } from '@/router';
 import { useAppRouter } from '@/hooks';
 import { unref } from 'vue';
 import { useRouteStore } from './route';
+import { local } from '@/utils';
 
 export const useAuthStore = defineStore('auth-store', {
 	state: () => {
 		return {
-			userInfo: getUserInfo(),
-			token: getToken(),
+			userInfo: local.get('userInfo'),
+			token: local.get('token'),
 			loginLoading: false,
 		};
 	},
@@ -27,13 +27,18 @@ export const useAuthStore = defineStore('auth-store', {
 			const { toLogin } = useAppRouter(false);
 			const { resetRouteStore } = useRouteStore();
 			// 清除本地缓存
-			clearAuthStorage();
+			this.clearAuthStorage();
 			// 清空路由、菜单等数据
 			resetRouteStore();
 			this.$reset();
 			if (route.meta.requiresAuth) {
 				toLogin();
 			}
+		},
+		clearAuthStorage() {
+			local.remove('token');
+			local.remove('refreshToken');
+			local.remove('userInfo');
 		},
 
 		/* 用户登录 */
@@ -64,7 +69,7 @@ export const useAuthStore = defineStore('auth-store', {
 				// 触发用户提示
 				window.$notification?.success({
 					title: '登录成功!',
-					content: `欢迎回来😊，${this.userInfo.realName}!`,
+					content: `欢迎回来😊，${this.userInfo?.realName}!`,
 					duration: 3000,
 				});
 				return;
@@ -84,12 +89,14 @@ export const useAuthStore = defineStore('auth-store', {
 			let catchSuccess = false;
 			// 先存储token
 			const { token, refreshToken } = userToken;
-			setToken(token);
-			setRefreshToken(refreshToken);
+			local.set('token', token);
+			local.set('refreshToken', refreshToken,)
 
 			// 请求/存储用户信息
 			const { data } = await fetchUserInfo();
-			setUserInfo(data);
+			if (data) {
+				local.set('userInfo', data);
+			}
 			// 再将token和userInfo初始化
 			this.userInfo = data;
 			this.token = token;

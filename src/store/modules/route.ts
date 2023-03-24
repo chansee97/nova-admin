@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
-import { renderIcon, getUserInfo} from '@/utils';
+import { renderIcon,local } from '@/utils';
 import { MenuOption } from 'naive-ui';
 import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import { staticRoutes } from '@/router/modules';
-import { useAuthStore } from '@/store';
+import { RouterLink } from 'vue-router'
 import { usePermission } from '@/hooks'
+import { h } from 'vue'
 
 interface RoutesStatus {
 	isInitAuthRoute: boolean;
@@ -80,8 +81,7 @@ export const useRouteStore = defineStore('route-store', {
 		},
 		//* 将返回的路由表渲染成侧边栏 */
 		transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
-			const authStore = useAuthStore()
-			const { role } = authStore.userInfo
+
 			return userRoutes
 				/** 隐藏不需要显示的菜单 */
 				.filter((item) => {
@@ -94,13 +94,19 @@ export const useRouteStore = defineStore('route-store', {
 				/** 转换为侧边菜单数据结构 */
 				.map((item) => {
 					const target: MenuOption = {
-						label: item.meta.title,
+						label: () =>
+							h(
+								RouterLink,
+								{
+									to: {
+										path: item.path
+									}
+								},
+								{ default: () => item.meta.title }
+							),
 						key: item.path,
+						icon: renderIcon(item.meta.icon)
 					};
-					/** 判断有无图标 */
-					if (item.meta.icon) {
-						target.icon = renderIcon(item.meta.icon);
-					}
 					/** 判断子元素 */
 					if (item.children) {
 						const children = this.transformAuthRoutesToMenus(item.children);
@@ -115,8 +121,13 @@ export const useRouteStore = defineStore('route-store', {
 		/* 初始化动态路由 */
 		async initDynamicRoute() {
 			// 根据用户id来获取用户的路由
-			const { userId } = getUserInfo()
-			const { data: routes } = await fetchUserRoutes({ userId });
+			const userInfo = local.get('userInfo')
+
+			if (!userInfo||!userInfo.userId) {
+				return 
+			}
+
+			const { data: routes } = await fetchUserRoutes({ userId: userInfo.userId});
 			// 根据用户返回的路由表来生成真实路由
 			const appRoutes = await createDynamicRoutes(routes);
 			// 生成侧边菜单

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
-import { getToken } from '@/utils';
+import { local } from '@/utils';
 import { REFRESH_TOKEN_CODE } from '@/config';
 import {
 	handleAxiosError,
@@ -45,7 +45,7 @@ export default class createAxiosInstance {
 
 					// 设置token
 					typeof handleConfig.headers.set === 'function' &&
-						handleConfig.headers.set('Authorization', `Bearer ${getToken() || ''}`);
+						handleConfig.headers.set('Authorization', `Bearer ${local.get('token') || ''}`);
 				}
 				return handleConfig;
 			},

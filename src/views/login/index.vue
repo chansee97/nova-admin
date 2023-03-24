@@ -63,8 +63,8 @@ const formComponets = {
 	&::before {
 		position: absolute;
 		content: '';
-		width: 800px;
-		height: 400px;
+		width: 30vw;
+		height: 15vw;
 		background-size: contain;
 		background-repeat: no-repeat;
 	}

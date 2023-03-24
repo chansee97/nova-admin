@@ -16,7 +16,7 @@ declare namespace Auth {
 	type RoleType = 'super' | 'admin' | 'manage' | 'user';
 	interface UserInfo {
 		/** 用户id */
-		userId: string;
+		userId: number;
 		/** 用户名 */
 		userName: string;
 		/* 用户称呼 */
@@ -25,8 +25,7 @@ declare namespace Auth {
 		avatar: string;
 		/** 用户角色类型 */
 		role: RoleType;
-		/* 密码 */
-		password: string;
+
 	}
 }
 /* 系统消息 */

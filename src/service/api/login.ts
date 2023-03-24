@@ -11,12 +11,12 @@ interface Itoken {
 export function fetchLogin(params: Ilogin) {
 	return mockRequest.post<any>('/login', params);
 }
-export function fetchUpdateToken(params: string) {
+export function fetchUpdateToken(params: any) {
 	return mockRequest.post<Itoken>('/updateToken', params);
 }
 export function fetchUserInfo() {
-	return mockRequest.get('/getUserInfo');
+	return mockRequest.get<Auth.UserInfo>('/getUserInfo');
 }
-export function fetchUserRoutes(params: string) {
+export function fetchUserRoutes(params: { userId: number }) {
 	return mockRequest.post<any>('/getUserRoutes', params);
 }
