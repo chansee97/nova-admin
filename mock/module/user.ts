@@ -317,7 +317,7 @@ const userRoutes = [
 	{
 		name: 'error',
 		path: '/error',
-		redirect: '/error/404',
+		redirect: '/error/403',
 		meta: {
 			title: '异常页',
 			requiresAuth: true,
@@ -370,7 +370,7 @@ const userRoutes = [
 				meta: {
 					title: '用户设置',
 					requiresAuth: true,
-					icon: 'icon-park-outline:user',
+					icon: 'icon-park-outline:every-user',
 				},
 			},
 			{
@@ -401,6 +401,15 @@ const userRoutes = [
 				},
 			},
 		],
+	},
+	{
+		name: 'userCenter',
+		path: '/userCenter',
+		meta: {
+			title: '个人中心',
+			requiresAuth: true,
+			icon: 'carbon:user-avatar-filled-alt',
+		},
 	},
 	{
 		name: 'about',

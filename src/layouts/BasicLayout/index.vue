@@ -31,7 +31,7 @@
           </div>
           <div class="flex-y-center h-full">
             <Reload />
-            <!-- <Search /> -->
+            <Search />
             <Notices />
             <Github />
             <FullScreen />

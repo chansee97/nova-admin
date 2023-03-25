@@ -1,5 +1,8 @@
 <template>
-  <n-tooltip placement="bottom" trigger="hover">
+  <n-tooltip
+    placement="bottom"
+    trigger="hover"
+  >
     <template #trigger>
       <HeaderButton @click="handleSearch">
         <i-icon-park-outline-search />
@@ -12,7 +15,7 @@
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue';
 const handleSearch = () => {
-  window.open('https://github.com/chen-see');
+  window.$message.success('施工中...')
 };
 </script>
 
