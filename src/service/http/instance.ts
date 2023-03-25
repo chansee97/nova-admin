@@ -9,7 +9,7 @@ import {
 	handleServiceResult,
 	handleRefreshToken,
 } from './handle';
-import { transformRequestData } from './utils';
+import { transformRequestData, clearInvalidParameters } from './utils';
 
 import { DEFAULT_AXIOS_OPTIONS, DEFAULT_BACKEND_OPTIONS } from '@/config';
 
@@ -36,16 +36,15 @@ export default class createAxiosInstance {
 			async (config) => {
 				const handleConfig = { ...config };
 				if (handleConfig.headers) {
+					// 清除无效字段
+					handleConfig.data = clearInvalidParameters(handleConfig.data)
 					// 数据格式转换
-					// handleConfig.headers.setContentType('application/json');
-					// const contentType = handleConfig.headers.get('Content-Type');
-
-					const contentType = 'application/json';
-					handleConfig.data = await transformRequestData(handleConfig.data, contentType);
-
+					const contentType = handleConfig.headers.getContentType() as unknown as UnionKey.ContentType
+					if (contentType) {
+						handleConfig.data = await transformRequestData(handleConfig.data, contentType);
+					}					
 					// 设置token
-					typeof handleConfig.headers.set === 'function' &&
-						handleConfig.headers.set('Authorization', `Bearer ${local.get('token') || ''}`);
+					handleConfig.headers.setAuthorization(`Bearer ${local.get('token') || ''}`)
 				}
 				return handleConfig;
 			},

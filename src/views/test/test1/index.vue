@@ -29,6 +29,14 @@
         strong
         secondary
         type="success"
+        @click="formPost"
+      >
+        use online formPost
+      </n-button>
+      <n-button
+        strong
+        secondary
+        type="success"
         @click="delete2"
       >
         use online delete
@@ -40,30 +48,6 @@
         @click="put"
       >
         use online put
-      </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="patch"
-      >
-        use online patch
-      </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="mock"
-      >
-        to use mock
-      </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="patch"
-      >
-        use online patch
       </n-button>
       <n-button
         strong
@@ -113,10 +97,10 @@
 <script setup lang="ts">
 import {
 	fetachGet,
-	fetachPost,
+  fetachPost,
+  fetachFormPost,
 	fetachDelete,
 	fetachPut,
-	fetachPatch,
 	fetchMock,
 	testFailedRequest,
 	testFailedResponse,
@@ -130,7 +114,7 @@ const pinter = () => {
 	msg.value = import.meta.env;
 };
 const get = () => {
-	fetachGet().then((res) => {
+	fetachGet({a:112211}).then((res) => {
 		msg.value = res;
 	});
 };
@@ -152,19 +136,20 @@ const post = () => {
 		msg.value = res;
 	});
 };
+
+function formPost() {
+  const params = {
+		data: '2022-2-2',
+	};
+  fetachFormPost(params).then((res) => {
+		msg.value = res;
+	});
+}
 const put = () => {
 	const params = {
 		data: '2022-2-2',
 	};
 	fetachPut(params).then((res) => {
-		msg.value = res;
-	});
-};
-const patch = () => {
-	const params = {
-		data: '2022-2-2',
-	};
-	fetachPatch(params).then((res) => {
 		msg.value = res;
 	});
 };

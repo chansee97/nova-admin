@@ -10,7 +10,7 @@ const userInfo = {
 	userName: 'iamsee',
 	realName: '管理员大人',
 	avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
-	role: "user",
+	role: "super",
 };
 const userRoutes = [
 	{

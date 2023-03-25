@@ -1,19 +1,7 @@
 /** 用户相关模块 */
 declare namespace Auth {
-	/**
-	 * 用户角色类型(前端静态路由用角色类型进行路由权限的控制)
-	 * - super: 超级管理员(该权限具有所有路由数据)
-	 * - admin: 管理员
-	 * - user: 用户
-	 * - custom: 自定义角色
-	 */
-
-	/** 用户信息 */
-	interface loginToken {
-		token: string;
-		refreshToken: string;
-	}
-	type RoleType = 'super' | 'admin' | 'manage' | 'user';
+	/** 用户角色类型 */
+	type RoleType = 'super' | 'admin' | 'user';
 	interface UserInfo {
 		/** 用户id */
 		userId: number;
@@ -48,15 +36,3 @@ declare namespace Message {
 	}
 }
 
-declare namespace CommonList {
-	interface UserList {
-		id: number;
-		name: string;
-		age: number;
-		gender: '0' | '1' | null;
-		email: string;
-		address: string;
-		role: RoleType;
-		disabled: boolean;
-	}
-}

@@ -9,14 +9,14 @@ interface RequestParam {
 	config?: AxiosRequestConfig;
 }
 
-async function getRequestResponse(params: {
+async function getRequestResponse(options: {
 	instance: AxiosInstance;
 	method: RequestMethod;
 	url: string;
 	data?: any;
 	config?: AxiosRequestConfig;
 }) {
-	const { instance, method, url, data, config } = params;
+	const { instance, method, url, data, config } = options;
 
 	let res: any;
 	if (method === 'get' || method === 'delete') {
@@ -75,11 +75,22 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
 	}
 
 	/**
+ * post请求-form参数形式
+ * @param url - 请求地址
+ * @param data - 请求的body的data
+ * @param config - axios配置
+ */
+	function formPost<T>(url: string, data?: any, config: AxiosRequestConfig = {}) {
+		config.headers = { 'Content-Type': 'application/x-www-form-urlencoded' }
+		return asyncRequest<T>({ url, method: 'post', data, config: config });
+	}
+
+	/**
 	 * delete请求
 	 * @param url - 请求地址
 	 * @param config - axios配置
 	 */
-	function handleDelete<T>(url: string, config?: AxiosRequestConfig) {
+	function handleDelete<T>(url: string, params?: any, config?: AxiosRequestConfig) {
 		return asyncRequest<T>({ url, method: 'delete', config: config });
 	}
 
@@ -93,21 +104,11 @@ export function createRequest(axiosConfig: AxiosRequestConfig, backendConfig?: S
 		return asyncRequest<T>({ url, method: 'put', data, config: config });
 	}
 
-	/**
-	 * patch请求
-	 * @param url - 请求地址
-	 * @param data - 请求的body的data
-	 * @param config - axios配置
-	 */
-	function patch<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-		return asyncRequest<T>({ url, method: 'patch', data, config: config });
-	}
-
 	return {
 		get,
 		post,
-		delete: handleDelete,
+		formPost,
 		put,
-		patch,
+		delete: handleDelete,
 	};
 }

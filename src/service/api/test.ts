@@ -1,28 +1,25 @@
 import { request } from '../http';
 import { mockRequest } from '../http';
 
-interface Itest {
-	data: string;
-}
 /* get方法测试 */
-export function fetachGet() {
-	return request.get('/getAPI');
+export function fetachGet(params?:any) {
+	return request.get('/getAPI', { params });
 }
 /* post方法测试 */
-export function fetachPost(params: Itest) {
-	return request.post('/postAPI', params);
+export function fetachPost(data: any) {
+	return request.post('/postAPI', data);
+}
+/* formPost方法测试 */
+export function fetachFormPost(data: any) {
+	return request.formPost('/postAPI', data);
 }
 /* delete方法测试 */
 export function fetachDelete() {
 	return request.delete('/deleteAPI');
 }
 /* put方法测试 */
-export function fetachPut(params: Itest) {
-	return request.put('/putAPI', params);
-}
-/* patch方法测试 */
-export function fetachPatch(params: Itest) {
-	return request.patch('/patchAPI', params);
+export function fetachPut(data: any) {
+	return request.put('/putAPI', data);
 }
 
 /* 测试状态码500失败 */

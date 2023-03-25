@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth-store', {
 		},
 
 		/* 登录后的处理函数 */
-		async handleAfterLogin(data: Auth.loginToken) {
+		async handleAfterLogin(data: ApiAuth.loginToken) {
 			// 将token和userInfo保存下来
 			const catchSuccess = await this.catchUserInfo(data);
 
@@ -85,7 +85,7 @@ export const useAuthStore = defineStore('auth-store', {
 		},
 
 		/* 缓存用户信息 */
-		async catchUserInfo(userToken: Auth.loginToken) {
+		async catchUserInfo(userToken: ApiAuth.loginToken) {
 			let catchSuccess = false;
 			// 先存储token
 			const { token, refreshToken } = userToken;

@@ -132,161 +132,160 @@
 </template>
 
 <script setup lang="tsx">
-import { onMounted, ref, h } from 'vue';
-import { fetchUserList } from '@/service';
-import type { DataTableColumns } from 'naive-ui';
-import { NButton, NPopconfirm, NSpace, NSwitch, NTag, FormInst } from 'naive-ui';
-import { useLoading, useBoolean } from '@/hooks';
-import TableModal from './components/TableModal.vue';
+	import { onMounted, ref, h } from 'vue';
+	import { fetchUserList } from '@/service';
+	import type { DataTableColumns } from 'naive-ui';
+	import { NButton, NPopconfirm, NSpace, NSwitch, NTag, FormInst } from 'naive-ui';
+	import { useLoading, useBoolean } from '@/hooks';
+  import {genderLabels} from '@/constants'
+	import TableModal from './components/TableModal.vue';
 
-const { loading, startLoading, endLoading } = useLoading(false);
-const { bool: visible, setTrue: openModal } = useBoolean(false);
+	const { loading, startLoading, endLoading } = useLoading(false);
+	const { bool: visible, setTrue: openModal } = useBoolean(false);
 
-const initialModel = { condition_1: '', condition_2: '', condition_3: '', condition_4: '' };
-const model = ref({ ...initialModel });
+	const initialModel = { condition_1: '', condition_2: '', condition_3: '', condition_4: '' };
+	const model = ref({ ...initialModel });
 
-const formRef = ref<FormInst | null>();
-const columns: DataTableColumns = [
-	{
-		title: '姓名',
-		align: 'center',
-		key: 'name',
-	},
-	{
-		title: '年龄',
-		align: 'center',
-		key: 'age',
-	},
-	{
-		title: '性别',
-		align: 'center',
-		key: 'gender',
-		render: (row) => {
-			const rowData = row as unknown as CommonList.UserList;
-			const tagType = {
-				'0': {
-					label: '女',
-					type: 'primary',
-				},
-				'1': {
-					label: '男',
-					type: 'success',
-				},
-			} as const;
-			if (rowData.gender) {
-				return <NTag type={tagType[rowData.gender].type}>{tagType[rowData.gender].label}</NTag>;
-			}
+	const formRef = ref<FormInst | null>();
+	const columns: DataTableColumns = [
+		{
+			title: '姓名',
+			align: 'center',
+			key: 'name',
 		},
-	},
-	{
-		title: '邮箱',
-		align: 'center',
-		key: 'email',
-	},
-	{
-		title: '地址',
-		align: 'center',
-		key: 'address',
-	},
-	{
-		title: '角色',
-		align: 'center',
-		key: 'role',
-		render: (row) => {
-			const rowData = row as unknown as CommonList.UserList;
-			const tagType = {
-				super: 'primary',
-				admin: 'warning',
-				user: 'success',
-			} as const;
-			return <NTag type={tagType[rowData.role]}>{rowData.role}</NTag>;
+		{
+			title: '年龄',
+			align: 'center',
+			key: 'age',
 		},
-	},
-	{
-		title: '状态',
-		align: 'center',
-		key: 'disabled',
-		render: (row) => {
-			const rowData = row as unknown as CommonList.UserList;
+		{
+			title: '性别',
+			align: 'center',
+			key: 'gender',
+			render: (row) => {
+				const rowData = row as unknown as CommonList.UserList;
+				const tagType = {
+					0: 'primary',
+					1: 'success',
+				} as const;
+				if (rowData.gender) {
+					return <NTag type={tagType[rowData.gender]}>{genderLabels[rowData.gender]}</NTag>;
+				}
+			},
+		},
+		{
+			title: '邮箱',
+			align: 'center',
+			key: 'email',
+		},
+		{
+			title: '地址',
+			align: 'center',
+			key: 'address',
+		},
+		{
+			title: '角色',
+			align: 'center',
+			key: 'role',
+			render: (row) => {
+				const rowData = row as unknown as CommonList.UserList;
+				const tagType: Record<Auth.RoleType, NaiveUI.ThemeColor> = {
+					super: 'primary',
+					admin: 'warning',
+					user: 'success',
+				};
+				return <NTag type={tagType[rowData.role]}>{rowData.role}</NTag>;
+			},
+		},
+		{
+			title: '状态',
+			align: 'center',
+			key: 'disabled',
+			render: (row) => {
+				const rowData = row as unknown as CommonList.UserList;
 
-			return (
-				<NSwitch value={rowData.disabled} onUpdateValue={(disabled) => handleUpdateDisabled(disabled, rowData.id)}>
-					{{ checked: () => '启用', unchecked: () => '禁用' }}
-				</NSwitch>
-			);
+				return (
+					<NSwitch
+						value={rowData.disabled}
+						onUpdateValue={(disabled) => handleUpdateDisabled(disabled, rowData.id)}>
+						{{ checked: () => '启用', unchecked: () => '禁用' }}
+					</NSwitch>
+				);
+			},
 		},
-	},
-	{
-		title: '操作',
-		align: 'center',
-		key: 'actions',
-		render: (row) => {
-			const rowData = row as unknown as CommonList.UserList;
-			return (
-				<NSpace justify={'center'}>
-					<NButton size={'small'} onClick={() => handleEditTable(rowData)}>
-						编辑
-					</NButton>
-					<NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
-						{{
-							default: () => '确认删除',
-							trigger: () => <NButton size={'small'}>删除</NButton>,
-						}}
-					</NPopconfirm>
-				</NSpace>
-			);
+		{
+			title: '操作',
+			align: 'center',
+			key: 'actions',
+			render: (row) => {
+				const rowData = row as unknown as CommonList.UserList;
+				return (
+					<NSpace justify={'center'}>
+						<NButton
+							size={'small'}
+							onClick={() => handleEditTable(rowData)}>
+							编辑
+						</NButton>
+						<NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
+							{{
+								default: () => '确认删除',
+								trigger: () => <NButton size={'small'}>删除</NButton>,
+							}}
+						</NPopconfirm>
+					</NSpace>
+				);
+			},
 		},
-	},
-];
-const sendMail = (id: number) => {
-	window.$message.success(`用户id:${id}`);
-};
-function handleUpdateDisabled(disabled: boolean, id: number) {
-	const index = listData.value.findIndex((item) => item.id === id);
-	if (index > -1) {
-		listData.value[index].disabled = disabled;
+	];
+	const sendMail = (id: number) => {
+		window.$message.success(`用户id:${id}`);
+	};
+	function handleUpdateDisabled(disabled: boolean, id: number) {
+		const index = listData.value.findIndex((item) => item.id === id);
+		if (index > -1) {
+			listData.value[index].disabled = disabled;
+		}
 	}
-}
 
-const listData = ref<CommonList.UserList[]>([]);
+	const listData = ref<CommonList.UserList[]>([]);
 
-onMounted(() => {
-	getUserList();
-});
-async function getUserList() {
-	startLoading();
-	await fetchUserList().then((res: any) => {
-		listData.value = res.data;
-		endLoading();
+	onMounted(() => {
+		getUserList();
 	});
-}
-function changePage(page: number, size: number) {
-	window.$message.success(`分页器:${page},${size}`);
-}
-function handleResetSearch() {
-	model.value = { ...initialModel };
-}
+	async function getUserList() {
+		startLoading();
+		await fetchUserList().then((res: any) => {
+			listData.value = res.data;
+			endLoading();
+		});
+	}
+	function changePage(page: number, size: number) {
+		window.$message.success(`分页器:${page},${size}`);
+	}
+	function handleResetSearch() {
+		model.value = { ...initialModel };
+	}
 
-type ModalType = 'add' | 'edit';
-const modalType = ref<ModalType>('add');
-function setModalType(type: ModalType) {
-	modalType.value = type;
-}
+	type ModalType = 'add' | 'edit';
+	const modalType = ref<ModalType>('add');
+	function setModalType(type: ModalType) {
+		modalType.value = type;
+	}
 
-const editData = ref<CommonList.UserList | null>(null);
-function setEditData(data: CommonList.UserList | null) {
-	editData.value = data;
-}
+	const editData = ref<CommonList.UserList | null>(null);
+	function setEditData(data: CommonList.UserList | null) {
+		editData.value = data;
+	}
 
-function handleEditTable(rowData: CommonList.UserList) {
-	setEditData(rowData);
-	setModalType('edit');
-	openModal();
-}
-function handleAddTable() {
-	openModal();
-	setModalType('add');
-}
+	function handleEditTable(rowData: CommonList.UserList) {
+		setEditData(rowData);
+		setModalType('edit');
+		openModal();
+	}
+	function handleAddTable() {
+		openModal();
+		setModalType('add');
+	}
 </script>
 
 <style scoped></style>
