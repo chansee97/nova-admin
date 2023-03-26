@@ -1,7 +1,17 @@
 <template>
-  <div text-center c-red>
-    I prove that you have made the jump test4.
-    <n-button strong secondary type="success" @click="testMsg">testMsg</n-button>
+  <div
+    text-center
+    c-red
+  >
+    三级菜单页
+    <n-button
+      strong
+      secondary
+      type="success"
+      @click="testMsg"
+    >
+      testMsg
+    </n-button>
   </div>
 </template>
 

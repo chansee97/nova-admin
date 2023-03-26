@@ -35,7 +35,6 @@ const userRoutes = [
 	{
 		name: 'dashboard',
 		path: '/dashboard',
-		redirect: '/dashboard/workbench',
 		meta: {
 			title: '仪表盘',
 			requiresAuth: true,
@@ -65,7 +64,6 @@ const userRoutes = [
 	{
 		name: 'test',
 		path: '/test',
-		redirect: '/test/test1',
 		meta: {
 			title: '多级菜单演示',
 			requiresAuth: true,
@@ -76,7 +74,7 @@ const userRoutes = [
 				name: 'test1',
 				path: '/test/test1',
 				meta: {
-					title: '多级菜单1',
+					title: '接口功能测试',
 					requiresAuth: true,
 					icon: 'icon-park-outline:list',
 				},
@@ -85,7 +83,7 @@ const userRoutes = [
 				name: 'test2',
 				path: '/test/test2',
 				meta: {
-					title: '多级菜单2',
+					title: '多级菜单子页',
 					requiresAuth: true,
 					icon: 'icon-park-outline:list',
 				},
@@ -94,7 +92,7 @@ const userRoutes = [
 						name: 'test2_detail',
 						path: '/test/test2/detail',
 						meta: {
-							title: '多级菜单2的详情页',
+							title: '多级菜单的详情页',
 							requiresAuth: true,
 							icon: 'icon-park-outline:list',
 							hide: true,
@@ -107,7 +105,7 @@ const userRoutes = [
 				name: 'test3',
 				path: '/test/test3',
 				meta: {
-					title: '多级菜单3',
+					title: '多级菜单',
 					requiresAuth: true,
 					icon: 'icon-park-outline:list',
 				},
@@ -128,7 +126,6 @@ const userRoutes = [
 	{
 		name: 'list',
 		path: '/list',
-		redirect: '/list/commonList',
 		meta: {
 			title: '列表页',
 			requiresAuth: true,
@@ -158,7 +155,6 @@ const userRoutes = [
 	{
 		name: 'plugin',
 		path: '/plugin',
-		redirect: '/plugin/charts',
 		meta: {
 			title: '组件示例',
 			requiresAuth: true,
@@ -265,7 +261,6 @@ const userRoutes = [
 	{
 		name: 'docments',
 		path: '/docments',
-		redirect: '/docments/vue',
 		meta: {
 			title: '外链文档',
 			requiresAuth: true,
@@ -305,7 +300,6 @@ const userRoutes = [
 	{
 		name: 'permission',
 		path: '/permission',
-		redirect: '/permission/permission',
 		meta: {
 			title: '权限示例',
 			requiresAuth: true,
@@ -336,7 +330,6 @@ const userRoutes = [
 	{
 		name: 'error',
 		path: '/error',
-		redirect: '/error/403',
 		meta: {
 			title: '异常页',
 			requiresAuth: true,
@@ -350,6 +343,7 @@ const userRoutes = [
 					title: '403页',
 					requiresAuth: true,
 					icon: 'carbon:error',
+					order: 3,
 				},
 			},
 			{
@@ -359,6 +353,7 @@ const userRoutes = [
 					title: '404页',
 					requiresAuth: true,
 					icon: 'icon-park-outline:error',
+					order: 2,
 				},
 			},
 			{
@@ -368,6 +363,7 @@ const userRoutes = [
 					title: '500页',
 					requiresAuth: true,
 					icon: 'carbon:data-error',
+					order: 1,
 				},
 			},
 		],
@@ -375,7 +371,6 @@ const userRoutes = [
 	{
 		name: 'setting',
 		path: '/setting',
-		redirect: '/setting/account',
 		meta: {
 			title: '系统设置',
 			requiresAuth: true,

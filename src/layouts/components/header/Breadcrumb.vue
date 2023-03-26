@@ -1,6 +1,10 @@
 <template>
   <n-breadcrumb class="px-4">
-    <n-breadcrumb-item v-for="(item, index) in routes" :key="index" @click="routerPush(item.path)">
+    <n-breadcrumb-item
+      v-for="(item, index) in routes"
+      :key="index"
+      @click="routerPush(item.path)"
+    >
       <e-icon :icon="item.meta.icon" />
       {{ item.meta.title }}
     </n-breadcrumb-item>
@@ -17,7 +21,7 @@ const router = useRouter();
 const routeStore = useRouteStore();
 const { routerPush } = useAppRouter();
 const routes = computed(() => {
-  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string, routeStore.userRoutes);
+  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string);
 });
 </script>
 

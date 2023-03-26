@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
-import { renderIcon,local } from '@/utils';
+import { renderIcon, local } from '@/utils';
 import { MenuOption } from 'naive-ui';
 import { createDynamicRoutes } from '@/router/guard/dynamic';
 import { router } from '@/router';
 import { fetchUserRoutes } from '@/service';
 import { staticRoutes } from '@/router/modules';
-import { RouterLink } from 'vue-router'
-import { usePermission } from '@/hooks'
-import { h } from 'vue'
+import { RouterLink } from 'vue-router';
+import { usePermission } from '@/hooks';
+import { h } from 'vue';
 
 interface RoutesStatus {
 	isInitAuthRoute: boolean;
@@ -38,7 +38,7 @@ export const useRouteStore = defineStore('route-store', {
 			router.removeRoute('appRoot');
 		},
 		/* 根据当前路由的name生成面包屑数据 */
-		createBreadcrumbFromRoutes(routeName = '/', userRoutes: AppRoute.Route[]) {
+		createBreadcrumbFromRoutes(routeName = '/') {
 			const path: AppRoute.Route[] = [];
 			// 筛选所有包含目标的各级路由组合成一维数组
 			const getPathfromRoutes = (routeName: string, userRoutes: AppRoute.Route[]) => {
@@ -51,7 +51,7 @@ export const useRouteStore = defineStore('route-store', {
 					}
 				});
 			};
-			getPathfromRoutes(routeName, userRoutes);
+			getPathfromRoutes(routeName, this.userRoutes);
 			return path;
 		},
 		/* 判断当前路由和子路由中是否存在为routeName的路由 */
@@ -77,57 +77,87 @@ export const useRouteStore = defineStore('route-store', {
 		/* 生成侧边菜单的数据 */
 		createMenus(userRoutes: AppRoute.Route[]) {
 			this.userRoutes = userRoutes;
-			this.menus = this.transformAuthRoutesToMenus(userRoutes);
+
+			let resultMenus = JSON.parse(JSON.stringify(userRoutes));
+			resultMenus = this.removeHiddenRoutes(resultMenus);
+			this.menus = this.transformAuthRoutesToMenus(resultMenus);
 		},
+		/** 过滤不需要显示的菜单 */
+		removeHiddenRoutes(routes: AppRoute.Route[]) {
+			return routes.filter((route) => {
+				if (route.meta && route.meta.hide) {
+					return false;
+				} else if (route.children) {
+					route.children = this.removeHiddenRoutes(route.children);
+				}
+				return true;
+			});
+		},
+
 		//* 将返回的路由表渲染成侧边栏 */
 		transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
-
-			return userRoutes
-				/** 隐藏不需要显示的菜单 */
-				.filter((item) => {
-					return !item.meta.hide;
-				})
-				.filter((item: AppRoute.Route) => {
-					const { hasPermission } = usePermission();
-					return hasPermission(item.meta.roles)
-				})
-				/** 转换为侧边菜单数据结构 */
-				.map((item) => {
-					const target: MenuOption = {
-						label: () =>
-							h(
-								RouterLink,
-								{
-									to: {
-										path: item.path
-									}
-								},
-								{ default: () => item.meta.title }
-							),
-						key: item.path,
-						icon: renderIcon(item.meta.icon)
-					};
-					/** 判断子元素 */
-					if (item.children) {
-						const children = this.transformAuthRoutesToMenus(item.children);
-						// 只有子元素有且不为空时才添加
-						if (children.length !== 0) {
-							target.children = children;
+			return (
+				userRoutes
+					/** 过滤没有权限的侧边菜单 */
+					.filter((item: AppRoute.Route) => {
+						const { hasPermission } = usePermission();
+						return hasPermission(item.meta.roles);
+					})
+					/** 根据order大小菜单排序  */
+					.sort((a, b) => {
+						if (a.meta && a.meta.order && b.meta && b.meta.order) {
+							return a.meta.order - b.meta.order;
+						} else if (a.meta && a.meta.order) {
+							return -1;
+						} else if (b.meta && b.meta.order) {
+							return 1;
+						} else {
+							return 0;
 						}
-					}
-					return target;
-				});
+					})
+					/** 转换为侧边菜单数据结构 */
+					.map((item) => {
+						const target: MenuOption = {
+							label:
+								!item.children || item.children.length == 0
+									? () =>
+											h(
+												RouterLink,
+												{
+													to: {
+														path: item.path,
+													},
+												},
+												{ default: () => item.meta.title }
+											)
+									: item.meta.title,
+							key: item.path,
+							icon: renderIcon(item.meta.icon),
+						};
+						/** 判断子元素 */
+						if (item.children) {
+							const children = this.transformAuthRoutesToMenus(item.children);
+							// 只有子元素有且不为空时才添加
+							if (children.length !== 0) {
+								target.children = children;
+							} else {
+								target.children = undefined;
+							}
+						}
+						return target;
+					})
+			);
 		},
 		/* 初始化动态路由 */
 		async initDynamicRoute() {
 			// 根据用户id来获取用户的路由
-			const userInfo = local.get('userInfo')
+			const userInfo = local.get('userInfo');
 
-			if (!userInfo||!userInfo.userId) {
-				return 
+			if (!userInfo || !userInfo.userId) {
+				return;
 			}
 
-			const { data: routes } = await fetchUserRoutes({ userId: userInfo.userId});
+			const { data: routes } = await fetchUserRoutes({ userId: userInfo.userId });
 			// 根据用户返回的路由表来生成真实路由
 			const appRoutes = await createDynamicRoutes(routes);
 			// 生成侧边菜单

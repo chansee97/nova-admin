@@ -1,7 +1,9 @@
 <template>
   <div text-center>
-    I prove that you have made the ju mp test2.
-    <n-button @click="routerPush('/test/test2/detail')">跳转详情子页</n-button>
+    这个页面包含了一个不在侧边菜单的详情页面
+    <n-button @click="routerPush('/test/test2/detail')">
+      跳转详情子页
+    </n-button>
   </div>
 </template>
 
