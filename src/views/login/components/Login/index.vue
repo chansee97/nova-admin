@@ -134,8 +134,8 @@ const rules = {
 	},
 };
 const formValue = ref({
-	account: 'admin',
-	pwd: '000000',
+	account: 'super',
+	pwd: '123456',
 	code: '1234',
 });
 const isRemember = ref(false);

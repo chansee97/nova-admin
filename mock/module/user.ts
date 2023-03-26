@@ -1,17 +1,36 @@
 import Mock from 'mockjs';
-import { resultSuccess } from '../utils';
+import { resultSuccess, resultFailed } from '../utils';
 
 const Random = Mock.Random;
 
 const token = () => Random.string('upper', 32, 32);
 
-const userInfo = {
-	userId: 1,
-	userName: 'iamsee',
-	realName: '管理员大人',
-	avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
-	role: "super",
-};
+const userData = [
+	{
+		userId: 1,
+		userName: 'super',
+		password: '123456',
+		nickName: '超级管理员大人',
+		avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+		role: 'super',
+	},
+	{
+		userId: 2,
+		userName: 'admin',
+		password: '123456',
+		nickName: '管理员大人',
+		avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+		role: 'admin',
+	},
+	{
+		userId: 3,
+		userName: 'user',
+		password: '123456',
+		nickName: '用户大人',
+		avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+		role: 'user',
+	},
+];
 const userRoutes = [
 	{
 		name: 'dashboard',
@@ -312,7 +331,7 @@ const userRoutes = [
 					icon: 'icon-park-outline:wrong-user',
 				},
 			},
-		]
+		],
 	},
 	{
 		name: 'error',
@@ -322,7 +341,6 @@ const userRoutes = [
 			title: '异常页',
 			requiresAuth: true,
 			icon: 'icon-park-outline:error-computer',
-
 		},
 		children: [
 			{
@@ -425,15 +443,32 @@ const userRoutes = [
 export default [
 	{
 		url: '/mock/login',
-		timeout: 1000,
 		method: 'post',
-		response: () => {
-			return resultSuccess({ token: token(), refreshToken: token() });
+		response: (options: any) => {
+			const { userName = undefined, password = undefined } = options.body;
+
+			if (!userName || !password) {
+				return resultFailed(null, '账号密码不全');
+			}
+
+			const userInfo = userData.find((item) => item.userName === userName && item.password === password);
+
+			if (userInfo) {
+				return {
+					code: 200,
+					message: 'ok',
+					data: {
+						userId: userInfo.userId,
+						token: token(),
+						refreshToken: token(),
+					},
+				};
+			}
+			return resultFailed(null, '账号密码错误');
 		},
 	},
 	{
 		url: '/mock/updateToken',
-		timeout: 1000,
 		method: 'post',
 		response: () => {
 			return resultSuccess({ token: token(), refreshToken: token() });
@@ -441,15 +476,21 @@ export default [
 	},
 	{
 		url: '/mock/getUserInfo',
-		timeout: 1000,
 		method: 'get',
-		response: () => {
-			return resultSuccess(userInfo);
+		response: (options: any) => {
+			const { userId = undefined } = options.query;
+			if (!userId) {
+				return resultFailed(null, '未传入用户id！');
+			}
+			const userInfo = userData.find((item) => item.userId == userId);
+			if (userInfo) {
+				return resultSuccess(userInfo);
+			}
+			return resultFailed(null, '未找到用户信息，请检查提交参数');
 		},
 	},
 	{
 		url: '/mock/getUserRoutes',
-		timeout: 1000,
 		method: 'post',
 		response: () => {
 			return resultSuccess(userRoutes);

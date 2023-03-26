@@ -5,9 +5,10 @@ declare namespace Storage {
   }
 
   interface Local {
-    userInfo: Auth.UserInfo
-    token: string
-    refreshToken: string
-    tabsRoutes: string
-  }
+		userInfo: Auth.UserInfo;
+		token: string;
+		refreshToken: string;
+		tabsRoutes: string;
+		login_account:any;
+	}
 }

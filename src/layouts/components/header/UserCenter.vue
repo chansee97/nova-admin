@@ -10,7 +10,7 @@
         size="large"
         :src="userInfo?.avatar"
       />
-      {{ userInfo?.realName }}
+      {{ userInfo?.nickName }}
     </HeaderButton>
   </n-dropdown>
 </template>
@@ -42,7 +42,15 @@ const { userInfo, resetAuthStore } = useAuthStore();
 	];
 	const handleSelect = (key: string | number) => {
 		if (key === 'loginOut') {
-			resetAuthStore();
+			window.$dialog.info({
+          title: '退出登录',
+          content: '确认退出当前账号？',
+          positiveText: '确定',
+          negativeText: '取消',
+          onPositiveClick: () => {
+						resetAuthStore();
+          },
+        })
 		}
 		if (key === 'userCenter') {
 			router.push('/userCenter')

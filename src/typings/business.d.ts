@@ -8,7 +8,7 @@ declare namespace Auth {
 		/** 用户名 */
 		userName: string;
 		/* 用户称呼 */
-		realName: string;
+		nickName: string;
 		/* 用户头像 */
 		avatar: string;
 		/** 用户角色类型 */

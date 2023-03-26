@@ -6,11 +6,19 @@ import { unref } from 'vue';
 import { useRouteStore } from './route';
 import { local } from '@/utils';
 
+const emptyInfo: Auth.UserInfo = {
+	userId: 0,
+	userName: '',
+	nickName: '',
+	avatar: '',
+	role: 'user',
+};
 export const useAuthStore = defineStore('auth-store', {
 	state: () => {
 		return {
-			userInfo: local.get('userInfo'),
-			token: local.get('token'),
+			userInfo: local.get('userInfo') || emptyInfo,
+			token: local.get('token') || '',
+			refreshToken: local.get('refreshToken') || '',
 			loginLoading: false,
 		};
 	},
@@ -44,7 +52,11 @@ export const useAuthStore = defineStore('auth-store', {
 		/* 用户登录 */
 		async login(userName: string, password: string) {
 			this.loginLoading = true;
-			const { data } = await fetchLogin({ userName, password });
+			const { error, data } = await fetchLogin({ userName, password });
+			if (error) {
+				this.loginLoading = false;
+				return;
+			}
 			// 处理登录信息
 			await this.handleAfterLogin(data);
 
@@ -69,41 +81,37 @@ export const useAuthStore = defineStore('auth-store', {
 				// 触发用户提示
 				window.$notification?.success({
 					title: '登录成功!',
-					content: `欢迎回来😊，${this.userInfo?.realName}!`,
+					content: `欢迎回来😊，${this.userInfo.nickName}!`,
 					duration: 3000,
 				});
 				return;
 			}
 			// 如果不成功则重置存储
 			this.resetAuthStore();
-			// 登录失败提示
-			window.$notification?.error({
-				title: '登录失败!',
-				content: `验证失败，请检查账号密码`,
-				duration: 3000,
-			});
 		},
 
 		/* 缓存用户信息 */
 		async catchUserInfo(userToken: ApiAuth.loginToken) {
 			let catchSuccess = false;
-			// 先存储token
-			const { token, refreshToken } = userToken;
-			local.set('token', token);
-			local.set('refreshToken', refreshToken,)
-
-			// 请求/存储用户信息
-			const { data } = await fetchUserInfo();
-			if (data) {
-				local.set('userInfo', data);
+			const { token, refreshToken, userId } = userToken;
+			const { error, data } = await fetchUserInfo({ userId });
+			if (error) {
+				return catchSuccess;
 			}
-			// 再将token和userInfo初始化
-			this.userInfo = data;
+			// 先存储token
+			local.set('token', token);
+			local.set('refreshToken', refreshToken);
 			this.token = token;
-
+			this.refreshToken = refreshToken;
+			// 请求/存储用户信息
+			local.set('userInfo', data);
+			this.userInfo = data;
 			catchSuccess = true;
 
 			return catchSuccess;
+		},
+		toggleUserRole(role: Auth.RoleType) {
+			this.login(role, '123456');
 		},
 	},
 });

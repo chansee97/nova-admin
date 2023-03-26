@@ -4,7 +4,8 @@ import AppLoading from './components/common/appLoading.vue';
 import { setupRouter } from './router';
 import { setupAssets } from './plugins';
 import { setupStore } from './store';
-
+import { setupDirectives } from './directive'
+ 
 async function setupApp() {
 	// 引入静态资源
 	setupAssets();
@@ -16,6 +17,8 @@ async function setupApp() {
 	const app = createApp(App);
 	// 安装pinia全局状态库
 	setupStore(app);
+	// 安装自定义指令
+	setupDirectives(app)
 	// 安装router
 	await setupRouter(app);
 	// 挂载

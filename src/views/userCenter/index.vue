@@ -24,7 +24,7 @@
               {{ userInfo?.userName }}
             </n-descriptions-item>
             <n-descriptions-item label="真实名称">
-              {{ userInfo?.realName }}
+              {{ userInfo?.nickName }}
             </n-descriptions-item>
             <n-descriptions-item label="角色">
               {{ userInfo?.role }}

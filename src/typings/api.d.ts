@@ -6,9 +6,10 @@ declare namespace ApiAuth {
   type UserInfo = Auth.UserInfo;
   /* 登录token字段 */
   interface loginToken {
-    token: string;
-    refreshToken: string;
-  }
+		token: string;
+		refreshToken: string;
+		userId: number;
+	}
 }
 declare namespace CommonList {
   /* 返回的性别类型 */
