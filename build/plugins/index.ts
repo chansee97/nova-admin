@@ -14,11 +14,11 @@ import mock from './mock';
 export function setVitePlugins(env: ImportMetaEnv) {
   const plugins = [...vue, unocss(), ...unplugin, mock];
   // 是否压缩
-  if (env.VITE_COMPRESS_OPEN === 'Y') {
+  if (env.VITE_COMPRESS_OPEN) {
     plugins.push(compress(env));
   }
   // 是否依赖分析
-  if (env.VITE_VISUALIZER === 'Y') {
+  if (env.VITE_VISUALIZER) {
     plugins.push(visualizer as PluginOption);
   }
   return plugins;

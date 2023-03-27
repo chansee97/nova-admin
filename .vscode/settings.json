@@ -1,15 +1,10 @@
 {
-	// 缩进
 	"editor.tabSize": 2,
-	// 保存eslint校验
+	"editor.formatOnSave": false,
+	"eslint.format.enable": false,
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": true
 	},
-	"eslint.format.enable": true,
-	// 校验那些文件
 	"eslint.validate": ["typescript", "javascript", "vue", "html"],
-	// 加载配置文件
 	"eslint.options": { "configFile": ".eslintrc.js" },
-	// 保存自动格式化
-	"editor.formatOnSave": false,
 }

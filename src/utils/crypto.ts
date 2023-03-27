@@ -15,7 +15,7 @@ export function encrypto(data: any) {
 		newData = JSON.stringify(data);
 	}
 
-	if (VITE_STORAGE_ENCRYPT === 'N') {
+	if (VITE_STORAGE_ENCRYPT) {
 		return newData;
 	}
 
@@ -27,7 +27,7 @@ export function encrypto(data: any) {
  * @param cipherText - 密文
  */
 export function decrypto(cipherText: string) {
-	if (VITE_STORAGE_ENCRYPT === 'N') {
+	if (!VITE_STORAGE_ENCRYPT) {
 		return JSON.parse(cipherText);
 	}
 

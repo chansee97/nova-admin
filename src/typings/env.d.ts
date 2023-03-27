@@ -25,22 +25,22 @@ interface ImportMetaEnv {
 	readonly VITE_APP_TITLE: string;
 	readonly VITE_APP_DESC: string;
 	/** 开启请求代理 */
-	readonly VITE_HTTP_PROXY?: 'Y' | 'N';
+	readonly VITE_HTTP_PROXY?: boolean;
 	/** 是否开启打包依赖分析 */
-	readonly VITE_VISUALIZER?: 'Y' | 'N';
+	readonly VITE_VISUALIZER?: boolean;
 	/** 是否开启打包压缩 */
-	readonly VITE_COMPRESS_OPEN?: 'Y' | 'N';
+	readonly VITE_COMPRESS_OPEN?: boolean;
 	/** 压缩算法类型 */
 	readonly VITE_COMPRESS_TYPE?: 'gzip' | 'brotliCompress' | 'deflate' | 'deflateRaw';
 	/** hash路由模式 */
-	readonly VITE_HASH_ROUTE?: 'Y' | 'N';
+	readonly VITE_ROUTE_MODE?: 'hash' | 'web';
 	/** 路由加载模式 */
 	readonly VITE_AUTH_ROUTE_MODE?: 'static' | 'dynamic';
 	/** 本地存储内容开启加密 */
-	readonly VITE_STORAGE_ENCRYPT?: 'Y' | 'N';
+	readonly VITE_STORAGE_ENCRYPT?: boolean;
 
 	/** 后端服务的环境类型 */
-	readonly MODE?: ServiceEnvType;
+	readonly MODE: ServiceEnvType;
 }
 
 interface ImportMeta {

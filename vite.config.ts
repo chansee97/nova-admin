@@ -1,7 +1,7 @@
 import { defineConfig, loadEnv, ConfigEnv } from 'vite';
 import { createViteProxy, setVitePlugins } from './build';
 import { resolve } from 'path';
-import { getServiceEnvConfig } from './src/config';
+import { proxyConfig } from '@/config';
 
 // 当前执行node命令时文件夹的地址（工作目录）
 const rootPath: string = resolve(process.cwd());
@@ -14,9 +14,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 	// 根据当前工作目录中的 `mode` 加载 .env 文件
 	// 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
 	const env = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv;
-	const isOpenProxy = env.VITE_HTTP_PROXY === 'Y';
-
-	const envConfig = getServiceEnvConfig(mode as ServiceEnvType);
+	const envConfig = proxyConfig[mode as ServiceEnvType];
 
 	return {
 		base: env.VITE_BASE_URL,
@@ -31,7 +29,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 			host: '0.0.0.0',
 			port: 3000,
 			open: false,
-			proxy: isOpenProxy ? createViteProxy(envConfig) : undefined,
+			proxy: env.VITE_HTTP_PROXY ? createViteProxy(envConfig) : undefined,
 		},
 		preview: {
 			port: 5211,

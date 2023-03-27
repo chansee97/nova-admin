@@ -28,7 +28,7 @@
 		}
 	},
 	"lint-staged": {
-		"./src/**/*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
+		"*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
 	},
 	"dependencies": {
 		"@vueuse/core": "^9.13.0",

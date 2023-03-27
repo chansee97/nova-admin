@@ -43,10 +43,3 @@ declare namespace Service {
 	/** 自定义的请求结果 */
 	type RequestResult<T = any> = SuccessResult<T> | FailedResult;
 }
-/** 菜单项配置 */
-type GlobalMenuOption = import('naive-ui').MenuOption & {
-	key: string;
-	label: string;
-	icon?: () => import('vue').VNodeChild;
-	children?: GlobalMenuOption[];
-};
