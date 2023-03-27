@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const emit = defineEmits(['update:modelValue'])
+function toLogin() {
+  emit('update:modelValue', 'login')
+}
+const rules = {
+  account: {
+    required: true,
+    trigger: 'blur',
+    message: '请输入账号/手机号码',
+  },
+}
+const formValue = ref({
+  account: '',
+})
+
+function handleRegister() {}
+</script>
+
 <template>
   <div>
     <n-h1 depth="3">
@@ -8,7 +29,6 @@
       />重置密码
     </n-h1>
     <n-form
-      ref="formRef"
       :rules="rules"
       :model="formValue"
       :show-label="false"
@@ -47,28 +67,5 @@
     </n-form>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const emit = defineEmits(['update:modelValue']);
-function toLogin() {
-	emit('update:modelValue', 'login');
-}
-const rules = {
-	account: {
-		required: true,
-		trigger: 'blur',
-		message: '请输入账号/手机号码',
-	},
-};
-const formValue = ref({
-	account: '',
-});
-
-const isRead = ref(false);
-
-function handleRegister() {}
-</script>
 
 <style scoped></style>

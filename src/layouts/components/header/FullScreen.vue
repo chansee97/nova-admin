@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import HeaderButton from '../common/HeaderButton.vue'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
+</script>
+
 <template>
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
@@ -9,11 +15,5 @@
     <span>全屏</span>
   </n-tooltip>
 </template>
-
-<script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue';
-import { useAppStore } from '@/store';
-const appStore = useAppStore();
-</script>
 
 <style scoped></style>

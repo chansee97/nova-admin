@@ -1,35 +1,7 @@
-<template>
-  <n-popover placement="bottom" trigger="click" arrow-point-to-center class="!p-0">
-    <template #trigger>
-      <n-tooltip placement="bottom" trigger="hover">
-        <template #trigger>
-          <HeaderButton>
-            <n-badge :value="massageCount" :max="99" style="color: unset">
-              <i-icon-park-outline-remind />
-            </n-badge>
-          </HeaderButton>
-        </template>
-        <span>消息通知</span>
-      </n-tooltip>
-    </template>
-    <n-tabs v-model:value="currentTab" type="line" animated justify-content="space-evenly" class="w-390px">
-      <n-tab-pane v-for="item in MassageData" :key="item.key" :name="item.key">
-        <template #tab>
-          <n-space class="w-130px" justify="center">
-            {{ item.name }}
-            <n-badge v-bind="item.badgeProps" :value="item.list.filter((item) => !item.isRead).length" :max="99" />
-          </n-space>
-        </template>
-        <NoticeList :list="item.list" @read="handleRead" />
-      </n-tab-pane>
-    </n-tabs>
-  </n-popover>
-</template>
-
 <script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue';
-import NoticeList from '../common/NoticeList.vue';
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue'
+import HeaderButton from '../common/HeaderButton.vue'
+import NoticeList from '../common/NoticeList.vue'
 
 const MassageData = ref<Message.Tab[]>([
   {
@@ -120,16 +92,44 @@ const MassageData = ref<Message.Tab[]>([
       },
     ],
   },
-]);
-const currentTab = ref(0);
+])
+const currentTab = ref(0)
 function handleRead(index: number) {
-  MassageData.value[currentTab.value].list[index].isRead = true;
+  MassageData.value[currentTab.value].list[index].isRead = true
 }
 const massageCount = computed(() => {
   return MassageData.value.reduce((pre, cur) => {
-    return pre + cur.list.filter((item) => !item.isRead).length;
-  }, 0);
-});
+    return pre + cur.list.filter(item => !item.isRead).length
+  }, 0)
+})
 </script>
+
+<template>
+  <n-popover placement="bottom" trigger="click" arrow-point-to-center class="!p-0">
+    <template #trigger>
+      <n-tooltip placement="bottom" trigger="hover">
+        <template #trigger>
+          <HeaderButton>
+            <n-badge :value="massageCount" :max="99" style="color: unset">
+              <i-icon-park-outline-remind />
+            </n-badge>
+          </HeaderButton>
+        </template>
+        <span>消息通知</span>
+      </n-tooltip>
+    </template>
+    <n-tabs v-model:value="currentTab" type="line" animated justify-content="space-evenly" class="w-390px">
+      <n-tab-pane v-for="item in MassageData" :key="item.key" :name="item.key">
+        <template #tab>
+          <n-space class="w-130px" justify="center">
+            {{ item.name }}
+            <n-badge v-bind="item.badgeProps" :value="item.list.filter((item) => !item.isRead).length" :max="99" />
+          </n-space>
+        </template>
+        <NoticeList :list="item.list" @read="handleRead" />
+      </n-tab-pane>
+    </n-tabs>
+  </n-popover>
+</template>
 
 <style scoped></style>

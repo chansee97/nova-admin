@@ -1,36 +1,36 @@
-import { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
-import { local } from '@/utils';
-import { useRouteStore } from '@/store';
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import { local } from '@/utils'
+import { useRouteStore } from '@/store'
 
 export async function createPermissionGuard(
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
-  next: NavigationGuardNext
+  next: NavigationGuardNext,
 ) {
-  const routeStore = useRouteStore();
+  const routeStore = useRouteStore()
 
   // 判断有无TOKEN,登录鉴权
-  const isLogin = Boolean(local.get('token'));
+  const isLogin = Boolean(local.get('token'))
   if (!isLogin) {
-    if (to.name == 'login') {
+    if (to.name === 'login')
       next()
-    }
+
     if (to.name !== 'login') {
-      const redirect = to.name === '404' ? undefined : to.fullPath;
-      next({ path: '/login', query: { redirect } });
+      const redirect = to.name === '404' ? undefined : to.fullPath
+      next({ path: '/login', query: { redirect } })
     }
     return false
   }
 
   // 判断路由有无进行初始化
   if (!routeStore.isInitAuthRoute) {
-    await routeStore.initAuthRoute();
+    await routeStore.initAuthRoute()
     // 动态路由加载完回到根路由
     if (to.name === '404' && to.redirectedFrom) {
       // 等待权限路由加载好了，回到之前的路由,否则404
-      const path = to.redirectedFrom?.fullPath;
-      next({ path, replace: true, query: to.query, hash: to.hash });
-      return false;
+      const path = to.redirectedFrom?.fullPath
+      next({ path, replace: true, query: to.query, hash: to.hash })
+      return false
     }
   }
 
@@ -43,7 +43,7 @@ export async function createPermissionGuard(
   // 判断当前页是否在login,则定位去首页
   if (to.name === 'login') {
     next({ path: '/appRoot' })
-    return false;
+    return false
   }
 
   next()

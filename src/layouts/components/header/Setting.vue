@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import HeaderButton from '../common/HeaderButton.vue'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
+
+const drawerActive = ref(false)
+const openSetting = () => {
+  drawerActive.value = !drawerActive.value
+}
+</script>
+
 <template>
   <n-tooltip
     placement="bottom"
@@ -96,17 +108,5 @@
     <span>设置</span>
   </n-tooltip>
 </template>
-
-<script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue';
-import { ref } from 'vue';
-import { useAppStore } from '@/store';
-const appStore = useAppStore();
-
-const drawerActive = ref(false);
-const openSetting = () => {
-	drawerActive.value = !drawerActive.value;
-};
-</script>
 
 <style scoped></style>

@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import { useAuthStore } from '@/store'
+import { usePermission } from '@/hooks'
+
+const authStore = useAuthStore()
+const { hasPermission } = usePermission()
+const { role } = authStore.userInfo
+
+const roleList: Auth.RoleType[] = ['super', 'admin', 'user']
+</script>
+
 <template>
   <div>
     权限示例:
@@ -36,16 +47,5 @@
     </n-space>
   </div>
 </template>
-
-<script setup lang="ts">
-	import { useAuthStore } from '@/store';
-	import { usePermission } from '@/hooks';
-
-	const authStore = useAuthStore();
-	const { hasPermission } = usePermission();
-	const { role } = authStore.userInfo;
-
-	const roleList: Auth.RoleType[] = ['super', 'admin', 'user'];
-</script>
 
 <style scoped></style>

@@ -1,3 +1,5 @@
+<script setup lang="ts"></script>
+
 <template>
   <n-el
     tag="div"
@@ -12,16 +14,14 @@
   </n-el>
 </template>
 
-<script setup lang="ts"></script>
-
 <style scoped>
-.el {
-	color: var(--n-text-color);
-	background-color: var(--n-color);
-	transition: 0.3s var(--cubic-bezier-ease-in-out);
-}
-.el:hover {
-	background-color: var(--button-color-2-hover);
-	color: var(--n-text-color-hover);
-}
+  .el {
+    color: var(--n-text-color);
+    background-color: var(--n-color);
+    transition: 0.3s var(--cubic-bezier-ease-in-out);
+  }
+  .el:hover {
+    background-color: var(--button-color-2-hover);
+    color: var(--n-text-color-hover);
+  }
 </style>

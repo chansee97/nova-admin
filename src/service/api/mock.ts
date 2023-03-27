@@ -1,5 +1,5 @@
-import { mockRequest } from '../http';
+import { mockRequest } from '../http'
 
 export function fetchUserList() {
-  return mockRequest.get('/userList');
+  return mockRequest.get('/userList')
 }

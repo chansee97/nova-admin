@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { useAppRouter } from '@/hooks'
+const { routerPush } = useAppRouter()
+</script>
+
 <template>
   <div text-center>
     这个页面包含了一个不在侧边菜单的详情页面
@@ -6,10 +11,5 @@
     </n-button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAppRouter } from '@/hooks';
-const { routerPush } = useAppRouter();
-</script>
 
 <style scoped></style>

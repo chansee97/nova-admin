@@ -1,8 +1,26 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import { icons } from './icons'
+
+const currentIcon = ref('')
+const searchValue = ref('')
+const showPopover = ref(false)
+
+const iconList = computed(() => icons.filter(item => item.includes(searchValue.value)))
+
+function handleSelectIcon(icon: string) {
+  currentIcon.value = icon
+  showPopover.value = false
+}
+</script>
+
 <template>
   <n-popover v-model:show="showPopover" placement="bottom" trigger="click">
     <template #trigger>
       <n-input v-model:value="currentIcon" readonly placeholder="选择目标图标">
-        <template #suffix><e-icon :icon="currentIcon || 'icon-park-outline:all-application'" /></template>
+        <template #suffix>
+          <e-icon :icon="currentIcon || 'icon-park-outline:all-application'" />
+        </template>
       </n-input>
     </template>
     <template #header>
@@ -23,21 +41,5 @@
     </div>
   </n-popover>
 </template>
-
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import { icons } from './icons';
-
-const currentIcon = ref('');
-const searchValue = ref('');
-const showPopover = ref(false);
-
-const iconList = computed(() => icons.filter((item) => item.includes(searchValue.value)));
-
-function handleSelectIcon(icon: string) {
-  currentIcon.value = icon;
-  showPopover.value = false;
-}
-</script>
 
 <style scoped></style>

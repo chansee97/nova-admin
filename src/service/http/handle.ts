@@ -1,19 +1,19 @@
-import type { AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios';
+import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { showError } from './utils'
 import {
-	DEFAULT_REQUEST_ERROR_CODE,
-	DEFAULT_REQUEST_ERROR_MSG,
-	NETWORK_ERROR_CODE,
-	NETWORK_ERROR_MSG,
-	REQUEST_TIMEOUT_CODE,
-	REQUEST_TIMEOUT_MSG,
-	ERROR_STATUS,
-} from '@/config';
-import { useAuthStore } from '@/store';
-import { fetchUpdateToken } from '@/service';
-import { local } from '@/utils';
-import { showError } from './utils';
+  DEFAULT_REQUEST_ERROR_CODE,
+  DEFAULT_REQUEST_ERROR_MSG,
+  ERROR_STATUS,
+  NETWORK_ERROR_CODE,
+  NETWORK_ERROR_MSG,
+  REQUEST_TIMEOUT_CODE,
+  REQUEST_TIMEOUT_MSG,
+} from '@/config'
+import { useAuthStore } from '@/store'
+import { fetchUpdateToken } from '@/service'
+import { local } from '@/utils'
 
-type ErrorStatus = keyof typeof ERROR_STATUS;
+type ErrorStatus = keyof typeof ERROR_STATUS
 
 /**
  * @description: 处理axios或http错误
@@ -21,32 +21,32 @@ type ErrorStatus = keyof typeof ERROR_STATUS;
  * @return {*}
  */
 export function handleAxiosError(err: AxiosError) {
-	const error: Service.RequestError = {
-		type: 'Axios',
-		code: DEFAULT_REQUEST_ERROR_CODE,
-		msg: DEFAULT_REQUEST_ERROR_MSG,
-	};
-	// 网络错误
-	if (!window.navigator.onLine || err.message === 'Network Error') {
-		Object.assign(error, { code: NETWORK_ERROR_CODE, msg: NETWORK_ERROR_MSG });
-	}
-	// 超时错误
-	if (err.code === REQUEST_TIMEOUT_CODE && err.message.includes('timeout')) {
-		Object.assign(error, {
-			code: REQUEST_TIMEOUT_CODE,
-			msg: REQUEST_TIMEOUT_MSG,
-		});
-	}
-	// 请求错误
-	if (err.response) {
-		const errorCode: ErrorStatus = (err.response?.status as ErrorStatus) || 'DEFAULT';
-		const msg = ERROR_STATUS[errorCode];
-		Object.assign(error, { code: errorCode, msg });
-	}
+  const error: Service.RequestError = {
+    type: 'Axios',
+    code: DEFAULT_REQUEST_ERROR_CODE,
+    msg: DEFAULT_REQUEST_ERROR_MSG,
+  }
+  // 网络错误
+  if (!window.navigator.onLine || err.message === 'Network Error')
+    Object.assign(error, { code: NETWORK_ERROR_CODE, msg: NETWORK_ERROR_MSG })
 
-	showError(error);
+  // 超时错误
+  if (err.code === REQUEST_TIMEOUT_CODE && err.message.includes('timeout')) {
+    Object.assign(error, {
+      code: REQUEST_TIMEOUT_CODE,
+      msg: REQUEST_TIMEOUT_MSG,
+    })
+  }
+  // 请求错误
+  if (err.response) {
+    const errorCode: ErrorStatus = (err.response?.status as ErrorStatus) || 'DEFAULT'
+    const msg = ERROR_STATUS[errorCode]
+    Object.assign(error, { code: errorCode, msg })
+  }
 
-	return error;
+  showError(error)
+
+  return error
 }
 
 /**
@@ -55,25 +55,26 @@ export function handleAxiosError(err: AxiosError) {
  * @return {*}
  */
 export function handleResponseError(response: AxiosResponse) {
-	const error: Service.RequestError = {
-		type: 'Axios',
-		code: DEFAULT_REQUEST_ERROR_CODE,
-		msg: DEFAULT_REQUEST_ERROR_MSG,
-	};
+  const error: Service.RequestError = {
+    type: 'Axios',
+    code: DEFAULT_REQUEST_ERROR_CODE,
+    msg: DEFAULT_REQUEST_ERROR_MSG,
+  }
 
-	if (!window.navigator.onLine) {
-		// 网路错误
-		Object.assign(error, { code: NETWORK_ERROR_CODE, msg: NETWORK_ERROR_MSG });
-	} else {
-		// 请求成功的状态码非200的错误
-		const errorCode: ErrorStatus = response.status as ErrorStatus;
-		const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG;
-		Object.assign(error, { type: 'Response', code: errorCode, msg });
-	}
+  if (!window.navigator.onLine) {
+    // 网路错误
+    Object.assign(error, { code: NETWORK_ERROR_CODE, msg: NETWORK_ERROR_MSG })
+  }
+  else {
+    // 请求成功的状态码非200的错误
+    const errorCode: ErrorStatus = response.status as ErrorStatus
+    const msg = ERROR_STATUS[errorCode] || DEFAULT_REQUEST_ERROR_MSG
+    Object.assign(error, { type: 'Response', code: errorCode, msg })
+  }
 
-	showError(error);
+  showError(error)
 
-	return error;
+  return error
 }
 
 /**
@@ -83,16 +84,16 @@ export function handleResponseError(response: AxiosResponse) {
  * @return {*}
  */
 export function handleBusinessError(data: Record<string, any>, config: Service.BackendResultConfig) {
-	const { codeKey, msgKey } = config;
-	const error: Service.RequestError = {
-		type: 'Business',
-		code: data[codeKey],
-		msg: data[msgKey],
-	};
+  const { codeKey, msgKey } = config
+  const error: Service.RequestError = {
+    type: 'Business',
+    code: data[codeKey],
+    msg: data[msgKey],
+  }
 
-	showError(error);
+  showError(error)
 
-	return error;
+  return error
 }
 
 /**
@@ -102,18 +103,18 @@ export function handleBusinessError(data: Record<string, any>, config: Service.B
  * @return {*} result
  */
 export async function handleServiceResult<T = any>(data: any, error: Service.RequestError | null) {
-	if (error) {
-		const fail: Service.FailedResult = {
-			error,
-			data: null,
-		};
-		return fail;
-	}
-	const success: Service.SuccessResult<T> = {
-		error: null,
-		data,
-	};
-	return success;
+  if (error) {
+    const fail: Service.FailedResult = {
+      error,
+      data: null,
+    }
+    return fail
+  }
+  const success: Service.SuccessResult<T> = {
+    error: null,
+    data,
+  }
+  return success
 }
 
 /**
@@ -122,20 +123,19 @@ export async function handleServiceResult<T = any>(data: any, error: Service.Req
  * @return {*}
  */
 export async function handleRefreshToken(config: AxiosRequestConfig) {
-	const { resetAuthStore } = useAuthStore();
-	const refreshToken = local.get('refreshToken');
-	const { data } = await fetchUpdateToken(refreshToken);
-	if (data) {
-		local.set('refreshToken', data.token, )
-		local.set('token', data.refreshToken)
+  const { resetAuthStore } = useAuthStore()
+  const refreshToken = local.get('refreshToken')
+  const { data } = await fetchUpdateToken(refreshToken)
+  if (data) {
+    local.set('refreshToken', data.token)
+    local.set('token', data.refreshToken)
 
-		// 设置token
-		if (config.headers) {
-			typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.token || ''}`);
-		}
+    // 设置token
+    if (config.headers)
+      typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.token || ''}`)
 
-		return config;
-	}
-	resetAuthStore();
-	return null;
+    return config
+  }
+  resetAuthStore()
+  return null
 }

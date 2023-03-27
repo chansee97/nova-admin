@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import HeaderButton from '../common/HeaderButton.vue'
+</script>
+
 <template>
   <n-tooltip
     placement="bottom"
@@ -11,9 +15,5 @@
     <span>切换主题模式</span>
   </n-tooltip>
 </template>
-
-<script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue';
-</script>
 
 <style scoped></style>

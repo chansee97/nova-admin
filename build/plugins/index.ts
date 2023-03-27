@@ -1,10 +1,11 @@
-import type { PluginOption } from 'vite';
-import vue from './vue';
-import compress from './compress';
-import unocss from '@unocss/vite';
-import visualizer from './visualizer';
-import unplugin from './unplugin';
-import mock from './mock';
+import type { PluginOption } from 'vite'
+import unocss from '@unocss/vite'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+import vue from './vue'
+import compress from './compress'
+import visualizer from './visualizer'
+import unplugin from './unplugin'
+import mock from './mock'
 
 /**
  * @description: 设置vite插件配置
@@ -12,14 +13,14 @@ import mock from './mock';
  * @return {*}
  */
 export function setVitePlugins(env: ImportMetaEnv) {
-  const plugins = [...vue, unocss(), ...unplugin, mock];
+  const plugins = [...vue, unocss(), ...unplugin, mock, vueSetupExtend()]
   // 是否压缩
-  if (env.VITE_COMPRESS_OPEN) {
-    plugins.push(compress(env));
-  }
+  if (env.VITE_COMPRESS_OPEN)
+    plugins.push(compress(env))
+
   // 是否依赖分析
-  if (env.VITE_VISUALIZER) {
-    plugins.push(visualizer as PluginOption);
-  }
-  return plugins;
+  if (env.VITE_VISUALIZER)
+    plugins.push(visualizer as PluginOption)
+
+  return plugins
 }

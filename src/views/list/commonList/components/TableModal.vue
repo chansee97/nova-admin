@@ -1,3 +1,73 @@
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+
+type FormModel = Pick<CommonList.UserList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>
+const props = withDefaults(defineProps<Props>(), {
+  type: 'add',
+  modalData: null,
+})
+const emit = defineEmits<Emits>()
+const defaultFormModal: FormModel = {
+  name: '',
+  age: 0,
+  gender: null,
+  email: '',
+  address: '',
+  role: 'user',
+  disabled: true,
+}
+const formModel = ref({ ...defaultFormModal })
+
+interface Props {
+  visible: boolean
+  type?: ModalType
+  modalData?: any
+}
+interface Emits {
+  (e: 'update:visible', visible: boolean): void
+}
+
+const modalVisible = computed({
+  get() {
+    return props.visible
+  },
+  set(visible) {
+    closeModal(visible)
+  },
+})
+function closeModal(visible = false) {
+  emit('update:visible', visible)
+}
+type ModalType = 'add' | 'edit'
+const title = computed(() => {
+  const titles: Record<ModalType, string> = {
+    add: '添加用户',
+    edit: '编辑用户',
+  }
+  return titles[props.type]
+})
+
+function UpdateFormModelByModalType() {
+  const handlers = {
+    add: () => {
+      formModel.value = { ...defaultFormModal }
+    },
+    edit: () => {
+      if (props.modalData)
+        formModel.value = { ...props.modalData }
+    },
+  }
+  handlers[props.type]()
+}
+watch(
+  () => props.visible,
+  (newValue) => {
+    if (newValue)
+      UpdateFormModelByModalType()
+  },
+)
+</script>
+
 <template>
   <n-modal
     v-model:show="modalVisible"
@@ -37,85 +107,15 @@
     </n-form>
     <template #action>
       <n-space justify="center">
-        <n-button @click="closeModal()">取消</n-button>
-        <n-button type="primary">提交</n-button>
+        <n-button @click="closeModal()">
+          取消
+        </n-button>
+        <n-button type="primary">
+          提交
+        </n-button>
       </n-space>
     </template>
   </n-modal>
 </template>
-
-<script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-
-type FormModel = Pick<CommonList.UserList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>;
-const defaultFormModal: FormModel = {
-  name: '',
-  age: 0,
-  gender: null,
-  email: '',
-  address: '',
-  role: 'user',
-  disabled: true,
-};
-const formModel = ref({ ...defaultFormModal });
-
-interface Props {
-  visible: boolean;
-  type?: ModalType;
-  modalData?: any;
-}
-const props = withDefaults(defineProps<Props>(), {
-  type: 'add',
-  modalData: null,
-});
-
-interface Emits {
-  (e: 'update:visible', visible: boolean): void;
-}
-
-const emit = defineEmits<Emits>();
-
-const modalVisible = computed({
-  get() {
-    return props.visible;
-  },
-  set(visible) {
-    closeModal(visible);
-  },
-});
-function closeModal(visible = false) {
-  emit('update:visible', visible);
-}
-type ModalType = 'add' | 'edit';
-const title = computed(() => {
-  const titles: Record<ModalType, string> = {
-    add: '添加用户',
-    edit: '编辑用户',
-  };
-  return titles[props.type];
-});
-
-function UpdateFormModelByModalType() {
-  const handlers = {
-    add: () => {
-      formModel.value = { ...defaultFormModal };
-    },
-    edit: () => {
-      if (props.modalData) {
-        formModel.value = { ...props.modalData };
-      }
-    },
-  };
-  handlers[props.type]();
-}
-watch(
-  () => props.visible,
-  (newValue) => {
-    if (newValue) {
-      UpdateFormModelByModalType();
-    }
-  },
-);
-</script>
 
 <style scoped></style>

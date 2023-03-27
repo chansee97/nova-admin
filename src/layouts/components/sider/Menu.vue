@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import { useAppStore } from '@/store'
+import { useRouteStore } from '~/src/store/modules/route'
+
+const appStore = useAppStore()
+const routesStore = useRouteStore()
+</script>
+
 <template>
   <n-menu
     :collapsed="appStore.collapsed"
@@ -8,14 +16,5 @@
     :value="routesStore.activeMenu"
   />
 </template>
-
-<script setup lang="ts">
-import { useAppStore } from '@/store';
-import { useRouteStore } from '~/src/store/modules/route';
-
-const appStore = useAppStore();
-const routesStore = useRouteStore();
-
-</script>
 
 <style scoped></style>

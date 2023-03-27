@@ -1,16 +1,16 @@
-import { defineStore } from 'pinia';
-import { RouteLocationNormalized } from 'vue-router';
-import { useAppRouter } from '@/hooks';
+import { defineStore } from 'pinia'
+import type { RouteLocationNormalized } from 'vue-router'
+import { useAppRouter } from '@/hooks'
 
 interface TabState {
   inherentTab: {
-    name: string;
-    title: string;
-    path: string;
-  }[];
-  tabs: RouteLocationNormalized[];
-  tabWhiteList: string[];
-  currentTab: string;
+    name: string
+    title: string
+    path: string
+  }[]
+  tabs: RouteLocationNormalized[]
+  tabWhiteList: string[]
+  currentTab: string
 }
 export const useTabStore = defineStore('tab-store', {
   state: (): TabState => {
@@ -25,92 +25,92 @@ export const useTabStore = defineStore('tab-store', {
       tabs: [],
       tabWhiteList: ['404', '403', '500', 'login'],
       currentTab: 'dashboard_workbench',
-    };
+    }
   },
   getters: {
     inherentTabName(): string[] {
       return this.inherentTab.map((item) => {
-        return item.name;
-      });
+        return item.name
+      })
     },
   },
   actions: {
     addTab(route: RouteLocationNormalized) {
       // 如果已经在固有标签里则不添加
-      if (this.inherentTabName.includes(route.name as string)) {
-        return;
-      }
+      if (this.inherentTabName.includes(route.name as string))
+        return
+
       // 如果标签名称已存在则不添加
-      if (this.hasExistTab(route.name as string)) {
-        return;
-      }
+      if (this.hasExistTab(route.name as string))
+        return
+
       // 如果在白名单内则不添加,错误页等
-      if (this.tabWhiteList.includes(route.name as string)) {
-        return;
-      }
-      this.tabs.push(route);
+      if (this.tabWhiteList.includes(route.name as string))
+        return
+
+      this.tabs.push(route)
     },
     closeTab(name: string) {
-      const { routerPush, toRoot } = useAppRouter(false);
-      const tabsLength = this.tabs.length;
+      const { routerPush, toRoot } = useAppRouter(false)
+      const tabsLength = this.tabs.length
       // 如果动态标签大于一个,才会标签跳转
       if (this.tabs.length > 1) {
         // 获取关闭的标签索引
-        const index = this.getTabIndex(name);
-        const isLast = index + 1 === tabsLength;
+        const index = this.getTabIndex(name)
+        const isLast = index + 1 === tabsLength
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
         if (this.currentTab === name && !isLast) {
           // 跳转到后一个标签
-          routerPush(this.tabs[index + 1].path);
-        } else if (this.currentTab === name && isLast) {
+          routerPush(this.tabs[index + 1].path)
+        }
+        else if (this.currentTab === name && isLast) {
           // 已经是最后一个了，就跳转前一个
-          routerPush(this.tabs[index - 1].path);
+          routerPush(this.tabs[index - 1].path)
         }
       }
       // 删除标签
       this.tabs = this.tabs.filter((item) => {
-        return item.name !== name;
-      });
+        return item.name !== name
+      })
       // 删除后如果清空了，就跳转到默认首页
-      if (tabsLength - 1 === 0) {
-        toRoot();
-      }
+      if (tabsLength - 1 === 0)
+        toRoot()
     },
 
     closeOtherTabs(name: string) {
-      const index = this.getTabIndex(name);
-      this.tabs = this.tabs.filter((item, i) => i === index);
+      const index = this.getTabIndex(name)
+      this.tabs = this.tabs.filter((item, i) => i === index)
     },
     closeLeftTabs(name: string) {
-      const index = this.getTabIndex(name);
-      this.tabs = this.tabs.filter((item, i) => i >= index);
+      const index = this.getTabIndex(name)
+      this.tabs = this.tabs.filter((item, i) => i >= index)
     },
     closeRightTabs(name: string) {
-      const index = this.getTabIndex(name);
-      this.tabs = this.tabs.filter((item, i) => i <= index);
+      const index = this.getTabIndex(name)
+      this.tabs = this.tabs.filter((item, i) => i <= index)
     },
     closeAllTabs() {
-      const { toRoot } = useAppRouter(false);
-      this.tabs.length = 0;
-      toRoot();
+      const { toRoot } = useAppRouter(false)
+      this.tabs.length = 0
+      toRoot()
     },
 
     hasExistTab(name: string) {
       return this.tabs.some((item) => {
-        return item.name === name;
-      });
+        return item.name === name
+      })
     },
     /* 设置当前激活的标签 */
     setCurrentTab(name: string) {
-      this.currentTab = name;
+      this.currentTab = name
     },
     getTabIndex(name: string) {
       return this.tabs.findIndex((item) => {
-        return item.name === name;
-      });
+        return item.name === name
+      })
     },
   },
   persist: {
     enabled: true,
   },
-});
+})

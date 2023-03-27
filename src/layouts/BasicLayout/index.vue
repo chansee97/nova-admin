@@ -1,3 +1,27 @@
+<script lang="ts" setup>
+import {
+  BackTop,
+  Breadcrumb,
+  CollapaseButton,
+  DarkMode,
+  FullScreen,
+  Github,
+  Logo,
+  Menu,
+  Notices,
+  Reload,
+  Search,
+  Setting,
+  TabBar,
+  UserCenter,
+  Watermark,
+} from '../components'
+import { useAppStore, useRouteStore } from '@/store'
+
+const routeStore = useRouteStore()
+const appStore = useAppStore()
+</script>
+
 <template>
   <n-layout
     has-sider
@@ -83,35 +107,11 @@
   </n-layout>
 </template>
 
-<script lang="ts" setup>
-import {
-	Breadcrumb,
-	CollapaseButton,
-	Menu,
-	Logo,
-	FullScreen,
-	DarkMode,
-	Setting,
-	Github,
-	Notices,
-	UserCenter,
-	Search,
-	Reload,
-	TabBar,
-	BackTop,
-	Watermark,
-} from '../components';
-import { useAppStore, useRouteStore } from '@/store';
-
-const routeStore = useRouteStore();
-const appStore = useAppStore();
-</script>
-
 <style scoped>
-.n-layout-sider {
-	box-shadow: 2px 0 8px #1d23290d;
-}
-.n-layout-header {
-	box-shadow: 0 1px 2px #00152914;
-}
+  .n-layout-sider {
+    box-shadow: 2px 0 8px #1d23290d;
+  }
+  .n-layout-header {
+    box-shadow: 0 1px 2px #00152914;
+  }
 </style>

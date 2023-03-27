@@ -1,3 +1,3 @@
-export * from './icon';
-export * from './is';
-export * from './storage';
+export * from './icon'
+export * from './is'
+export * from './storage'

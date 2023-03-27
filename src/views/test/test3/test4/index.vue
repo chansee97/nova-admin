@@ -1,3 +1,9 @@
+<script setup lang="ts">
+const testMsg = () => {
+  window.$message.error('Once upon a time you dressed so fine')
+}
+</script>
+
 <template>
   <div
     text-center
@@ -14,11 +20,5 @@
     </n-button>
   </div>
 </template>
-
-<script setup lang="ts">
-const testMsg = () => {
-  window.$message.error('Once upon a time you dressed so fine');
-};
-</script>
 
 <style scoped></style>

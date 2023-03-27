@@ -1,3 +1,46 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useAuthStore } from '@/store'
+const authStore = useAuthStore()
+
+const { userInfo } = authStore
+const formRef = ref()
+const formValue = ref({
+  user: {
+    name: '',
+    age: '',
+  },
+  phone: '',
+})
+const rules = {
+  user: {
+    name: {
+      required: true,
+      message: '请输入姓名',
+      trigger: 'blur',
+    },
+    age: {
+      required: true,
+      message: '请输入年龄',
+      trigger: ['input', 'blur'],
+    },
+  },
+  phone: {
+    required: true,
+    message: '请输入电话号码',
+    trigger: ['input'],
+  },
+}
+
+function handleValidateClick() {
+  formRef.value?.validate((errors: any) => {
+    if (!errors)
+      window.$message.success('验证通过')
+    else window.$message.error('验证不通过')
+  })
+}
+</script>
+
 <template>
   <n-grid
     :y-gap="16"
@@ -86,50 +129,5 @@
     </n-gi>
   </n-grid>
 </template>
-
-<script setup lang="ts">
-	import { useAuthStore } from '@/store';
-	import { ref } from 'vue';
-	const authStore = useAuthStore();
-
-	const { userInfo } = authStore;
-	const formRef = ref();
-	const formValue = ref({
-		user: {
-			name: '',
-			age: '',
-		},
-		phone: '',
-	});
-	const rules = {
-		user: {
-			name: {
-				required: true,
-				message: '请输入姓名',
-				trigger: 'blur',
-			},
-			age: {
-				required: true,
-				message: '请输入年龄',
-				trigger: ['input', 'blur'],
-			},
-		},
-		phone: {
-			required: true,
-			message: '请输入电话号码',
-			trigger: ['input'],
-		},
-	};
-
-	function handleValidateClick() {
-		formRef.value?.validate((errors: any) => {
-			if (!errors) {
-				window.$message.success('验证通过');
-			} else {
-				window.$message.error('验证不通过');
-			}
-		});
-	}
-</script>
 
 <style scoped></style>

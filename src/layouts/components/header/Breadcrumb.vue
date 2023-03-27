@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useRouteStore } from '@/store'
+import { useAppRouter } from '@/hooks'
+
+const router = useRouter()
+const routeStore = useRouteStore()
+const { routerPush } = useAppRouter()
+const routes = computed(() => {
+  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string)
+})
+</script>
+
 <template>
   <n-breadcrumb class="px-4">
     <n-breadcrumb-item
@@ -10,19 +24,5 @@
     </n-breadcrumb-item>
   </n-breadcrumb>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useRouteStore } from '@/store';
-import { useAppRouter } from '@/hooks';
-
-const router = useRouter();
-const routeStore = useRouteStore();
-const { routerPush } = useAppRouter();
-const routes = computed(() => {
-  return routeStore.createBreadcrumbFromRoutes(router.currentRoute.value.name as string);
-});
-</script>
 
 <style scoped></style>

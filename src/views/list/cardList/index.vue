@@ -1,3 +1,68 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+const currentRadio = ref(0)
+
+const cardData = [
+  {
+    title: '一类',
+    id: 1,
+    children: [
+      {
+        id: 0,
+        title: '卡片',
+        content: '卡片内容',
+      },
+      {
+        id: 1,
+        title: '卡片2',
+        content: '卡片2内容',
+      },
+    ],
+  },
+  {
+    title: '二类',
+    id: 2,
+    children: [
+      {
+        id: 0,
+        title: '卡片',
+        content: '卡片内容',
+      },
+      {
+        id: 1,
+        title: '卡片2',
+        content: '卡片2内容',
+      },
+    ],
+  },
+  {
+    title: '三类',
+    id: 3,
+    children: [
+      {
+        id: 0,
+        title: '卡片',
+        content: '卡片内容',
+      },
+      {
+        id: 1,
+        title: '卡片2',
+        content: '卡片2内容',
+      },
+    ],
+  },
+]
+const radioDate = [
+  {
+    value: 0,
+    label: '全部',
+  },
+  ...cardData.map((item) => {
+    return { value: item.id, label: item.title }
+  }),
+]
+</script>
+
 <template>
   <n-card>
     <n-radio-group
@@ -61,70 +126,5 @@
     </n-card>
   </n-card>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-const currentRadio = ref(0);
-
-const cardData = [
-	{
-		title: '一类',
-		id: 1,
-		children: [
-			{
-				id: 0,
-				title: '卡片',
-				content: '卡片内容',
-			},
-			{
-				id: 1,
-				title: '卡片2',
-				content: '卡片2内容',
-			},
-		],
-	},
-	{
-		title: '二类',
-		id: 2,
-		children: [
-			{
-				id: 0,
-				title: '卡片',
-				content: '卡片内容',
-			},
-			{
-				id: 1,
-				title: '卡片2',
-				content: '卡片2内容',
-			},
-		],
-	},
-	{
-		title: '三类',
-		id: 3,
-		children: [
-			{
-				id: 0,
-				title: '卡片',
-				content: '卡片内容',
-			},
-			{
-				id: 1,
-				title: '卡片2',
-				content: '卡片2内容',
-			},
-		],
-	},
-];
-const radioDate = [
-	{
-		value: 0,
-		label: '全部',
-	},
-	...cardData.map((item) => {
-		return { value: item.id, label: item.title };
-	}),
-];
-</script>
 
 <style scoped></style>

@@ -32,4 +32,4 @@ export const icons: string[] = [
   'ic:baseline-filter-8',
   'ic:baseline-filter-9',
   'ic:baseline-filter-9-plus',
-];
+]

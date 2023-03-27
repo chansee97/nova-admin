@@ -1,3 +1,45 @@
+<script setup lang="ts">
+import { useRouter } from 'vue-router'
+import HeaderButton from '../common/HeaderButton.vue'
+import { renderIcon } from '@/utils/icon'
+import { useAuthStore } from '@/store'
+
+const { userInfo, resetAuthStore } = useAuthStore()
+const router = useRouter()
+
+const options = [
+  {
+    label: '个人中心',
+    key: 'userCenter',
+    icon: renderIcon('carbon:user-avatar-filled-alt'),
+  },
+  {
+    type: 'divider',
+    key: 'd1',
+  },
+  {
+    label: '退出登录',
+    key: 'loginOut',
+    icon: renderIcon('icon-park-outline:logout'),
+  },
+]
+const handleSelect = (key: string | number) => {
+  if (key === 'loginOut') {
+    window.$dialog.info({
+      title: '退出登录',
+      content: '确认退出当前账号？',
+      positiveText: '确定',
+      negativeText: '取消',
+      onPositiveClick: () => {
+        resetAuthStore()
+      },
+    })
+  }
+  if (key === 'userCenter')
+    router.push('/userCenter')
+}
+</script>
+
 <template>
   <n-dropdown
     trigger="click"
@@ -14,48 +56,5 @@
     </HeaderButton>
   </n-dropdown>
 </template>
-
-<script setup lang="ts">
-	import HeaderButton from '../common/HeaderButton.vue';
-	import { renderIcon } from '@/utils/icon';
-	import { useAuthStore } from '@/store';
-	import { useRouter } from 'vue-router';
-
-const { userInfo, resetAuthStore } = useAuthStore();
-	const router = useRouter()
-
-	const options = [
-		{
-			label: '个人中心',
-			key: 'userCenter',
-			icon: renderIcon('carbon:user-avatar-filled-alt'),
-		},
-		{
-			type: 'divider',
-			key: 'd1',
-		},
-		{
-			label: '退出登录',
-			key: 'loginOut',
-			icon: renderIcon('icon-park-outline:logout'),
-		},
-	];
-	const handleSelect = (key: string | number) => {
-		if (key === 'loginOut') {
-			window.$dialog.info({
-          title: '退出登录',
-          content: '确认退出当前账号？',
-          positiveText: '确定',
-          negativeText: '取消',
-          onPositiveClick: () => {
-						resetAuthStore();
-          },
-        })
-		}
-		if (key === 'userCenter') {
-			router.push('/userCenter')
-		}
-	};
-</script>
 
 <style scoped></style>

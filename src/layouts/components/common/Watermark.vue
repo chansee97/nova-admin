@@ -1,3 +1,12 @@
+<script setup lang="ts">
+interface Props {
+  showWatermark: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  showWatermark: false,
+})
+</script>
+
 <template>
   <n-watermark
     v-if="props.showWatermark"
@@ -13,12 +22,3 @@
     :rotate="-15"
   />
 </template>
-
-<script setup lang="ts">
-interface Props {
-	showWatermark: boolean;
-}
-const props = withDefaults(defineProps<Props>(), {
-	showWatermark: false,
-});
-</script>

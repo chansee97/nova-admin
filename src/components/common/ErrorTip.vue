@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import { useAppRouter } from '@/hooks'
+
+type TipType = '403' | '404' | '500'
+defineProps<{
+  /** 异常类型 403 404 500 */
+  type: TipType
+}>()
+const { toRoot } = useAppRouter()
+</script>
+
 <template>
   <div class="flex-col-center h-full">
     <img
@@ -26,16 +37,5 @@
     </n-button>
   </div>
 </template>
-
-<script setup lang="ts">
-import { useAppRouter } from '@/hooks';
-
-type TipType = '403' | '404' | '500';
-defineProps<{
-	/** 异常类型 403 404 500 */
-	type: TipType;
-}>();
-const { toRoot } = useAppRouter();
-</script>
 
 <style lang="scss" scoped></style>

@@ -1,3 +1,94 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import {
+  fetachDelete,
+  fetachFormPost,
+  fetachGet,
+  fetachPost,
+  fetachPut,
+  fetchMock,
+  testFailedRequest,
+  testFailedResponse,
+  testFailedResponse_NT,
+  testUpdataToken,
+} from '@/service'
+
+const msg = ref()
+const pinter = () => {
+  msg.value = import.meta.env
+}
+const get = () => {
+  fetachGet({ a: 112211 }).then((res) => {
+    msg.value = res
+  })
+}
+const delete2 = () => {
+  fetachDelete().then((res) => {
+    msg.value = res
+  })
+}
+const post = () => {
+  const params = {
+    data: '2022-2-2',
+    data1: [],
+    data2: {},
+    data3: '',
+    data4: null,
+    data5: undefined,
+  }
+  fetachPost(params).then((res) => {
+    msg.value = res
+  })
+}
+
+function formPost() {
+  const params = {
+    data: '2022-2-2',
+  }
+  fetachFormPost(params).then((res) => {
+    msg.value = res
+  })
+}
+const put = () => {
+  const params = {
+    data: '2022-2-2',
+  }
+  fetachPut(params).then((res) => {
+    msg.value = res
+  })
+}
+
+// 测试请求失败
+const failedRequest = () => {
+  testFailedRequest().then((res) => {
+    msg.value = res
+  })
+}
+// 测试业务失败
+const failedResponse = () => {
+  testFailedResponse().then((res) => {
+    msg.value = res
+  })
+}
+// 测试业务失败无提示
+const failedResponse_NT = () => {
+  testFailedResponse_NT().then((res) => {
+    msg.value = res
+  })
+}
+// 测试刷新token
+const updataToken = () => {
+  testUpdataToken().then((res) => {
+    msg.value = res
+  })
+}
+const mock = () => {
+  fetchMock().then((res) => {
+    msg.value = res
+  })
+}
+</script>
+
 <template>
   <div>
     <n-h1>接口功能测试</n-h1>
@@ -94,96 +185,5 @@
     {{ msg }}
   </div>
 </template>
-
-<script setup lang="ts">
-import {
-	fetachGet,
-  fetachPost,
-  fetachFormPost,
-	fetachDelete,
-	fetachPut,
-	fetchMock,
-	testFailedRequest,
-	testFailedResponse,
-	testFailedResponse_NT,
-	testUpdataToken,
-} from '@/service';
-
-import { ref } from 'vue';
-const msg = ref();
-const pinter = () => {
-	msg.value = import.meta.env;
-};
-const get = () => {
-	fetachGet({a:112211}).then((res) => {
-		msg.value = res;
-	});
-};
-const delete2 = () => {
-	fetachDelete().then((res) => {
-		msg.value = res;
-	});
-};
-const post = () => {
-	const params = {
-		data: '2022-2-2',
-		data1: [],
-		data2: {},
-		data3: '',
-		data4: null,
-		data5: undefined,
-	};
-	fetachPost(params).then((res) => {
-		msg.value = res;
-	});
-};
-
-function formPost() {
-  const params = {
-		data: '2022-2-2',
-	};
-  fetachFormPost(params).then((res) => {
-		msg.value = res;
-	});
-}
-const put = () => {
-	const params = {
-		data: '2022-2-2',
-	};
-	fetachPut(params).then((res) => {
-		msg.value = res;
-	});
-};
-
-// 测试请求失败
-const failedRequest = () => {
-	testFailedRequest().then((res) => {
-		msg.value = res;
-	});
-};
-// 测试业务失败
-const failedResponse = () => {
-	testFailedResponse().then((res) => {
-		msg.value = res;
-	});
-};
-// 测试业务失败无提示
-const failedResponse_NT = () => {
-	testFailedResponse_NT().then((res) => {
-		msg.value = res;
-	});
-};
-// 测试刷新token
-const updataToken = () => {
-	testUpdataToken().then((res) => {
-		msg.value = res;
-	});
-};
-const mock = () => {
-	fetchMock().then((res) => {
-		msg.value = res;
-	});
-};
-</script>
 
 <style scoped></style>

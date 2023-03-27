@@ -1,3 +1,38 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const emit = defineEmits(['update:modelValue'])
+function toLogin() {
+  emit('update:modelValue', 'login')
+}
+const rules = {
+  account: {
+    required: true,
+    trigger: 'blur',
+    message: '请输入账户',
+  },
+  pwd: {
+    required: true,
+    trigger: 'blur',
+    message: '请输入密码',
+  },
+  rePwd: {
+    required: true,
+    trigger: 'blur',
+    message: '请再次确认密码',
+  },
+}
+const formValue = ref({
+  account: 'admin',
+  pwd: '000000',
+  rePwd: '000000',
+})
+
+const isRead = ref(false)
+
+function handleRegister() {}
+</script>
+
 <template>
   <div>
     <n-h1 depth="3">
@@ -8,7 +43,6 @@
       />注册
     </n-h1>
     <n-form
-      ref="formRef"
       :rules="rules"
       :model="formValue"
       :show-label="false"
@@ -93,40 +127,5 @@
     </n-form>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue';
-
-const emit = defineEmits(['update:modelValue']);
-function toLogin() {
-	emit('update:modelValue', 'login');
-}
-const rules = {
-	account: {
-		required: true,
-		trigger: 'blur',
-		message: '请输入账户',
-	},
-	pwd: {
-		required: true,
-		trigger: 'blur',
-		message: '请输入密码',
-	},
-	rePwd: {
-		required: true,
-		trigger: 'blur',
-		message: '请再次确认密码',
-	},
-};
-const formValue = ref({
-	account: 'admin',
-	pwd: '000000',
-	rePwd: '000000',
-});
-
-const isRead = ref(false);
-
-function handleRegister() {}
-</script>
 
 <style scoped></style>

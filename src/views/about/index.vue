@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import lib from '~/package.json'
+</script>
+
 <template>
   <n-space vertical>
     <n-card title="关于">
@@ -71,9 +75,5 @@
     </n-card>
   </n-space>
 </template>
-
-<script setup lang="ts">
-import lib from '~/package.json';
-</script>
 
 <style scoped></style>

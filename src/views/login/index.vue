@@ -1,3 +1,17 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+import { Login, Register, ResetPwd } from './components'
+
+  type IformType = 'login' | 'register' | 'resetPwd'
+const formType: Ref<IformType> = ref('login')
+const formComponets = {
+  login: Login,
+  register: Register,
+  resetPwd: ResetPwd,
+}
+</script>
+
 <template>
   <div class="wh-full flex-center login__bg">
     <div class="fixed top-40px right-40px text-lg">
@@ -41,43 +55,29 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import type { Ref } from 'vue';
-import { Login, Register, ResetPwd } from './components';
-
-type IformType = 'login' | 'register' | 'resetPwd';
-const formType: Ref<IformType> = ref('login');
-const formComponets = {
-	login: Login,
-	register: Register,
-	resetPwd: ResetPwd,
-};
-</script>
-
 <style scoped lang="less">
-.login__bg {
-	background-image: url(@/assets/img/login-bg.webp);
-	position: relative;
-	&::after,
-	&::before {
-		position: absolute;
-		content: '';
-		width: 30vw;
-		height: 15vw;
-		background-size: contain;
-		background-repeat: no-repeat;
-	}
-	&::before {
-		background-image: url(@/assets/svg/login-illus-lt.svg);
-		top: 0;
-		left: 0;
-	}
-	&::after {
-		background-image: url(@/assets/svg/login-illus-rb.svg);
-		background-position: right bottom;
-		bottom: 0;
-		right: 0;
-	}
-}
+  .login__bg {
+    background-image: url(@/assets/img/login-bg.webp);
+    position: relative;
+    &::after,
+    &::before {
+      position: absolute;
+      content: '';
+      width: 30vw;
+      height: 15vw;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    &::before {
+      background-image: url(@/assets/svg/login-illus-lt.svg);
+      top: 0;
+      left: 0;
+    }
+    &::after {
+      background-image: url(@/assets/svg/login-illus-rb.svg);
+      background-position: right bottom;
+      bottom: 0;
+      right: 0;
+    }
+  }
 </style>

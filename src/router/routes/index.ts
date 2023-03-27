@@ -1,5 +1,5 @@
-import { RouteRecordRaw } from 'vue-router';
-import { BasicLayout } from '@/layouts/index';
+import type { RouteRecordRaw } from 'vue-router'
+import { BasicLayout } from '@/layouts/index'
 
 /* 页面中的一些固定路由，错误页等 */
 export const routes: RouteRecordRaw[] = [
@@ -50,5 +50,5 @@ export const routes: RouteRecordRaw[] = [
     path: '/:pathMatch(.*)*',
     redirect: '/404',
   },
-  
-];
+
+]

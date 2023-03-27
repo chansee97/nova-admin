@@ -1,25 +1,23 @@
-import CryptoJS from 'crypto-js';
-import { isObject } from './is';
+import CryptoJS from 'crypto-js'
+import { isObject } from './is'
+import { STORAGE_ENCRYPT_SECRET } from '@/config'
 
-const { VITE_STORAGE_ENCRYPT } = import.meta.env;
-import { STORAGE_ENCRYPT_SECRET } from '@/config';
+const { VITE_STORAGE_ENCRYPT } = import.meta.env
 
 /**
  * 加密数据
  * @param data - 数据
  */
 export function encrypto(data: any) {
-	let newData = data;
+  let newData = data
 
-	if (isObject(data)) {
-		newData = JSON.stringify(data);
-	}
+  if (isObject(data))
+    newData = JSON.stringify(data)
 
-	if (VITE_STORAGE_ENCRYPT) {
-		return newData;
-	}
+  if (VITE_STORAGE_ENCRYPT)
+    return newData
 
-	return CryptoJS.AES.encrypt(newData, STORAGE_ENCRYPT_SECRET).toString();
+  return CryptoJS.AES.encrypt(newData, STORAGE_ENCRYPT_SECRET).toString()
 }
 
 /**
@@ -27,16 +25,14 @@ export function encrypto(data: any) {
  * @param cipherText - 密文
  */
 export function decrypto(cipherText: string) {
-	if (!VITE_STORAGE_ENCRYPT) {
-		return JSON.parse(cipherText);
-	}
+  if (!VITE_STORAGE_ENCRYPT)
+    return JSON.parse(cipherText)
 
-	const bytes = CryptoJS.AES.decrypt(cipherText, STORAGE_ENCRYPT_SECRET);
-	const originalText = bytes.toString(CryptoJS.enc.Utf8);
+  const bytes = CryptoJS.AES.decrypt(cipherText, STORAGE_ENCRYPT_SECRET)
+  const originalText = bytes.toString(CryptoJS.enc.Utf8)
 
-	if (originalText) {
-		return JSON.parse(originalText);
-	}
+  if (originalText)
+    return JSON.parse(originalText)
 
-	return null;
+  return null
 }

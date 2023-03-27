@@ -1,3 +1,32 @@
+<script setup lang="ts">
+const tableData = [
+  {
+    id: 0,
+    name: '商品名称1',
+    start: '2022-02-02',
+    end: '2022-02-02',
+    prograss: '100',
+    status: '已完成',
+  },
+  {
+    id: 0,
+    name: '商品名称2',
+    start: '2022-02-02',
+    end: '2022-02-02',
+    prograss: '50',
+    status: '交易中',
+  },
+  {
+    id: 0,
+    name: '商品名称3',
+    start: '2022-02-02',
+    end: '2022-02-02',
+    prograss: '100',
+    status: '已完成',
+  },
+]
+</script>
+
 <template>
   <div>
     <n-grid
@@ -12,7 +41,6 @@
           >
             <n-statistic label="访问量">
               <n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="12039"
                 show-separator
@@ -29,7 +57,6 @@
             <n-space justify="space-between">
               <span>累计访问数</span>
               <span><n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="322039"
                 show-separator
@@ -46,7 +73,6 @@
           >
             <n-statistic label="下载量">
               <n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="12039"
                 show-separator
@@ -63,7 +89,6 @@
             <n-space justify="space-between">
               <span>累计下载量</span>
               <span><n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="322039"
                 show-separator
@@ -80,7 +105,6 @@
           >
             <n-statistic label="浏览量">
               <n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="12039"
                 show-separator
@@ -97,7 +121,6 @@
             <n-space justify="space-between">
               <span>累计浏览量</span>
               <span><n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="322039"
                 show-separator
@@ -114,7 +137,6 @@
           >
             <n-statistic label="注册量">
               <n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="12039"
                 show-separator
@@ -131,7 +153,6 @@
             <n-space justify="space-between">
               <span>累计注册量</span>
               <span><n-number-animation
-                ref="numberAnimationInstRef"
                 :from="0"
                 :to="322039"
                 show-separator
@@ -220,34 +241,5 @@
     </n-grid>
   </div>
 </template>
-
-<script setup lang="ts">
-const tableData = [
-	{
-		id: 0,
-		name: '商品名称1',
-		start: '2022-02-02',
-		end: '2022-02-02',
-		prograss: '100',
-		status: '已完成',
-	},
-	{
-		id: 0,
-		name: '商品名称2',
-		start: '2022-02-02',
-		end: '2022-02-02',
-		prograss: '50',
-		status: '交易中',
-	},
-	{
-		id: 0,
-		name: '商品名称3',
-		start: '2022-02-02',
-		end: '2022-02-02',
-		prograss: '100',
-		status: '已完成',
-	},
-];
-</script>
 
 <style scoped></style>
