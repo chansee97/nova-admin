@@ -3,13 +3,37 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
-  "author": "iam-see <chen.dev@foxmail.com> (https://github.com/chansee97/)",
+  "author": {
+    "name": "chansee97",
+    "email": "chen.dev@foxmail.com",
+    "url": "https://github.com/chansee97"
+  },
   "license": "MIT",
   "homepage": "https://github.com/chansee97/Ench-admin",
+  "repository": {
+    "url": "https://github.com/chansee97/Ench-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chansee97/Ench-admin/issues"
+  },
   "keywords": [
     "Vue",
     "Vue3",
-    "admin"
+    "admin",
+    "admin-template",
+    "vue-admin",
+    "vue-admin-template",
+    "Vite4",
+    "Vite",
+    "vite-admin",
+    "TypeScript",
+    "TS",
+    "NaiveUI",
+    "naive-ui",
+    "naive-admin",
+    "NaiveUI-Admin",
+    "naive-ui-admin",
+    "UnoCSS"
   ],
   "scripts": {
     "dev": "vite",
@@ -82,8 +106,10 @@
     "commit-msg": "pnpm commitlint -e"
   },
   "lint-staged": {
-    "*.{js,jsx,,mjs,ts,tsx,json,,md,yml}": [
+    "*.{js,jsx,mjs,ts,tsx,json,md,yml}": [
       "eslint --fix"
-    ]
+    ],
+    "*.vue": [
+      "eslint --fix"    ]
   }
 }

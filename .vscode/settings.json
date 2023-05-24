@@ -5,6 +5,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.validate": ["typescript", "javascript", "vue", "html"],
-  "eslint.options": { "configFile": ".eslintrc.js" }
+  "eslint.validate": ["typescript", "javascript", "vue", "html"]
 }
