@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "description": "",
-  "author": "iam-see <chen.dev@foxmail.com> (https://github.com/iam-see/)",
+  "author": "iam-see <chen.dev@foxmail.com> (https://github.com/chansee97/)",
   "license": "MIT",
-  "homepage": "https://github.com/iam-see/Ench-admin",
+  "homepage": "https://github.com/chansee97/Ench-admin",
   "keywords": [
     "Vue",
     "Vue3",
@@ -18,7 +18,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "prepare": "husky install",
+    "prepare": "npx simple-git-hooks",
     "commit": "cz",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md"
   },
@@ -28,62 +28,62 @@
     }
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0",
+    "@vueuse/core": "^10.1.2",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.12",
-    "axios": "^1.3.4",
+    "axios": "^1.4.0",
     "crypto-js": "^4.1.1",
     "echarts": "^5.4.1",
     "md-editor-v3": "^2.9.3",
-    "pinia": "^2.0.33",
+    "pinia": "^2.1.3",
     "pinia-plugin-persist": "^1.0.0",
     "qs": "^6.11.1",
-    "vue": "^3.2.47",
+    "vue": "^3.3.4",
     "vue-qr": "^4.0.9",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.37.0",
+    "@chansee97/commitlint-config": "^0.3.3",
+    "@chansee97/eslint-config-vue": "^0.3.3",
     "@commitlint/cli": "^17.4.1",
-    "@commitlint/config-conventional": "^17.4.0",
     "@iconify-json/icon-park-outline": "^1.1.9",
     "@iconify/vue": "^4.0.2",
     "@types/crypto-js": "^4.1.1",
     "@types/mockjs": "^1.0.7",
     "@types/node": "^18.15.3",
     "@types/qs": "^6.9.7",
-    "@typescript-eslint/eslint-plugin": "^5.55.0",
-    "@typescript-eslint/parser": "^5.55.0",
     "@unocss/preset-attributify": "^0.50.4",
     "@unocss/preset-uno": "^0.50.4",
     "@unocss/vite": "^0.50.4",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
     "commitizen": "^4.2.6",
     "cz-conventional-changelog": "^3.3.0",
     "cz-customizable": "^7.0.0",
     "eslint": "^8.36.0",
-    "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-vue": "^9.9.0",
-    "husky": "^8.0.3",
     "less": "^4.1.3",
     "lint-staged": "^13.1.0",
     "mockjs": "^1.1.0",
-    "naive-ui": "^2.34.3",
+    "naive-ui": "^2.34.4",
     "rollup-plugin-visualizer": "^5.9.0",
-    "typescript": "^5.0.2",
+    "simple-git-hooks": "^2.8.1",
+    "typescript": "^5.0.4",
     "unplugin-icons": "^0.15.3",
     "unplugin-vue-components": "^0.24.1",
-    "vite": "^4.2.1",
+    "vite": "^4.3.8",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^1.6.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "commit-msg": "pnpm commitlint -e"
   },
   "lint-staged": {
-    "*.{vue,js,jsx,ts,tsx,json}": "eslint --fix"
+    "*.{js,jsx,,mjs,ts,tsx,json,,md,yml}": [
+      "eslint --fix"
+    ]
   }
 }

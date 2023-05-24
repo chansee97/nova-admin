@@ -1,9 +1,9 @@
 import type { Router } from 'vue-router'
 import { createPermissionGuard } from './permission'
-import { useAppInfo } from '@/hooks'
 import { useRouteStore, useTabStore } from '@/store'
 
-const { title } = useAppInfo()
+
+const title = import.meta.env.VITE_APP_TITLE
 
 export function setupRouterGuard(router: Router) {
   router.beforeEach(async (to, from, next) => {

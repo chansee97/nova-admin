@@ -2,7 +2,7 @@ import { resolve } from 'node:path'
 import type { ConfigEnv } from 'vite'
 import { defineConfig, loadEnv } from 'vite'
 import { createViteProxy, setVitePlugins } from './build'
-import { proxyConfig } from '@/config'
+import { proxyConfig } from './src/config'
 
 // 当前执行node命令时文件夹的地址（工作目录）
 const rootPath: string = resolve(process.cwd())
