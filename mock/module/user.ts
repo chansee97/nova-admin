@@ -7,7 +7,7 @@ const token = () => Random.string('upper', 32, 32)
 
 const userData = [
   {
-    userId: 1,
+    userId: '1',
     userName: 'super',
     password: '123456',
     nickName: '超级管理员大人',
@@ -15,7 +15,7 @@ const userData = [
     role: 'super',
   },
   {
-    userId: 2,
+    userId: '2',
     userName: 'admin',
     password: '123456',
     nickName: '管理员大人',
@@ -23,7 +23,7 @@ const userData = [
     role: 'admin',
   },
   {
-    userId: 3,
+    userId: '3',
     userName: 'user',
     password: '123456',
     nickName: '用户大人',
@@ -472,11 +472,13 @@ export default [
     url: '/mock/getUserInfo',
     method: 'get',
     response: (options: any) => {
-      const { userId = undefined } = options.query
+      const { userId } = options.query
       if (!userId)
         return resultFailed(null, '未传入用户id！')
 
       const userInfo = userData.find(item => item.userId === userId)
+      console.warn("🚀 ~ file: user.ts:480 ~ userData:", userData)
+      console.warn("🚀 ~ file: user.ts:486 ~ userId:", userId)
       if (userInfo)
         return resultSuccess(userInfo)
 

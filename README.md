@@ -1,5 +1,6 @@
 <div align="center">
-    <h1> <img src="./public/favicon.svg" style="width:30px"/>  Ench Admin</h1>
+<img src="./public/favicon.svg" style="width:150px"/>
+    <h1>Ench Admin</h1>
 </div>
 
 <div align="center">
@@ -11,7 +12,7 @@
 </div>
 
 ## 🌈 介绍
-[Ench-admin](https://github.com/chen-see/ench-admin)一个基于Vue3、Vite3、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高开发效率，让大家早点下班做自己的事情
+[Ench-admin](https://github.com/chen-see/ench-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高后台管理项目开发效率
 
 ## 😎 线上预览地址
 
