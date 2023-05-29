@@ -1,6 +1,9 @@
 /** 本地存储前缀 */
 export const STORAGE_PREFIX = ''
 
+/* 开启本地存储加密 */
+export const STORAGE_ENCRYPT = false
+
 /** 本地存储加密密钥 */
 export const STORAGE_ENCRYPT_SECRET = '__CryptoJS_Secret__'
 

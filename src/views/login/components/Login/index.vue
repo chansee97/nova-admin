@@ -65,34 +65,14 @@ checkUserAccount()
 <template>
   <div>
     <n-h1 depth="3">
-      <SvgIcon
-        name="logo"
-        :size="42"
-        class="mr-1ch"
-      />登录
+      <SvgIcon name="logo" :size="42" class="mr-1ch" />登录
     </n-h1>
-    <n-form
-      ref="formRef"
-      :rules="rules"
-      :model="formValue"
-      :show-label="false"
-      size="large"
-    >
+    <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
       <n-form-item path="account">
-        <n-input
-          v-model:value="formValue.account"
-          clearable
-          placeholder="输入账号"
-        />
+        <n-input v-model:value="formValue.account" clearable placeholder="输入账号" />
       </n-form-item>
       <n-form-item path="pwd">
-        <n-input
-          v-model:value="formValue.pwd"
-          type="password"
-          placeholder="输入密码"
-          clearable
-          show-password-on="click"
-        >
+        <n-input v-model:value="formValue.pwd" type="password" placeholder="输入密码" clearable show-password-on="click">
           <template #password-invisible-icon>
             <i-icon-park-outline-preview-close-one />
           </template>
@@ -103,45 +83,23 @@ checkUserAccount()
       </n-form-item>
       <n-form-item path="code">
         <n-space align="center">
-          <n-input
-            v-model:value="formValue.code"
-            clearable
-            placeholder="输入验证码"
-            :maxlength="4"
-          />
+          <n-input v-model:value="formValue.code" clearable placeholder="输入验证码" :maxlength="4" />
           <div>验证码</div>
         </n-space>
       </n-form-item>
-      <n-space
-        vertical
-        :size="20"
-      >
+      <n-space vertical :size="20">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="isRemember">
             记住我
           </n-checkbox>
-          <n-button
-            type="primary"
-            text
-            @click="toOtherForm('resetPwd')"
-          >
+          <n-button type="primary" text @click="toOtherForm('resetPwd')">
             忘记密码？
           </n-button>
         </div>
-        <n-button
-          block
-          type="primary"
-          size="large"
-          :loading="authStore.loginLoading"
-          @click="handleLogin"
-        >
+        <n-button block type="primary" size="large" :loading="authStore.loginLoading" @click="handleLogin">
           登录
         </n-button>
-        <n-button
-          type="primary"
-          text
-          @click="toOtherForm('register')"
-        >
+        <n-button type="primary" text @click="toOtherForm('register')">
           立即注册
         </n-button>
       </n-space>

@@ -1,4 +1,5 @@
 import { decrypto, encrypto } from './crypto'
+
 // 读取缓存前缀
 import { STORAGE_DEFAULT_CACHE_TIME, STORAGE_PREFIX } from '@/config'
 
