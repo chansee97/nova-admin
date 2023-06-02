@@ -13,13 +13,13 @@ import mock from './mock'
  * @return {*}
  */
 export function setVitePlugins(env: ImportMetaEnv) {
-  const plugins = [...vue, unocss(), ...unplugin, mock, vueSetupExtend()]
+  const plugins: PluginOption[] = [...vue, unocss(), ...unplugin, mock, vueSetupExtend()]
   // 是否压缩
-  if (env.VITE_COMPRESS_OPEN)
+  if (env.VITE_COMPRESS_OPEN === 'Y')
     plugins.push(compress(env))
 
   // 是否依赖分析
-  if (env.VITE_VISUALIZER)
+  if (env.VITE_VISUALIZER === 'Y')
     plugins.push(visualizer as PluginOption)
 
   return plugins

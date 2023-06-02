@@ -3,7 +3,7 @@ import { proxyConfig } from '@/config'
 
 const { url, urlPattern } = proxyConfig[import.meta.env.MODE]
 
-const isHttpProxy = import.meta.env.VITE_HTTP_PROXY || false
+const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y' || false
 
 export const request = createRequest({ baseURL: isHttpProxy ? urlPattern : url })
 
