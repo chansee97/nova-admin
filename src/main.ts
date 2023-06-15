@@ -1,4 +1,3 @@
-import { createApp } from 'vue'
 import App from './App.vue'
 import AppLoading from './components/common/appLoading.vue'
 import { setupRouter } from './router'

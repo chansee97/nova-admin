@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { Ref } from 'vue'
 import { Login, Register, ResetPwd } from './components'
 
   type IformType = 'login' | 'register' | 'resetPwd'

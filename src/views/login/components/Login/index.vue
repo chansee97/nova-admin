@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import type { FormInst } from 'naive-ui'
 import { local } from '@/utils'
 import { useAuthStore } from '@/store'

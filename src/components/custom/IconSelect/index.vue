@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { icons } from './icons'
 
 const currentIcon = ref('')

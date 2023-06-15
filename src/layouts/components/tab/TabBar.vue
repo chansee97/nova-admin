@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
-import { nextTick, ref } from 'vue'
 import { useAppStore, useTabStore } from '@/store'
 import { useAppRouter } from '@/hooks'
 import { renderIcon } from '@/utils'

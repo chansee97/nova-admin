@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useScriptTag } from '@vueuse/core'
-import { onMounted, ref } from 'vue'
 import { GAODE_MAP_SDK_URL } from '@/config'
 
 const { load } = useScriptTag(GAODE_MAP_SDK_URL)

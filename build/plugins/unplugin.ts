@@ -10,7 +10,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' // https://github.c
 
 export default [
   AutoImport({
-    imports: ['vue', 'vue-router','@vueuse/core','pinia'],
+    imports: ['vue', 'vue-router','pinia'],
     include: [
       /\.[tj]sx?$/,
       /\.vue$/,

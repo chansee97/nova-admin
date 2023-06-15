@@ -1,8 +1,6 @@
 import * as echarts from 'echarts/core'
-import { nextTick, onUnmounted, ref, watch } from 'vue'
-import type { Ref } from 'vue'
-
 import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
+
 // 系列类型的定义后缀都为 SeriesOption
 import type {
   BarSeriesOption,

@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-import { unref } from 'vue'
 import { useRouteStore } from './route'
 import { fetchLogin, fetchUserInfo } from '@/service'
 import { router } from '@/router'

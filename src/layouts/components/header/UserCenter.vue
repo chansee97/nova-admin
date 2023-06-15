@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import HeaderButton from '../common/HeaderButton.vue'
 import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'

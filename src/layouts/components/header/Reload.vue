@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import HeaderButton from '../common/HeaderButton.vue'
 import { useAppStore } from '@/store'
 const appStore = useAppStore()

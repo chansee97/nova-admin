@@ -1,5 +1,4 @@
 <script setup lang="tsx">
-import { onMounted, ref } from 'vue'
 import type { DataTableColumns, FormInst } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'

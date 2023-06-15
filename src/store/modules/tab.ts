@@ -1,4 +1,3 @@
-import { defineStore } from 'pinia'
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppRouter } from '@/hooks'
 

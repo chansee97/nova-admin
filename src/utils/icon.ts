@@ -1,4 +1,3 @@
-import { h } from 'vue'
 import { Icon } from '@iconify/vue'
 import { NIcon } from 'naive-ui'
 

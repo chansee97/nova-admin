@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
-
 type FormModel = Pick<CommonList.UserList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>
 const props = withDefaults(defineProps<Props>(), {
   type: 'add',

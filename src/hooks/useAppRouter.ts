@@ -1,5 +1,4 @@
 import type { RouteLocationRaw } from 'vue-router'
-import { useRouter } from 'vue-router'
 import { router as gobalRouter } from '@/router'
 
 /**

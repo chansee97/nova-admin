@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 const emit = defineEmits(['update:modelValue'])
 function toLogin() {
   emit('update:modelValue', 'login')

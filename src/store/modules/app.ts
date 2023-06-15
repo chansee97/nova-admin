@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-import { nextTick } from 'vue'
 import type { GlobalTheme } from 'naive-ui'
 import { darkTheme } from 'naive-ui'
 
