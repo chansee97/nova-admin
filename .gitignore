@@ -26,6 +26,7 @@ stats.html
 *.sw?
 
 /src/typings/components.d.ts
+/src/typings/auto-imports.d.ts
 pnpm-lock.yaml
 package-lock.json
 yarn.lock

@@ -1,11 +1,12 @@
 import type { PluginOption } from 'vite'
-import unocss from '@unocss/vite'
+import UnoCSS  from '@unocss/vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import vue from './vue'
 import compress from './compress'
 import visualizer from './visualizer'
 import unplugin from './unplugin'
 import mock from './mock'
+// import { viteMockServe } from 'vite-plugin-mock' // https://github.com/vbenjs/vite-plugin-mock/blob/main/README.zh_CN.md
 
 /**
  * @description: 设置vite插件配置
@@ -13,7 +14,7 @@ import mock from './mock'
  * @return {*}
  */
 export function setVitePlugins(env: ImportMetaEnv) {
-  const plugins: PluginOption[] = [...vue, unocss(), ...unplugin, mock, vueSetupExtend()]
+  const plugins: PluginOption[] = [...vue, UnoCSS(), ...unplugin,mock,  vueSetupExtend()]
   // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y')
     plugins.push(compress(env))

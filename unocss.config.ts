@@ -1,6 +1,4 @@
-import { defineConfig } from '@unocss/vite' // https://github.com/unocss/unocss
-import presetUno from '@unocss/preset-uno'
-import presetAttributify from '@unocss/preset-attributify'
+import { presetUno,presetAttributify,defineConfig } from 'unocss' // https://github.com/unocss/unocss
 
 export default defineConfig({
   presets: [presetUno({ dark: 'class' }), presetAttributify()],

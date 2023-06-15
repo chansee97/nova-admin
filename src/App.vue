@@ -19,5 +19,3 @@ const themeOverrides: GlobalThemeOverrides = {} || themeConfig
     <naive-provider><router-view /></naive-provider>
   </n-config-provider>
 </template>
-
-<style scoped></style>
