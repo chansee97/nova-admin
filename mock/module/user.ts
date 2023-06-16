@@ -439,7 +439,7 @@ export default [
   {
     url: '/mock/login',
     method: 'post',
-    response: (options: any) => {
+    response: (options: Service.MockOption) => {
       const { userName = undefined, password = undefined } = options.body
 
       if (!userName || !password)
@@ -477,8 +477,6 @@ export default [
         return resultFailed(null, '未传入用户id！')
 
       const userInfo = userData.find(item => item.userId === userId)
-      console.warn("🚀 ~ file: user.ts:480 ~ userData:", userData)
-      console.warn("🚀 ~ file: user.ts:486 ~ userId:", userId)
       if (userInfo)
         return resultSuccess(userInfo)
 

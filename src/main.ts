@@ -3,6 +3,7 @@ import AppLoading from './components/common/appLoading.vue'
 import { setupRouter } from './router'
 import { setupAssets } from './plugins'
 import { setupStore } from './store'
+
 import { setupDirectives } from './directive'
 
 async function setupApp() {
@@ -15,14 +16,14 @@ async function setupApp() {
   // 创建vue实例
   const app = createApp(App)
   // 安装pinia全局状态库
-  setupStore(app)
+  setupStore (app)
   // 安装自定义指令
   setupDirectives(app)
   // 安装router
   await setupRouter(app)
   // 挂载
-  await app.mount('#app')
+  app.mount('#app')
   // 卸载载入动画
   appLoading.unmount()
 }
-setupApp()
+await setupApp()

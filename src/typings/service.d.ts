@@ -42,4 +42,11 @@ declare namespace Service {
 
 	/** 自定义的请求结果 */
 	type RequestResult<T = any> = SuccessResult<T> | FailedResult;
+
+	interface MockOption {
+    url: Record<string, any>;
+    body: Record<string, any>;
+    query: Record<string, any>;
+    headers: Record<string, any>;
+  }
 }
