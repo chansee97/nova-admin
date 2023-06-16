@@ -40,10 +40,10 @@ export function usePermission() {
     let has = role === 'super'
     if (!has) {
       if (isArray(permission))
-        has = (permission as Auth.RoleType[]).includes(role)
+        has = (permission).includes(role)
 
       if (isString(permission))
-        has = (permission as Auth.RoleType) === role
+        has = (permission) === role
     }
     return has
   }

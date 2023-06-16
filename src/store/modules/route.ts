@@ -1,4 +1,3 @@
-
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
@@ -80,7 +79,7 @@ export const useRouteStore = defineStore('route-store', {
     createMenus(userRoutes: AppRoute.Route[]) {
       this.userRoutes = userRoutes
 
-      let resultMenus = JSON.parse(JSON.stringify(userRoutes))
+      let resultMenus: AppRoute.Route[] = JSON.parse(JSON.stringify(userRoutes))
       resultMenus = this.removeHiddenRoutes(resultMenus)
       this.menus = this.transformAuthRoutesToMenus(resultMenus)
     },
@@ -157,6 +156,9 @@ export const useRouteStore = defineStore('route-store', {
       const { data: routes } = await fetchUserRoutes({
         userId: userInfo.userId,
       })
+
+      if (!routes)
+        return
       // 根据用户返回的路由表来生成真实路由
       const appRoutes = await createDynamicRoutes(routes)
       // 生成侧边菜单

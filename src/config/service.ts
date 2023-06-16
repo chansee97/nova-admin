@@ -1,5 +1,6 @@
 /** 默认实例的Aixos配置 */
 import type { AxiosRequestConfig } from 'axios'
+
 export const DEFAULT_AXIOS_OPTIONS: AxiosRequestConfig = {
   // 请求超时时间,默认15秒
   timeout: 15 * 1000,

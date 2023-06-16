@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue'
 import { useAppStore } from '@/store'
+
 const appStore = useAppStore()
 
 const loading = ref(false)
 
-const handleReload = () => {
+function handleReload() {
   loading.value = true
   appStore.reloadPage()
   setTimeout(() => {

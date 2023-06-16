@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue'
-const toMyGithub = () => {
+
+function toMyGithub() {
   window.open('https://github.com/iam-see')
 }
 </script>

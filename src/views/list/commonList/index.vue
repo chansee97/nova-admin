@@ -18,7 +18,7 @@ const initialModel = {
 const model = ref({ ...initialModel })
 
 const formRef = ref<FormInst | null>()
-const sendMail = (id: number) => {
+function sendMail(id: number) {
   window.$message.success(`用户id:${id}`)
 }
 const columns: DataTableColumns = [

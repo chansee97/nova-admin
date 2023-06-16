@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const testMsg = () => {
+function testMsg() {
   window.$message.error('Once upon a time you dressed so fine')
 }
 </script>

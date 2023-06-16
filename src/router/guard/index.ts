@@ -2,7 +2,6 @@ import type { Router } from 'vue-router'
 import { createPermissionGuard } from './permission'
 import { useRouteStore, useTabStore } from '@/store'
 
-
 const title = import.meta.env.VITE_APP_TITLE
 
 export function setupRouterGuard(router: Router) {
@@ -18,7 +17,7 @@ export function setupRouterGuard(router: Router) {
     await createPermissionGuard(to, from, next)
   })
 
-  router.beforeResolve(async (to) => {
+  router.beforeResolve((to) => {
     const routeStore = useRouteStore()
     const tabStore = useTabStore()
     // 设置菜单高亮

@@ -15,5 +15,5 @@ export function fetchUserInfo(params: any) {
   return mockRequest.get<Auth.UserInfo>('/getUserInfo', { params })
 }
 export function fetchUserRoutes(params: { userId: number }) {
-  return mockRequest.post<any>('/getUserRoutes', params)
+  return mockRequest.post<AppRoute.Route[]>('/getUserRoutes', params)
 }

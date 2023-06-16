@@ -13,20 +13,20 @@ import {
 } from '@/service'
 
 const msg = ref()
-const pinter = () => {
+function pinter() {
   msg.value = import.meta.env
 }
-const get = () => {
+function get() {
   fetachGet({ a: 112211 }).then((res) => {
     msg.value = res
   })
 }
-const delete2 = () => {
+function delete2() {
   fetachDelete().then((res) => {
     msg.value = res
   })
 }
-const post = () => {
+function post() {
   const params = {
     data: '2022-2-2',
     data1: [],
@@ -48,7 +48,7 @@ function formPost() {
     msg.value = res
   })
 }
-const put = () => {
+function put() {
   const params = {
     data: '2022-2-2',
   }
@@ -58,30 +58,30 @@ const put = () => {
 }
 
 // 测试请求失败
-const failedRequest = () => {
+function failedRequest() {
   testFailedRequest().then((res) => {
     msg.value = res
   })
 }
 // 测试业务失败
-const failedResponse = () => {
+function failedResponse() {
   testFailedResponse().then((res) => {
     msg.value = res
   })
 }
 // 测试业务失败无提示
-const failedResponse_NT = () => {
+function failedResponse_NT() {
   testFailedResponse_NT().then((res) => {
     msg.value = res
   })
 }
 // 测试刷新token
-const updataToken = () => {
+function updataToken() {
   testUpdataToken().then((res) => {
     msg.value = res
   })
 }
-const mock = () => {
+function mock() {
   fetchMock().then((res) => {
     msg.value = res
   })

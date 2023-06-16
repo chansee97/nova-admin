@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store'
 import { useAppInfo, useAppRouter } from '@/hooks'
+
 const { name } = useAppInfo()
 const { toRoot } = useAppRouter()
 const appStore = useAppStore()

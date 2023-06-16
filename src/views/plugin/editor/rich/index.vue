@@ -29,7 +29,7 @@ onBeforeUnmount(() => {
   editor.destroy()
 })
 
-const handleCreated = (editor: string) => {
+function handleCreated(editor: string) {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 </script>

@@ -1,4 +1,5 @@
 import type { ProxyOptions } from 'vite'
+
 /**
  * @description: 生成vite代理字段
  * @param {*} env - 环境变量配置

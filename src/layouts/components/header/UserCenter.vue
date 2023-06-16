@@ -22,7 +22,7 @@ const options = [
     icon: renderIcon('icon-park-outline:logout'),
   },
 ]
-const handleSelect = (key: string | number) => {
+function handleSelect(key: string | number) {
   if (key === 'loginOut') {
     window.$dialog.info({
       title: '退出登录',

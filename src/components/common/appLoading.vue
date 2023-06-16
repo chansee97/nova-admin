@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAppInfo } from '@/hooks'
+
 const { title } = useAppInfo()
 </script>
 

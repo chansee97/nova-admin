@@ -33,6 +33,6 @@ declare namespace AppRoute {
     /* 嵌套外链  */
     herf?: string;
     /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
-    activeMenu?: RouteKey;
+    activeMenu?: string;
   }
 }

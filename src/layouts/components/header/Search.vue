@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import HeaderButton from '../common/HeaderButton.vue'
-const handleSearch = () => {
+
+function handleSearch() {
   window.$message.success('施工中...')
 }
 </script>

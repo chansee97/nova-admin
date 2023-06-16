@@ -1,8 +1,8 @@
 interface Window {
-  $loadingBar?: import('naive-ui').LoadingBarApiInjection;
-  $dialog?: import('naive-ui').DialogApiInjection;
-  $message?: import('naive-ui').MessageApiInjection;
-  $notification?: import('naive-ui').NotificationApiInjection;
+  $loadingBar?: import('naive-ui').LoadingBarApi;
+  $dialog?: import('naive-ui').DialogApi;
+  $message?: import('naive-ui').MessageApi;
+  $notification?: import('naive-ui').NotificationApi;
 }
 
 declare const AMap: any;

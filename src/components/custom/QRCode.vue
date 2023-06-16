@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import vueQr from 'vue-qr/src/packages/vue-qr.vue' // https://www.npmjs.com/package/vue-qr
+import vueQr from 'vue-qr/src/packages/vue-qr.vue'
+
+// https://www.npmjs.com/package/vue-qr
 const props = withDefaults(
   defineProps<{
     text?: string
