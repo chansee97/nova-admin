@@ -4,7 +4,6 @@ import { router } from '@/router'
 import { useAppRouter } from '@/hooks'
 import { local } from '@/utils'
 
-const routeStore = useRouteStore()
 const emptyInfo: Auth.UserInfo = {
   userId: 0,
   userName: '',
@@ -35,6 +34,7 @@ export const useAuthStore = defineStore('auth-store', {
       // 清除本地缓存
       this.clearAuthStorage()
       // 清空路由、菜单等数据
+      const routeStore = useRouteStore()
       routeStore.resetRouteStore()
       this.$reset()
       if (route.meta.requiresAuth)
@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('auth-store', {
       const catchSuccess = await this.catchUserInfo(data)
 
       // 添加路由和菜单
-      // const { initAuthRoute } = useRouteStore()
+      const routeStore = useRouteStore()
       await routeStore.initAuthRoute()
 
       // 登录写入信息成功

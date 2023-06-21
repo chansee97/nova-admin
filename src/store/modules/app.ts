@@ -1,6 +1,3 @@
-import type { GlobalTheme } from 'naive-ui'
-import { darkTheme } from 'naive-ui'
-
 interface AppStatus {
   readonly footerText: string
   collapsed: boolean
@@ -8,7 +5,6 @@ interface AppStatus {
   darkMode: boolean
   grayMode: boolean
   colorWeak: boolean
-  darkTheme: GlobalTheme | null
   loadFlag: boolean
   showLogo: boolean
   showTabs: boolean
@@ -23,16 +19,19 @@ const docEle = document.documentElement
 
 const { isFullscreen, toggle } = useFullscreen(docEle)
 
+const isDark = useDark({
+  storageKey: 'admin-dark-mode',
+})
+
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
       footerText: 'Copyright ©2023 Ench Admin',
       collapsed: false,
-      fullScreen: isFullscreen.value,
-      darkMode: false,
+      fullScreen: false,
+      darkMode: isDark.value,
       grayMode: false,
       colorWeak: false,
-      darkTheme: null,
       loadFlag: true,
       showLogo: true,
       showTabs: true,
@@ -54,22 +53,14 @@ export const useAppStore = defineStore('app-store', {
       await toggle()
     },
     /* 切换主题 亮/深色 */
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode
-      if (this.darkMode)
-        this.darkTheme = darkTheme
-      else this.darkTheme = null
-    },
-    /* 设置主题深色 */
-    setDarkMode(mode: boolean) {
-      if (mode) {
-        this.darkMode = true
-        this.darkTheme = darkTheme
-      }
-      else {
-        this.darkMode = false
-        this.darkTheme = null
-      }
+    toggleDarkMode(mode?: boolean) {
+      if (typeof mode === 'boolean')
+        isDark.value = mode
+
+      else
+        isDark.value = !isDark.value
+
+      this.darkMode = isDark.value
     },
     /**
      * @description: 页面内容重载

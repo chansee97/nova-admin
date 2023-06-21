@@ -2,6 +2,6 @@ import { viteMockServe } from 'vite-plugin-mock' // https://github.com/vbenjs/vi
 
 export default viteMockServe({
   mockPath: 'mock',
-  enable: true,
+  // enable: true,
   // watchFiles: false,
 })
