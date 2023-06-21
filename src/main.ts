@@ -1,7 +1,7 @@
 import App from './App.vue'
 import AppLoading from './components/common/appLoading.vue'
 import { setupRouter } from './router'
-import { setupAssets } from './plugins'
+import { setupAssets } from './assets'
 import { setupStore } from './store'
 import { setupDirectives } from './directive'
 

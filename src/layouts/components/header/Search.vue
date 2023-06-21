@@ -2,7 +2,7 @@
 import HeaderButton from '../common/HeaderButton.vue'
 
 function handleSearch() {
-  window.$message.success('施工中...')
+  window.$message?.success('施工中...')
 }
 </script>
 

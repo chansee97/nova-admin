@@ -24,7 +24,7 @@ const options = [
 ]
 function handleSelect(key: string | number) {
   if (key === 'loginOut') {
-    window.$dialog.info({
+    window.$dialog?.info({
       title: '退出登录',
       content: '确认退出当前账号？',
       positiveText: '确定',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 function testMsg() {
-  window.$message.error('Once upon a time you dressed so fine')
+  window.$message?.error('Once upon a time you dressed so fine')
 }
 </script>
 
