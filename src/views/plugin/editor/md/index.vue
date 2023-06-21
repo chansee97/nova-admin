@@ -4,7 +4,7 @@ const text = ref('# Hello Editor ![图片描述](https://via.placeholder.com/350
 
 <template>
   <n-card>
-    <MdEditor v-model="text" />
+    <MarkDownEditor v-model="text" />
   </n-card>
 </template>
 
