@@ -7,7 +7,7 @@ const appStore = useAppStore()
 <template>
   <div
     class="cursor-pointer"
-    @click="appStore.toggleDarkMode()"
+    @click="appStore.toggleDarkMode"
   >
     <i-icon-park-outline-moon v-if="appStore.darkMode" />
     <i-icon-park-outline-sun v-else />

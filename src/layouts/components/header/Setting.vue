@@ -30,7 +30,7 @@ function openSetting() {
                   深色模式
                   <n-switch
                     :value="appStore.darkMode"
-                    @update:value="appStore.toggleDarkMode()"
+                    @update:value="appStore.toggleDarkMode"
                   />
                 </n-space>
                 <n-space justify="space-between">
