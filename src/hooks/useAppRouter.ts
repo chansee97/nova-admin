@@ -11,13 +11,13 @@ export function useAppRouter(isSetup = true) {
   const route = router.currentRoute
 
   /* 路由跳转方法 */
-  function routerPush(to: RouteLocationRaw) {
-    router.push(to)
+  async function routerPush(to: RouteLocationRaw) {
+    await router.push(to)
   }
 
   /* 路由跳转方法 */
-  function routerReplace(to: RouteLocationRaw) {
-    router.replace(to)
+  async function routerReplace(to: RouteLocationRaw) {
+    await router.replace(to)
   }
 
   /* 前进后退方法 */
@@ -26,25 +26,25 @@ export function useAppRouter(isSetup = true) {
   }
 
   /* 跳转根页方法 */
-  function toRoot() {
-    routerPush({ path: '/appRoot' })
+  async function toRoot() {
+    await routerPush({ path: '/appRoot' })
   }
   /* 跳转至登录页 */
-  function toLogin(redirectUrl?: string) {
+  async function toLogin(redirectUrl?: string) {
     const redirect = redirectUrl || route.value.fullPath
     const targetUrl = {
       name: 'login',
       query: { redirect },
     }
-    routerPush(targetUrl)
+    await routerPush(targetUrl)
   }
   /* 跳转重定向方法 */
-  function toLoginRedirect() {
+  async function toLoginRedirect() {
     const { query } = route.value
     if (query?.redirect)
-      routerPush(query.redirect as string)
+      await routerPush(query.redirect as string)
     else
-      toRoot()
+      await toRoot()
   }
 
   return {

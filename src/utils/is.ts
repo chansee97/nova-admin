@@ -1,4 +1,4 @@
-const toString = Object.prototype.toString
+const toString = Object.prototype.toString.bind({})
 
 export function is(val: unknown, type: string) {
   return toString.call(val) === `[object ${type}]`

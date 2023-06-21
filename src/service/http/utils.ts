@@ -16,7 +16,7 @@ export function showError(error: Service.RequestError) {
  * @param requestData - 请求数据
  * @param contentType - 请求头的Content-Type
  */
-export async function transformRequestData(
+export function transformRequestData(
   requestData: any,
   contentType?: UnionKey.ContentType,
 ) {
@@ -29,16 +29,16 @@ export async function transformRequestData(
 
   // form-data类型转换
   if (contentType === 'multipart/form-data')
-    data = await handleFormData(data)
+    data = handleFormData(data)
 
   return data
 }
 
-async function handleFormData(data: Record<string, any>) {
+function handleFormData(data: Record<string, any>) {
   const formData = new FormData()
   const entries = Object.entries(data)
 
-  entries.forEach(async ([key, value]) => {
+  entries.forEach(([key, value]) => {
     const isFileType
       = isFile(value) || (isArray(value) && value.length && isFile(value[0]))
 

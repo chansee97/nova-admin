@@ -102,7 +102,7 @@ export function handleBusinessError(data: Record<string, any>, config: Service.B
  * @param {Service} error
  * @return {*} result
  */
-export async function handleServiceResult<T = any>(data: any, error: Service.RequestError | null) {
+export function handleServiceResult<T = any>(data: any, error: Service.RequestError | null) {
   if (error) {
     const fail: Service.FailedResult = {
       error,
@@ -123,7 +123,7 @@ export async function handleServiceResult<T = any>(data: any, error: Service.Req
  * @return {*}
  */
 export async function handleRefreshToken(config: AxiosRequestConfig) {
-  const { resetAuthStore } = useAuthStore()
+  const authStore = useAuthStore()
   const refreshToken = local.get('refreshToken')
   const { data } = await fetchUpdateToken(refreshToken)
   if (data) {
@@ -136,6 +136,6 @@ export async function handleRefreshToken(config: AxiosRequestConfig) {
 
     return config
   }
-  resetAuthStore()
+  await authStore.resetAuthStore()
   return null
 }

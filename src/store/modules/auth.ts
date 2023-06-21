@@ -4,6 +4,7 @@ import { router } from '@/router'
 import { useAppRouter } from '@/hooks'
 import { local } from '@/utils'
 
+const routeStore = useRouteStore()
 const emptyInfo: Auth.UserInfo = {
   userId: 0,
   userName: '',
@@ -28,17 +29,16 @@ export const useAuthStore = defineStore('auth-store', {
   },
   actions: {
     /* 登录退出，重置用户信息等 */
-    resetAuthStore() {
+    async resetAuthStore() {
       const route = unref(router.currentRoute)
       const { toLogin } = useAppRouter(false)
-      const { resetRouteStore } = useRouteStore()
       // 清除本地缓存
       this.clearAuthStorage()
       // 清空路由、菜单等数据
-      resetRouteStore()
+      routeStore.resetRouteStore()
       this.$reset()
       if (route.meta.requiresAuth)
-        toLogin()
+        await toLogin()
     },
     clearAuthStorage() {
       local.remove('token')
@@ -66,14 +66,14 @@ export const useAuthStore = defineStore('auth-store', {
       const catchSuccess = await this.catchUserInfo(data)
 
       // 添加路由和菜单
-      const { initAuthRoute } = useRouteStore()
-      await initAuthRoute()
+      // const { initAuthRoute } = useRouteStore()
+      await routeStore.initAuthRoute()
 
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
         const { toLoginRedirect } = useAppRouter(false)
-        toLoginRedirect()
+        await toLoginRedirect()
 
         // 触发用户提示
         window.$notification?.success({
@@ -84,7 +84,7 @@ export const useAuthStore = defineStore('auth-store', {
         return
       }
       // 如果不成功则重置存储
-      this.resetAuthStore()
+      await this.resetAuthStore()
     },
 
     /* 缓存用户信息 */
@@ -107,8 +107,8 @@ export const useAuthStore = defineStore('auth-store', {
 
       return catchSuccess
     },
-    toggleUserRole(role: Auth.RoleType) {
-      this.login(role, '123456')
+    async toggleUserRole(role: Auth.RoleType) {
+      await this.login(role, '123456')
     },
   },
 })

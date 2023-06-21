@@ -21,12 +21,14 @@ interface AppStatus {
 
 const docEle = document.documentElement
 
+const { isFullscreen, toggle } = useFullscreen(docEle)
+
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
       footerText: 'Copyright ©2023 Ench Admin',
       collapsed: false,
-      fullScreen: false,
+      fullScreen: isFullscreen.value,
       darkMode: false,
       grayMode: false,
       colorWeak: false,
@@ -47,15 +49,9 @@ export const useAppStore = defineStore('app-store', {
       this.collapsed = !this.collapsed
     },
     /* 切换全屏 */
-    toggleFullScreen() {
-      if (!document.fullscreenElement) {
-        this.fullScreen = true
-        document.documentElement.requestFullscreen()
-      }
-      else if (document.exitFullscreen) {
-        this.fullScreen = false
-        document.exitFullscreen()
-      }
+    async toggleFullScreen() {
+      this.fullScreen = isFullscreen.value
+      await toggle()
     },
     /* 切换主题 亮/深色 */
     toggleDarkMode() {

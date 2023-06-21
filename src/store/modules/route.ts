@@ -160,16 +160,16 @@ export const useRouteStore = defineStore('route-store', {
       if (!routes)
         return
       // 根据用户返回的路由表来生成真实路由
-      const appRoutes = await createDynamicRoutes(routes)
+      const appRoutes = createDynamicRoutes(routes)
       // 生成侧边菜单
       this.createMenus(routes)
       // 插入路由表
       router.addRoute(appRoutes)
     },
     /* 初始化静态路由 */
-    async initStaticRoute() {
+    initStaticRoute() {
       // 根据静态路由表来生成真实路由
-      const appRoutes = await createDynamicRoutes(staticRoutes)
+      const appRoutes = createDynamicRoutes(staticRoutes)
       // 生成侧边菜单
       this.createMenus(staticRoutes)
       // 插入路由表
@@ -180,7 +180,7 @@ export const useRouteStore = defineStore('route-store', {
       this.isInitAuthRoute = false
       if (this.authRouteMode === 'dynamic')
         await this.initDynamicRoute()
-      else await this.initStaticRoute()
+      else this.initStaticRoute()
 
       this.isInitAuthRoute = true
     },

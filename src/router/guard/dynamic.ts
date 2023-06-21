@@ -49,7 +49,7 @@ function createCatheRoutes(routes: AppRoute.Route[]) {
     })
     .map(item => item.name)
 }
-export async function createDynamicRoutes(routes: AppRoute.Route[]) {
+export function createDynamicRoutes(routes: AppRoute.Route[]) {
   /* 复制一层 */
   let resultRouter = JSON.parse(JSON.stringify(routes))
   /* 设置路由重定向到子级第一个 */

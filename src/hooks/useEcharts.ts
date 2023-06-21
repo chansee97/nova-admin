@@ -30,7 +30,6 @@ import {
 
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { useElementSize } from '@vueuse/core'
 import { useAppStore } from '@/store'
 
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
@@ -109,7 +108,7 @@ export function useEcharts(options: Ref<ECOption>) {
     chart?.dispose()
     chart = null
   }
-  const sizeWatch = watch([width, height], ([newWidth, newHeight]) => {
+  const sizeWatch = watch([width, height], async ([newWidth, newHeight]) => {
     initialSize.width = newWidth
     initialSize.height = newHeight
     if (newWidth === 0 && newHeight === 0) {
@@ -120,7 +119,7 @@ export function useEcharts(options: Ref<ECOption>) {
       return
     if (isRendered())
       resize()
-    else render()
+    else await render()
   })
 
   const OptionWatch = watch(options, (newValue) => {

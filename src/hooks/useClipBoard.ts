@@ -2,7 +2,7 @@ export function useClipBoard() {
   function isSupport() {
     return !navigator.clipboard
   }
-  async function copy(text: string) {
+  function copy(text: string) {
     if (isSupport())
       return window.$message?.error('当前浏览器不支持复制！')
 

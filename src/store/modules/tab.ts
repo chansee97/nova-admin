@@ -49,7 +49,7 @@ export const useTabStore = defineStore('tab-store', {
 
       this.tabs.push(route)
     },
-    closeTab(name: string) {
+    async closeTab(name: string) {
       const { routerPush, toRoot } = useAppRouter(false)
       const tabsLength = this.tabs.length
       // 如果动态标签大于一个,才会标签跳转
@@ -60,11 +60,11 @@ export const useTabStore = defineStore('tab-store', {
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
         if (this.currentTab === name && !isLast) {
           // 跳转到后一个标签
-          routerPush(this.tabs[index + 1].path)
+          await routerPush(this.tabs[index + 1].path)
         }
         else if (this.currentTab === name && isLast) {
           // 已经是最后一个了，就跳转前一个
-          routerPush(this.tabs[index - 1].path)
+          await routerPush(this.tabs[index - 1].path)
         }
       }
       // 删除标签
@@ -73,7 +73,7 @@ export const useTabStore = defineStore('tab-store', {
       })
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0)
-        toRoot()
+        await toRoot()
     },
 
     closeOtherTabs(name: string) {
@@ -88,10 +88,10 @@ export const useTabStore = defineStore('tab-store', {
       const index = this.getTabIndex(name)
       this.tabs = this.tabs.filter((item, i) => i <= index)
     },
-    closeAllTabs() {
+    async closeAllTabs() {
       const { toRoot } = useAppRouter(false)
       this.tabs.length = 0
-      toRoot()
+      await toRoot()
     },
 
     hasExistTab(name: string) {
