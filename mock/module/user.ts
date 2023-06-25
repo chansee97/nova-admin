@@ -191,7 +191,7 @@ const userRoutes = [
         ],
       },
       {
-        name: 'plugin_map',
+        name: 'PluginMap',
         path: '/plugin/map',
         meta: {
           title: '地图',

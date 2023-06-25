@@ -5,9 +5,16 @@ import { MdEditor } from 'md-editor-v3' // https://imzbf.github.io/md-editor-v3/
 import 'md-editor-v3/lib/style.css'
 import { useAppStore } from '@/store'
 
+const props = defineProps<{
+  modelValue: string
+}>()
+
+const emit = defineEmits(['update:modelValue'])
+
 const appStore = useAppStore()
 
-const modelValue = defineModel()
+const data = useVModel(props, 'modelValue', emit)
+
 const theme = computed(() => {
   return appStore.darkMode ? 'dark' : 'light'
 })
@@ -23,7 +30,7 @@ const toolbarsExclude: ToolbarNames[] = [
 
 <template>
   <MdEditor
-    v-model="modelValue" :theme="theme" read-only :toolbars-exclude="toolbarsExclude"
+    v-model="data" :theme="theme" read-only :toolbars-exclude="toolbarsExclude"
   />
 </template>
 

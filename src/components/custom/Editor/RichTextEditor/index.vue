@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import Editor from '@tinymce/tinymce-vue'
 
-const modelValue = defineModel()
+const props = defineProps<{
+  modelValue: string
+}>()
+
+const emit = defineEmits(['update:modelValue'])
+
+const data = useVModel(props, 'modelValue', emit)
 
 function imagesUploadHandler(blobInfo: any, _progress: number) {
   return new Promise((resolve, reject) => {
@@ -51,7 +57,7 @@ const initConfig = {
 <template>
   <div class="tinymce-boxz">
     <Editor
-      v-model="modelValue"
+      v-model="data"
       api-key="no-api"
       :init="initConfig"
     />

@@ -1,9 +1,13 @@
 <script lang="ts">
 </script>
 
-<script setup lang="ts" name="plugin_map">
+<script setup lang="ts">
 import AMap from './components/AMap.vue'
 import BMap from './components/BMap.vue'
+
+defineOptions({
+  name: 'PluginMap',
+})
 
 const maps = [
   {

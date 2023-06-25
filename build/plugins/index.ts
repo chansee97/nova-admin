@@ -1,6 +1,5 @@
 import type { PluginOption } from 'vite'
 import UnoCSS from '@unocss/vite'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import vue from './vue'
 import compress from './compress'
 import visualizer from './visualizer'
@@ -15,7 +14,7 @@ import mock from './mock'
  * @return {*}
  */
 export function setVitePlugins(env: ImportMetaEnv) {
-  const plugins: PluginOption[] = [...vue, UnoCSS(), ...unplugin, mock, vueSetupExtend()]
+  const plugins: PluginOption[] = [...vue, UnoCSS(), ...unplugin, mock]
   // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y')
     plugins.push(compress(env))

@@ -7,8 +7,6 @@ import themeConfig from './theme.json'
 const locale = zhCN
 const dateLocale = dateZhCN
 const appStore = useAppStore()
-// const osThemeRef = useOsTheme()
-// appStore.toggleDarkMode(osThemeRef.value === 'dark')
 
 const themeOverrides: GlobalThemeOverrides = {} || themeConfig
 </script>

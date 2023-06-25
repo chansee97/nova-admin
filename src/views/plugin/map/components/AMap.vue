@@ -29,5 +29,3 @@ async function initMap() {
     class="w-full h-full"
   />
 </template>
-
-<style scoped></style>
