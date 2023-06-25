@@ -31,4 +31,5 @@ async function setupApp() {
   // 挂载
   app.mount('#app')
 }
-await setupApp()
+
+setupApp()
