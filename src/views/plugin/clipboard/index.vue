@@ -11,6 +11,8 @@ const text = ref('Hello v-copy')
         v-copy复制
       </n-button>
     </n-input-group>
+    <n-h1> copy-text组件 使用</n-h1>
+    <copy-text v-model="text" />
   </n-card>
 </template>
 
