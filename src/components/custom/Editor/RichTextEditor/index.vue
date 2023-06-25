@@ -48,9 +48,6 @@ const initConfig = {
   // 此处为图片上传处理函数
   images_upload_handler: imagesUploadHandler,
 
-  // file_picker_types: 'file image media', // file image media分别对应三个类型文件的上传：link插件，image和axupimgs插件，media插件。想屏蔽某个插件的上传就去掉对应的参数
-  // 文件上传处理函数
-  // file_picker_callback: filesUploadHandler,
 }
 </script>
 

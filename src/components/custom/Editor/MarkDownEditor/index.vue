@@ -30,7 +30,7 @@ const toolbarsExclude: ToolbarNames[] = [
 
 <template>
   <MdEditor
-    v-model="data" :theme="theme" read-only :toolbars-exclude="toolbarsExclude"
+    v-model="data" :theme="theme" :toolbars-exclude="toolbarsExclude"
   />
 </template>
 
