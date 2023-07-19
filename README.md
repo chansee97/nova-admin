@@ -4,19 +4,19 @@
 </div>
 
 <div align="center">
-    <img src="https://img.shields.io/github/license/iam-see/Ench-admin"/>
+    <img src="https://img.shields.io/github/license/chansee97/nova-admin"/>
     <img src="https://img.shields.io/badge/Vue-v3.2-green"/>
     <img src="https://img.shields.io/badge/Vite-v4.x-A94DFE"/>
-    <img src="https://img.shields.io/github/stars/iam-see/Ench-admin"/>
-    <img src="https://img.shields.io/github/forks/iam-see/Ench-admin"/>
+    <img src="https://img.shields.io/github/stars/chansee97/nova-admin"/>
+    <img src="https://img.shields.io/github/forks/chansee97/nova-admin"/>
 </div>
 
 ## 🌈 介绍
-[Ench-admin](https://github.com/chen-see/ench-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高后台管理项目开发效率
+[Nova-admin](https://github.com/chansee97/nova-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高后台管理项目开发效率
 
 ## 😎 线上预览地址
 
-- [Ench-Admin 预览地址](https://ench-admin.vercel.app/)
+- [Nova-Admin 预览地址](https://admin-nova.vercel.app/)
 
 ## ⚡特性
 
@@ -33,9 +33,6 @@
 本地环境需要安装 pnpm 7.x 、Node.js 14.18+ 和 Git
 
 ```bash
-# 克隆项目
-git clone https://github.com/iamsee/ench-admin.git
-
 # 安装依赖
 pnpm i
 
@@ -58,7 +55,7 @@ pnpm commit
 |                                                                                                      >=88                                                                                                       |                                                                                                  >=78                                                                                                  |                                                                                            >=87                                                                                                   |                                                                                                >=14                                                                                   |
 
 ## 🙌 学习交流
-Ench-Admin 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在QQ交流群内提问。
+Nova-Admin 是完全开源免费的项目，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在QQ交流群内提问。
 ## 🧩贡献
 
 如果您发现了任何问题或有改进建议，请创建一个issue或提交一个PR。我们欢迎您的贡献！

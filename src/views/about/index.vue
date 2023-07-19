@@ -18,7 +18,7 @@ import lib from '~/package.json'
           <n-button
             text
             tag="a"
-            href="https://github.com/iam-see/Ench-admin"
+            href="https://github.com/chansee97/nova-admin"
             target="_blank"
             type="primary"
           >
@@ -29,7 +29,7 @@ import lib from '~/package.json'
           <n-button
             text
             tag="a"
-            href="https://ench-admin.vercel.app/"
+            href="https://admin-nova.vercel.app/"
             target="_blank"
             type="primary"
           >

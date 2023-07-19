@@ -9,12 +9,12 @@
     "url": "https://github.com/chansee97"
   },
   "license": "MIT",
-  "homepage": "https://github.com/chansee97/Ench-admin",
+  "homepage": "https://github.com/chansee97/nova-admin",
   "repository": {
-    "url": "https://github.com/chansee97/Ench-admin.git"
+    "url": "https://github.com/chansee97/nova-admin.git"
   },
   "bugs": {
-    "url": "https://github.com/chansee97/Ench-admin/issues"
+    "url": "https://github.com/chansee97/nova-admin/issues"
   },
   "keywords": [
     "Vue",
