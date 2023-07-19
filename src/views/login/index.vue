@@ -27,7 +27,7 @@ const formComponets = {
       >
         <n-gi>
           <div class="h-full flex-col">
-            <n-h2>Ench-admin</n-h2>
+            <n-h2>Nova </n-h2>
             <img
               src="@/assets/svg/login-illus.svg"
               class="h-80%"

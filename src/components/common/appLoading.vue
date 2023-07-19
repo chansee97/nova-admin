@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useAppInfo } from '@/hooks'
 
-const { title } = useAppInfo()
+const { name } = useAppInfo()
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const { title } = useAppInfo()
       </div>
     </div>
     <n-h1 class="z-1">
-      {{ title }}
+      {{ name }}
     </n-h1>
   </div>
 </template>

@@ -10,7 +10,7 @@ const MassageData = ref<Message.Tab[]>([
     list: [
       {
         id: 0,
-        title: 'EnchAdmin 已经完成40%了！',
+        title: 'Admin 已经完成40%了！',
         icon: 'icon-park-outline:tips-one',
         tagTitle: '未开始',
         tagType: 'info',
@@ -19,7 +19,7 @@ const MassageData = ref<Message.Tab[]>([
       },
       {
         id: 1,
-        title: 'EnchAdmin 已经添加通知功能！',
+        title: 'Admin 已经添加通知功能！',
         icon: 'icon-park-outline:comment-one',
         tagTitle: '未开始',
         tagType: 'success',
@@ -27,7 +27,7 @@ const MassageData = ref<Message.Tab[]>([
       },
       {
         id: 2,
-        title: 'EnchAdmin 已经添加路由功能！',
+        title: 'Admin 已经添加路由功能！',
         icon: 'icon-park-outline:message-emoji',
         tagTitle: '未开始',
         tagType: 'warning',
@@ -37,7 +37,7 @@ const MassageData = ref<Message.Tab[]>([
       {
         id: 3,
         title:
-          'EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！EnchAdmin 已经添加菜单导航功能！',
+          'Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！',
         icon: 'icon-park-outline:tips-one',
         tagTitle: '未开始',
         tagType: 'error',
@@ -47,7 +47,7 @@ const MassageData = ref<Message.Tab[]>([
       },
       {
         id: 4,
-        title: 'EnchAdmin开始启动了！',
+        title: 'Admin开始启动了！',
         icon: 'icon-park-outline:tips-one',
         tagTitle: '未开始',
         description: '项目稳定推进中...',

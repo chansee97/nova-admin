@@ -26,7 +26,7 @@ const isDark = useDark({
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
-      footerText: 'Copyright ©2023 Ench Admin',
+      footerText: 'Copyright ©2023 Nova Admin',
       collapsed: false,
       fullScreen: false,
       darkMode: isDark.value,
@@ -60,8 +60,9 @@ export const useAppStore = defineStore('app-store', {
       }
       else {
         // @ts-expect-error experimental API
-        const isAppearanceTransition = document.startViewTransition
-    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        const isAppearanceTransition
+          = document.startViewTransition
+          && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
         if (!isAppearanceTransition) {
           isDark.value = !isDark.value
@@ -80,27 +81,24 @@ export const useAppStore = defineStore('app-store', {
           this.darkMode = isDark.value
           await nextTick()
         })
-        transition.ready
-          .then(() => {
-            const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
-            ]
-            document.documentElement.animate(
-              {
-                clipPath: isDark.value
-                  ? [...clipPath].reverse()
-                  : clipPath,
-              },
-              {
-                duration: 400,
-                easing: 'ease-out',
-                pseudoElement: isDark.value
-                  ? '::view-transition-old(root)'
-                  : '::view-transition-new(root)',
-              },
-            )
-          })
+        transition.ready.then(() => {
+          const clipPath = [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ]
+          document.documentElement.animate(
+            {
+              clipPath: isDark.value ? [...clipPath].reverse() : clipPath,
+            },
+            {
+              duration: 400,
+              easing: 'ease-out',
+              pseudoElement: isDark.value
+                ? '::view-transition-old(root)'
+                : '::view-transition-new(root)',
+            },
+          )
+        })
       }
     },
     /**

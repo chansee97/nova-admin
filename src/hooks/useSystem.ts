@@ -4,24 +4,14 @@ import { isArray, isString } from '@/utils'
 interface AppInfo {
   /** 项目名称 */
   name: string
-  /** 项目标题 */
-  title: string
-  /** 项目描述 */
-  desc: string
 }
 
 /** 项目信息 */
 export function useAppInfo(): AppInfo {
-  const {
-    VITE_APP_NAME: name,
-    VITE_APP_TITLE: title,
-    VITE_APP_DESC: desc,
-  } = import.meta.env
+  const { VITE_APP_NAME: name } = import.meta.env
 
   return {
     name,
-    title,
-    desc,
   }
 }
 
@@ -29,21 +19,19 @@ export function useAppInfo(): AppInfo {
 export function usePermission() {
   const authStore = useAuthStore()
 
-  function hasPermission(permission: Auth.RoleType | Auth.RoleType[] | undefined) {
-    if (!permission)
-      return true
+  function hasPermission(
+    permission: Auth.RoleType | Auth.RoleType[] | undefined,
+  ) {
+    if (!permission) return true
 
-    if (!authStore.userInfo)
-      return false
+    if (!authStore.userInfo) return false
     const { role } = authStore.userInfo
 
     let has = role === 'super'
     if (!has) {
-      if (isArray(permission))
-        has = (permission).includes(role)
+      if (isArray(permission)) has = permission.includes(role)
 
-      if (isString(permission))
-        has = (permission) === role
+      if (isString(permission)) has = permission === role
     }
     return has
   }

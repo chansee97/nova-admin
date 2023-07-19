@@ -1,6 +1,6 @@
 <div align="center">
 <img src="./public/favicon.svg" style="width:150px"/>
-    <h1>Ench Admin</h1>
+    <h1>Nova Admin</h1>
 </div>
 
 <div align="center">

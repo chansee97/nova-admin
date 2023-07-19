@@ -1,16 +1,18 @@
 <script setup lang="ts">
 interface Props {
   showWatermark: boolean
+  text: string
 }
 const props = withDefaults(defineProps<Props>(), {
   showWatermark: false,
+  text: 'Watermark',
 })
 </script>
 
 <template>
   <n-watermark
     v-if="props.showWatermark"
-    content="Ench-Admin"
+    :content="props.text"
     cross
     fullscreen
     :font-size="16"

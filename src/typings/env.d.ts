@@ -22,8 +22,6 @@ interface ImportMetaEnv {
   readonly VITE_BASE_URL: string
   /** 项目标题 */
   readonly VITE_APP_NAME: string
-  readonly VITE_APP_TITLE: string
-  readonly VITE_APP_DESC: string
   /** 开启请求代理 */
   readonly VITE_HTTP_PROXY?: 'Y' | 'N'
   /** 是否开启打包依赖分析 */
