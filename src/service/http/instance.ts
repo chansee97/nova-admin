@@ -22,7 +22,7 @@ export default class CreateAxiosInstance {
   // 基础配置
   axiosConfig: AxiosRequestConfig = {}
 
-  constructor(axiosConfig: AxiosRequestConfig, backendConfig: Service.BackendResultConfig = DEFAULT_BACKEND_OPTIONS) {
+  constructor(axiosConfig: AxiosRequestConfig, backendConfig: Partial<Service.BackendResultConfig> = DEFAULT_BACKEND_OPTIONS) {
     // 设置了axios实例上的一些默认配置,新配置会覆盖默认配置
     this.backendConfig = { ...DEFAULT_BACKEND_OPTIONS, ...backendConfig }
     this.instance = axios.create({ ...DEFAULT_AXIOS_OPTIONS, ...axiosConfig })

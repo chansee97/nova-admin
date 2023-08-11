@@ -1,4 +1,4 @@
-import { mockRequest } from '../http'
+import { devRequest, mockRequest } from '../http'
 
 interface Ilogin {
   userName: string
@@ -6,7 +6,7 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  return mockRequest.post<any>('/login', params)
+  return devRequest.post<any>('/auth/login', params)
 }
 export function fetchUpdateToken(params: any) {
   return mockRequest.post<ApiAuth.loginToken>('/updateToken', params)

@@ -3,7 +3,7 @@ export const proxyConfig: Record<ServiceEnvType, ServiceEnvConfig> = {
   dev: {
     url: 'https://mock.mengxuegu.com/mock/61e4df7c17249f68847fc191/api',
     urlPattern: '/url-pattern',
-    secondUrl: 'http://localhost:8081',
+    secondUrl: 'http://localhost:3000',
     secondUrlPattern: '/second-url-pattern',
   },
   test: {

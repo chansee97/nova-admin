@@ -1,8 +1,6 @@
 {
   "editor.tabSize": 2,
-  "editor.formatOnType": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
+  "prettier.enable": false,
   "eslint.format.enable": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
@@ -13,6 +11,10 @@
     "typescript",
     "typescriptreact",
     "vue",
-    "json"
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml"
   ]
 }

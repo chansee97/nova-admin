@@ -28,9 +28,10 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     },
     server: {
       host: '0.0.0.0',
-      port: 3000,
+      port: 4000,
       open: false,
-      proxy: env.VITE_HTTP_PROXY === 'Y' ? createViteProxy(envConfig) : undefined,
+      proxy:
+        env.VITE_HTTP_PROXY === 'Y' ? createViteProxy(envConfig) : undefined,
     },
     preview: {
       port: 5211,
