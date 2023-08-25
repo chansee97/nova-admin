@@ -8,7 +8,7 @@ const token = () => Random.string('upper', 32, 32)
 const userData = [
   {
     userId: '1',
-    userName: 'super',
+    username: 'super',
     password: '123456',
     nickName: '超级管理员大人',
     avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
@@ -16,7 +16,7 @@ const userData = [
   },
   {
     userId: '2',
-    userName: 'admin',
+    username: 'admin',
     password: '123456',
     nickName: '管理员大人',
     avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
@@ -24,7 +24,7 @@ const userData = [
   },
   {
     userId: '3',
-    userName: 'user',
+    username: 'user',
     password: '123456',
     nickName: '用户大人',
     avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
@@ -437,23 +437,23 @@ const userRoutes = [
 
 export default [
   {
-    url: '/mock/login',
+    url: '/mock/auth/login',
     method: 'post',
     response: (options: Service.MockOption) => {
-      const { userName = undefined, password = undefined } = options.body
+      const { username = undefined, password = undefined } = options.body
 
-      if (!userName || !password)
+      if (!username || !password)
         return resultFailed(null, '账号密码不全')
 
-      const userInfo = userData.find(item => item.userName === userName && item.password === password)
+      const userInfo = userData.find(item => item.username === username && item.password === password)
 
       if (userInfo) {
         return {
           code: 200,
           message: 'ok',
           data: {
-            userId: userInfo.userId,
-            token: token(),
+            id: userInfo.userId,
+            accessToken: token(),
             refreshToken: token(),
           },
         }

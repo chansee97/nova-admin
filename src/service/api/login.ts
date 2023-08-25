@@ -1,12 +1,12 @@
-import { devRequest, mockRequest } from '../http'
+import { mockRequest } from '../http'
 
 interface Ilogin {
-  userName: string
+  username: string
   password: string
 }
 
 export function fetchLogin(params: Ilogin) {
-  return devRequest.post<any>('/auth/login', params)
+  return mockRequest.post<any>('/auth/login', params)
 }
 export function fetchUpdateToken(params: any) {
   return mockRequest.post<ApiAuth.loginToken>('/updateToken', params)
