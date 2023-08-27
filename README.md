@@ -15,20 +15,6 @@
 
 [Nova-admin](https://github.com/chansee97/nova-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高后台管理项目开发效率
 
-## 😎 项目预览&展示
-
-- [Nova-Admin 预览地址](https://admin-nova.vercel.app/)
-
-![image.png](https://s2.loli.net/2023/08/25/M9QyDAFWe5rEVun.png)
-![image.png](https://s2.loli.net/2023/08/25/rCLcBVqPbXRYpTj.png)
-![image.png](https://s2.loli.net/2023/08/25/j42KF79iEAvH1sw.png)
-![image.png](https://s2.loli.net/2023/08/25/sS1Dufqxr5vNPbe.png)
-![image.png](https://s2.loli.net/2023/08/26/GqWExafjBbSn3iu.png)
-
-## 💎 相关项目
-
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) 基于TS, NestJs, typeorm的Nova-Admin配套后台项目
-
 ## ⚡特性
 
 - **最新流行技术栈** - 基于Vue3、Vite、TypeScript、NaiveUI、Pinia等最新技术栈开发
@@ -38,6 +24,20 @@
 - **组件封装** - 对日常使用频率较高的组件二次封装,满足基础工作需求
 - **主题配置** - 黑暗主题适配
 - **代码规范** - 完整支持的代码风格规范和代码提交规范
+
+## 😎 项目预览&展示
+
+- [Nova-Admin 预览地址](https://admin-nova.vercel.app/)
+
+![1693021566560.png](https://img1.imgtp.com/2023/08/26/yK18wIig.png)
+![1693021580325.png](https://img1.imgtp.com/2023/08/26/fwwge2TA.png)
+![1693021449467.png](https://img1.imgtp.com/2023/08/26/FzY8CQc3.png)
+![1693021320927.png](https://img1.imgtp.com/2023/08/26/YQ3frW9i.png)
+![1693021367177.png](https://img1.imgtp.com/2023/08/26/7jCK7Suc.png)
+
+## 💎 相关项目
+
+- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) 基于TS, NestJs, typeorm的Nova-Admin配套后台项目
 
 ## 🚧 安装使用
 
@@ -69,6 +69,7 @@ pnpm commit
 ## 🙌 学习交流
 
 Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在QQ交流群内提问。
+
 ![image.png](https://s2.loli.net/2023/08/26/PQJjURT7V46Lw2d.png)
 
 ## 🧩贡献
@@ -78,6 +79,7 @@ Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨
 ## 🤗 支持
 
 如果感觉本项目对你工作或学习有帮助，请帮我点一个✨Star,这将是对我极大的鼓励与支持, 也可以在下方请我喝一杯咖啡
+
 ![f9843aa20a56a4b6d8733aa090257ff.jpg](https://s2.loli.net/2023/08/26/sklMDW89RUKbC2A.jpg)
 
 ## 🧾License

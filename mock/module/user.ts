@@ -11,7 +11,7 @@ const userData = [
     username: 'super',
     password: '123456',
     nickName: '超级管理员大人',
-    avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+    avatar: 'https://s2.loli.net/2023/08/26/6Xh3wuCV2eMZnEp.png',
     role: 'super',
   },
   {
@@ -19,7 +19,7 @@ const userData = [
     username: 'admin',
     password: '123456',
     nickName: '管理员大人',
-    avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+    avatar: 'https://s2.loli.net/2023/08/26/6Xh3wuCV2eMZnEp.png',
     role: 'admin',
   },
   {
@@ -27,7 +27,7 @@ const userData = [
     username: 'user',
     password: '123456',
     nickName: '用户大人',
-    avatar: 'https://z3.ax1x.com/2021/10/29/5jnWgf.jpg',
+    avatar: 'https://s2.loli.net/2023/08/26/6Xh3wuCV2eMZnEp.png',
     role: 'user',
   },
 ]
