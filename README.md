@@ -1,5 +1,5 @@
 <div align="center">
-<img src="./public/favicon.svg" style="width:150px"/>
+<img src="https://img1.imgtp.com/2023/09/25/flu1Mqt7.png" style="width:150px"/>
     <h1>Nova Admin</h1>
 </div>
 
