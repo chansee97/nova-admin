@@ -29,11 +29,11 @@
 
 - [Nova-Admin 预览地址](https://admin-nova.vercel.app/)
 
-![1693021566560.png](https://img1.imgtp.com/2023/08/26/yK18wIig.png)
-![1693021580325.png](https://img1.imgtp.com/2023/08/26/fwwge2TA.png)
-![1693021449467.png](https://img1.imgtp.com/2023/08/26/FzY8CQc3.png)
-![1693021320927.png](https://img1.imgtp.com/2023/08/26/YQ3frW9i.png)
-![1693021367177.png](https://img1.imgtp.com/2023/08/26/7jCK7Suc.png)
+![image.png](https://s2.loli.net/2023/10/10/YATI4y9kNOFDr6i.png)
+![image.png](https://s2.loli.net/2023/10/10/2D7o5hpdTVlOY3y.png)
+![image.png](https://s2.loli.net/2023/10/10/tmRANIG7JkFUS9K.png)
+![image.png](https://s2.loli.net/2023/10/10/cy8nrv1kSLpjCT9.png)
+![image.png](https://s2.loli.net/2023/10/10/rACdG2fUI6oJN7H.png)
 
 ## 💎 相关项目
 
