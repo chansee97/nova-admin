@@ -91,15 +91,14 @@ export const useAuthStore = defineStore('auth-store', {
     async catchUserInfo(userInfo: ApiAuth.loginToken) {
       let catchSuccess = false
       const { accessToken, refreshToken, id } = userInfo
-      const { error, data } = await fetchUserInfo({ userId: id })
-      if (error)
-        return catchSuccess
-
       // 先存储token
       local.set('token', accessToken)
       local.set('refreshToken', refreshToken)
       this.token = accessToken
       this.refreshToken = refreshToken
+      const { error, data } = await fetchUserInfo({ userId: id })
+      if (error)
+        return catchSuccess
       // 请求/存储用户信息
       local.set('userInfo', data)
       this.userInfo = data
