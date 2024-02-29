@@ -53,7 +53,7 @@ const formComponets = {
   </div>
 </template>
 
-<style scoped lang="less">
+<style scoped lang="scss">
   .login__bg {
     background-image: url(@/assets/img/login-bg.webp);
     position: relative;

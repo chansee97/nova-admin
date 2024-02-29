@@ -2,7 +2,6 @@ import type { PluginOption } from 'vite'
 import UnoCSS from '@unocss/vite'
 import vue from './vue'
 import compress from './compress'
-import visualizer from './visualizer'
 import unplugin from './unplugin'
 import mock from './mock'
 
@@ -18,10 +17,6 @@ export function setVitePlugins(env: ImportMetaEnv) {
   // 是否压缩
   if (env.VITE_COMPRESS_OPEN === 'Y')
     plugins.push(compress(env))
-
-  // 是否依赖分析
-  if (env.VITE_VISUALIZER === 'Y')
-    plugins.push(visualizer as PluginOption)
 
   return plugins
 }

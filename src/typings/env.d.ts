@@ -20,8 +20,6 @@ interface ImportMetaEnv {
   readonly VITE_APP_NAME: string
   /** 开启请求代理 */
   readonly VITE_HTTP_PROXY?: 'Y' | 'N'
-  /** 是否开启打包依赖分析 */
-  readonly VITE_VISUALIZER?: 'Y' | 'N'
   /** 是否开启打包压缩 */
   readonly VITE_COMPRESS_OPEN?: 'Y' | 'N'
   /** 压缩算法类型 */
