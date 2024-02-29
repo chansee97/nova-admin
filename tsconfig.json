@@ -1,25 +1,25 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "ESNext",
-    "module": "ESNext",
-    "useDefineForClassFields": true,
-    "moduleResolution": "Node",
-    "strict": true,
     "jsx": "preserve",
-    // "sourceMap": true,
-    "removeComments": false, // 编译删除注释
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./src/*"]
-    },
-    "types": ["node", "vite/client", "naive-ui/volar"]
+    }, // 编译删除注释
+    "resolveJsonModule": true,
+    "types": ["node", "vite/client", "naive-ui/volar"],
+    "strict": true,
+    // "sourceMap": true,
+    "removeComments": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   // "include": ["src/**/*.d.ts", "src/**/*.vue", "./*.d.ts"]
   "exclude": ["node_modules", "dist"]

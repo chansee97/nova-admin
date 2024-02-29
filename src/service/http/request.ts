@@ -100,7 +100,6 @@ export function createRequest(
    */
   function handleDelete<T>(
     url: string,
-    params?: any,
     config?: AxiosRequestConfig,
   ) {
     return asyncRequest<T>({ url, method: 'delete', config })

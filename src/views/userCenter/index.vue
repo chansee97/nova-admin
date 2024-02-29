@@ -50,7 +50,7 @@ function handleValidateClick() {
 
           <n-descriptions label-placement="left" :column="2" :title="`傍晚好，${userInfo?.userName}，这里是简单的个人中心模板`">
             <n-descriptions-item label="id">
-              {{ userInfo?.userId }}
+              {{ userInfo?.id }}
             </n-descriptions-item>
             <n-descriptions-item label="用户名">
               {{ userInfo?.userName }}

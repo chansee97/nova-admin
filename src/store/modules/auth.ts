@@ -5,7 +5,7 @@ import { useAppRouter } from '@/hooks'
 import { local } from '@/utils'
 
 const emptyInfo: Auth.UserInfo = {
-  userId: 0,
+  id: 0,
   userName: '',
   nickName: '',
   avatar: '',
@@ -96,7 +96,7 @@ export const useAuthStore = defineStore('auth-store', {
       local.set('refreshToken', refreshToken)
       this.token = accessToken
       this.refreshToken = refreshToken
-      const { error, data } = await fetchUserInfo({ userId: id })
+      const { error, data } = await fetchUserInfo({ id })
       if (error)
         return catchSuccess
       // 请求/存储用户信息

@@ -150,11 +150,11 @@ export const useRouteStore = defineStore('route-store', {
       // 根据用户id来获取用户的路由
       const userInfo = local.get('userInfo')
 
-      if (!userInfo || !userInfo.userId)
+      if (!userInfo || !userInfo.id)
         return
 
       const { data: routes } = await fetchUserRoutes({
-        userId: userInfo.userId,
+        id: userInfo.id,
       })
 
       if (!routes)

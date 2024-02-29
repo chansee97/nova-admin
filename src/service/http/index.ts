@@ -12,4 +12,6 @@ export const request = createRequest({
 })
 
 // export const secondRequest = createRequest({ baseURL: isHttpProxy ? secondUrlPattern : secondUrl });
-export const mockRequest = createRequest({ baseURL: '/mock' })
+export const mockRequest = createRequest({ baseURL: 'https://mock.apifox.com/m1/4071143-0-default' }, {
+  msgKey: 'message',
+})

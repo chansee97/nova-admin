@@ -4,17 +4,13 @@ import { defineConfig, loadEnv } from 'vite'
 import { createViteProxy, setVitePlugins } from './build'
 import { proxyConfig } from './src/config'
 
-// 当前执行node命令时文件夹的地址（工作目录）
-const rootPath: string = resolve(process.cwd())
-const srcPath = `${rootPath}/src`
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv) => {
   // 在开发环境下 command 的值为 serve 生产环境下为 build
 
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const env = loadEnv(mode, process.cwd(), '') as unknown as ImportMetaEnv
+  const env = loadEnv(mode, __dirname, '') as unknown as ImportMetaEnv
   const envConfig = proxyConfig[mode as ServiceEnvType]
 
   return {
@@ -22,8 +18,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     plugins: setVitePlugins(env),
     resolve: {
       alias: {
-        '~': rootPath,
-        '@': srcPath,
+        '@': resolve(__dirname, 'src'),
       },
     },
     server: {

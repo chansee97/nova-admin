@@ -79,7 +79,7 @@ export function handleResponseError(response: AxiosResponse) {
 
 /**
  * @description:
- * @param {Record} apiData 接口返回的后台数据
+ * @param {Record} data 接口返回的后台数据
  * @param {Service} config axios字段配置
  * @return {*}
  */
@@ -127,12 +127,12 @@ export async function handleRefreshToken(config: AxiosRequestConfig) {
   const refreshToken = local.get('refreshToken')
   const { data } = await fetchUpdateToken(refreshToken)
   if (data) {
-    local.set('refreshToken', data.token)
+    local.set('refreshToken', data.accessToken)
     local.set('token', data.refreshToken)
 
     // 设置token
     if (config.headers)
-      typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.token || ''}`)
+      typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.accessToken || ''}`)
 
     return config
   }

@@ -22,7 +22,8 @@ export function setupCopy(app: App) {
   }
 
   function copyHandler(this: any) {
-    if (!clipboardEnable()) return
+    if (!clipboardEnable())
+      return
     copy(this._copyText)
     window.$message?.success('复制成功')
   }

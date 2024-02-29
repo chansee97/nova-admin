@@ -3,10 +3,14 @@ import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
-import Icons from 'unplugin-icons/vite' // https://github.com/antfu/unplugin-icons
+import Icons from 'unplugin-icons/vite'
+
+// https://github.com/antfu/unplugin-icons
 import IconsResolver from 'unplugin-icons/resolver'
 
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons' // https://github.com/vbenjs/vite-plugin-svg-icons/blob/main/README.zh_CN.md
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
+// https://github.com/vbenjs/vite-plugin-svg-icons/blob/main/README.zh_CN.md
 
 export default [
   AutoImport({
@@ -15,7 +19,8 @@ export default [
       /\.[tj]sx?$/,
       /\.vue$/,
       /\.vue\?vue/,
-      /\.md$/],
+      /\.md$/,
+    ],
     dts: 'src/typings/auto-imports.d.ts',
   }),
   Components({
@@ -29,7 +34,7 @@ export default [
   }),
   createSvgIconsPlugin({
     // 指定需要缓存的图标文件夹
-    iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+    iconDirs: [path.resolve(__dirname, 'src/assets/icons')],
     // 指定symbolId格式
     symbolId: 'icon-[dir]-[name]',
     // inject: 'body-last',

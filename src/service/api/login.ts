@@ -6,7 +6,7 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  return mockRequest.post<any>('/auth/login', params)
+  return mockRequest.post<any>('/login', params)
 }
 export function fetchUpdateToken(params: any) {
   return mockRequest.post<ApiAuth.loginToken>('/updateToken', params)
@@ -14,6 +14,6 @@ export function fetchUpdateToken(params: any) {
 export function fetchUserInfo(params: any) {
   return mockRequest.get<Auth.UserInfo>('/getUserInfo', { params })
 }
-export function fetchUserRoutes(params: { userId: number }) {
-  return mockRequest.post<AppRoute.Route[]>('/getUserRoutes', params)
+export function fetchUserRoutes(params: { id: number }) {
+  return mockRequest.get<AppRoute.Route[]>('/getUserRoutes', { params })
 }

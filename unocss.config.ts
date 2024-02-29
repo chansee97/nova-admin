@@ -1,4 +1,6 @@
-import { defineConfig, presetAttributify, presetUno } from 'unocss' // https://github.com/unocss/unocss
+import { defineConfig, presetAttributify, presetUno } from 'unocss'
+
+// https://github.com/unocss/unocss
 
 export default defineConfig({
   presets: [presetUno({ dark: 'class' }), presetAttributify()],

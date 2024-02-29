@@ -44,9 +44,9 @@ const columns: DataTableColumns = [
       } as const
       if (rowData.gender) {
         return (
-            <NTag type={tagType[rowData.gender]}>
-              {genderLabels[rowData.gender]}
-            </NTag>
+          <NTag type={tagType[rowData.gender]}>
+            {genderLabels[rowData.gender]}
+          </NTag>
         )
       }
     },
@@ -83,13 +83,13 @@ const columns: DataTableColumns = [
       const rowData = row as unknown as CommonList.UserList
 
       return (
-          <NSwitch
-            value={rowData.disabled}
-            onUpdateValue={disabled =>
-              handleUpdateDisabled(disabled, rowData.id)
-            }>
-            {{ checked: () => '启用', unchecked: () => '禁用' }}
-          </NSwitch>
+        <NSwitch
+          value={rowData.disabled}
+          onUpdateValue={disabled =>
+            handleUpdateDisabled(disabled, rowData.id)}
+        >
+          {{ checked: () => '启用', unchecked: () => '禁用' }}
+        </NSwitch>
       )
     },
   },
@@ -100,19 +100,20 @@ const columns: DataTableColumns = [
     render: (row) => {
       const rowData = row as unknown as CommonList.UserList
       return (
-          <NSpace justify={'center'}>
-            <NButton
-              size={'small'}
-              onClick={() => handleEditTable(rowData)}>
-              编辑
-            </NButton>
-            <NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
-              {{
-                default: () => '确认删除',
-                trigger: () => <NButton size={'small'}>删除</NButton>,
-              }}
-            </NPopconfirm>
-          </NSpace>
+        <NSpace justify="center">
+          <NButton
+            size="small"
+            onClick={() => handleEditTable(rowData)}
+          >
+            编辑
+          </NButton>
+          <NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
+            {{
+              default: () => '确认删除',
+              trigger: () => <NButton size="small">删除</NButton>,
+            }}
+          </NPopconfirm>
+        </NSpace>
       )
     },
   },
@@ -131,7 +132,7 @@ onMounted(() => {
 async function getUserList() {
   startLoading()
   await fetchUserList().then((res: any) => {
-    listData.value = res.data
+    listData.value = res.data.list
     endLoading()
   })
 }

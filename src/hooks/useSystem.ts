@@ -22,16 +22,20 @@ export function usePermission() {
   function hasPermission(
     permission: Auth.RoleType | Auth.RoleType[] | undefined,
   ) {
-    if (!permission) return true
+    if (!permission)
+      return true
 
-    if (!authStore.userInfo) return false
+    if (!authStore.userInfo)
+      return false
     const { role } = authStore.userInfo
 
     let has = role === 'super'
     if (!has) {
-      if (isArray(permission)) has = permission.includes(role)
+      if (isArray(permission))
+        has = permission.includes(role)
 
-      if (isString(permission)) has = permission === role
+      if (isString(permission))
+        has = permission === role
     }
     return has
   }
