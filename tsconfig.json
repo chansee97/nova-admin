@@ -3,24 +3,22 @@
     "target": "ESNext",
     "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
-    "useDefineForClassFields": true,
     "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./src/*"]
-    }, // 编译删除注释
+      "@/*": ["src/*"]
+    },
     "resolveJsonModule": true,
     "types": ["node", "vite/client", "naive-ui/volar"],
+    "allowJs": true,
     "strict": true,
-    // "sourceMap": true,
-    "removeComments": false,
-    "allowSyntheticDefaultImports": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  // "include": ["src/**/*.d.ts", "src/**/*.vue", "./*.d.ts"]
   "exclude": ["node_modules", "dist"]
 }

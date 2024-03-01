@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { setupRouterGuard } from './guard'
-import { routes } from './routes'
+import { setupRouterGuard } from '@/router/guard'
+import { routes } from '@/router/routes'
 
 const { VITE_ROUTE_MODE = 'hash', VITE_BASE_URL } = import.meta.env
 export const router = createRouter({
@@ -9,7 +9,7 @@ export const router = createRouter({
   routes,
 })
 // 安装vue路由
-export async function setupRouter(app: App) {
+export async function installRouter(app: App) {
   // 添加路由守卫
   setupRouterGuard(router)
   app.use(router)

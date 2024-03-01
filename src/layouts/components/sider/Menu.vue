@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store'
-import { useRouteStore } from '~/src/store/modules/route'
+import { useRouteStore } from '@/store/route'
 
 const appStore = useAppStore()
 const routesStore = useRouteStore()
