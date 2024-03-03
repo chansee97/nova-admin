@@ -2,7 +2,6 @@ import path from 'node:path'
 import UnoCSS from '@unocss/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import type { PluginOption } from 'vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
@@ -20,7 +19,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
  * @param {*} env - 环境变量配置
  * @return {*}
  */
-export function setVitePlugins(env: ImportMetaEnv) {
+export function createVitePlugins(env: ImportMetaEnv) {
   const plugins = [
     // support vue
     vue(),
