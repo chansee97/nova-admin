@@ -1,24 +1,15 @@
 {
   "recommendations": [
-    "formulahendry.auto-close-tag",
-    "formulahendry.auto-rename-tag",
     "mikestead.dotenv",
     "usernamehw.errorlens",
     "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
     "mhutchie.git-graph",
     "donjayamanne.githistory",
-    "redjue.git-commit-plugin",
     "lokalise.i18n-ally",
     "antfu.iconify",
     "kisstkondoros.vscode-gutter-preview",
-    "wix.vscode-import-cost",
-    "mariusalchimavicius.json-to-ts",
-    "christian-kohler.path-intellisense",
-    "proeagle.px2xx",
-    "meganrogge.template-string-converter",
     "antfu.unocss",
-    "pflannery.vscode-versionlens",
-    "vue.volar",
-    "kamikillerto.vscode-colorize"
+    "vue.volar"
   ]
 }
