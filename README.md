@@ -5,29 +5,32 @@
 
 <div align="center">
     <img src="https://img.shields.io/github/license/chansee97/nova-admin"/>
-    <img src="https://img.shields.io/badge/Vue-v3.2-green"/>
-    <img src="https://img.shields.io/badge/Vite-v4.x-A94DFE"/>
     <img src="https://img.shields.io/github/stars/chansee97/nova-admin"/>
     <img src="https://img.shields.io/github/forks/chansee97/nova-admin"/>
 </div>
 
-## 🌈 介绍
+<div align='center'>
 
-[Nova-admin](https://github.com/chansee97/nova-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高后台管理项目开发效率
+  **English** |  [中文](./README.zh-CN.md)
+</div>
 
-## ⚡特性
+## 🌈introduction
 
-- **最新流行技术栈** - 基于Vue3、Vite、TypeScript、NaiveUI、Pinia等最新技术栈开发
-- **网络请求功能封装** - 完善的axios封装和配置，统一的响应处理和多场景能力
-- **权限控制** - 完善的前后端权限管理方案
-- **路由系统** - 支持本地静态路由和后台返回路由两种获取模式
-- **组件封装** - 对日常使用频率较高的组件二次封装,满足基础工作需求
-- **主题配置** - 黑暗主题适配
-- **代码规范** - 完整支持的代码风格规范和代码提交规范
+[Nova-admin](https://github.com/chansee97/nova-admin) A free and open-source template for middle platform/back-end based on Vue3, Vite4, Typescript, pinia, Naive UI, and Vue-Router to help improve the development efficiency of middle platform/back-end
 
-## 😎 项目预览&展示
+## ⚡features
 
-- [Nova-Admin 预览地址](https://admin-nova.vercel.app/)
+- **Latest popular technology stack** - Developed based on the latest technology stack such as Vue3, Vite, TypeScript, NaiveUI, Pinia, etc
+- **Network request function encapsulation** - Perfect axios encapsulation and configuration, unified response processing and multi-scenario capability
+- **Authority Control** - Perfect front and back-end authority management solution
+- **Routing system** - Supports local static and dynamic routing
+- **Component packaging** - Secondary packaging of components with high frequency of daily use to meet basic workrequirements
+- **Theme Configuration** - Dark Theme Adaptation
+- **Code Specification** - Only perform eslint verification at commit time, no too many restrictions, easier development
+
+## 😎project preview & display
+
+- [Nova-Admin preview](https://admin-nova.vercel.app/)
 
 ![image.png](https://s2.loli.net/2023/10/10/YATI4y9kNOFDr6i.png)
 ![image.png](https://s2.loli.net/2023/10/10/2D7o5hpdTVlOY3y.png)
@@ -35,50 +38,39 @@
 ![image.png](https://s2.loli.net/2023/10/10/cy8nrv1kSLpjCT9.png)
 ![image.png](https://s2.loli.net/2023/10/10/rACdG2fUI6oJN7H.png)
 
-## 💎 相关项目
+## 💎related projects
 
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) 基于TS, NestJs, typeorm的Nova-Admin配套后台项目
+- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
 
-## 🚧 安装使用
+## 🚧install and use
 
-本地环境需要安装 pnpm 7.x 、Node.js 14.18+ 和 Git
+The local development environment is recommended to use pnpm 8.x, Node.js 16.x
 
 ```bash
-# 安装依赖
+# install dependencies
 pnpm i
 
-# 运行项目
+# Run
 pnpm dev
 
-# 构件产物
+# Build product
 pnpm build
 
-# 提交变更
-# 项目已经内置angular提交规范，通过git cz 代替git commit 命令即可。
-pnpm cz
-or
-pnpm commit
 ```
 
-## 🛠️ 浏览器支持
+## 🙌 learn to communicate
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari |
-| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|                                                                                                      >=88                                                                                                       |                                                                                                       >=78                                                                                                        |                                                                                                     >=87                                                                                                      |                                                                                                     >=14                                                                                                      |
-
-## 🙌 学习交流
-
-Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在QQ交流群内提问。
+Nova-Admin is a completely open-source and free project. It is still being optimized and iterated. It is designed to help developers more conveniently develop medium and large management systems. If you have any questions, please ask questions in the QQ exchange group.
 
 ![image.png](https://s2.loli.net/2023/08/26/PQJjURT7V46Lw2d.png)
 
-## 🧩贡献
+## 🧩contribution
 
-如果您发现了任何问题或有改进建议，请创建一个issue或提交一个PR。我们欢迎您的贡献！
+If you find any issues or have suggestions for improvement, please create an issue or submit a PR. We welcome your contributions!
 
-## 🤗 支持
+## 🤗support
 
-如果感觉本项目对你工作或学习有帮助，请帮我点一个✨Star,这将是对我极大的鼓励与支持, 也可以在下方请我喝一杯咖啡
+If you feel that this project is helpful for your work or study, please help me order a ✨ Star, which will be a great encouragement and support for me, or you can buy me a cup of coffee below
 
 ![f9843aa20a56a4b6d8733aa090257ff.jpg](https://s2.loli.net/2023/08/26/sklMDW89RUKbC2A.jpg)
 

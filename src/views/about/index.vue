@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import lib from 'package.json'
+import lib from '@/../package.json'
 </script>
 
 <template>
