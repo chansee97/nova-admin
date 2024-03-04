@@ -72,7 +72,7 @@ If you find any issues or have suggestions for improvement, please create an iss
 
 If you feel that this project is helpful for your work or study, please help me order a ✨ Star, which will be a great encouragement and support for me, or you can buy me a cup of coffee below
 
-![f9843aa20a56a4b6d8733aa090257ff.jpg](https://s2.loli.net/2023/08/26/sklMDW89RUKbC2A.jpg)
+![sponsor](https://cdn.jsdelivr.net/gh/chansee97/static/sponsor.png)
 
 ## 🧾License
 

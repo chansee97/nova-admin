@@ -72,7 +72,7 @@ Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨
 
 如果感觉本项目对你工作或学习有帮助，请帮我点一个✨Star,这将是对我极大的鼓励与支持, 也可以在下方请我喝一杯咖啡
 
-![f9843aa20a56a4b6d8733aa090257ff.jpg](https://s2.loli.net/2023/08/26/sklMDW89RUKbC2A.jpg)
+![sponsor](https://cdn.jsdelivr.net/gh/chansee97/static/sponsor.png)
 
 ## 🧾License
 
