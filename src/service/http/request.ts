@@ -34,7 +34,7 @@ async function getRequestResponse(options: {
  */
 export function createRequest(
   axiosConfig: AxiosRequestConfig,
-  backendConfig?: Partial<Service.BackendResultConfig>,
+  backendConfig?: Partial<Service.BackendConfig>,
 ) {
   const axiosInstance = new CreateAxiosInstance(axiosConfig, backendConfig)
   /**

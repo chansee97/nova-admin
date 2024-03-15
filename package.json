@@ -24,7 +24,7 @@
     "admin-template",
     "vue-admin",
     "vue-admin-template",
-    "Vite4",
+    "Vite5",
     "Vite",
     "vite-admin",
     "TypeScript",
@@ -44,17 +44,14 @@
     "build:dev": "vue-tsc --noEmit && vite build --mode dev",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
     "preview": "vite preview",
-    "lint": "eslint . --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "sizecheck": "npx vite-bundle-visualizer"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-customizable"
-    }
   },
   "dependencies": {
     "@tinymce/tinymce-vue": "^5.1.1",
     "@vueuse/core": "^10.9.0",
+    "alova": "^2.17.1",
     "axios": "^1.6.7",
     "crypto-js": "^4.2.0",
     "echarts": "^5.5.0",
@@ -90,6 +87,11 @@
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^1.8.27"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

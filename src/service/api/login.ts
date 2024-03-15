@@ -1,4 +1,4 @@
-import { mockRequest } from '../http'
+import { alovaInstance } from '../http'
 
 interface Ilogin {
   username: string
@@ -6,14 +6,14 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  return mockRequest.post<any>('/login', params)
+  return alovaInstance.Post<any>('/login', params)
 }
 export function fetchUpdateToken(params: any) {
-  return mockRequest.post<ApiAuth.loginToken>('/updateToken', params)
+  return alovaInstance.Post<ApiAuth.loginToken>('/updateToken', params)
 }
 export function fetchUserInfo(params: any) {
-  return mockRequest.get<Auth.UserInfo>('/getUserInfo', { params })
+  return alovaInstance.Get<Auth.UserInfo>('/getUserInfo', { params })
 }
 export function fetchUserRoutes(params: { id: number }) {
-  return mockRequest.get<AppRoute.Route[]>('/getUserRoutes', { params })
+  return alovaInstance.Get<AppRoute.Route[]>('/getUserRoutes', { params })
 }

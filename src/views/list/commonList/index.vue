@@ -19,7 +19,7 @@ const model = ref({ ...initialModel })
 
 const formRef = ref<FormInst | null>()
 function sendMail(id: number) {
-  window.$message?.success(`用户id:${id}`)
+  window.$message?.success(`删除用户id:${id}`)
 }
 const columns: DataTableColumns = [
   {
@@ -166,63 +166,24 @@ function handleAddTable() {
 </script>
 
 <template>
-  <NSpace
-    vertical
-    size="large"
-  >
+  <NSpace vertical size="large">
     <n-card>
-      <n-form
-        ref="formRef"
-        :model="model"
-        label-placement="left"
-        :show-feedback="false"
-      >
-        <n-grid
-          :x-gap="30"
-          :cols="18"
-        >
-          <n-form-item-gi
-            :span="4"
-            label="姓名"
-            path="condition_1"
-          >
-            <n-input
-              v-model:value="model.condition_1"
-              placeholder="请输入"
-            />
+      <n-form ref="formRef" :model="model" label-placement="left" :show-feedback="false">
+        <n-grid :x-gap="30" :cols="18">
+          <n-form-item-gi :span="4" label="姓名" path="condition_1">
+            <n-input v-model:value="model.condition_1" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi
-            :span="4"
-            label="年龄"
-            path="condition_2"
-          >
-            <n-input
-              v-model:value="model.condition_2"
-              placeholder="请输入"
-            />
+          <n-form-item-gi :span="4" label="年龄" path="condition_2">
+            <n-input v-model:value="model.condition_2" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi
-            :span="4"
-            label="性别"
-            path="condition_3"
-          >
-            <n-input
-              v-model:value="model.condition_3"
-              placeholder="请输入"
-            />
+          <n-form-item-gi :span="4" label="性别" path="condition_3">
+            <n-input v-model:value="model.condition_3" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi
-            :span="4"
-            label="地址"
-            path="condition_4"
-          >
-            <n-input
-              v-model:value="model.condition_4"
-              placeholder="请输入"
-            />
+          <n-form-item-gi :span="4" label="地址" path="condition_4">
+            <n-input v-model:value="model.condition_4" placeholder="请输入" />
           </n-form-item-gi>
           <n-gi :span="1">
-            <NButton type="primary">
+            <NButton type="primary" @click="getUserList">
               <template #icon>
                 <i-icon-park-outline-search />
               </template>
@@ -230,11 +191,7 @@ function handleAddTable() {
             </NButton>
           </n-gi>
           <n-gi :span="1">
-            <NButton
-              strong
-              secondary
-              @click="handleResetSearch"
-            >
+            <NButton strong secondary @click="handleResetSearch">
               <template #icon>
                 <i-icon-park-outline-redo />
               </template>
@@ -245,54 +202,30 @@ function handleAddTable() {
       </n-form>
     </n-card>
     <n-card>
-      <NSpace
-        vertical
-        size="large"
-      >
+      <NSpace vertical size="large">
         <div class="flex gap-4">
-          <NButton
-            type="primary"
-            @click="handleAddTable"
-          >
+          <NButton type="primary" @click="handleAddTable">
             <template #icon>
               <i-icon-park-outline-add-one />
             </template>
             新建
           </NButton>
-          <NButton
-            strong
-            secondary
-          >
+          <NButton strong secondary>
             <template #icon>
               <i-icon-park-outline-afferent />
             </template>
             批量导入
           </NButton>
-          <NButton
-            strong
-            secondary
-            class="ml-a"
-          >
+          <NButton strong secondary class="ml-a">
             <template #icon>
               <i-icon-park-outline-download />
             </template>
             下载
           </NButton>
         </div>
-        <n-data-table
-          :columns="columns"
-          :data="listData"
-          :loading="loading"
-        />
-        <Pagination
-          :count="100"
-          @change="changePage"
-        />
-        <TableModal
-          v-model:visible="visible"
-          :type="modalType"
-          :modal-data="editData"
-        />
+        <n-data-table :columns="columns" :data="listData" :loading="loading" />
+        <Pagination :count="100" @change="changePage" />
+        <TableModal v-model:visible="visible" :type="modalType" :modal-data="editData" />
       </NSpace>
     </n-card>
   </NSpace>

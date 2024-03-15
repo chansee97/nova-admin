@@ -1,15 +1,15 @@
 import axios from 'axios'
 import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios'
 import {
-  handleAxiosError,
   handleBusinessError,
+  handleFontEndError,
   handleRefreshToken,
   handleResponseError,
   handleServiceResult,
 } from './handle'
 import { clearInvalidParameters, transformRequestData } from './utils'
+import { DEFAULT_AXIOS_OPTIONS, DEFAULT_BACKEND_OPTIONS, REFRESH_TOKEN_CODE } from './config'
 import { local } from '@/utils'
-import { DEFAULT_AXIOS_OPTIONS, DEFAULT_BACKEND_OPTIONS, REFRESH_TOKEN_CODE } from '@/config'
 
 /**
  * @description: 封装axios请求类
@@ -18,11 +18,11 @@ export default class CreateAxiosInstance {
   // axios 实例
   instance: AxiosInstance
   // 后台字段配置
-  backendConfig: Service.BackendResultConfig
+  backendConfig: Service.BackendConfig
   // 基础配置
   axiosConfig: AxiosRequestConfig = {}
 
-  constructor(axiosConfig: AxiosRequestConfig, backendConfig: Partial<Service.BackendResultConfig> = DEFAULT_BACKEND_OPTIONS) {
+  constructor(axiosConfig: AxiosRequestConfig, backendConfig: Partial<Service.BackendConfig> = DEFAULT_BACKEND_OPTIONS) {
     // 设置了axios实例上的一些默认配置,新配置会覆盖默认配置
     this.backendConfig = { ...DEFAULT_BACKEND_OPTIONS, ...backendConfig }
     this.instance = axios.create({ ...DEFAULT_AXIOS_OPTIONS, ...axiosConfig })
@@ -48,7 +48,7 @@ export default class CreateAxiosInstance {
         return handleConfig
       },
       (error: AxiosError) => {
-        const errorResult = handleAxiosError(error)
+        const errorResult = handleFontEndError(error)
         return handleServiceResult(null, errorResult)
       },
     )
@@ -79,7 +79,7 @@ export default class CreateAxiosInstance {
       },
       (error: AxiosError) => {
         // 处理http常见错误，进行全局提示等
-        const errorResult = handleAxiosError(error)
+        const errorResult = handleFontEndError(error)
         return handleServiceResult(null, errorResult)
       },
     )

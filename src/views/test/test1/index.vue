@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import {
+  expiredTokenRequest,
   fetachDelete,
   fetachFormPost,
   fetachGet,
   fetachPost,
   fetachPut,
-  fetchMock,
+  fetchUpdateToken,
   testFailedRequest,
   testFailedResponse,
   testFailedResponse_NT,
-  testUpdataToken,
 } from '@/service'
 
 const msg = ref()
+
 function pinter() {
   msg.value = import.meta.env
 }
@@ -75,14 +76,15 @@ function failedResponse_NT() {
     msg.value = res
   })
 }
-// 测试刷新token
-function updataToken() {
-  testUpdataToken().then((res) => {
+// token过期
+function expiredToken() {
+  expiredTokenRequest().then((res) => {
     msg.value = res
   })
 }
-function mock() {
-  fetchMock().then((res) => {
+// 刷新token
+function updataToken() {
+  fetchUpdateToken('test token').then((res) => {
     msg.value = res
   })
 }
@@ -92,96 +94,44 @@ function mock() {
   <div>
     <n-h1>接口功能测试</n-h1>
     <n-space>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="pinter"
-      >
+      <n-button strong secondary type="success" @click="pinter">
         check env
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="get"
-      >
+      <n-button strong secondary type="success" @click="get">
         use online get
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="post"
-      >
+      <n-button strong secondary type="success" @click="post">
         use online post
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="formPost"
-      >
+      <n-button strong secondary type="success" @click="formPost">
         use online formPost
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="delete2"
-      >
+      <n-button strong secondary type="success" @click="delete2">
         use online delete
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="put"
-      >
+      <n-button strong secondary type="success" @click="put">
         use online put
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="success"
-        @click="mock"
-      >
-        to use mock
+      <n-button strong secondary type="error" @click="failedRequest">
+        失败-错误状态码
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="error"
-        @click="failedRequest"
-      >
-        请求失败
+      <n-button strong secondary type="error" @click="failedResponse">
+        失败-错误业务码
       </n-button>
-      <n-button
-        strong
-        secondary
-        type="error"
-        @click="failedResponse"
-      >
-        响应失败
-      </n-button>
-      <n-button
-        strong
-        secondary
-        type="error"
-        @click="failedResponse_NT"
-      >
+      <n-button strong secondary type="error" @click="failedResponse_NT">
         响应失败(无提示)
       </n-button>
-      <n-button
-        strong
-        secondary
-        @click="updataToken"
-      >
-        测试刷新token接口
+      <n-button strong secondary @click="expiredToken">
+        token 过期
+      </n-button>
+      <n-button strong secondary @click="updataToken">
+        refresh token
       </n-button>
     </n-space>
 
-    {{ msg }}
+    <pre>
+      {{ msg }}
+    </pre>
   </div>
 </template>
 

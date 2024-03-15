@@ -1,7 +1,8 @@
 /** 请求的相关类型 */
 declare namespace Service {
+
   /** 后端接口返回的数据结构配置 */
-  interface BackendResultConfig {
+  interface BackendConfig {
     /** 表示后端请求状态码的属性字段 */
     codeKey: string
     /** 表示后端请求数据的属性字段 */
@@ -12,7 +13,7 @@ declare namespace Service {
     successCode: number | string
   }
 
-  type RequestErrorType = 'Axios' | 'Response' | 'Business'
+  type RequestErrorType = 'Axios' | 'Alova' | 'Response' | 'Business'
   type RequestCode = string | number
 
   interface RequestError {

@@ -1,4 +1,4 @@
-import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import type { AxiosError } from 'axios'
 import { showError } from './utils'
 import {
   DEFAULT_REQUEST_ERROR_CODE,
@@ -8,7 +8,7 @@ import {
   NETWORK_ERROR_MSG,
   REQUEST_TIMEOUT_CODE,
   REQUEST_TIMEOUT_MSG,
-} from '@/config'
+} from './config'
 import { useAuthStore } from '@/store'
 import { fetchUpdateToken } from '@/service'
 import { local } from '@/utils'
@@ -20,9 +20,9 @@ type ErrorStatus = keyof typeof ERROR_STATUS
  * @param {AxiosError} err
  * @return {*}
  */
-export function handleAxiosError(err: AxiosError) {
+export function handleFontEndError(err: AxiosError) {
   const error: Service.RequestError = {
-    type: 'Axios',
+    type: 'Alova',
     code: DEFAULT_REQUEST_ERROR_CODE,
     msg: DEFAULT_REQUEST_ERROR_MSG,
   }
@@ -54,7 +54,7 @@ export function handleAxiosError(err: AxiosError) {
  * @param {AxiosResponse} response
  * @return {*}
  */
-export function handleResponseError(response: AxiosResponse) {
+export function handleResponseError(response: Response) {
   const error: Service.RequestError = {
     type: 'Axios',
     code: DEFAULT_REQUEST_ERROR_CODE,
@@ -83,7 +83,7 @@ export function handleResponseError(response: AxiosResponse) {
  * @param {Service} config axios字段配置
  * @return {*}
  */
-export function handleBusinessError(data: Record<string, any>, config: Service.BackendResultConfig) {
+export function handleBusinessError(data: Record<string, any>, config: Service.BackendConfig) {
   const { codeKey, msgKey } = config
   const error: Service.RequestError = {
     type: 'Business',
@@ -119,23 +119,18 @@ export function handleServiceResult<T = any>(data: any, error: Service.RequestEr
 
 /**
  * @description: 处理接口token刷新
- * @param {AxiosRequestConfig} config axios字段配置
  * @return {*}
  */
-export async function handleRefreshToken(config: AxiosRequestConfig) {
+export async function handleRefreshToken() {
   const authStore = useAuthStore()
   const refreshToken = local.get('refreshToken')
   const { data } = await fetchUpdateToken(refreshToken)
   if (data) {
-    local.set('refreshToken', data.accessToken)
-    local.set('token', data.refreshToken)
-
-    // 设置token
-    if (config.headers)
-      typeof config.headers.set === 'function' && config.headers.set('Authorization', `Bearer ${data.accessToken || ''}`)
-
-    return config
+    local.set('token', data.accessToken)
+    local.set('refreshToken', data.refreshToken)
   }
-  await authStore.resetAuthStore()
-  return null
+  else {
+    // 刷新失败，推出
+    await authStore.resetAuthStore()
+  }
 }

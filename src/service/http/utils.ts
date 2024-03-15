@@ -54,7 +54,7 @@ function handleFormData(data: Record<string, any>) {
  * 接口提交的参数去除无效字段
  * @param requestData -接口提交的参数
  */
-export function clearInvalidParameters(requestData: Record<string, any>) {
+export function clearInvalidParameters(requestData?: Record<string, any>) {
   const result: Record<string, any> = {}
   for (const key in requestData) {
     if (isEmpty(requestData[key]) || isNullOrUnDef(requestData[key]))

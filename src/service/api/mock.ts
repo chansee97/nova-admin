@@ -1,5 +1,5 @@
-import { mockRequest } from '../http'
+import { alovaInstance } from '../http'
 
 export function fetchUserList() {
-  return mockRequest.get('/userList')
+  return alovaInstance.Get('/userList')
 }
