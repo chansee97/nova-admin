@@ -169,37 +169,35 @@ function handleAddTable() {
   <NSpace vertical size="large">
     <n-card>
       <n-form ref="formRef" :model="model" label-placement="left" :show-feedback="false">
-        <n-grid :x-gap="30" :cols="18">
-          <n-form-item-gi :span="4" label="姓名" path="condition_1">
+        <n-grid :x-gap="30" :cols="4">
+          <n-form-item-gi label="姓名" path="condition_1">
             <n-input v-model:value="model.condition_1" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi :span="4" label="年龄" path="condition_2">
+          <n-form-item-gi label="年龄" path="condition_2">
             <n-input v-model:value="model.condition_2" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi :span="4" label="性别" path="condition_3">
+          <n-form-item-gi label="性别" path="condition_3">
             <n-input v-model:value="model.condition_3" placeholder="请输入" />
           </n-form-item-gi>
-          <n-form-item-gi :span="4" label="地址" path="condition_4">
+          <n-form-item-gi label="地址" path="condition_4">
             <n-input v-model:value="model.condition_4" placeholder="请输入" />
           </n-form-item-gi>
-          <n-gi :span="1">
-            <NButton type="primary" @click="getUserList">
-              <template #icon>
-                <i-icon-park-outline-search />
-              </template>
-              搜索
-            </NButton>
-          </n-gi>
-          <n-gi :span="1">
-            <NButton strong secondary @click="handleResetSearch">
-              <template #icon>
-                <i-icon-park-outline-redo />
-              </template>
-              重置
-            </NButton>
-          </n-gi>
         </n-grid>
       </n-form>
+      <n-flex class="mt-1em" justify="end">
+        <NButton type="primary" @click="getUserList">
+          <template #icon>
+            <i-icon-park-outline-search />
+          </template>
+          搜索
+        </NButton>
+        <NButton strong secondary @click="handleResetSearch">
+          <template #icon>
+            <i-icon-park-outline-redo />
+          </template>
+          重置
+        </NButton>
+      </n-flex>
     </n-card>
     <n-card>
       <NSpace vertical size="large">

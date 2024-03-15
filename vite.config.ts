@@ -11,7 +11,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
 
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   // 设置第三个参数为 '' 来加载所有环境变量，而不管是否有 `VITE_` 前缀。
-  const env = loadEnv(mode, __dirname, '') as unknown as ImportMetaEnv
+  const env = loadEnv(mode, __dirname, '') as ImportMetaEnv
   const envConfig = proxyConfig[mode as ServiceEnvType]
 
   return {
@@ -24,12 +24,8 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     },
     server: {
       host: '0.0.0.0',
-      port: 4000,
       proxy:
         env.VITE_HTTP_PROXY === 'Y' ? createViteProxy(envConfig) : undefined,
-    },
-    preview: {
-      port: 5211,
     },
     build: {
       target: 'esnext',

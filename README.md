@@ -21,7 +21,7 @@
 ## features
 
 - **Latest popular technology stack** - Developed based on the latest technology stack such as Vue3, Vite, TypeScript, NaiveUI, Pinia, etc
-- **Network request function encapsulation** - Perfect axios encapsulation and configuration, unified response processing and multi-scenario capability
+- **Network request function encapsulation** - Based on [alova](https://alova.js.org/) encapsulation and configuration, unified response processing and multi-scenario capabilities
 - **Authority Control** - Perfect front and back-end authority management solution
 - **Routing system** - Supports local static and dynamic routing
 - **Component packaging** - Secondary packaging of components with high frequency of daily use to meet basic workrequirements

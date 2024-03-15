@@ -1,5 +1,5 @@
 import qs from 'qs'
-import { ERROR_MSG_DURATION, ERROR_NO_TIP_STATUS } from '@/config'
+import { ERROR_NO_TIP_STATUS } from './config'
 import { isArray, isEmpty, isFile, isNullOrUnDef } from '@/utils'
 
 export function showError(error: Service.RequestError) {
@@ -8,8 +8,7 @@ export function showError(error: Service.RequestError) {
   if (ERROR_NO_TIP_STATUS.includes(code))
     return
 
-  window.console.warn(error.code, error.msg)
-  window.$message?.error(error.msg, { duration: ERROR_MSG_DURATION })
+  window.$message?.error(error.msg)
 }
 /**
  * 请求数据的转换
@@ -21,7 +20,7 @@ export function transformRequestData(
   contentType?: UnionKey.ContentType,
 ) {
   // application/json类型不处理,清除发送参数的无效字段
-  let data: any = clearInvalidParameters(requestData)
+  let data: any = requestData
 
   // form类型转换
   if (contentType === 'application/x-www-form-urlencoded')
@@ -48,18 +47,4 @@ function handleFormData(data: Record<string, any>) {
   })
 
   return formData
-}
-
-/**
- * 接口提交的参数去除无效字段
- * @param requestData -接口提交的参数
- */
-export function clearInvalidParameters(requestData?: Record<string, any>) {
-  const result: Record<string, any> = {}
-  for (const key in requestData) {
-    if (isEmpty(requestData[key]) || isNullOrUnDef(requestData[key]))
-      continue
-    result[key] = requestData[key]
-  }
-  return result
 }

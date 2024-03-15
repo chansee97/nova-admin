@@ -9,7 +9,11 @@ export function fetchLogin(params: Ilogin) {
   return alovaInstance.Post<any>('/login', params)
 }
 export function fetchUpdateToken(params: any) {
-  return alovaInstance.Post<ApiAuth.loginToken>('/updateToken', params)
+  const method = alovaInstance.Post<ApiAuth.loginToken>('/updateToken', params)
+  method.meta = {
+    authRole: 'refreshToken',
+  }
+  return method
 }
 export function fetchUserInfo(params: any) {
   return alovaInstance.Get<Auth.UserInfo>('/getUserInfo', { params })

@@ -37,22 +37,22 @@
     "UnoCSS"
   ],
   "scripts": {
-    "dev": "vite --mode dev",
+    "dev": "vite --mode dev --port 9980",
     "dev:test": "vite --mode test",
     "dev:prod": "vite --mode prod",
     "build": "vue-tsc --noEmit && vite build --mode prod",
     "build:dev": "vue-tsc --noEmit && vite build --mode dev",
     "build:test": "vue-tsc --noEmit && vite build --mode test",
-    "preview": "vite preview",
+    "preview": "vite preview --port 9981",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "sizecheck": "npx vite-bundle-visualizer"
   },
   "dependencies": {
+    "@alova/scene-vue": "^1.4.5",
     "@tinymce/tinymce-vue": "^5.1.1",
     "@vueuse/core": "^10.9.0",
     "alova": "^2.17.1",
-    "axios": "^1.6.7",
     "crypto-js": "^4.2.0",
     "echarts": "^5.5.0",
     "md-editor-v3": "^4.11.3",
