@@ -1,5 +1,5 @@
 import { createAlovaInstance } from './alova'
-import { proxyConfig } from '@/config'
+import { proxyConfig } from '@/../build/proxy'
 
 const { url, urlPattern } = proxyConfig[import.meta.env.MODE]
 

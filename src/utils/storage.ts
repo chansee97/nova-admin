@@ -1,7 +1,4 @@
-import { decrypto, encrypto } from './crypto'
-
-// 读取缓存前缀
-import { STORAGE_DEFAULT_CACHE_TIME, STORAGE_PREFIX } from '@/config'
+const STORAGE_PREFIX = 'nova_'
 
 interface StorageData<T> {
   value: T
@@ -13,12 +10,12 @@ interface StorageData<T> {
 function createLocalStorage<T extends Storage.Local>() {
   // 默认缓存期限为7天
 
-  function set<K extends keyof T>(key: K, value: T[K], expire: number = STORAGE_DEFAULT_CACHE_TIME) {
+  function set<K extends keyof T>(key: K, value: T[K], expire: number = 60 * 60 * 24 * 7) {
     const storageData: StorageData<T[K]> = {
       value,
       expire: new Date().getTime() + expire * 1000,
     }
-    const json = encrypto(storageData)
+    const json = JSON.stringify(storageData)
     window.localStorage.setItem(`${STORAGE_PREFIX}${String(key)}`, json)
   }
 
@@ -27,13 +24,7 @@ function createLocalStorage<T extends Storage.Local>() {
     if (!json)
       return null
 
-    let storageData: StorageData<T[K]> | null = null
-    try {
-      storageData = decrypto(json)
-    }
-    catch {
-      // 防止解析失败
-    }
+    const storageData: StorageData<T[K]> | null = JSON.parse(json)
 
     if (storageData) {
       const { value, expire } = storageData
@@ -64,7 +55,7 @@ function createLocalStorage<T extends Storage.Local>() {
 
 function createSessionStorage<T extends Storage.Session>() {
   function set<K extends keyof T>(key: K, value: T[K]) {
-    const json = encrypto(value)
+    const json = JSON.stringify(value)
     window.sessionStorage.setItem(`${STORAGE_PREFIX}${String(key)}`, json)
   }
   function get<K extends keyof T>(key: K) {
@@ -72,13 +63,7 @@ function createSessionStorage<T extends Storage.Session>() {
     if (!json)
       return null
 
-    let storageData: T[K] | null = null
-    try {
-      storageData = decrypto(json)
-    }
-    catch {
-      // 防止解析失败
-    }
+    const storageData: T[K] | null = JSON.parse(json)
 
     if (storageData)
       return storageData

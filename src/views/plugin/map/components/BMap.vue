@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { BAIDU_MAP_SDK_URL } from '@/config'
-
-const { load } = useScriptTag(BAIDU_MAP_SDK_URL)
+const { load } = useScriptTag('https://api.map.baidu.com/getscript?v=3.0&ak=MwqQwPxa5ipusyNmH1WT62y5DKhYxIgb&services=&t=20220816154130')
 /* https://lbsyun.baidu.com/index.php?title=jspopular3.0 百度地图开发者文档 */
 
 onMounted(() => {

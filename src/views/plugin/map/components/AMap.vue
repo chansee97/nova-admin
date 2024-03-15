@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { GAODE_MAP_SDK_URL } from '@/config'
-
-const { load } = useScriptTag(GAODE_MAP_SDK_URL)
+const { load } = useScriptTag('https://webapi.amap.com/maps?v=2.0&key=85e62187c6f8e51c797c87b1f36f787a')
 /* https://lbs.amap.com/api/jsapi-v2/summary 高德地图开发文档 */
 
 onMounted(() => {
