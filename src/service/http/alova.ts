@@ -2,6 +2,7 @@ import { createAlova } from 'alova'
 import VueHook from 'alova/vue'
 import GlobalFetch from 'alova/GlobalFetch'
 import { createServerTokenAuthentication } from '@alova/scene-vue'
+import qs from 'qs'
 import {
   handleBusinessError,
   handleRefreshToken,
@@ -49,6 +50,10 @@ export function createAlovaInstance(
     timeout: _alovaConfig.timeout,
 
     beforeRequest: onAuthRequired((method) => {
+      if (method.meta?.isFormPost) {
+        method.config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        method.data = qs.stringify(method.data)
+      }
       alovaConfig.beforeRequest?.(method)
     }),
     responded: onResponseRefreshToken({

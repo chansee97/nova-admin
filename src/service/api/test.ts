@@ -1,4 +1,3 @@
-import qs from 'qs'
 import { alovaInstance, blankInstance } from '../http'
 
 /* get方法测试 */
@@ -12,11 +11,11 @@ export function fetchPost(data: any) {
 }
 /* formPost方法测试 */
 export function fetchFormPost(data: any) {
-  return alovaInstance.Post('/postAPI', qs.stringify(data), {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  })
+  const methodInstance = alovaInstance.Post('/postAPI', data)
+  methodInstance.meta = {
+    isFormPost: true,
+  }
+  return methodInstance
 }
 /* delete方法测试 */
 export function fetchDelete() {

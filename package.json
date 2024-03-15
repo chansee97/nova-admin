@@ -58,40 +58,34 @@
     "md-editor-v3": "^4.11.3",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
-    "qs": "^6.11.2",
+    "qs": "^6.12.0",
     "vue": "^3.4.21",
-    "vue-qr": "^4.0.9",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.4",
+    "@antfu/eslint-config": "^2.8.3",
     "@iconify-json/icon-park-outline": "^1.1.15",
     "@iconify/vue": "^4.1.1",
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^20.11.22",
+    "@types/node": "^20.11.28",
     "@types/qs": "^6.9.12",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vitejs/plugin-vue-jsx": "^3.1.0",
     "eslint": "^8.57.0",
     "lint-staged": "^15.2.2",
     "naive-ui": "^2.38.1",
-    "sass": "^1.71.1",
-    "simple-git-hooks": "^2.9.0",
-    "typescript": "^5.3.3",
-    "unocss": "^0.58.5",
+    "sass": "^1.72.0",
+    "simple-git-hooks": "^2.10.0",
+    "typescript": "^5.4.2",
+    "unocss": "^0.58.6",
     "unplugin-auto-import": "^0.17.5",
     "unplugin-icons": "^0.18.5",
     "unplugin-vue-components": "^0.26.0",
-    "vite": "^5.1.4",
-    "vite-bundle-visualizer": "^1.0.1",
+    "vite": "^5.1.6",
+    "vite-bundle-visualizer": "^1.1.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-svg-icons": "^2.0.1",
-    "vue-tsc": "^1.8.27"
-  },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+    "vue-tsc": "^2.0.6"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"
