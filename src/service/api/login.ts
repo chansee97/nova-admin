@@ -6,7 +6,11 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  return alovaInstance.Post<any>('/login', params)
+  const methodInstance = alovaInstance.Post<any>('/login', params)
+  methodInstance.meta = {
+    authRole: null,
+  }
+  return methodInstance
 }
 export function fetchUpdateToken(params: any) {
   const method = alovaInstance.Post<ApiAuth.loginToken>('/updateToken', params)

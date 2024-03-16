@@ -10,16 +10,10 @@ const roleList: Auth.RoleType[] = ['super', 'admin', 'user']
 </script>
 
 <template>
-  <div>
-    权限示例:
+  <n-card title="权限示例">
     <n-h1> 当前权限：{{ role }}</n-h1>
     <n-button-group>
-      <n-button
-        v-for="item in roleList"
-        :key="item"
-        type="default"
-        @click="authStore.toggleUserRole(item)"
-      >
+      <n-button v-for="item in roleList" :key="item" type="default" @click="authStore.toggleUserRole(item)">
         {{ item }}
       </n-button>
     </n-button-group>
@@ -45,7 +39,7 @@ const roleList: Auth.RoleType[] = ['super', 'admin', 'user']
         admin和user可见
       </n-button>
     </n-space>
-  </div>
+  </n-card>
 </template>
 
 <style scoped></style>

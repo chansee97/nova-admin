@@ -7,8 +7,6 @@ const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y' || false
 
 export const request = createAlovaInstance({
   baseURL: isHttpProxy ? urlPattern : url,
-}, {
-  msgKey: 'msg',
 })
 
 export const alovaInstance = createAlovaInstance({

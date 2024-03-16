@@ -1,17 +1,17 @@
 <script setup lang="ts">
-const text = ref('Hello v-copy')
+const text = ref('Hello nova-admin')
 </script>
 
 <template>
-  <n-card>
-    <n-h1> v-copy 使用</n-h1>
+  <n-card title="剪切板示例">
+    <n-h3>v-copy 指令</n-h3>
     <n-input-group>
       <n-input v-model:value="text" placeholder="请输入要复制的内容" />
       <n-button v-copy="text" type="primary">
         v-copy复制
       </n-button>
     </n-input-group>
-    <n-h1> copy-text组件 使用</n-h1>
+    <n-h3>copy-text 组件</n-h3>
     <copy-text v-model="text" />
   </n-card>
 </template>

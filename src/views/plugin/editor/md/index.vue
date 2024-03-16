@@ -3,8 +3,13 @@ const text = ref('# Hello Editor ![图片描述](https://via.placeholder.com/350
 </script>
 
 <template>
-  <n-card>
-    <MarkDownEditor v-model="text" />
+  <n-card title="MarkDown编辑器">
+    <n-space vertical :size="12">
+      <n-alert :show-icon="false" type="info">
+        使用 md-editor-v3 实现
+      </n-alert>
+      <MarkDownEditor v-model="text" />
+    </n-space>
   </n-card>
 </template>
 

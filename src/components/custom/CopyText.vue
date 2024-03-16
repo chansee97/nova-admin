@@ -9,7 +9,7 @@ const text = useVModel(props, 'modelValue', emit)
 </script>
 
 <template>
-  <div class="copy-wrap">
+  <div v-if="text" class="copy-wrap">
     <n-ellipsis :style="{ 'max-width': maxLength || '12em' }">
       {{ text }}
     </n-ellipsis>

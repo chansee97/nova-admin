@@ -1,6 +1,4 @@
-import qs from 'qs'
 import { ERROR_NO_TIP_STATUS } from './config'
-import { isArray, isEmpty, isFile, isNullOrUnDef } from '@/utils'
 
 export function showError(error: Service.RequestError) {
   // 如果error不需要提示,则跳过
@@ -9,42 +7,4 @@ export function showError(error: Service.RequestError) {
     return
 
   window.$message?.error(error.msg)
-}
-/**
- * 请求数据的转换
- * @param requestData - 请求数据
- * @param contentType - 请求头的Content-Type
- */
-export function transformRequestData(
-  requestData: any,
-  contentType?: UnionKey.ContentType,
-) {
-  // application/json类型不处理,清除发送参数的无效字段
-  let data: any = requestData
-
-  // form类型转换
-  if (contentType === 'application/x-www-form-urlencoded')
-    data = qs.stringify(data)
-
-  // form-data类型转换
-  if (contentType === 'multipart/form-data')
-    data = handleFormData(data)
-
-  return data
-}
-
-function handleFormData(data: Record<string, any>) {
-  const formData = new FormData()
-  const entries = Object.entries(data)
-
-  entries.forEach(([key, value]) => {
-    const isFileType
-      = isFile(value) || (isArray(value) && value.length && isFile(value[0]))
-
-    if (isFileType && isArray(value))
-      value.forEach(item => formData.append(key, item))
-    else formData.append(key, value)
-  })
-
-  return formData
 }

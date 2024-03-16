@@ -2,7 +2,7 @@
 import HeaderButton from '../common/HeaderButton.vue'
 
 function toMyGithub() {
-  window.open('https://github.com/chansee97')
+  window.open('https://github.com/chansee97/nova-admin')
 }
 </script>
 

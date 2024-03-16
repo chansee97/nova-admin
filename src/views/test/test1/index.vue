@@ -30,7 +30,7 @@ function pinterEnv() {
   msg.value = import.meta.env
 }
 function get() {
-  fetachGet({ a: 112211 }).then((res) => {
+  fetachGet({ a: 112211, b: false }).then((res) => {
     msg.value = res
   })
 }
@@ -118,7 +118,7 @@ function getBlobFile() {
     msg.value = 'this is blob!'
     const link = URL.createObjectURL(res)
     const eleLink = document.createElement('a')
-    eleLink.download = 'okk.png'
+    eleLink.download = 'okk'
     eleLink.style.display = 'none'
     eleLink.href = link
     document.body.appendChild(eleLink)
@@ -133,7 +133,7 @@ function getBlobFile() {
     <n-space vertical :size="12">
       <pre class="bg-#eee">
       {{ msg }}
-    </pre>
+      </pre>
       <n-descriptions label-placement="left" bordered>
         <n-descriptions-item label="检查环境变量">
           <n-button strong secondary type="success" @click="pinterEnv">

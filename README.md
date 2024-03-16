@@ -78,6 +78,10 @@ If you feel that this project is helpful for your work or study, please help me 
 
 ![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=chansee97/nova-admin&type=Date)](https://star-history.com/#chansee97/nova-admin&Date)
+
 ## License
 
 [MIT](LICENSE)
