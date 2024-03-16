@@ -31,7 +31,7 @@ interface ImportMetaEnv {
   /** hash路由模式 */
   readonly VITE_ROUTE_MODE?: 'hash' | 'web'
   /** 路由加载模式 */
-  readonly VITE_AUTH_ROUTE_MODE?: 'static' | 'dynamic'
+  readonly VITE_AUTH_ROUTE_MODE: 'static' | 'dynamic'
   /** 首次加载页面 */
   readonly VITE_HOME_PATH: string
 

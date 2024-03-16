@@ -1,13 +1,14 @@
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
-import { clone, construct } from 'radash'
+import { clone, construct, min } from 'radash'
+import type { RouteRecordRaw } from 'vue-router'
 import { arrayToTree, local, renderIcon } from '@/utils'
-import { createDynamicRoutes } from '@/router/guard/dynamic'
 import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
-import { staticRoutes } from '@/router/staticRoutes'
+import { staticRoutes } from '@/router/routes.static'
 import { usePermission } from '@/hooks'
+import { BasicLayout } from '@/layouts/index'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
@@ -115,6 +116,67 @@ export const useRouteStore = defineStore('route-store', {
           return target
         })
     },
+    setRedirect(routes: AppRoute.Route[]) {
+      routes.forEach((route) => {
+        if (route.children) {
+          if (!route.redirect) {
+            // 过滤出没有隐藏的子元素集
+            const visibleChilds = route.children.filter(child => !child.meta.hide)
+
+            // 过滤出含有order属性的页面
+            const orderChilds = visibleChilds.filter(child => child.meta.order)
+
+            // 重定向页默认第一个子元素的路径
+            let target = route.children[0]
+            if (orderChilds.length > 0)
+            // 有order则取最小者重定向
+              target = min(orderChilds, i => i.meta.order as number) as AppRoute.Route
+
+            route.redirect = target.path
+          }
+
+          this.setRedirect(route.children)
+        }
+      })
+    },
+    createDynamicRoutes(routes: AppRoute.RowRoute[]) {
+      const { hasPermission } = usePermission()
+      // 结构化meta字段
+      let resultRouter = clone(routes).map(i => construct(i)) as AppRoute.Route[]
+      // 路由权限过滤
+      resultRouter = resultRouter.filter(i => hasPermission(i.meta.roles))
+
+      // 生成需要keepAlive的路由name数组
+      this.cacheRoutes = resultRouter.filter((i) => {
+        return i.meta.keepAlive
+      })
+        .map(i => i.name)
+
+      // 生成路由，有redirect的不需要引入文件
+      const modules = import.meta.glob('@/views/**/*.vue')
+      resultRouter = resultRouter.map((item: any) => {
+        if (item.componentPath && !item.redirect)
+          item.component = modules[`/src/views${item.componentPath}`]
+        return item
+      })
+
+      resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
+      this.setRedirect(resultRouter)
+      const appRootRoute: RouteRecordRaw = {
+        path: '/appRoot',
+        name: 'appRoot',
+        redirect: import.meta.env.VITE_HOME_PATH,
+        component: BasicLayout,
+        meta: {
+          title: '首页',
+          icon: 'icon-park-outline:home',
+        },
+        children: [],
+      }
+      // 根据角色过滤后的插入根路由中
+      appRootRoute.children = resultRouter as unknown as RouteRecordRaw[]
+      return appRootRoute
+    },
     /* 初始化动态路由 */
     async initDynamicRoute() {
       // 根据用户id来获取用户的路由
@@ -130,7 +192,7 @@ export const useRouteStore = defineStore('route-store', {
       if (!data)
         return
       // 根据用户返回的路由表来生成真实路由
-      const appRoutes = createDynamicRoutes(data)
+      const appRoutes = this.createDynamicRoutes(data)
       // 生成侧边菜单
       this.createMenus(data)
       // 插入路由表
@@ -139,7 +201,7 @@ export const useRouteStore = defineStore('route-store', {
     /* 初始化静态路由 */
     initStaticRoute() {
       // 根据静态路由表来生成真实路由
-      const appRoutes = createDynamicRoutes(staticRoutes)
+      const appRoutes = this.createDynamicRoutes(staticRoutes)
       // 生成侧边菜单
       this.createMenus(staticRoutes)
       // 插入路由表

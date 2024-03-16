@@ -1,4 +1,5 @@
 import { useRouteStore } from './route'
+import { useTabStore } from './tab'
 import { fetchLogin, fetchUserInfo } from '@/service'
 import { router } from '@/router'
 import { local } from '@/utils'
@@ -34,7 +35,12 @@ export const useAuthStore = defineStore('auth-store', {
       // 清空路由、菜单等数据
       const routeStore = useRouteStore()
       routeStore.resetRouteStore()
+      // 清空标签栏数据
+      const tabStore = useTabStore()
+      tabStore.tabs.length = 0
+      // 重制当前存储库
       this.$reset()
+      // 重定向到登录页
       if (route.meta.requiresAuth) {
         router.push({
           name: 'login',

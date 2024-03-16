@@ -1,6 +1,6 @@
 import type { App } from 'vue'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import { routes } from './routes'
+import { routes } from './routes.inner'
 import { setupRouterGuard } from './guard'
 
 const { VITE_ROUTE_MODE = 'hash', VITE_BASE_URL } = import.meta.env
