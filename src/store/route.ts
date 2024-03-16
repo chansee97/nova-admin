@@ -1,17 +1,18 @@
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
-import { local, renderIcon } from '@/utils'
+import { clone, construct } from 'radash'
+import { arrayToTree, local, renderIcon } from '@/utils'
 import { createDynamicRoutes } from '@/router/guard/dynamic'
 import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
-import { staticRoutes } from '@/router/modules'
+import { staticRoutes } from '@/router/staticRoutes'
 import { usePermission } from '@/hooks'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
   menus: any
-  userRoutes: AppRoute.Route[]
+  userRoutes: AppRoute.RowRoute[]
   activeMenu: string | null
   authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE']
   cacheRoutes: string[]
@@ -36,25 +37,6 @@ export const useRouteStore = defineStore('route-store', {
       /* 删除后面添加的路由 */
       router.removeRoute('appRoot')
     },
-    /* 根据当前路由的name生成面包屑数据 */
-    createBreadcrumbFromRoutes(routeName = '/') {
-      const path: AppRoute.Route[] = []
-      // 筛选所有包含目标的各级路由组合成一维数组
-      const getPathfromRoutes = (
-        routeName: string,
-        userRoutes: AppRoute.Route[],
-      ) => {
-        userRoutes.forEach((item) => {
-          if (this.hasPathinAllPath(routeName, item)) {
-            path.push(item)
-            if (item.children && item.children.length !== 0)
-              getPathfromRoutes(routeName, item.children)
-          }
-        })
-      }
-      getPathfromRoutes(routeName, this.userRoutes)
-      return path
-    },
     /* 判断当前路由和子路由中是否存在为routeName的路由 */
     hasPathinAllPath(routeName: string, userRoutes: AppRoute.Route) {
       if (userRoutes.name === routeName)
@@ -76,48 +58,37 @@ export const useRouteStore = defineStore('route-store', {
       this.activeMenu = key
     },
     /* 生成侧边菜单的数据 */
-    createMenus(userRoutes: AppRoute.Route[]) {
+    createMenus(userRoutes: AppRoute.RowRoute[]) {
       this.userRoutes = userRoutes
 
-      let resultMenus: AppRoute.Route[] = JSON.parse(JSON.stringify(userRoutes))
-      resultMenus = this.removeHiddenRoutes(resultMenus)
-      this.menus = this.transformAuthRoutesToMenus(resultMenus)
-    },
-    /** 过滤不需要显示的菜单 */
-    removeHiddenRoutes(routes: AppRoute.Route[]) {
-      return routes.filter((route) => {
-        if (route.meta && route.meta.hide)
-          return false
-        else if (route.children)
-          route.children = this.removeHiddenRoutes(route.children)
-
-        return true
-      })
+      const resultMenus = clone(userRoutes).map(i => construct(i)) as AppRoute.Route[]
+      /** 过滤不需要显示的菜单 */
+      const visibleMenus = resultMenus.filter(route => !route.meta.hide)
+      // 生成侧边菜单
+      this.menus = arrayToTree(this.transformAuthRoutesToMenus(visibleMenus))
     },
 
     //* 将返回的路由表渲染成侧边栏 */
     transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
-      return (
-        userRoutes
-          /** 过滤没有权限的侧边菜单 */
-          .filter((item: AppRoute.Route) => {
-            const { hasPermission } = usePermission()
-            return hasPermission(item.meta.roles)
-          })
-          /** 根据order大小菜单排序  */
-          .sort((a, b) => {
-            if (a.meta && a.meta.order && b.meta && b.meta.order)
-              return a.meta.order - b.meta.order
-            else if (a.meta && a.meta.order)
-              return -1
-            else if (b.meta && b.meta.order)
-              return 1
-            else return 0
-          })
-          /** 转换为侧边菜单数据结构 */
-          .map((item) => {
-            const target: MenuOption = {
-              label:
+      const { hasPermission } = usePermission()
+      /** 过滤没有权限的侧边菜单 */
+      return userRoutes.filter(i => hasPermission(i.meta.roles))
+      /** 根据order大小菜单排序  */
+        .sort((a, b) => {
+          if (a.meta && a.meta.order && b.meta && b.meta.order)
+            return a.meta.order - b.meta.order
+          else if (a.meta && a.meta.order)
+            return -1
+          else if (b.meta && b.meta.order)
+            return 1
+          else return 0
+        })
+        /** 转换为侧边菜单数据结构 */
+        .map((item) => {
+          const target: MenuOption = {
+            id: item.id,
+            pid: item.pid,
+            label:
                 (!item.children || item.children.length === 0)
                   ? () =>
                       h(
@@ -130,20 +101,19 @@ export const useRouteStore = defineStore('route-store', {
                         { default: () => item.meta.title },
                       )
                   : item.meta.title,
-              key: item.path,
-              icon: renderIcon(item.meta.icon),
-            }
-            /** 判断子元素 */
-            if (item.children) {
-              const children = this.transformAuthRoutesToMenus(item.children)
-              // 只有子元素有且不为空时才添加
-              if (children.length !== 0)
-                target.children = children
-              else target.children = undefined
-            }
-            return target
-          })
-      )
+            key: item.path,
+            icon: renderIcon(item.meta.icon),
+          }
+          /** 判断子元素 */
+          if (item.children) {
+            const children = this.transformAuthRoutesToMenus(item.children)
+            // 只有子元素有且不为空时才添加
+            if (children.length !== 0)
+              target.children = children
+            else target.children = undefined
+          }
+          return target
+        })
     },
     /* 初始化动态路由 */
     async initDynamicRoute() {

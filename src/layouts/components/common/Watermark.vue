@@ -1,7 +1,7 @@
 <script setup lang="ts">
 interface Props {
   showWatermark: boolean
-  text: string
+  text?: string
 }
 const props = withDefaults(defineProps<Props>(), {
   showWatermark: false,

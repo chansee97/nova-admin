@@ -1,22 +1,7 @@
 declare namespace AppRoute {
-  /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
-  interface Route {
-    /** 路由名称(路由唯一标识) */
-    name: string
-    /** 路由路径 */
-    path: string
-    /** 路由重定向 */
-    redirect?: string
-    /** 子路由 */
-    children?: Route[]
-    /** 路由描述 */
-    meta: RouteMeta
-    /** 路由属性 */
-    // props?: boolean | Record<string, any> | ((to: any) => Record<string, any>);
-  }
   /** 路由描述 */
   interface RouteMeta {
-    /* 页面标题，通常必选。 */
+  /* 页面标题，通常必选。 */
     title: string
     /* 图标，一般配合菜单使用 */
     icon?: string
@@ -35,4 +20,33 @@ declare namespace AppRoute {
     /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
     activeMenu?: string
   }
+  /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
+  interface baseRoute {
+    /** 路由名称(路由唯一标识) */
+    name: string
+    /** 路由路径 */
+    path: string
+    /** 路由重定向 */
+    redirect?: string
+    /* 页面组件地址 */
+    componentPath?: string | null
+    // 路由id
+    id: numnber
+    // 父级路由id，顶级页面为0
+    pid: number
+  }
+
+  type RowRoute = {
+    [K in keyof RouteMeta as `meta.${K}`]?: RouteMeta[K]
+  } & baseRoute
+
+  interface Route extends baseRoute {
+    /** 子路由 */
+    children?: Route[]
+    /* 页面组件 */
+    component: any
+    /** 路由描述 */
+    meta: RouteMeta
+  }
+
 }

@@ -21,7 +21,7 @@ const symbolId = computed(() => `#${props.prefix}-${props.name}`)
     aria-hidden="true"
     :width="`${props.size}px`"
     :height="`${props.size}px`"
-    display="inline"
+    class="inline"
   >
     <use
       :xlink:href="symbolId"

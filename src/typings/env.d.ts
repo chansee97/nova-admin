@@ -32,6 +32,8 @@ interface ImportMetaEnv {
   readonly VITE_ROUTE_MODE?: 'hash' | 'web'
   /** 路由加载模式 */
   readonly VITE_AUTH_ROUTE_MODE?: 'static' | 'dynamic'
+  /** 首次加载页面 */
+  readonly VITE_HOME_PATH: string
 
   /** 后端服务的环境类型 */
   readonly MODE: ServiceEnvType

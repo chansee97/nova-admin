@@ -1,5 +1,5 @@
+import { isArray, isString } from 'radash'
 import { useAuthStore } from '@/store'
-import { isArray, isString } from '@/utils'
 
 interface AppInfo {
   /** 项目名称 */

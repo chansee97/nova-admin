@@ -55,14 +55,14 @@ export function createVitePlugins(env: ImportMetaEnv) {
     // auto use svg icon
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹
-      iconDirs: [path.resolve(__dirname, 'src/assets/icons')],
+      iconDirs: [path.resolve(__dirname, '../src/assets/icons')],
       // 指定symbolId格式
       symbolId: 'icon-[dir]-[name]',
       // inject: 'body-last',
       // customDomId: '__svg__icons__dom__',
     }),
-  ]
 
+  ]
   // use compression
   if (env.VITE_COMPRESS_OPEN === 'Y') {
     const { VITE_COMPRESS_TYPE = 'gzip' } = env

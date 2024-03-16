@@ -23,5 +23,5 @@ export function fetchUserInfo(params: any) {
   return alovaInstance.Get<Auth.UserInfo>('/getUserInfo', { params })
 }
 export function fetchUserRoutes(params: { id: number }) {
-  return alovaInstance.Get<AppRoute.Route[]>('/getUserRoutes', { params })
+  return alovaInstance.Get<AppRoute.RowRoute[]>('/getUserRoutes', { params })
 }

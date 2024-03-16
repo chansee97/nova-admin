@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import { BasicLayout } from '@/layouts/index'
 
 /* 页面中的一些固定路由，错误页等 */
 export const routes: RouteRecordRaw[] = [
@@ -7,7 +6,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'root',
     redirect: '/appRoot',
-    component: BasicLayout,
+    component: () => import('@/layouts/index'),
     children: [
     ],
   },
@@ -48,7 +47,12 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: '/404',
+    component: () => import('@/views/error/404/index.vue'),
+    name: '404',
+    meta: {
+      title: '找不到页面',
+      icon: 'icon-park-outline:ghost',
+    },
   },
 
 ]

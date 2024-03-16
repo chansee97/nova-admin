@@ -18,7 +18,7 @@ const appStore = useAppStore()
     />
     <span
       v-show="!appStore.collapsed"
-      class="mx-4"
+      class="mx-3"
     >{{ name }}</span>
   </div>
 </template>

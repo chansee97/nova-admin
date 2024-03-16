@@ -1,7 +1,9 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { clone, construct, min } from 'radash'
 import { BasicLayout } from '@/layouts/index'
 import { useRouteStore } from '@/store'
 import { usePermission } from '@/hooks'
+import { arrayToTree } from '@/utils'
 
 // 引入所有页面
 const modules = import.meta.glob('../../views/**/*.vue')
@@ -10,70 +12,53 @@ const modules = import.meta.glob('../../views/**/*.vue')
 function setRedirect(routes: AppRoute.Route[]) {
   routes.forEach((route) => {
     if (route.children) {
-      const nonHiddenChild = route.children.find(child => !child.meta || !child.meta.hide)
-      if (nonHiddenChild)
-        route.redirect = nonHiddenChild.path
+      if (!route.redirect) {
+        // 过滤出没有隐藏的子元素集
+        const visibleChilds = route.children.filter(child => !child.meta.hide)
+
+        // 过滤出含有order属性的页面
+        const orderChilds = visibleChilds.filter(child => child.meta.order)
+
+        // 重定向页默认第一个子元素的路径
+        let target = route.children[0]
+        if (orderChilds.length > 0)
+          // 有order则取最小者重定向
+          target = min(orderChilds, i => i.meta.order as number) as AppRoute.Route
+
+        route.redirect = target.path
+      }
 
       setRedirect(route.children)
     }
   })
 }
-/* 路由树转换成一维数组 */
-function FlatAuthRoutes(routes: AppRoute.Route[]) {
-  let result: AppRoute.Route[] = []
-  routes.forEach((item: AppRoute.Route) => {
-    if (item.children) {
-      const temp = item.children || []
-      delete item.children
-      result.push(item)
-      result = [...result, ...FlatAuthRoutes(temp)]
-    }
-    else {
-      result.push(item)
-    }
-  })
-  return result
-}
-/* 路由无权限过滤 */
-function filterPermissionRoutes(routes: AppRoute.Route[]) {
+export function createDynamicRoutes(routes: AppRoute.RowRoute[]) {
   const { hasPermission } = usePermission()
-  return routes.filter((route) => {
-    return hasPermission(route.meta.roles)
-  })
-}
+  // 结构化meta字段
+  let resultRouter = clone(routes).map(i => construct(i)) as AppRoute.Route[]
+  // 路由权限过滤
+  resultRouter = resultRouter.filter(i => hasPermission(i.meta.roles))
 
-function createCatheRoutes(routes: AppRoute.Route[]) {
-  return routes
-    .filter((item) => {
-      return item.meta.keepAlive
-    })
-    .map(item => item.name)
-}
-export function createDynamicRoutes(routes: AppRoute.Route[]) {
-  /* 复制一层 */
-  let resultRouter = JSON.parse(JSON.stringify(routes))
-  /* 设置路由重定向到子级第一个 */
-  setRedirect(resultRouter)
-  // 数组降维成一维数组,然后删除所有的childen
-  resultRouter = FlatAuthRoutes(resultRouter)
-  /* 路由权限过滤 */
-  resultRouter = filterPermissionRoutes(resultRouter)
-  // 过滤需要缓存的路由name数组
+  // 生成需要keepAlive的路由name数组
   const routeStore = useRouteStore()
-  routeStore.cacheRoutes = createCatheRoutes(resultRouter)
+  routeStore.cacheRoutes = resultRouter.filter((i) => {
+    return i.meta.keepAlive
+  })
+    .map(i => i.name)
+
   // 生成路由，有redirect的不需要引入文件
   resultRouter = resultRouter.map((item: any) => {
-    if (!item.redirect) {
-      // 动态加载对应页面
-      item.component = modules[`../../views${item.path}/index.vue`]
-    }
+    if (item.componentPath && !item.redirect)
+      item.component = modules[`../../views${item.componentPath}`]
     return item
   })
 
+  resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
+  setRedirect(resultRouter)
   const appRootRoute: RouteRecordRaw = {
     path: '/appRoot',
     name: 'appRoot',
-    redirect: '/dashboard/workbench',
+    redirect: import.meta.env.VITE_HOME_PATH,
     component: BasicLayout,
     meta: {
       title: '首页',
