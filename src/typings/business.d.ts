@@ -18,14 +18,9 @@ declare namespace Auth {
 }
 /* 系统消息 */
 declare namespace Message {
-  interface Tab {
-    key: number
-    name: string
-    badgeProps?: import('naive-ui').BadgeProps
-    list: List[]
-  }
   interface List {
     id: number
+    type: 0 | 1 | 2
     title: string
     icon: string
     tagTitle?: string

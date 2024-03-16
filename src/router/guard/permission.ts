@@ -38,7 +38,8 @@ export async function createPermissionGuard(
   }
 
   // 权限路由已经加载，仍然未找到，重定向到404
-  if (to.name === '404') {
+  // 若是从404再次跳转，则跳过判断
+  if (to.name === '404' && to?.redirectedFrom?.name !== '404') {
     next({ name: '404', replace: true })
     return false
   }

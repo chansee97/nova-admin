@@ -6,5 +6,5 @@ export function showError(error: Service.RequestError) {
   if (ERROR_NO_TIP_STATUS.includes(code))
     return
 
-  window.$message?.error(error.msg)
+  window.$message.error(error.msg)
 }

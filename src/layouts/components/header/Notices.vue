@@ -1,105 +1,98 @@
 <script setup lang="ts">
+import { group } from 'radash'
 import HeaderButton from '../common/HeaderButton.vue'
 import NoticeList from '../common/NoticeList.vue'
 
-const MassageData = ref<Message.Tab[]>([
+const MassageData = ref<Message.List[]>([
   {
-    key: 0,
-    name: '通知',
-    badgeProps: { type: 'warning' },
-    list: [
-      {
-        id: 0,
-        title: 'Admin 已经完成40%了！',
-        icon: 'icon-park-outline:tips-one',
-        tagTitle: '未开始',
-        tagType: 'info',
-        description: '项目稳定推进中，很快就能看到正式版了',
-        date: '2022-2-2 12:22',
-      },
-      {
-        id: 1,
-        title: 'Admin 已经添加通知功能！',
-        icon: 'icon-park-outline:comment-one',
-        tagTitle: '未开始',
-        tagType: 'success',
-        date: '2022-2-2 12:22',
-      },
-      {
-        id: 2,
-        title: 'Admin 已经添加路由功能！',
-        icon: 'icon-park-outline:message-emoji',
-        tagTitle: '未开始',
-        tagType: 'warning',
-        description: '项目稳定推进中...',
-        date: '2022-2-5 18:32',
-      },
-      {
-        id: 3,
-        title:
+    id: 0,
+    type: 0,
+    title: 'Admin 已经完成40%了！',
+    icon: 'icon-park-outline:tips-one',
+    tagTitle: '未开始',
+    tagType: 'info',
+    description: '项目稳定推进中，很快就能看到正式版了',
+    date: '2022-2-2 12:22',
+  },
+  {
+    id: 1,
+    type: 0,
+    title: 'Admin 已经添加通知功能！',
+    icon: 'icon-park-outline:comment-one',
+    tagTitle: '未开始',
+    tagType: 'success',
+    date: '2022-2-2 12:22',
+  },
+  {
+    id: 2,
+    type: 0,
+    title: 'Admin 已经添加路由功能！',
+    icon: 'icon-park-outline:message-emoji',
+    tagTitle: '未开始',
+    tagType: 'warning',
+    description: '项目稳定推进中...',
+    date: '2022-2-5 18:32',
+  },
+  {
+    id: 3,
+    type: 0,
+    title:
           'Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！Admin 已经添加菜单导航功能！',
-        icon: 'icon-park-outline:tips-one',
-        tagTitle: '未开始',
-        tagType: 'error',
-        description:
+    icon: 'icon-park-outline:tips-one',
+    tagTitle: '未开始',
+    tagType: 'error',
+    description:
           '项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...项目稳定推进中...',
-        date: '2022-2-5 18:32',
-      },
-      {
-        id: 4,
-        title: 'Admin开始启动了！',
-        icon: 'icon-park-outline:tips-one',
-        tagTitle: '未开始',
-        description: '项目稳定推进中...',
-        date: '2022-2-5 18:32',
-      },
-    ],
+    date: '2022-2-5 18:32',
   },
   {
-    key: 1,
-    name: '消息',
-    badgeProps: { type: 'info' },
-    list: [
-      {
-        id: 0,
-        title: '相见恨晚??',
-        icon: 'icon-park-outline:comment',
-        description: '项目稳定推进中，很快就能看到正式版了',
-        date: '2022-2-2 12:22',
-      },
-      {
-        id: 1,
-        title: '动态路由已完成！',
-        icon: 'icon-park-outline:comment',
-        description: '项目稳定推进中，很快就能看到正式版了',
-        date: '2022-2-25 12:22',
-      },
-    ],
+    id: 4,
+    type: 0,
+    title: 'Admin开始启动了！',
+    icon: 'icon-park-outline:tips-one',
+    tagTitle: '未开始',
+    description: '项目稳定推进中...',
+    date: '2022-2-5 18:32',
   },
   {
-    key: 2,
-    name: '待办',
-    badgeProps: { type: 'error' },
-    list: [
-      {
-        id: 0,
-        title: '接下来需要完善一些',
-        icon: 'icon-park-outline:beach-umbrella',
-        tagTitle: '未开始',
-        description: '项目稳定推进中，很快就能看到正式版了',
-        date: '2022-2-2 12:22',
-      },
-    ],
+    id: 5,
+    type: 1,
+    title: '相见恨晚??',
+    icon: 'icon-park-outline:comment',
+    description: '项目稳定推进中，很快就能看到正式版了',
+    date: '2022-2-2 12:22',
+  },
+  {
+    id: 6,
+    type: 1,
+    title: '动态路由已完成！',
+    icon: 'icon-park-outline:comment',
+    description: '项目稳定推进中，很快就能看到正式版了',
+    date: '2022-2-25 12:22',
+  },
+  {
+    id: 7,
+    type: 2,
+    title: '接下来需要完善一些',
+    icon: 'icon-park-outline:beach-umbrella',
+    tagTitle: '未开始',
+    description: '项目稳定推进中，很快就能看到正式版了',
+    date: '2022-2-2 12:22',
   },
 ])
 const currentTab = ref(0)
-function handleRead(index: number) {
-  MassageData.value[currentTab.value].list[index].isRead = true
+function handleRead(id: number) {
+  // MassageData.value[currentTab.value].list[index].isRead = true
+  const data = MassageData.value.find(i => i.id === id)
+  if (data)
+    data.isRead = true
+  window.$message.success(`已读id: ${id}`)
 }
 const massageCount = computed(() => {
-  return MassageData.value.reduce((pre, cur) => {
-    return pre + cur.list.filter(item => !item.isRead).length
-  }, 0)
+  return MassageData.value.filter(i => !i.isRead).length
+})
+const groupMessage = computed(() => {
+  return group(MassageData.value, i => i.type)
 })
 </script>
 
@@ -118,14 +111,32 @@ const massageCount = computed(() => {
       </n-tooltip>
     </template>
     <n-tabs v-model:value="currentTab" type="line" animated justify-content="space-evenly" class="w-390px">
-      <n-tab-pane v-for="item in MassageData" :key="item.key" :name="item.key">
+      <n-tab-pane :name="0">
         <template #tab>
           <n-space class="w-130px" justify="center">
-            {{ item.name }}
-            <n-badge v-bind="item.badgeProps" :value="item.list.filter((item) => !item.isRead).length" :max="99" />
+            通知
+            <n-badge type="info" :value="groupMessage[0]?.filter(i => !i.isRead).length" :max="99" />
           </n-space>
         </template>
-        <NoticeList :list="item.list" @read="handleRead" />
+        <NoticeList :list="groupMessage[0]" @read="handleRead" />
+      </n-tab-pane>
+      <n-tab-pane :name="1">
+        <template #tab>
+          <n-space class="w-130px" justify="center">
+            消息
+            <n-badge type="warning" :value="groupMessage[1]?.filter(i => !i.isRead).length" :max="99" />
+          </n-space>
+        </template>
+        <NoticeList :list="groupMessage[1]" @read="handleRead" />
+      </n-tab-pane>
+      <n-tab-pane :name="2">
+        <template #tab>
+          <n-space class="w-130px" justify="center">
+            待办
+            <n-badge type="error" :value="groupMessage[2]?.filter(i => !i.isRead).length" :max="99" />
+          </n-space>
+        </template>
+        <NoticeList :list="groupMessage[2]" @read="handleRead" />
       </n-tab-pane>
     </n-tabs>
   </n-popover>

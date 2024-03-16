@@ -8,15 +8,12 @@ const emit = defineEmits<Emits>()
 interface Emits {
   (e: 'read', val: number): void
 }
-function handleRead(index: number) {
-  emit('read', index)
-}
 </script>
 
 <template>
   <n-scrollbar style="height: 400px">
     <n-list hoverable clickable>
-      <n-list-item v-for="(item, index) in props.list" :key="item.id" @click="handleRead(index)">
+      <n-list-item v-for="(item) in props.list" :key="item.id" @click="emit('read', item.id)">
         <n-thing content-indented :class="{ 'opacity-30': item.isRead }">
           <template #header>
             <n-ellipsis :line-clamp="1">

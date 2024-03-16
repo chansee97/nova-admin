@@ -19,7 +19,7 @@ const model = ref({ ...initialModel })
 
 const formRef = ref<FormInst | null>()
 function sendMail(id: number) {
-  window.$message?.success(`删除用户id:${id}`)
+  window.$message.success(`删除用户id:${id}`)
 }
 const columns: DataTableColumns = [
   {
@@ -137,7 +137,7 @@ async function getUserList() {
   })
 }
 function changePage(page: number, size: number) {
-  window.$message?.success(`分页器:${page},${size}`)
+  window.$message.success(`分页器:${page},${size}`)
 }
 function handleResetSearch() {
   model.value = { ...initialModel }

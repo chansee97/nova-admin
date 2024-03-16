@@ -10,12 +10,12 @@ export function setupCopy(app: App) {
 
   function clipboardEnable() {
     if (!isSupported.value) {
-      window.$message?.error('Your browser does not support Clipboard API')
+      window.$message.error('Your browser does not support Clipboard API')
       return false
     }
 
     if (permissionWrite.value !== 'granted') {
-      window.$message?.error('Currently not permitted to use Clipboard API')
+      window.$message.error('Currently not permitted to use Clipboard API')
       return false
     }
     return true
@@ -25,7 +25,7 @@ export function setupCopy(app: App) {
     if (!clipboardEnable())
       return
     copy(this._copyText)
-    window.$message?.success('复制成功')
+    window.$message.success('复制成功')
   }
 
   function updataClipboard(el: CopyHTMLElement, text: string) {

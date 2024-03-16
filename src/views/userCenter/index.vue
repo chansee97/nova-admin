@@ -35,8 +35,8 @@ const rules = {
 function handleValidateClick() {
   formRef.value?.validate((errors: any) => {
     if (!errors)
-      window.$message?.success('验证通过')
-    else window.$message?.error('验证不通过')
+      window.$message.success('验证通过')
+    else window.$message.error('验证不通过')
   })
 }
 </script>
