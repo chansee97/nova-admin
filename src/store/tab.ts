@@ -1,5 +1,5 @@
 import type { RouteLocationNormalized } from 'vue-router'
-import { useAppRouter } from '@/hooks'
+import { router } from '@/router'
 
 interface TabState {
   inherentTab: {
@@ -50,7 +50,6 @@ export const useTabStore = defineStore('tab-store', {
       this.tabs.push(route)
     },
     async closeTab(name: string) {
-      const { routerPush, toRoot } = useAppRouter(false)
       const tabsLength = this.tabs.length
       // 如果动态标签大于一个,才会标签跳转
       if (this.tabs.length > 1) {
@@ -60,11 +59,11 @@ export const useTabStore = defineStore('tab-store', {
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
         if (this.currentTab === name && !isLast) {
           // 跳转到后一个标签
-          await routerPush(this.tabs[index + 1].path)
+          router.push(this.tabs[index + 1].path)
         }
         else if (this.currentTab === name && isLast) {
           // 已经是最后一个了，就跳转前一个
-          await routerPush(this.tabs[index - 1].path)
+          router.push(this.tabs[index - 1].path)
         }
       }
       // 删除标签
@@ -73,7 +72,7 @@ export const useTabStore = defineStore('tab-store', {
       })
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0)
-        await toRoot()
+        router.push('/')
     },
 
     closeOtherTabs(name: string) {
@@ -89,9 +88,8 @@ export const useTabStore = defineStore('tab-store', {
       this.tabs = this.tabs.filter((item, i) => i <= index)
     },
     async closeAllTabs() {
-      const { toRoot } = useAppRouter(false)
       this.tabs.length = 0
-      await toRoot()
+      router.push('/')
     },
 
     hasExistTab(name: string) {

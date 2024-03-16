@@ -1,7 +1,6 @@
 import { useRouteStore } from './route'
 import { fetchLogin, fetchUserInfo } from '@/service'
 import { router } from '@/router'
-import { useAppRouter } from '@/hooks'
 import { local } from '@/utils'
 
 const emptyInfo: Auth.UserInfo = {
@@ -30,15 +29,20 @@ export const useAuthStore = defineStore('auth-store', {
     /* 登录退出，重置用户信息等 */
     async resetAuthStore() {
       const route = unref(router.currentRoute)
-      const { toLogin } = useAppRouter(false)
       // 清除本地缓存
       this.clearAuthStorage()
       // 清空路由、菜单等数据
       const routeStore = useRouteStore()
       routeStore.resetRouteStore()
       this.$reset()
-      if (route.meta.requiresAuth)
-        await toLogin()
+      if (route.meta.requiresAuth) {
+        router.push({
+          name: 'login',
+          query: {
+            redirect: route.fullPath,
+          },
+        })
+      }
     },
     clearAuthStorage() {
       local.remove('token')
@@ -72,8 +76,11 @@ export const useAuthStore = defineStore('auth-store', {
       // 登录写入信息成功
       if (catchSuccess) {
         // 进行重定向跳转
-        const { toLoginRedirect } = useAppRouter(false)
-        await toLoginRedirect()
+        const route = unref(router.currentRoute)
+        const query = route.query as { redirect: string }
+        router.push({
+          path: query.redirect || '/',
+        })
 
         // 触发用户提示
         window.$notification?.success({
@@ -105,9 +112,6 @@ export const useAuthStore = defineStore('auth-store', {
       catchSuccess = true
 
       return catchSuccess
-    },
-    async toggleUserRole(role: Auth.RoleType) {
-      await this.login(role, '123456')
     },
   },
 })

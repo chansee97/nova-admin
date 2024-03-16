@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useAppInfo } from '@/hooks'
-
-const { name } = useAppInfo()
+const name = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>

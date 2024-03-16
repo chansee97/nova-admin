@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import { useAppRouter } from '@/hooks'
-
-type TipType = '403' | '404' | '500'
 defineProps<{
   /** 异常类型 403 404 500 */
-  type: TipType
+  type: '403' | '404' | '500'
 }>()
-const { toRoot } = useAppRouter()
+const router = useRouter()
 </script>
 
 <template>
@@ -31,11 +28,9 @@ const { toRoot } = useAppRouter()
     >
     <n-button
       type="primary"
-      @click="toRoot"
+      @click="router.push('/')"
     >
       回到首页
     </n-button>
   </div>
 </template>
-
-<style lang="scss" scoped></style>

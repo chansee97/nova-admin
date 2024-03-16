@@ -123,16 +123,16 @@ export const useRouteStore = defineStore('route-store', {
       if (!userInfo || !userInfo.id)
         return
 
-      const { data: routes } = await fetchUserRoutes({
+      const { data } = await fetchUserRoutes({
         id: userInfo.id,
       })
 
-      if (!routes)
+      if (!data)
         return
       // 根据用户返回的路由表来生成真实路由
-      const appRoutes = createDynamicRoutes(routes)
+      const appRoutes = createDynamicRoutes(data)
       // 生成侧边菜单
-      this.createMenus(routes)
+      this.createMenus(data)
       // 插入路由表
       router.addRoute(appRoutes)
     },

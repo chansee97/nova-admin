@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useAppStore } from '@/store'
-import { useAppInfo, useAppRouter } from '@/hooks'
 
-const { name } = useAppInfo()
-const { toRoot } = useAppRouter()
+const router = useRouter()
 const appStore = useAppStore()
+
+const name = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>
   <div
     class="h-60px text-2xl flex-center overflow-hidden cursor-pointer"
-    @click="toRoot"
+    @click="router.push('/')"
   >
     <SvgIcon
       name="logo"

@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
-import { useAppRouter } from '@/hooks'
 import { renderIcon } from '@/utils'
 
 const tabStore = useTabStore()
 const appStore = useAppStore()
 
-const { routerPush, toRoot } = useAppRouter()
-
+const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
-  routerPush(route.path)
+  router.push(route.path)
 }
 function handleClose(name: string) {
   tabStore.closeTab(name)
@@ -107,7 +105,7 @@ function onClickoutside() {
         v-for="item in tabStore.inherentTab"
         :key="item.path"
         :name="item.name"
-        @click="toRoot"
+        @click="router.push('/')"
       >
         {{ item.title }}
       </n-tab>

@@ -1,20 +1,6 @@
 import { isArray, isString } from 'radash'
 import { useAuthStore } from '@/store'
 
-interface AppInfo {
-  /** 项目名称 */
-  name: string
-}
-
-/** 项目信息 */
-export function useAppInfo(): AppInfo {
-  const { VITE_APP_NAME: name } = import.meta.env
-
-  return {
-    name,
-  }
-}
-
 /** 权限判断 */
 export function usePermission() {
   const authStore = useAuthStore()
