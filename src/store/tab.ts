@@ -2,108 +2,94 @@ import type { RouteLocationNormalized } from 'vue-router'
 import { router } from '@/router'
 
 interface TabState {
-  inherentTab: {
-    name: string
-    title: string
-    path: string
-  }[]
+  pinTabs: RouteLocationNormalized[]
   tabs: RouteLocationNormalized[]
-  tabWhiteList: string[]
-  currentTab: string
+  currentTabPath: string
 }
 export const useTabStore = defineStore('tab-store', {
   state: (): TabState => {
     return {
-      inherentTab: [
-        {
-          name: 'dashboard_workbench',
-          title: '工作台',
-          path: '/',
-        },
-      ],
+      pinTabs: [],
       tabs: [],
-      tabWhiteList: ['404', '403', '500', 'login'],
-      currentTab: 'dashboard_workbench',
+      currentTabPath: '',
     }
-  },
-  getters: {
-    inherentTabName(): string[] {
-      return this.inherentTab.map((item) => {
-        return item.name
-      })
-    },
   },
   actions: {
     addTab(route: RouteLocationNormalized) {
-      // 如果已经在固有标签里则不添加
-      if (this.inherentTabName.includes(route.name as string))
+      // 根据meta确定是否不添加，可用于错误页,登录页等
+      if (route.meta.withoutTab)
         return
 
       // 如果标签名称已存在则不添加
-      if (this.hasExistTab(route.name as string))
+      if (this.hasExistTab(route.path as string))
         return
 
-      // 如果在白名单内则不添加,错误页等
-      if (this.tabWhiteList.includes(route.name as string))
-        return
-
-      this.tabs.push(route)
+      // 根据meta.pinTab传递到不同的分组中
+      if (route.meta.pinTab)
+        this.pinTabs.push(route)
+      else
+        this.tabs.push(route)
     },
-    async closeTab(name: string) {
+    async closeTab(path: string) {
       const tabsLength = this.tabs.length
       // 如果动态标签大于一个,才会标签跳转
       if (this.tabs.length > 1) {
         // 获取关闭的标签索引
-        const index = this.getTabIndex(name)
+        const index = this.getTabIndex(path)
         const isLast = index + 1 === tabsLength
         // 如果是关闭的当前页面，路由跳转到原先标签的后一个标签
-        if (this.currentTab === name && !isLast) {
+        if (this.currentTabPath === path && !isLast) {
           // 跳转到后一个标签
           router.push(this.tabs[index + 1].path)
         }
-        else if (this.currentTab === name && isLast) {
+        else if (this.currentTabPath === path && isLast) {
           // 已经是最后一个了，就跳转前一个
           router.push(this.tabs[index - 1].path)
         }
       }
       // 删除标签
       this.tabs = this.tabs.filter((item) => {
-        return item.name !== name
+        return item.path !== path
       })
       // 删除后如果清空了，就跳转到默认首页
       if (tabsLength - 1 === 0)
         router.push('/')
     },
 
-    closeOtherTabs(name: string) {
-      const index = this.getTabIndex(name)
+    closeOtherTabs(path: string) {
+      const index = this.getTabIndex(path)
       this.tabs = this.tabs.filter((item, i) => i === index)
     },
-    closeLeftTabs(name: string) {
-      const index = this.getTabIndex(name)
+    closeLeftTabs(path: string) {
+      const index = this.getTabIndex(path)
       this.tabs = this.tabs.filter((item, i) => i >= index)
     },
-    closeRightTabs(name: string) {
-      const index = this.getTabIndex(name)
+    closeRightTabs(path: string) {
+      const index = this.getTabIndex(path)
       this.tabs = this.tabs.filter((item, i) => i <= index)
     },
-    async closeAllTabs() {
+    clearAllTabs() {
+      this.tabs.length = 0
+      this.pinTabs.length = 0
+    },
+    closeAllTabs() {
       this.tabs.length = 0
       router.push('/')
     },
 
-    hasExistTab(name: string) {
-      return this.tabs.some((item) => {
-        return item.name === name
+    hasExistTab(path: string) {
+      const _tabs = [...this.tabs, ...this.pinTabs]
+      return _tabs.some((item) => {
+        return item.path === path
       })
     },
     /* 设置当前激活的标签 */
-    setCurrentTab(name: string) {
-      this.currentTab = name
+    setCurrentTab(path: string) {
+      this.currentTabPath = path
     },
-    getTabIndex(name: string) {
+    getTabIndex(path: string) {
       return this.tabs.findIndex((item) => {
-        return item.name === name
+        return item.path === path
       })
     },
   },

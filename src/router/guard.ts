@@ -61,7 +61,7 @@ export function setupRouterGuard(router: Router) {
     // 添加tabs
     tabStore.addTab(to)
     // 设置高亮标签;
-    tabStore.setCurrentTab(to.name as string)
+    tabStore.setCurrentTab(to.path as string)
   })
 
   router.afterEach((to) => {

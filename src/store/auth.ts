@@ -37,7 +37,7 @@ export const useAuthStore = defineStore('auth-store', {
       routeStore.resetRouteStore()
       // 清空标签栏数据
       const tabStore = useTabStore()
-      tabStore.tabs.length = 0
+      tabStore.clearAllTabs()
       // 重制当前存储库
       this.$reset()
       // 重定向到登录页

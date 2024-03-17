@@ -10,8 +10,8 @@ const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
   router.push(route.path)
 }
-function handleClose(name: string) {
-  tabStore.closeTab(name)
+function handleClose(path: string) {
+  tabStore.closeTab(path)
 }
 const options = [
   {
@@ -60,16 +60,16 @@ function handleSelect(key: string) {
       appStore.reloadPage()
     },
     closeCurrent() {
-      tabStore.closeTab(currentRoute.value.name)
+      tabStore.closeTab(currentRoute.value.path)
     },
     closeOther() {
-      tabStore.closeOtherTabs(currentRoute.value.name)
+      tabStore.closeOtherTabs(currentRoute.value.path)
     },
     closeLeft() {
-      tabStore.closeLeftTabs(currentRoute.value.name)
+      tabStore.closeLeftTabs(currentRoute.value.path)
     },
     closeRight() {
-      tabStore.closeRightTabs(currentRoute.value.name)
+      tabStore.closeRightTabs(currentRoute.value.path)
     },
     closeAll() {
       tabStore.closeAllTabs()
@@ -98,22 +98,22 @@ function onClickoutside() {
       type="card"
       size="small"
       :tabs-padding="15"
-      :value="tabStore.currentTab"
+      :value="tabStore.currentTabPath"
       @close="handleClose"
     >
       <n-tab
-        v-for="item in tabStore.inherentTab"
+        v-for="item in tabStore.pinTabs"
         :key="item.path"
-        :name="item.name"
-        @click="router.push('/')"
+        :name="item.path"
+        @click="router.push(item.path)"
       >
-        {{ item.title }}
+        {{ item.meta.title }}
       </n-tab>
       <n-tab
         v-for="item in tabStore.tabs"
         :key="item.path"
         closable
-        :name="item.name as string"
+        :name="item.path as string"
         @click="handleTab(item)"
         @contextmenu="handleContextMenu($event, item)"
       >

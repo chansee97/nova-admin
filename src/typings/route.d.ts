@@ -19,6 +19,10 @@ declare namespace AppRoute {
     herf?: string
     /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
     activeMenu?: string
+    /** 当前路由是否会被添加到Tab中 */
+    withoutTab?: boolean
+    /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
+    pinTab?: boolean
   }
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   interface baseRoute {

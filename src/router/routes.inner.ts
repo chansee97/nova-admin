@@ -16,6 +16,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/login/index.vue'), // 注意这里要带上 文件后缀.vue
     meta: {
       title: '登录',
+      withoutTab: true,
     },
   },
   {
@@ -24,7 +25,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('@/views/error/403/index.vue'),
     meta: {
       title: '用户无权限',
-      icon: 'icon-park-outline:error',
+      withoutTab: true,
     },
   },
   {
@@ -34,6 +35,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '找不到页面',
       icon: 'icon-park-outline:ghost',
+      withoutTab: true,
     },
   },
   {
@@ -43,6 +45,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '服务器错误',
       icon: 'icon-park-outline:close-wifi',
+      withoutTab: true,
     },
   },
   {
@@ -52,6 +55,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       title: '找不到页面',
       icon: 'icon-park-outline:ghost',
+      withoutTab: true,
     },
   },
 
