@@ -48,7 +48,7 @@ function handleValidateClick() {
         <n-space size="large">
           <n-avatar round :size="128" :src="userInfo?.avatar" />
 
-          <n-descriptions label-placement="left" :column="2" :title="`傍晚好，${userInfo?.userName}，这里是简单的个人中心模板`">
+          <n-descriptions label-placement="left" :column="2" :title="`傍晚好，${userInfo?.nickName}，这里是简单的个人中心模板`">
             <n-descriptions-item label="id">
               {{ userInfo?.id }}
             </n-descriptions-item>

@@ -11,8 +11,8 @@ export function setupRouterGuard(router: Router) {
       window.open(to.meta.herf)
       return false
     }
-    // 开始 loadingBar
-    window.$loadingBar?.start()
+    // 开始 NProgress
+    window.$NProgress?.start()
 
     // 权限操作
     const routeStore = useRouteStore()
@@ -67,7 +67,7 @@ export function setupRouterGuard(router: Router) {
   router.afterEach((to) => {
     // 修改网页标题
     document.title = `${to.meta.title} - ${title}`
-    // 结束 loadingBar
-    window.$loadingBar?.finish()
+    // 结束 NProgress
+    window.$NProgress?.done()
   })
 }

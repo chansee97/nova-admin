@@ -4,7 +4,7 @@ interface CopyHTMLElement extends HTMLElement {
   _copyText: string
 }
 
-export function setupCopy(app: App) {
+export function install(app: App) {
   const { isSupported, copy } = useClipboard()
   const permissionWrite = usePermission('clipboard-write')
 

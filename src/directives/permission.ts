@@ -1,7 +1,7 @@
 import type { App, Directive } from 'vue'
 import { usePermission } from '@/hooks'
 
-export function setupPermission(app: App) {
+export function install(app: App) {
   const { hasPermission } = usePermission()
 
   function updatapermission(el: HTMLElement, permission: Auth.RoleType | Auth.RoleType[]) {
