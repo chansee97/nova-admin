@@ -14,11 +14,11 @@
   English |  [中文](./README.zh-CN.md)
 </div>
 
-## introduction
+## Introduction
 
 [Nova-admin](https://github.com/chansee97/nova-admin) A free and open-source template for middle platform/back-end based on Vue3, Vite4, Typescript, pinia, Naive UI, and Vue-Router to help improve the development efficiency of middle platform/back-end
 
-## features
+## Features
 
 - **Latest popular technology stack** - Developed based on the latest technology stack such as Vue3, Vite, TypeScript, NaiveUI, Pinia, etc
 - **Network request function encapsulation** - Based on [alova](https://alova.js.org/) encapsulation and configuration, unified response processing and multi-scenario capabilities
@@ -28,7 +28,7 @@
 - **Theme Configuration** - Dark Theme Adaptation
 - **Code Specification** - Only perform eslint verification at commit time, no too many restrictions, easier development
 
-## project preview & display
+## Project preview
 
 - [Nova-Admin preview](https://admin-nova.vercel.app/)
 
@@ -38,16 +38,16 @@
 ![image.png](https://s2.loli.net/2023/10/10/cy8nrv1kSLpjCT9.png)
 ![image.png](https://s2.loli.net/2023/10/10/rACdG2fUI6oJN7H.png)
 
-## repo
+## Repo
 
 - [Gitee](https://gitee.com/chansee97/nova-admin)
 - [Github](https://github.com/chansee97/nova-admin)
 
-## related projects
+## Related projects
 
 - [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
 
-## install and use
+## Install and use
 
 The local development environment is recommended to use pnpm 8.x, Node.js 16.x
 
@@ -63,12 +63,12 @@ pnpm build
 
 ```
 
-## 接口文档
+## Interface document
 
 This project uses ApiFox for interface mock, check the online documentation for more interface details
 [online aipfox docs](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
 
-## learn to communicate
+## Learn to communicate
 
 Nova-Admin is a completely open-source and free project. It is still being optimized and iterated. It is designed to help developers more conveniently develop medium and large management systems. If you have any questions, please ask questions in the QQ exchange group.
 
@@ -76,11 +76,11 @@ Nova-Admin is a completely open-source and free project. It is still being optim
 | :--: |:--: |
 | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
 
-## contribution
+## Contribution
 
 If you find any issues or have suggestions for improvement, please create an [issue](nova-admin/issues/new) or submit a PR. We welcome your contributions!
 
-## support
+## Support
 
 If you feel that this project is helpful for your work or study, please help me order a ✨ Star, which will be a great encouragement and support for me, or you can buy me a cup of coffee below
 
