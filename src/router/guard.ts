@@ -14,9 +14,8 @@ export function setupRouterGuard(router: Router) {
     // 开始 NProgress
     window.$NProgress?.start()
 
-    // 权限操作
-    const routeStore = useRouteStore()
     // 判断有无TOKEN,登录鉴权
+    const routeStore = useRouteStore()
     const isLogin = Boolean(local.get('token'))
     if (!isLogin) {
       if (to.name === 'login')
