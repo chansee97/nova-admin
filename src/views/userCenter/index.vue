@@ -48,7 +48,7 @@ function handleValidateClick() {
         <n-space size="large">
           <n-avatar round :size="128" :src="userInfo?.avatar" />
 
-          <n-descriptions label-placement="left" :column="2" :title="`傍晚好，${userInfo?.nickName}，这里是简单的个人中心模板`">
+          <n-descriptions label-placement="left" :column="2" :title="`傍晚好，${userInfo?.nickname}，这里是简单的个人中心模板`">
             <n-descriptions-item label="id">
               {{ userInfo?.id }}
             </n-descriptions-item>
@@ -56,7 +56,7 @@ function handleValidateClick() {
               {{ userInfo?.userName }}
             </n-descriptions-item>
             <n-descriptions-item label="真实名称">
-              {{ userInfo?.nickName }}
+              {{ userInfo?.nickname }}
             </n-descriptions-item>
             <n-descriptions-item label="角色">
               {{ userInfo?.role }}

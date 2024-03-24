@@ -20,7 +20,7 @@ const { userInfo } = useAuthStore()
             />
             <div class="pl-12px">
               <h3 class="text-18px font-semibold">
-                您好，{{ userInfo?.nickName }},今天又是充满活力的一天！
+                您好，{{ userInfo?.nickname }},今天又是充满活力的一天！
               </h3>
               <p class="leading-30px text-[#999]">
                 今日多云转晴，20℃ - 25℃！

@@ -2,19 +2,24 @@
 
 /** 后端返回的用户相关类型 */
 declare namespace ApiAuth {
-  /** 返回的用户信息 */
-  type UserInfo = Auth.UserInfo
-  /* 登录token字段 */
-  interface loginToken {
-    accessToken: string
-    avatar?: string
-    email?: string
+  /* 登录返回的用户字段 */
+  interface loginInfo {
+    /** 用户id */
     id: number
+    /** 用户名 */
+    username: string
+    /* 用户头像 */
+    avatar?: string
+    /* 用户邮箱 */
+    email?: string
+    /* 用户昵称 */
     nickname?: string
     notes?: string
-    refreshToken: string
     tel?: string
-    username: string
+    /** 用户角色类型 */
+    role: Auth.RoleType
+    accessToken: string
+    refreshToken: string
   }
 }
 declare namespace CommonList {

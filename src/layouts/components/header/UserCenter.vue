@@ -51,7 +51,7 @@ function handleSelect(key: string | number) {
         size="large"
         :src="userInfo?.avatar"
       />
-      {{ userInfo?.nickName }}
+      {{ userInfo?.nickname }}
     </HeaderButton>
   </n-dropdown>
 </template>

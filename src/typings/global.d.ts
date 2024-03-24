@@ -26,7 +26,7 @@ declare namespace Storage {
   }
 
   interface Local {
-    userInfo: Auth.UserInfo
+    userInfo: ApiAuth.loginInfo
     token: string
     refreshToken: string
     tabsRoutes: string

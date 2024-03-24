@@ -9,6 +9,7 @@ import { fetchUserRoutes } from '@/service'
 import { staticRoutes } from '@/router/routes.static'
 import { usePermission } from '@/hooks'
 import { BasicLayout } from '@/layouts/index'
+import { useAuthStore } from '@/store/auth'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
@@ -163,8 +164,11 @@ export const useRouteStore = defineStore('route-store', {
         // 根据用户id来获取用户的路由
         const userInfo = local.get('userInfo')
 
-        if (!userInfo || !userInfo.id)
+        if (!userInfo || !userInfo.id) {
+          const authStore = useAuthStore()
+          authStore.resetAuthStore()
           return
+        }
 
         const { data } = await fetchUserRoutes({
           id: userInfo.id,

@@ -13,15 +13,13 @@ export function fetchLogin(params: Ilogin) {
   return methodInstance
 }
 export function fetchUpdateToken(params: any) {
-  const method = alovaInstance.Post<ApiAuth.loginToken>('/updateToken', params)
+  const method = alovaInstance.Post<ApiAuth.loginInfo>('/updateToken', params)
   method.meta = {
     authRole: 'refreshToken',
   }
   return method
 }
-export function fetchUserInfo(params: any) {
-  return alovaInstance.Get<Auth.UserInfo>('/getUserInfo', { params })
-}
+
 export function fetchUserRoutes(params: { id: number }) {
   return alovaInstance.Get<AppRoute.RowRoute[]>('/getUserRoutes', { params })
 }
