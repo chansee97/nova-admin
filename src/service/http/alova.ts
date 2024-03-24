@@ -63,7 +63,7 @@ export function createAlovaInstance(
 
         if (status === 200) {
           // 返回blob数据
-          if (method.meta?.isDownload)
+          if (method.meta?.isBlob)
             return response.blob()
 
           // 返回json数据

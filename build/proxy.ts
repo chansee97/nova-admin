@@ -3,7 +3,7 @@ import type { ProxyOptions } from 'vite'
 /** 不同请求服务的环境配置 */
 export const proxyConfig: Record<ServiceEnvType, ServiceEnvConfig> = {
   dev: {
-    url: 'http://localhost:3000',
+    url: 'https://mock.apifox.com/m1/4071143-0-default',
     urlPattern: '/url-pattern',
   },
   test: {
@@ -11,7 +11,7 @@ export const proxyConfig: Record<ServiceEnvType, ServiceEnvConfig> = {
     urlPattern: '/url-pattern',
   },
   prod: {
-    url: 'http://localhost:8080',
+    url: 'https://mock.apifox.com/m1/4071143-0-default',
     urlPattern: '/url-pattern',
   },
 }

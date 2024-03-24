@@ -11,7 +11,7 @@ export function fetchPost(data: any) {
 }
 /* formPost方法测试 */
 export function fetchFormPost(data: any) {
-  const methodInstance = alovaInstance.Post('/postAPI', data)
+  const methodInstance = alovaInstance.Post('/postFormAPI', data)
   methodInstance.meta = {
     isFormPost: true,
   }
@@ -49,8 +49,18 @@ export function dictData() {
 export function getBlob() {
   const methodInstance = blankInstance.Get('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
   methodInstance.meta = {
-    isDownload: true,
+    // 标识为bolb数据
+    isBlob: true,
   }
+  return methodInstance
+}
+
+/* 带进度的下载文件 */
+export function downloadFile(url: string) {
+  const methodInstance = blankInstance.Get(url, {
+    // 开启下载进度
+    enableDownload: true,
+  })
   return methodInstance
 }
 /* 测试状态码500失败 */

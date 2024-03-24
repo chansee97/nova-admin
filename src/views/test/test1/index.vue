@@ -5,6 +5,7 @@ import {
   FailedResponse,
   FailedResponseWithoutTip,
   dictData,
+  downloadFile,
   expiredTokenRequest,
   fetachGet,
   fetchDelete,
@@ -17,14 +18,14 @@ import {
 } from '@/service'
 
 const msg = ref()
-const { data, send } = useRequest(fetachGet({ a: 112211 }), {
+const { data: fetachGetData, send: sendFetachGet } = useRequest(fetachGet({ a: 112211 }), {
   // 当immediate为false时，默认不发出
   immediate: false,
 })
 
 function handleRequestHook() {
-  send()
-  msg.value = data.value
+  sendFetachGet()
+  msg.value = fetachGetData.value
 }
 function pinterEnv() {
   msg.value = import.meta.env
@@ -126,6 +127,17 @@ function getBlobFile() {
     document.body.removeChild(eleLink)
   })
 }
+// 下载大文件获取进度
+const downloadPath = ref('https://suqiqi.oss-cn-beijing.aliyuncs.com/test/video/1.mp4')
+const { downloading, abort: abortDownloadFile, send: sendDownloadFile } = useRequest(downloadFile(downloadPath.value), {
+  // 当immediate为false时，默认不发出
+  immediate: false,
+})
+const downloadProcess = computed(() => {
+  if (!downloading.value.loaded)
+    return 0
+  return Math.floor(downloading.value.loaded / downloading.value.total * 100)
+})
 </script>
 
 <template>
@@ -178,6 +190,18 @@ function getBlobFile() {
         <n-descriptions-item label="获取文件下载">
           <n-button strong secondary type="success" @click="getBlobFile">
             click
+          </n-button>
+        </n-descriptions-item>
+        <n-descriptions-item label="带进度的下载文件" span="3">
+          <n-input v-model:value="downloadPath" />
+          <div>文件大小：{{ downloading.total }}B</div>
+          <div>已下载：{{ downloading.loaded }}B</div>
+          <n-progress type="line" indicator-placement="inside" :percentage="downloadProcess" />
+          <n-button strong secondary @click="sendDownloadFile">
+            开始下载
+          </n-button>
+          <n-button strong secondary type="warning" @click="abortDownloadFile">
+            中断下载
           </n-button>
         </n-descriptions-item>
         <n-descriptions-item label="转换请求数据">

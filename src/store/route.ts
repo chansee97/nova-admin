@@ -13,19 +13,17 @@ import { BasicLayout } from '@/layouts/index'
 interface RoutesStatus {
   isInitAuthRoute: boolean
   menus: any
-  userRoutes: AppRoute.RowRoute[]
+  rowRoutes: AppRoute.RowRoute[]
   activeMenu: string | null
-  authRouteMode: ImportMetaEnv['VITE_AUTH_ROUTE_MODE']
   cacheRoutes: string[]
 }
 export const useRouteStore = defineStore('route-store', {
   state: (): RoutesStatus => {
     return {
-      userRoutes: [],
       isInitAuthRoute: false,
       menus: [],
+      rowRoutes: [],
       activeMenu: null,
-      authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
       cacheRoutes: [],
     }
   },
@@ -38,30 +36,12 @@ export const useRouteStore = defineStore('route-store', {
       /* 删除后面添加的路由 */
       router.removeRoute('appRoot')
     },
-    /* 判断当前路由和子路由中是否存在为routeName的路由 */
-    hasPathinAllPath(routeName: string, userRoutes: AppRoute.Route) {
-      if (userRoutes.name === routeName)
-        return true
-
-      if (userRoutes.children && userRoutes.children.length !== 0) {
-        const arr: boolean[] = []
-        userRoutes.children.forEach((item) => {
-          arr.push(this.hasPathinAllPath(routeName, item))
-        })
-        return arr.some((item) => {
-          return item
-        })
-      }
-      return false
-    },
     /* 设置当前高亮的菜单key */
     setActiveMenu(key: string) {
       this.activeMenu = key
     },
     /* 生成侧边菜单的数据 */
     createMenus(userRoutes: AppRoute.RowRoute[]) {
-      this.userRoutes = userRoutes
-
       const resultMenus = clone(userRoutes).map(i => construct(i)) as AppRoute.Route[]
       /** 过滤不需要显示的菜单 */
       const visibleMenus = resultMenus.filter(route => !route.meta.hide)
@@ -139,7 +119,7 @@ export const useRouteStore = defineStore('route-store', {
         }
       })
     },
-    createDynamicRoutes(routes: AppRoute.RowRoute[]) {
+    createRoutes(routes: AppRoute.RowRoute[]) {
       const { hasPermission } = usePermission()
       // 结构化meta字段
       let resultRouter = clone(routes).map(i => construct(i)) as AppRoute.Route[]
@@ -175,44 +155,38 @@ export const useRouteStore = defineStore('route-store', {
       }
       // 根据角色过滤后的插入根路由中
       appRootRoute.children = resultRouter as unknown as RouteRecordRaw[]
-      return appRootRoute
-    },
-    /* 初始化动态路由 */
-    async initDynamicRoute() {
-      // 根据用户id来获取用户的路由
-      const userInfo = local.get('userInfo')
-
-      if (!userInfo || !userInfo.id)
-        return
-
-      const { data } = await fetchUserRoutes({
-        id: userInfo.id,
-      })
-
-      if (!data)
-        return
-      // 根据用户返回的路由表来生成真实路由
-      const appRoutes = this.createDynamicRoutes(data)
-      // 生成侧边菜单
-      this.createMenus(data)
       // 插入路由表
-      router.addRoute(appRoutes)
+      router.addRoute(appRootRoute)
     },
-    /* 初始化静态路由 */
-    initStaticRoute() {
-      // 根据静态路由表来生成真实路由
-      const appRoutes = this.createDynamicRoutes(staticRoutes)
-      // 生成侧边菜单
-      this.createMenus(staticRoutes)
-      // 插入路由表
-      router.addRoute(appRoutes)
-    },
+    async initRouteInfo() {
+      if (import.meta.env.VITE_AUTH_ROUTE_MODE === 'dynamic') {
+        // 根据用户id来获取用户的路由
+        const userInfo = local.get('userInfo')
 
+        if (!userInfo || !userInfo.id)
+          return
+
+        const { data } = await fetchUserRoutes({
+          id: userInfo.id,
+        })
+
+        if (!data)
+          return
+
+        this.rowRoutes = data
+      }
+      else {
+        this.rowRoutes = staticRoutes
+      }
+    },
     async initAuthRoute() {
       this.isInitAuthRoute = false
-      if (this.authRouteMode === 'dynamic')
-        await this.initDynamicRoute()
-      else this.initStaticRoute()
+      // 初始化路由信息
+      await this.initRouteInfo()
+      // 生成真实路由并插入
+      this.createRoutes(this.rowRoutes)
+      // 生成侧边菜单
+      this.createMenus(this.rowRoutes)
 
       this.isInitAuthRoute = true
     },

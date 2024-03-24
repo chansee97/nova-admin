@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
+import { useRequest } from 'alova'
 import { local } from '@/utils'
 import { useAuthStore } from '@/store'
 
@@ -34,20 +35,23 @@ const formValue = ref({
   code: '1234',
 })
 const isRemember = ref(false)
+const isLoading = ref(false)
 
 const formRef = ref<FormInst | null>(null)
 function handleLogin() {
-  formRef.value?.validate((errors) => {
+  formRef.value?.validate(async (errors) => {
     if (errors)
       return
 
+    isLoading.value = true
     const { account, pwd } = formValue.value
 
     if (isRemember.value)
       local.set('login_account', { account, pwd })
     else local.remove('login_account')
 
-    authStore.login(account, pwd)
+    await authStore.login(account, pwd)
+    isLoading.value = false
   })
 }
 function checkUserAccount() {
@@ -95,7 +99,7 @@ checkUserAccount()
             忘记密码？
           </n-button>
         </div>
-        <n-button block type="primary" size="large" :loading="authStore.loginLoading" @click="handleLogin">
+        <n-button block type="primary" size="large" :loading="isLoading" @click="handleLogin">
           登录
         </n-button>
         <n-button type="primary" text @click="toOtherForm('register')">

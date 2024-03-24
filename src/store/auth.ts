@@ -4,20 +4,15 @@ import { fetchLogin, fetchUserInfo } from '@/service'
 import { router } from '@/router'
 import { local } from '@/utils'
 
-const emptyInfo: Auth.UserInfo = {
-  id: 0,
-  userName: '',
-  nickName: '',
-  avatar: '',
-  role: 'user',
+interface AuthStatus {
+  userInfo: Auth.UserInfo | null
+  token: string
 }
 export const useAuthStore = defineStore('auth-store', {
-  state: () => {
+  state: (): AuthStatus => {
     return {
-      userInfo: local.get('userInfo') || emptyInfo,
+      userInfo: local.get('userInfo'),
       token: local.get('token') || '',
-      refreshToken: local.get('refreshToken') || '',
-      loginLoading: false,
     }
   },
   getters: {
@@ -58,16 +53,12 @@ export const useAuthStore = defineStore('auth-store', {
 
     /* 用户登录 */
     async login(username: string, password: string) {
-      this.loginLoading = true
       const { error, data } = await fetchLogin({ username, password })
-      if (error) {
-        this.loginLoading = false
+      if (error)
         return
-      }
+
       // 处理登录信息
       await this.handleAfterLogin(data)
-
-      this.loginLoading = false
     },
 
     /* 登录后的处理函数 */
@@ -91,7 +82,7 @@ export const useAuthStore = defineStore('auth-store', {
         // 触发用户提示
         window.$notification?.success({
           title: '登录成功!',
-          content: `欢迎回来😊，${this.userInfo.nickName}!`,
+          content: `欢迎回来😊，${this.userInfo?.nickName}!`,
           duration: 3000,
         })
         return
@@ -108,7 +99,6 @@ export const useAuthStore = defineStore('auth-store', {
       local.set('token', accessToken)
       local.set('refreshToken', refreshToken)
       this.token = accessToken
-      this.refreshToken = refreshToken
       const { error, data } = await fetchUserInfo({ id })
       if (error)
         return catchSuccess

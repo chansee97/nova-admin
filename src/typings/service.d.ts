@@ -20,7 +20,7 @@ declare namespace Service {
     successCode?: number | string
   }
 
-  type RequestErrorType = 'Alova' | 'Response' | 'Business'
+  type RequestErrorType = 'Response' | 'Business'
   type RequestCode = string | number
 
   interface RequestError {
