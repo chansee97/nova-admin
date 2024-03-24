@@ -11,7 +11,7 @@ export function fetchPost(data: any) {
 }
 /* formPost方法测试 */
 export function fetchFormPost(data: any) {
-  const methodInstance = alovaInstance.Post('/postAPI', data)
+  const methodInstance = alovaInstance.Post('/postFormAPI', data)
   methodInstance.meta = {
     isFormPost: true,
   }

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
-import { useAppStore, useTabStore } from '@/store'
+import { NIcon } from 'naive-ui'
 import { renderIcon } from '@/utils'
+import { useAppStore, useTabStore } from '@/store'
 
 const tabStore = useTabStore()
 const appStore = useAppStore()
@@ -90,6 +91,17 @@ function handleContextMenu(e: MouseEvent, route: RouteLocationNormalized) {
 function onClickoutside() {
   showDropdown.value = false
 }
+
+function renderDropTabsLabel(option: any) {
+  return option.meta.title
+}
+function renderDropTabsIcon(option: any) {
+  return renderIcon(option.meta.icon)!()
+}
+
+function handleDropTabs(key: string, option: any) {
+  router.push(option.path)
+}
 </script>
 
 <template>
@@ -121,6 +133,20 @@ function onClickoutside() {
           <e-icon :icon="item.meta.icon" /> {{ item.meta.title }}
         </div>
       </n-tab>
+      <template #suffix>
+        <n-dropdown
+          :options="tabStore.allTabs"
+          :render-label="renderDropTabsLabel"
+          :render-icon="renderDropTabsIcon"
+          trigger="click"
+          size="small"
+          @select="handleDropTabs"
+        >
+          <n-button tertiary circle type="primary">
+            <i-icon-park-outline-application-menu />
+          </n-button>
+        </n-dropdown>
+      </template>
     </n-tabs>
     <n-dropdown
       placement="bottom-start"

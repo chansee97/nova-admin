@@ -14,6 +14,9 @@ export const useTabStore = defineStore('tab-store', {
       currentTabPath: '',
     }
   },
+  getters: {
+    allTabs: state => [...state.pinTabs, ...state.tabs],
+  },
   actions: {
     addTab(route: RouteLocationNormalized) {
       // 根据meta确定是否不添加，可用于错误页,登录页等
