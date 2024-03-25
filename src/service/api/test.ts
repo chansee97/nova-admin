@@ -46,8 +46,8 @@ export function dictData() {
   })
 }
 /* 模拟获取二进制文件 */
-export function getBlob() {
-  const methodInstance = blankInstance.Get('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
+export function getBlob(url: string) {
+  const methodInstance = blankInstance.Get<Blob>(url)
   methodInstance.meta = {
     // 标识为bolb数据
     isBlob: true,
@@ -57,11 +57,10 @@ export function getBlob() {
 
 /* 带进度的下载文件 */
 export function downloadFile(url: string) {
-  const methodInstance = blankInstance.Get(url, {
+  return blankInstance.Get(url, {
     // 开启下载进度
     enableDownload: true,
   })
-  return methodInstance
 }
 /* 测试状态码500失败 */
 export function FailedRequest() {

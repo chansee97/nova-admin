@@ -177,20 +177,22 @@ export const useRouteStore = defineStore('route-store', {
         if (!data)
           return
 
-        this.rowRoutes = data
+        return data
       }
       else {
         this.rowRoutes = staticRoutes
+        return staticRoutes
       }
     },
     async initAuthRoute() {
       this.isInitAuthRoute = false
       // 初始化路由信息
-      await this.initRouteInfo()
+      const rowRoutes = await this.initRouteInfo()
+      this.rowRoutes = rowRoutes
       // 生成真实路由并插入
-      this.createRoutes(this.rowRoutes)
+      this.createRoutes(rowRoutes)
       // 生成侧边菜单
-      this.createMenus(this.rowRoutes)
+      this.createMenus(rowRoutes)
 
       this.isInitAuthRoute = true
     },

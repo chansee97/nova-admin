@@ -114,8 +114,9 @@ function getDictData() {
   })
 }
 // 模拟获取二进制文件
+const imagePath = ref('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
 function getBlobFile() {
-  getBlob().then((res) => {
+  getBlob(imagePath.value).then((res) => {
     msg.value = 'this is blob!'
     const link = URL.createObjectURL(res)
     const eleLink = document.createElement('a')
@@ -192,7 +193,7 @@ const downloadProcess = computed(() => {
             click
           </n-button>
         </n-descriptions-item>
-        <n-descriptions-item label="带进度的下载文件" span="3">
+        <n-descriptions-item label="带进度的下载文件" :span="3">
           <n-input v-model:value="downloadPath" />
           <div>文件大小：{{ downloading.total }}B</div>
           <div>已下载：{{ downloading.loaded }}B</div>
