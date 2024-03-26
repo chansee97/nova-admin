@@ -1,10 +1,15 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
+import chroma from 'chroma-js'
 import themeConfig from './theme.json'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 interface AppStatus {
-  readonly footerText: string
   theme: GlobalThemeOverrides
+  primaryColor: string
+  infoColor: string
+  successColor: string
+  warningColor: string
+  errorColor: string
   collapsed: boolean
   fullScreen: boolean
   darkMode: boolean
@@ -33,8 +38,12 @@ const isDark = useDark({
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
-      footerText: 'Copyright ©2023 Nova Admin',
       theme: themeConfig,
+      primaryColor: '#18a058',
+      infoColor: '#2080f0',
+      successColor: '#18a058',
+      warningColor: '#f0a020',
+      errorColor: '#d03050',
       collapsed: false,
       fullScreen: false,
       darkMode: isDark.value,
@@ -53,8 +62,95 @@ export const useAppStore = defineStore('app-store', {
     }
   },
   actions: {
+    // 重置所有设置
     resetAlltheme() {
-      this.$reset()
+      this.theme = themeConfig
+      this.primaryColor = '#18a058'
+      this.infoColor = '#2080f0'
+      this.successColor = '#18a058'
+      this.warningColor = '#f0a020'
+      this.errorColor = '#d03050'
+      this.collapsed = false
+      this.fullScreen = false
+      this.darkMode = isDark.value
+      this.grayMode = false
+      this.colorWeak = false
+      this.loadFlag = true
+      this.showLogo = true
+      this.showTabs = true
+      this.showBreadcrumb = true
+      this.showBreadcrumbIcon = true
+      this.fixedHeader = false
+      this.invertedSider = false
+      this.invertedHeader = false
+      this.showWatermark = false
+      this.transitionAnimation = 'fade-slide'
+
+      // 重置所有配色
+      this.setPrimaryColor(this.primaryColor)
+      this.setInfoColor(this.infoColor)
+      this.setSuccessColor(this.successColor)
+      this.setWarningColor(this.warningColor)
+      this.setErrorColor(this.errorColor)
+    },
+
+    /* 设置主题色 */
+    setPrimaryColor(color: string) {
+      const brightenColor = chroma(color).brighten(1).hex()
+      const darkenColor = chroma(color).darken(1).hex()
+      Object.assign(this.theme.common, {
+        primaryColor: color,
+        primaryColorHover: brightenColor,
+        primaryColorPressed: darkenColor,
+        primaryColorSuppl: brightenColor,
+      })
+    },
+
+    /* 设置信息色 */
+    setInfoColor(color: string) {
+      const brightenColor = chroma(color).brighten(1).hex()
+      const darkenColor = chroma(color).darken(1).hex()
+      Object.assign(this.theme.common, {
+        infoColor: color,
+        infoColorHover: brightenColor,
+        infoColorPressed: darkenColor,
+        infoColorSuppl: brightenColor,
+      })
+    },
+
+    /* 设置成功色 */
+    setSuccessColor(color: string) {
+      const brightenColor = chroma(color).brighten(1).hex()
+      const darkenColor = chroma(color).darken(1).hex()
+      Object.assign(this.theme.common, {
+        successColor: color,
+        successColorHover: brightenColor,
+        successColorPressed: darkenColor,
+        successColorSuppl: brightenColor,
+      })
+    },
+
+    /* 设置警告色 */
+    setWarningColor(color: string) {
+      const brightenColor = chroma(color).brighten(1).hex()
+      const darkenColor = chroma(color).darken(1).hex()
+      Object.assign(this.theme.common, {
+        warningColor: color,
+        warningColorHover: brightenColor,
+        warningColorPressed: darkenColor,
+        warningColorSuppl: brightenColor,
+      })
+    },
+    /* 设置错误色 */
+    setErrorColor(color: string) {
+      const brightenColor = chroma(color).brighten(1).hex()
+      const darkenColor = chroma(color).darken(1).hex()
+      Object.assign(this.theme.common, {
+        errorColor: color,
+        errorColorHover: brightenColor,
+        errorColorPressed: darkenColor,
+        errorColorSuppl: brightenColor,
+      })
     },
     /* 切换侧边栏收缩 */
     toggleCollapse() {

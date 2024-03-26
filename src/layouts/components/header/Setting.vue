@@ -38,6 +38,38 @@ const transitionSelectorOptions = [
     value: 'fade',
   },
 ]
+
+const palette = [
+  '#ffb8b8',
+  '#d03050',
+  '#F0A020',
+  '#fff200',
+  '#ffda79',
+  '#18A058',
+  '#006266',
+  '#22a6b3',
+  '#18dcff',
+  '#2080F0',
+  '#c56cf0',
+  '#be2edd',
+  '#706fd3',
+  '#4834d4',
+  '#130f40',
+  '#4b4b4b',
+]
+
+function resetSetting() {
+  window.$dialog.warning({
+    title: '警告',
+    content: '你确定？',
+    positiveText: '确定',
+    negativeText: '不确定',
+    onPositiveClick: () => {
+      appStore.resetAlltheme()
+      window.$message.success('重置成功')
+    },
+  })
+}
 </script>
 
 <template>
@@ -48,7 +80,7 @@ const transitionSelectorOptions = [
           <i-icon-park-outline-setting-two />
           <n-drawer v-model:show="drawerActive" :width="300">
             <n-drawer-content title="系统设置" closable>
-              <n-space vertical size="large">
+              <n-space vertical>
                 <n-divider>主题设置</n-divider>
                 <n-space justify="space-between">
                   深色模式
@@ -65,12 +97,37 @@ const transitionSelectorOptions = [
                 <n-space align="center" justify="space-between">
                   主题色
                   <n-color-picker
-                    v-model:value="appStore.theme.common.primaryColor" class="w-7em" :swatches="[
-                      '#18A058',
-                      '#2080F0',
-                      '#F0A020',
-                      '#d03050',
-                    ]" :show-alpha="false"
+                    v-model:value="appStore.primaryColor"
+                    class="w-7em" :swatches="palette" :show-alpha="false"
+                    @complete="appStore.setPrimaryColor"
+                  />
+                </n-space>
+                <n-space align="center" justify="space-between">
+                  提示色
+                  <n-color-picker
+                    v-model:value="appStore.infoColor"
+                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setInfoColor"
+                  />
+                </n-space>
+                <n-space align="center" justify="space-between">
+                  成功色
+                  <n-color-picker
+                    v-model:value="appStore.successColor"
+                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setSuccessColor"
+                  />
+                </n-space>
+                <n-space align="center" justify="space-between">
+                  警告色
+                  <n-color-picker
+                    v-model:value="appStore.warningColor"
+                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setWarningColor"
+                  />
+                </n-space>
+                <n-space align="center" justify="space-between">
+                  错误色
+                  <n-color-picker
+                    v-model:value="appStore.errorColor"
+                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setErrorColor"
                   />
                 </n-space>
                 <n-space align="center" justify="space-between">
@@ -114,7 +171,7 @@ const transitionSelectorOptions = [
               </n-space>
 
               <template #footer>
-                <n-button type="error" @click="appStore.resetAlltheme">
+                <n-button type="error" @click="resetSetting">
                   重置设置
                 </n-button>
               </template>

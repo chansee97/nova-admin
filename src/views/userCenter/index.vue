@@ -53,7 +53,7 @@ function handleValidateClick() {
               {{ userInfo?.id }}
             </n-descriptions-item>
             <n-descriptions-item label="用户名">
-              {{ userInfo?.userName }}
+              {{ userInfo?.username }}
             </n-descriptions-item>
             <n-descriptions-item label="真实名称">
               {{ userInfo?.nickname }}
@@ -80,7 +80,7 @@ function handleValidateClick() {
               <n-input v-model:value="formValue.phone" placeholder="电话号码" />
             </n-form-item>
             <n-form-item>
-              <n-button attr-type="button" block @click="handleValidateClick">
+              <n-button type="primary" attr-type="button" block @click="handleValidateClick">
                 验证
               </n-button>
             </n-form-item>

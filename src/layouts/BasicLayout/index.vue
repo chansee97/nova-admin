@@ -31,7 +31,7 @@ const appStore = useAppStore()
       :collapsed="appStore.collapsed"
       :collapsed-width="64"
       collapse-mode="width"
-      :width="220"
+      :width="240"
       :inverted="appStore.invertedSider"
     >
       <Logo v-if="appStore.showLogo" />
