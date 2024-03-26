@@ -1,5 +1,10 @@
+import type { GlobalThemeOverrides } from 'naive-ui'
+import themeConfig from './theme.json'
+
+type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 interface AppStatus {
   readonly footerText: string
+  theme: GlobalThemeOverrides
   collapsed: boolean
   fullScreen: boolean
   darkMode: boolean
@@ -9,10 +14,12 @@ interface AppStatus {
   showLogo: boolean
   showTabs: boolean
   showBreadcrumb: boolean
+  showBreadcrumbIcon: boolean
   fixedHeader: boolean
   invertedSider: boolean
   invertedHeader: boolean
   showWatermark: boolean
+  transitionAnimation: TransitionAnimation
 }
 
 const docEle = document.documentElement
@@ -27,6 +34,7 @@ export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
       footerText: 'Copyright ©2023 Nova Admin',
+      theme: themeConfig,
       collapsed: false,
       fullScreen: false,
       darkMode: isDark.value,
@@ -36,13 +44,18 @@ export const useAppStore = defineStore('app-store', {
       showLogo: true,
       showTabs: true,
       showBreadcrumb: true,
+      showBreadcrumbIcon: true,
       fixedHeader: false,
       invertedSider: false,
       invertedHeader: false,
       showWatermark: false,
+      transitionAnimation: 'fade-slide',
     }
   },
   actions: {
+    resetAlltheme() {
+      this.$reset()
+    },
     /* 切换侧边栏收缩 */
     toggleCollapse() {
       this.collapsed = !this.collapsed
@@ -140,6 +153,10 @@ export const useAppStore = defineStore('app-store', {
     toggleShowBreadcrumb() {
       this.showBreadcrumb = !this.showBreadcrumb
     },
+    /* 切换显示多页签 */
+    toggleShowBreadcrumbIcon() {
+      this.showBreadcrumbIcon = !this.showBreadcrumbIcon
+    },
     /* 切换固定头部和标签页 */
     toggleFixedHeader() {
       this.fixedHeader = !this.fixedHeader
@@ -156,5 +173,8 @@ export const useAppStore = defineStore('app-store', {
     toggleShowWatermark() {
       this.showWatermark = !this.showWatermark
     },
+  },
+  persist: {
+    enabled: true,
   },
 })

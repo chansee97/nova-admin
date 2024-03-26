@@ -5,7 +5,6 @@ import {
   CollapaseButton,
   DarkMode,
   FullScreen,
-  Github,
   Logo,
   Menu,
   Notices,
@@ -51,13 +50,12 @@ const appStore = useAppStore()
         <div class="h-60px flex-y-center justify-between">
           <div class="flex-y-center h-full">
             <CollapaseButton />
-            <Breadcrumb v-if="appStore.showBreadcrumb" />
+            <Breadcrumb />
           </div>
           <div class="flex-y-center h-full">
-            <Reload />
             <Search />
+            <Reload />
             <Notices />
-            <Github />
             <FullScreen />
             <DarkMode />
             <Setting />
@@ -87,7 +85,7 @@ const appStore = useAppStore()
         >
           <router-view v-slot="{ Component, route }">
             <transition
-              name="fade-slide"
+              :name="appStore.transitionAnimation"
               mode="out-in"
             >
               <keep-alive :include="routeStore.cacheRoutes">

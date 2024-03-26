@@ -1,7 +1,7 @@
 import type { App } from 'vue'
 import piniaPluginPersist from 'pinia-plugin-persist'
 
-export * from './app'
+export * from './app/index'
 export * from './auth'
 export * from './route'
 export * from './tab'

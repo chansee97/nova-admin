@@ -74,3 +74,19 @@
   opacity: 0;
   transform: scale(0);
 }
+
+/* fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s, filter 0.2s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  filter: blur(10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  filter: blur(0px);
+}

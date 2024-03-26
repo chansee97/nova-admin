@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
-import { NIcon } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { useAppStore, useTabStore } from '@/store'
 

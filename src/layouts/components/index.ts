@@ -8,7 +8,6 @@ import CollapaseButton from './header/CollapaseButton.vue'
 import FullScreen from './header/FullScreen.vue'
 import DarkMode from './header/DarkMode.vue'
 import Setting from './header/Setting.vue'
-import Github from './header/Github.vue'
 import Notices from './header/Notices.vue'
 import UserCenter from './header/UserCenter.vue'
 import Search from './header/Search.vue'
@@ -30,7 +29,6 @@ export {
   FullScreen,
   DarkMode,
   Setting,
-  Github,
   Notices,
   UserCenter,
   Search,

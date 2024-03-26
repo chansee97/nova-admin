@@ -1,13 +1,16 @@
 <script setup lang="ts">
+import { useAppStore } from '@/store'
+
 const router = useRouter()
 const route = useRoute()
 const routes = computed(() => {
   return route.matched
 })
+const appStore = useAppStore()
 </script>
 
 <template>
-  <TransitionGroup name="list" tag="ul" style="display: flex; gap:1em;">
+  <TransitionGroup v-if="appStore.showBreadcrumb" name="list" tag="ul" style="display: flex; gap:1em;">
     <n-el
       v-for="(item) in routes"
       :key="item.path"
@@ -18,7 +21,7 @@ const routes = computed(() => {
       class="flex-center gap-2 cursor-pointer split"
       @click="router.push(item.path)"
     >
-      <e-icon :icon="item.meta.icon" />
+      <e-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
       {{ item.meta.title }}
     </n-el>
   </TransitionGroup>

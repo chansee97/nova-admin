@@ -17,6 +17,20 @@ const options = [
     key: 'd1',
   },
   {
+    label: 'Github',
+    key: 'guthub',
+    icon: renderIcon('icon-park-outline:github'),
+  },
+  {
+    label: 'gitee',
+    key: 'gitee',
+    icon: renderIcon('simple-icons:gitee'),
+  },
+  {
+    type: 'divider',
+    key: 'd1',
+  },
+  {
     label: '退出登录',
     key: 'loginOut',
     icon: renderIcon('icon-park-outline:logout'),
@@ -36,6 +50,12 @@ function handleSelect(key: string | number) {
   }
   if (key === 'userCenter')
     router.push('/userCenter')
+
+  if (key === 'guthub')
+    window.open('https://github.com/chansee97/nova-admin')
+
+  if (key === 'gitee')
+    window.open('https://gitee.com/chansee97/nova-admin')
 }
 </script>
 
