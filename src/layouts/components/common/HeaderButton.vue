@@ -5,12 +5,13 @@
     tag="div"
     class="el h-full px-3 cursor-pointer"
   >
-    <n-space
+    <n-flex
       align="center"
+      :wrap="false"
       class="h-full"
     >
       <slot />
-    </n-space>
+    </n-flex>
   </n-el>
 </template>
 

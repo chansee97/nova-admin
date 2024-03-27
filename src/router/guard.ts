@@ -1,10 +1,14 @@
 import type { Router } from 'vue-router'
-import { useRouteStore, useTabStore } from '@/store'
+import { useAppStore, useRouteStore, useTabStore } from '@/store'
 import { local } from '@/utils'
 
 const title = import.meta.env.VITE_APP_NAME
 
 export function setupRouterGuard(router: Router) {
+  const appStore = useAppStore()
+  const routeStore = useRouteStore()
+  const tabStore = useTabStore()
+
   router.beforeEach(async (to, from, next) => {
     // 判断是否是外链，如果是直接打开网页并拦截跳转
     if (to.meta.herf) {
@@ -12,10 +16,9 @@ export function setupRouterGuard(router: Router) {
       return false
     }
     // 开始 NProgress
-    window.$NProgress?.start()
+    appStore.showProgress && window.$NProgress?.start()
 
     // 判断有无TOKEN,登录鉴权
-    const routeStore = useRouteStore()
     const isLogin = Boolean(local.get('token'))
     if (!isLogin) {
       if (to.name === 'login')
@@ -53,8 +56,6 @@ export function setupRouterGuard(router: Router) {
     next()
   })
   router.beforeResolve((to) => {
-    const routeStore = useRouteStore()
-    const tabStore = useTabStore()
     // 设置菜单高亮
     routeStore.setActiveMenu(to.meta.activeMenu ?? to.fullPath)
     // 添加tabs
@@ -67,6 +68,6 @@ export function setupRouterGuard(router: Router) {
     // 修改网页标题
     document.title = `${to.meta.title} - ${title}`
     // 结束 NProgress
-    window.$NProgress?.done()
+    appStore.showProgress && window.$NProgress?.done()
   })
 }

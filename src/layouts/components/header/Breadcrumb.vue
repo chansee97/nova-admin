@@ -22,7 +22,7 @@ const appStore = useAppStore()
       @click="router.push(item.path)"
     >
       <e-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
-      {{ item.meta.title }}
+      <span class="whitespace-nowrap">{{ item.meta.title }}</span>
     </n-el>
   </TransitionGroup>
 </template>

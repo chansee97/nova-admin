@@ -1,15 +1,13 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
 import chroma from 'chroma-js'
+import { set } from 'radash'
+import { useCssVar } from '@vueuse/core'
 import themeConfig from './theme.json'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 interface AppStatus {
   theme: GlobalThemeOverrides
   primaryColor: string
-  infoColor: string
-  successColor: string
-  warningColor: string
-  errorColor: string
   collapsed: boolean
   fullScreen: boolean
   darkMode: boolean
@@ -18,6 +16,7 @@ interface AppStatus {
   loadFlag: boolean
   showLogo: boolean
   showTabs: boolean
+  showProgress: boolean
   showBreadcrumb: boolean
   showBreadcrumbIcon: boolean
   fixedHeader: boolean
@@ -27,9 +26,12 @@ interface AppStatus {
   transitionAnimation: TransitionAnimation
 }
 
-const docEle = document.documentElement
+const docEle = ref(document.documentElement)
 
 const { isFullscreen, toggle } = useFullscreen(docEle)
+
+const initPrimaryColor = themeConfig.common.primaryColor
+const primaryColor = useCssVar('--primary-color', docEle, { initialValue: initPrimaryColor })
 
 const isDark = useDark({
   storageKey: 'admin-dark-mode',
@@ -39,11 +41,7 @@ export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
       theme: themeConfig,
-      primaryColor: '#18a058',
-      infoColor: '#2080f0',
-      successColor: '#18a058',
-      warningColor: '#f0a020',
-      errorColor: '#d03050',
+      primaryColor: initPrimaryColor,
       collapsed: false,
       fullScreen: false,
       darkMode: isDark.value,
@@ -52,6 +50,7 @@ export const useAppStore = defineStore('app-store', {
       loadFlag: true,
       showLogo: true,
       showTabs: true,
+      showProgress: true,
       showBreadcrumb: true,
       showBreadcrumbIcon: true,
       fixedHeader: false,
@@ -66,10 +65,6 @@ export const useAppStore = defineStore('app-store', {
     resetAlltheme() {
       this.theme = themeConfig
       this.primaryColor = '#18a058'
-      this.infoColor = '#2080f0'
-      this.successColor = '#18a058'
-      this.warningColor = '#f0a020'
-      this.errorColor = '#d03050'
       this.collapsed = false
       this.fullScreen = false
       this.darkMode = isDark.value
@@ -88,69 +83,17 @@ export const useAppStore = defineStore('app-store', {
 
       // 重置所有配色
       this.setPrimaryColor(this.primaryColor)
-      this.setInfoColor(this.infoColor)
-      this.setSuccessColor(this.successColor)
-      this.setWarningColor(this.warningColor)
-      this.setErrorColor(this.errorColor)
     },
-
     /* 设置主题色 */
-    setPrimaryColor(color: string) {
+    setPrimaryColor(rowColor?: string) {
+      const color = rowColor || this.primaryColor
+      primaryColor.value = color
       const brightenColor = chroma(color).brighten(1).hex()
       const darkenColor = chroma(color).darken(1).hex()
-      Object.assign(this.theme.common, {
-        primaryColor: color,
-        primaryColorHover: brightenColor,
-        primaryColorPressed: darkenColor,
-        primaryColorSuppl: brightenColor,
-      })
-    },
-
-    /* 设置信息色 */
-    setInfoColor(color: string) {
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
-      Object.assign(this.theme.common, {
-        infoColor: color,
-        infoColorHover: brightenColor,
-        infoColorPressed: darkenColor,
-        infoColorSuppl: brightenColor,
-      })
-    },
-
-    /* 设置成功色 */
-    setSuccessColor(color: string) {
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
-      Object.assign(this.theme.common, {
-        successColor: color,
-        successColorHover: brightenColor,
-        successColorPressed: darkenColor,
-        successColorSuppl: brightenColor,
-      })
-    },
-
-    /* 设置警告色 */
-    setWarningColor(color: string) {
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
-      Object.assign(this.theme.common, {
-        warningColor: color,
-        warningColorHover: brightenColor,
-        warningColorPressed: darkenColor,
-        warningColorSuppl: brightenColor,
-      })
-    },
-    /* 设置错误色 */
-    setErrorColor(color: string) {
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
-      Object.assign(this.theme.common, {
-        errorColor: color,
-        errorColorHover: brightenColor,
-        errorColorPressed: darkenColor,
-        errorColorSuppl: brightenColor,
-      })
+      set(this.theme, 'common.primaryColor', color)
+      set(this.theme, 'common.primaryColorHover', brightenColor)
+      set(this.theme, 'common.primaryColorPressed', darkenColor)
+      set(this.theme, 'common.primaryColorSuppl', brightenColor)
     },
     /* 切换侧边栏收缩 */
     toggleCollapse() {
@@ -158,8 +101,8 @@ export const useAppStore = defineStore('app-store', {
     },
     /* 切换全屏 */
     async toggleFullScreen() {
-      this.fullScreen = isFullscreen.value
       await toggle()
+      this.fullScreen = isFullscreen.value
     },
     /* 切换主题 亮/深色 */
     toggleDarkMode(event: MouseEvent, mode?: boolean) {
@@ -236,38 +179,6 @@ export const useAppStore = defineStore('app-store', {
     toggleGrayMode() {
       docEle.classList.toggle('gray-mode')
       this.grayMode = docEle.classList.contains('gray-mode')
-    },
-    /* 切换显示logo */
-    toggleShowLogo() {
-      this.showLogo = !this.showLogo
-    },
-    /* 切换显示多页签 */
-    toggleShowTabs() {
-      this.showTabs = !this.showTabs
-    },
-    /* 切换显示多页签 */
-    toggleShowBreadcrumb() {
-      this.showBreadcrumb = !this.showBreadcrumb
-    },
-    /* 切换显示多页签 */
-    toggleShowBreadcrumbIcon() {
-      this.showBreadcrumbIcon = !this.showBreadcrumbIcon
-    },
-    /* 切换固定头部和标签页 */
-    toggleFixedHeader() {
-      this.fixedHeader = !this.fixedHeader
-    },
-    /* 切换固定底部 */
-    toggleInvertedSider() {
-      this.invertedSider = !this.invertedSider
-    },
-    /* 切换固定底部 */
-    toggleInvertedHeader() {
-      this.invertedHeader = !this.invertedHeader
-    },
-    /* 切换固定底部 */
-    toggleShowWatermark() {
-      this.showWatermark = !this.showWatermark
     },
   },
   persist: {

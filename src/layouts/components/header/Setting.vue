@@ -60,10 +60,10 @@ const palette = [
 
 function resetSetting() {
   window.$dialog.warning({
-    title: '警告',
-    content: '你确定？',
+    title: '重置所有设置',
+    content: '你确定重置所有设置？',
     positiveText: '确定',
-    negativeText: '不确定',
+    negativeText: '取消',
     onPositiveClick: () => {
       appStore.resetAlltheme()
       window.$message.success('重置成功')
@@ -99,35 +99,7 @@ function resetSetting() {
                   <n-color-picker
                     v-model:value="appStore.primaryColor"
                     class="w-7em" :swatches="palette" :show-alpha="false"
-                    @complete="appStore.setPrimaryColor"
-                  />
-                </n-space>
-                <n-space align="center" justify="space-between">
-                  提示色
-                  <n-color-picker
-                    v-model:value="appStore.infoColor"
-                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setInfoColor"
-                  />
-                </n-space>
-                <n-space align="center" justify="space-between">
-                  成功色
-                  <n-color-picker
-                    v-model:value="appStore.successColor"
-                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setSuccessColor"
-                  />
-                </n-space>
-                <n-space align="center" justify="space-between">
-                  警告色
-                  <n-color-picker
-                    v-model:value="appStore.warningColor"
-                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setWarningColor"
-                  />
-                </n-space>
-                <n-space align="center" justify="space-between">
-                  错误色
-                  <n-color-picker
-                    v-model:value="appStore.errorColor"
-                    class="w-7em" :swatches="palette" :show-alpha="false" @complete="appStore.setErrorColor"
+                    @update:value="appStore.setPrimaryColor"
                   />
                 </n-space>
                 <n-space align="center" justify="space-between">
@@ -136,37 +108,41 @@ function resetSetting() {
                 </n-space>
                 <n-space justify="space-between">
                   侧边栏反转色
-                  <n-switch :value="appStore.invertedSider" @update:value="appStore.toggleInvertedSider()" />
+                  <n-switch v-model:value="appStore.invertedSider" />
                 </n-space>
                 <n-space justify="space-between">
                   头部反转色
-                  <n-switch :value="appStore.invertedHeader" @update:value="appStore.toggleInvertedHeader()" />
+                  <n-switch v-model:value="appStore.invertedHeader" />
                 </n-space>
 
                 <n-divider>界面显示</n-divider>
                 <n-space justify="space-between">
                   LOGO显示
-                  <n-switch :value="appStore.showLogo" @update:value="appStore.toggleShowLogo()" />
+                  <n-switch v-model:value="appStore.showLogo" />
+                </n-space>
+                <n-space justify="space-between">
+                  顶部进度
+                  <n-switch v-model:value="appStore.showProgress" />
                 </n-space>
                 <n-space justify="space-between">
                   多页签
-                  <n-switch :value="appStore.showTabs" @update:value="appStore.toggleShowTabs()" />
+                  <n-switch v-model:value="appStore.showTabs" />
                 </n-space>
                 <n-space justify="space-between">
                   面包屑
-                  <n-switch :value="appStore.showBreadcrumb" @update:value="appStore.toggleShowBreadcrumb()" />
+                  <n-switch v-model:value="appStore.showBreadcrumb" />
                 </n-space>
                 <n-space justify="space-between">
                   面包屑图标
-                  <n-switch :value="appStore.showBreadcrumbIcon" @update:value="appStore.toggleShowBreadcrumbIcon()" />
+                  <n-switch v-model:value="appStore.showBreadcrumbIcon" />
                 </n-space>
                 <n-space justify="space-between">
                   固定头部和多页签
-                  <n-switch :value="appStore.fixedHeader" @update:value="appStore.toggleFixedHeader()" />
+                  <n-switch v-model:value="appStore.fixedHeader" />
                 </n-space>
                 <n-space justify="space-between">
                   水印
-                  <n-switch :value="appStore.showWatermark" @update:value="appStore.toggleShowWatermark()" />
+                  <n-switch v-model:value="appStore.showWatermark" />
                 </n-space>
               </n-space>
 

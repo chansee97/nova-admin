@@ -80,13 +80,6 @@ export const useAuthStore = defineStore('auth-store', {
       router.push({
         path: query.redirect || '/',
       })
-
-      // 触发用户提示
-      window.$notification?.success({
-        title: '登录成功!',
-        content: `欢迎回来😊，${this.userInfo?.nickname}!`,
-        duration: 3000,
-      })
     },
   },
 })
