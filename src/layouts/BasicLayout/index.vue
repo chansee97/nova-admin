@@ -13,7 +13,6 @@ import {
   Setting,
   TabBar,
   UserCenter,
-  Watermark,
 } from '../components'
 import { useAppStore, useRouteStore } from '@/store'
 
@@ -28,27 +27,28 @@ appStore.setPrimaryColor()
   <n-layout
     has-sider
     class="wh-full"
+    embedded
   >
     <n-layout-sider
       bordered
       :collapsed="appStore.collapsed"
-      :collapsed-width="64"
       collapse-mode="width"
+      :collapsed-width="64"
       :width="240"
-      :inverted="appStore.invertedSider"
+      content-style="display: flex;flex-direction: column;min-height:100%;"
     >
       <Logo v-if="appStore.showLogo" />
-      <Menu />
+      <n-scrollbar class="flex-1">
+        <Menu />
+      </n-scrollbar>
     </n-layout-sider>
     <n-layout
-      class="h-full"
+      class="h-full flex flex-col"
+      content-style="display: flex;flex-direction: column;min-height:100%;"
       embedded
+      :native-scrollbar="false"
     >
-      <n-layout-header
-        :position="appStore.fixedHeader ? 'absolute' : 'static'"
-        :inverted="appStore.invertedHeader"
-        class="z-1"
-      >
+      <n-layout-header bordered position="absolute" class="z-1">
         <div class="h-60px flex-y-center justify-between">
           <div class="flex-y-center h-full">
             <CollapaseButton />
@@ -64,45 +64,36 @@ appStore.setPrimaryColor()
             <UserCenter />
           </div>
         </div>
+        <TabBar v-if="appStore.showTabs" class="h-45px" />
       </n-layout-header>
-      <n-layout-header
-        v-if="appStore.showTabs"
-        :position="appStore.fixedHeader ? 'absolute' : 'static'"
-        class="z-1"
-        :class="{ 'm-t-61px': appStore.fixedHeader }"
+      <div class="flex-1 p-16px flex flex-col">
+        <div class="h-60px" />
+        <div v-if="appStore.showTabs" class="h-45px" />
+        <router-view v-slot="{ Component, route }" class="flex-1">
+          <transition
+            :name="appStore.transitionAnimation"
+            mode="out-in"
+          >
+            <keep-alive :include="routeStore.cacheRoutes">
+              <component
+                :is="Component"
+                v-if="appStore.loadFlag"
+                :key="route.fullPath"
+              />
+            </keep-alive>
+          </transition>
+        </router-view>
+        <div v-if="appStore.showFooter" class="h-40px" />
+      </div>
+      <n-layout-footer
+        v-if="appStore.showFooter"
+        bordered
+        position="absolute"
+        class="h-40px flex-center"
       >
-        <TabBar class="h-45px" />
-      </n-layout-header>
-      <n-layout-content
-        class="bg-transparent"
-        style="min-height: calc(100% - 105px); height: calc(100% - 105px)"
-        content-style="padding: 16px;min-height:100%;"
-      >
-        <div
-          class="h-full"
-          :class="{
-            'p-t-122px': appStore.fixedHeader && appStore.showTabs,
-            'p-t-77px': appStore.fixedHeader && !appStore.showTabs,
-          }"
-        >
-          <router-view v-slot="{ Component, route }">
-            <transition
-              :name="appStore.transitionAnimation"
-              mode="out-in"
-            >
-              <keep-alive :include="routeStore.cacheRoutes">
-                <component
-                  :is="Component"
-                  v-if="appStore.loadFlag"
-                  :key="route.fullPath"
-                />
-              </keep-alive>
-            </transition>
-          </router-view>
-        </div>
-      </n-layout-content>
+        {{ appStore.footerText }}
+      </n-layout-footer>
       <BackTop />
-      <Watermark :show-watermark="appStore.showWatermark" />
     </n-layout>
   </n-layout>
 </template>

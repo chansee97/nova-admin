@@ -24,10 +24,12 @@ const options = computed(() => {
 })
 
 function renderLabel(option: any) {
-  return h(NFlex, {}, { default: () => [
-    h(NTag, { size: 'small', type: 'primary', bordered: false }, { icon: renderIcon(option.icon), default: () => option.label }),
-    h(NText, { depth: 3 }, { default: () => option.value }),
-  ] })
+  return h(NFlex, {}, {
+    default: () => [
+      h(NTag, { size: 'small', type: 'primary', bordered: false }, { icon: renderIcon(option.icon), default: () => option.label }),
+      h(NText, { depth: 3 }, { default: () => option.value }),
+    ],
+  })
 }
 
 const router = useRouter()
@@ -41,18 +43,16 @@ function handleSelect(value: string) {
 
 <template>
   <n-auto-complete
-    v-model:value="searchValue"
-    class="w-20em m-r-1em"
-    :input-props="{
+    v-model:value="searchValue" class="w-20em m-r-1em" :input-props="{
       autocomplete: 'disabled',
-    }"
-
-    :options="options"
-    :render-label="renderLabel"
-    placeholder="搜索页面"
-    clearable
-    @select="handleSelect"
-  />
+    }" :options="options" :render-label="renderLabel" placeholder="搜索页面/路径" clearable @select="handleSelect"
+  >
+    <template #prefix>
+      <n-icon>
+        <i-icon-park-outline-search />
+      </n-icon>
+    </template>
+  </n-auto-complete>
 </template>
 
 <style scoped></style>

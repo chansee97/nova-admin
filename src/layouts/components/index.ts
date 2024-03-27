@@ -19,7 +19,6 @@ import TabBar from './tab/TabBar.vue'
 /* 其他组件 */
 // 返回顶部
 import BackTop from './common/BackTop.vue'
-import Watermark from './common/Watermark.vue'
 
 export {
   Breadcrumb,
@@ -35,5 +34,4 @@ export {
   Reload,
   TabBar,
   BackTop,
-  Watermark,
 }

@@ -9,9 +9,8 @@ const routesStore = useRouteStore()
 <template>
   <n-menu
     :collapsed="appStore.collapsed"
-    :collapsed-width="64"
     :indent="20"
-    accordion
+    :collapsed-width="64"
     :options="routesStore.menus"
     :value="routesStore.activeMenu"
   />

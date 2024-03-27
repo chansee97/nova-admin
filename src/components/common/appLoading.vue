@@ -1,5 +1,4 @@
 <script setup lang="ts">
-const name = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>
@@ -30,9 +29,6 @@ const name = import.meta.env.VITE_APP_NAME
         <div />
       </div>
     </div>
-    <n-h1 class="z-1">
-      {{ name }}
-    </n-h1>
   </div>
 </template>
 

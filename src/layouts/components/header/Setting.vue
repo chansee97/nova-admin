@@ -88,11 +88,11 @@ function resetSetting() {
                 </n-space>
                 <n-space justify="space-between">
                   色弱模式
-                  <n-switch :value="appStore.colorWeak" @update:value="appStore.toggleColorWeak()" />
+                  <n-switch :value="appStore.colorWeak" @update:value="appStore.toggleColorWeak" />
                 </n-space>
                 <n-space justify="space-between">
                   灰色模式
-                  <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode()" />
+                  <n-switch :value="appStore.grayMode" @update:value="appStore.toggleGrayMode" />
                 </n-space>
                 <n-space align="center" justify="space-between">
                   主题色
@@ -106,14 +106,6 @@ function resetSetting() {
                   切换动效
                   <n-select v-model:value="appStore.transitionAnimation" class="w-7em" :options="transitionSelectorOptions" @update:value="appStore.reloadPage" />
                 </n-space>
-                <n-space justify="space-between">
-                  侧边栏反转色
-                  <n-switch v-model:value="appStore.invertedSider" />
-                </n-space>
-                <n-space justify="space-between">
-                  头部反转色
-                  <n-switch v-model:value="appStore.invertedHeader" />
-                </n-space>
 
                 <n-divider>界面显示</n-divider>
                 <n-space justify="space-between">
@@ -125,8 +117,12 @@ function resetSetting() {
                   <n-switch v-model:value="appStore.showProgress" />
                 </n-space>
                 <n-space justify="space-between">
-                  多页签
+                  多页签显示
                   <n-switch v-model:value="appStore.showTabs" />
+                </n-space>
+                <n-space justify="space-between">
+                  底部标签显示
+                  <n-switch v-model:value="appStore.showFooter" />
                 </n-space>
                 <n-space justify="space-between">
                   面包屑
@@ -135,10 +131,6 @@ function resetSetting() {
                 <n-space justify="space-between">
                   面包屑图标
                   <n-switch v-model:value="appStore.showBreadcrumbIcon" />
-                </n-space>
-                <n-space justify="space-between">
-                  固定头部和多页签
-                  <n-switch v-model:value="appStore.fixedHeader" />
                 </n-space>
                 <n-space justify="space-between">
                   水印

@@ -6,6 +6,7 @@ import themeConfig from './theme.json'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 interface AppStatus {
+  footerText: string
   theme: GlobalThemeOverrides
   primaryColor: string
   collapsed: boolean
@@ -16,12 +17,10 @@ interface AppStatus {
   loadFlag: boolean
   showLogo: boolean
   showTabs: boolean
+  showFooter: boolean
   showProgress: boolean
   showBreadcrumb: boolean
   showBreadcrumbIcon: boolean
-  fixedHeader: boolean
-  invertedSider: boolean
-  invertedHeader: boolean
   showWatermark: boolean
   transitionAnimation: TransitionAnimation
 }
@@ -40,6 +39,7 @@ const isDark = useDark({
 export const useAppStore = defineStore('app-store', {
   state: (): AppStatus => {
     return {
+      footerText: 'Copyright © 2024 chansee97',
       theme: themeConfig,
       primaryColor: initPrimaryColor,
       collapsed: false,
@@ -50,12 +50,10 @@ export const useAppStore = defineStore('app-store', {
       loadFlag: true,
       showLogo: true,
       showTabs: true,
+      showFooter: true,
       showProgress: true,
       showBreadcrumb: true,
       showBreadcrumbIcon: true,
-      fixedHeader: false,
-      invertedSider: false,
-      invertedHeader: false,
       showWatermark: false,
       transitionAnimation: 'fade-slide',
     }
@@ -73,11 +71,10 @@ export const useAppStore = defineStore('app-store', {
       this.loadFlag = true
       this.showLogo = true
       this.showTabs = true
+      this.showLogo = true
+      this.showFooter = true
       this.showBreadcrumb = true
       this.showBreadcrumbIcon = true
-      this.fixedHeader = false
-      this.invertedSider = false
-      this.invertedHeader = false
       this.showWatermark = false
       this.transitionAnimation = 'fade-slide'
 
@@ -172,13 +169,13 @@ export const useAppStore = defineStore('app-store', {
     },
     /* 切换色弱模式 */
     toggleColorWeak() {
-      docEle.classList.toggle('color-weak')
-      this.colorWeak = docEle.classList.contains('color-weak')
+      docEle.value.classList.toggle('color-weak')
+      this.colorWeak = docEle.value.classList.contains('color-weak')
     },
     /* 切换灰色模式 */
     toggleGrayMode() {
-      docEle.classList.toggle('gray-mode')
-      this.grayMode = docEle.classList.contains('gray-mode')
+      docEle.value.classList.toggle('gray-mode')
+      this.grayMode = docEle.value.classList.contains('gray-mode')
     },
   },
   persist: {

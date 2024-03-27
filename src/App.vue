@@ -9,13 +9,12 @@ const appStore = useAppStore()
 
 <template>
   <n-config-provider
-    class="wh-full"
-    inline-theme-disabled
-    :theme="appStore.darkMode ? darkTheme : null"
-    :locale="locale"
-    :date-locale="dateLocale"
-    :theme-overrides="appStore.theme"
+    class="wh-full" inline-theme-disabled :theme="appStore.darkMode ? darkTheme : null"
+    :locale="locale" :date-locale="dateLocale" :theme-overrides="appStore.theme"
   >
-    <naive-provider><router-view /></naive-provider>
+    <naive-provider>
+      <router-view />
+      <Watermark :show-watermark="appStore.showWatermark" />
+    </naive-provider>
   </n-config-provider>
 </template>
