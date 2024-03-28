@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue'
 import { useAppStore } from '@/store'
 
 const appStore = useAppStore()
@@ -18,9 +17,9 @@ function handleReload() {
 <template>
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
-      <HeaderButton @click="handleReload">
+      <CommonWrapper @click="handleReload">
         <i-icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
-      </HeaderButton>
+      </CommonWrapper>
     </template>
     <span>刷新页面</span>
   </n-tooltip>

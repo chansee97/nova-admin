@@ -3,7 +3,6 @@ import {
   BackTop,
   Breadcrumb,
   CollapaseButton,
-  DarkMode,
   FullScreen,
   Logo,
   Menu,
@@ -18,9 +17,6 @@ import { useAppStore, useRouteStore } from '@/store'
 
 const routeStore = useRouteStore()
 const appStore = useAppStore()
-
-// 初始载入，初始化body的css变量
-appStore.setPrimaryColor()
 </script>
 
 <template>
@@ -59,7 +55,7 @@ appStore.setPrimaryColor()
             <Reload />
             <Notices />
             <FullScreen />
-            <DarkMode />
+            <DarkModeSwitch />
             <Setting />
             <UserCenter />
           </div>

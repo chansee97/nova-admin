@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue'
 import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'
 
@@ -65,14 +64,14 @@ function handleSelect(key: string | number) {
     :options="options"
     @select="handleSelect"
   >
-    <HeaderButton>
+    <CommonWrapper>
       <n-avatar
         round
         size="large"
         :src="userInfo?.avatar"
       />
       <span class="overflow-hidden text-ellipsis whitespace-nowrap">{{ userInfo?.nickname }}</span>
-    </HeaderButton>
+    </CommonWrapper>
   </n-dropdown>
 </template>
 

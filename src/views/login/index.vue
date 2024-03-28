@@ -8,74 +8,35 @@ const formComponets = {
   register: Register,
   resetPwd: ResetPwd,
 }
+
+const appName = import.meta.env.VITE_APP_NAME
 </script>
 
 <template>
-  <div class="wh-full flex-center login__bg">
+  <n-el class="wh-full flex-center" style="background-color: var(--body-color);">
     <div class="fixed top-40px right-40px text-lg">
       <DarkModeSwitch />
     </div>
     <n-el
-      class="w-1000px h-600px flex-center shadow-2xl p-4xl rd-12px z-1"
-      style="background: var(--card-color)"
+      class="p-4xl h-full w-full sm:w-450px sm:h-700px"
+      style="background: var(--card-color);box-shadow: var(--box-shadow-1);"
     >
-      <n-grid
-        x-gap="10"
-        cols="s:1 l:2"
-        class="h-full"
-        responsive="screen"
-      >
-        <n-gi>
-          <div class="h-full flex-col">
-            <n-h2>Nova </n-h2>
-            <img
-              src="@/assets/svg/login-illus.svg"
-              class="h-80%"
-            >
-          </div>
-        </n-gi>
-        <n-gi class="flex-center">
-          <transition
-            name="fade-slide"
-            mode="out-in"
-          >
-            <component
-              :is="formComponets[formType]"
-              v-model="formType"
-              class="w-70%"
-            />
-          </transition>
-        </n-gi>
-      </n-grid>
+      <div class="w-full flex flex-col items-center">
+        <SvgIcon name="logo" :size="80" />
+        <n-h3>{{ appName }} </n-h3>
+        <transition
+          name="fade-slide"
+          mode="out-in"
+        >
+          <component
+            :is="formComponets[formType]"
+            v-model="formType"
+            class="w-85%"
+          />
+        </transition>
+      </div>
     </n-el>
 
     <div />
-  </div>
+  </n-el>
 </template>
-
-<style scoped lang="scss">
-  .login__bg {
-    background-image: url(@/assets/img/login-bg.webp);
-    position: relative;
-    &::after,
-    &::before {
-      position: absolute;
-      content: '';
-      width: 30vw;
-      height: 15vw;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    &::before {
-      background-image: url(@/assets/svg/login-illus-lt.svg);
-      top: 0;
-      left: 0;
-    }
-    &::after {
-      background-image: url(@/assets/svg/login-illus-rb.svg);
-      background-position: right bottom;
-      bottom: 0;
-      right: 0;
-    }
-  }
-</style>

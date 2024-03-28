@@ -67,9 +67,9 @@ checkUserAccount()
 
 <template>
   <div>
-    <n-h1 depth="3">
-      <SvgIcon name="logo" :size="42" class="mr-1ch" />登录
-    </n-h1>
+    <n-h2 depth="3" class="text-center">
+      登录
+    </n-h2>
     <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
       <n-form-item path="account">
         <n-input v-model:value="formValue.account" clearable placeholder="输入账号" />
@@ -107,7 +107,9 @@ checkUserAccount()
         </n-button>
       </n-space>
     </n-form>
-    <n-divider><span op-80>其他登录</span></n-divider>
+    <n-divider>
+      <span op-80>其他登录</span>
+    </n-divider>
     <n-space justify="center">
       <n-button circle>
         <template #icon>

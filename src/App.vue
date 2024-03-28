@@ -9,7 +9,7 @@ const appStore = useAppStore()
 
 <template>
   <n-config-provider
-    class="wh-full" inline-theme-disabled :theme="appStore.darkMode ? darkTheme : null"
+    class="wh-full" inline-theme-disabled :theme="appStore.colorMode === 'dark' ? darkTheme : null"
     :locale="locale" :date-locale="dateLocale" :theme-overrides="appStore.theme"
   >
     <naive-provider>

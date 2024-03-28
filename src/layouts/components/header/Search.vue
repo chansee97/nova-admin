@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { SelectOption } from 'naive-ui'
 import { NFlex, NTag, NText } from 'naive-ui'
 import { useRouteStore } from '@/store'
 import { renderIcon } from '@/utils'

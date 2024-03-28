@@ -33,13 +33,9 @@ function handleRegister() {}
 
 <template>
   <div>
-    <n-h1 depth="3">
-      <SvgIcon
-        name="logo"
-        :size="42"
-        class="mr-1ch"
-      />注册
-    </n-h1>
+    <n-h2 depth="3" class="text-center">
+      注册
+    </n-h2>
     <n-form
       :rules="rules"
       :model="formValue"

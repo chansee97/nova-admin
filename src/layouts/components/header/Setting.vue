@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HeaderButton from '../common/HeaderButton.vue'
 import { useAppStore } from '@/store'
 
 const appStore = useAppStore()
@@ -75,17 +74,13 @@ function resetSetting() {
 <template>
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
-      <HeaderButton @click="openSetting">
+      <CommonWrapper @click="openSetting">
         <div>
           <i-icon-park-outline-setting-two />
           <n-drawer v-model:show="drawerActive" :width="300">
             <n-drawer-content title="系统设置" closable>
               <n-space vertical>
                 <n-divider>主题设置</n-divider>
-                <n-space justify="space-between">
-                  深色模式
-                  <n-switch :value="appStore.darkMode" @update:value="appStore.toggleDarkMode" />
-                </n-space>
                 <n-space justify="space-between">
                   色弱模式
                   <n-switch :value="appStore.colorWeak" @update:value="appStore.toggleColorWeak" />
@@ -146,7 +141,7 @@ function resetSetting() {
             </n-drawer-content>
           </n-drawer>
         </div>
-      </HeaderButton>
+      </CommonWrapper>
     </template>
     <span>设置</span>
   </n-tooltip>

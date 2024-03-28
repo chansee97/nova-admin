@@ -3,7 +3,7 @@
 <template>
   <n-el
     tag="div"
-    class="el h-full px-3 cursor-pointer"
+    class="el p-3 cursor-pointer rounded"
   >
     <n-flex
       align="center"

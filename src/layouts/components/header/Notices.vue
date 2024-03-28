@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { group } from 'radash'
-import HeaderButton from '../common/HeaderButton.vue'
 import NoticeList from '../common/NoticeList.vue'
 
 const MassageData = ref<Message.List[]>([
@@ -101,11 +100,11 @@ const groupMessage = computed(() => {
     <template #trigger>
       <n-tooltip placement="bottom" trigger="hover">
         <template #trigger>
-          <HeaderButton>
+          <CommonWrapper>
             <n-badge :value="massageCount" :max="99" style="color: unset">
               <i-icon-park-outline-remind />
             </n-badge>
-          </HeaderButton>
+          </CommonWrapper>
         </template>
         <span>消息通知</span>
       </n-tooltip>
