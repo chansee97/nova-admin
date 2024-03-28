@@ -1,13 +1,14 @@
 import { resolve } from 'node:path'
 import { defineConfig, loadEnv } from 'vite'
 import { createVitePlugins } from './build/plugins'
-import { createViteProxy, proxyConfig } from './build/proxy'
+import { createViteProxy } from './build/proxy'
+import { serviceConfig } from './service.config'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // 根据当前工作目录中的 `mode` 加载 .env 文件
   const env = loadEnv(mode, __dirname, '') as ImportMetaEnv
-  const envConfig = proxyConfig[mode as ServiceEnvType]
+  const envConfig = serviceConfig[mode as ServiceEnvType]
 
   return {
     base: env.VITE_BASE_URL,

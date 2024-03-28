@@ -7,7 +7,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="flex-col-center h-full">
+  <div class="flex-col-center">
     <img
       v-if="type === '403'"
       src="@/assets/svg/error-403.svg"

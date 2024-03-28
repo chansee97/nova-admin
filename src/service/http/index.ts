@@ -1,12 +1,13 @@
 import { createAlovaInstance } from './alova'
-import { proxyConfig } from '@/../build/proxy'
+import { serviceConfig } from '@/../service.config'
+import { generateProxyPattern } from '@/../build/proxy'
 
-const { url, urlPattern } = proxyConfig[import.meta.env.MODE]
+const { url } = generateProxyPattern(serviceConfig[import.meta.env.MODE])
 
 const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y' || false
 
 export const alovaInstance = createAlovaInstance({
-  baseURL: isHttpProxy ? urlPattern : url,
+  baseURL: isHttpProxy ? url.proxy : url.value,
 })
 
 export const blankInstance = createAlovaInstance({

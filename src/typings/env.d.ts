@@ -6,13 +6,6 @@
  */
 type ServiceEnvType = 'dev' | 'test' | 'prod'
 
-/** 后台服务的环境配置 */
-interface ServiceEnvConfig {
-  /** 请求地址 */
-  url: string
-  /** 匹配路径的正则字符串, 用于拦截地址转发代理(任意以 /开头 + 字符串, 单个/不起作用) */
-  urlPattern: '/url-pattern'
-}
 interface ImportMetaEnv {
   /** 项目基本地址 */
   readonly VITE_BASE_URL: string
