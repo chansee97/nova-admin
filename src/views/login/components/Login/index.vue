@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
-import { useRequest } from 'alova'
 import { local } from '@/utils'
 import { useAuthStore } from '@/store'
 

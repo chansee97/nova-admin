@@ -87,7 +87,7 @@ export function useEcharts(options: Ref<ECOption>) {
     return Boolean(domRef.value && chart)
   }
   async function render() {
-    const chartTheme = appStore.darkMode ? 'dark' : 'light'
+    const chartTheme = appStore.colorMode ? 'dark' : 'light'
     await nextTick()
     if (domRef.value) {
       chart = echarts.init(domRef.value, chartTheme)

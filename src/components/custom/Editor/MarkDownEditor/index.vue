@@ -18,7 +18,7 @@ const appStore = useAppStore()
 const data = useVModel(props, 'modelValue', emit)
 
 const theme = computed(() => {
-  return appStore.darkMode ? 'dark' : 'light'
+  return appStore.colorMode ? 'dark' : 'light'
 })
 
 const toolbarsExclude: ToolbarNames[] = [

@@ -13,7 +13,7 @@ import { useAuthStore } from '@/store/auth'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
-  menus: any
+  menus: AppRoute.Route[]
   rowRoutes: AppRoute.RowRoute[]
   activeMenu: string | null
   cacheRoutes: string[]
@@ -44,6 +44,7 @@ export const useRouteStore = defineStore('route-store', {
     /* 生成侧边菜单的数据 */
     createMenus(userRoutes: AppRoute.RowRoute[]) {
       const resultMenus = clone(userRoutes).map(i => construct(i)) as AppRoute.Route[]
+      // arrayToTree2()
       /** 过滤不需要显示的菜单 */
       const visibleMenus = resultMenus.filter(route => !route.meta.hide)
       // 生成侧边菜单
@@ -84,15 +85,7 @@ export const useRouteStore = defineStore('route-store', {
                       )
                   : item.meta.title,
             key: item.path,
-            icon: renderIcon(item.meta.icon),
-          }
-          /** 判断子元素 */
-          if (item.children) {
-            const children = this.transformAuthRoutesToMenus(item.children)
-            // 只有子元素有且不为空时才添加
-            if (children.length !== 0)
-              target.children = children
-            else target.children = undefined
+            icon: item.meta.icon ? renderIcon(item.meta.icon) : undefined,
           }
           return target
         })

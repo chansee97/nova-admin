@@ -57,6 +57,7 @@
     "echarts": "^5.5.0",
     "md-editor-v3": "^4.11.3",
     "nprogress": "^0.2.0",
+    "performant-array-to-tree": "^1.11.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
     "qs": "^6.12.0",

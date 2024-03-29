@@ -4,7 +4,7 @@ import { usePermission } from '@/hooks'
 
 const authStore = useAuthStore()
 const { hasPermission } = usePermission()
-const { role } = authStore.userInfo
+const { role } = authStore.userInfo!
 
 const roleList: Auth.RoleType[] = ['super', 'admin', 'user']
 
