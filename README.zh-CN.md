@@ -16,27 +16,29 @@
 
 ## 介绍
 
-[Nova-admin](https://github.com/chansee97/nova-admin)一个基于Vue3、Vite4、Typescript、pinia、Naive UI、Vue-Router的后台管理免费开源模板，助力提高中后台开发效率
+[Nova-admin](https://github.com/chansee97/nova-admin)是一个基于Vue3、Vite5、Typescript、Naive UI, 简洁干净后台管理模板，用简单的方式实现完整功能，并尽可能的考虑代码规范，易读易理解无过度封装，方便二次开发。
 
 ## 特性
 
-- **最新流行技术栈** - 基于Vue3、Vite、TypeScript、NaiveUI、Pinia等最新技术栈开发
-- **网络请求功能封装** - 基于[alova](https://alova.js.org/)封装和配置，统一的响应处理和多场景能力
-- **权限控制** - 完善的前后端权限管理方案
-- **路由系统** - 支持本地静态路由和后台返回动态路由，路由简单易配置
-- **组件封装** - 对日常使用频率较高的组件二次封装,满足基础工作需求
-- **主题配置** - 黑暗主题适配
-- **代码规范** - 仅在提交时进行eslint校验，没有过多限制，开发更简便
+- 基于Vue3、Vite5、TypeScript、NaiveUI、Unocss等最新技术栈开发
+- 基于[alova](https://alova.js.org/)封装和配置，提供统一的响应处理和多场景能力
+- 完善的前后端权限管理方案
+- 支持本地静态路由和后台返回动态路由，路由简单易配置
+- 对日常使用频率较高的组件二次封装,满足基础工作需求
+- 黑暗主题适配, 界面样式保持navie风格
+- 仅在提交时进行eslint校验，没有过多限制，开发更简便
+- 界面样式布局灵活可配置
 
 ## 项目预览
 
 - [Nova-Admin 预览](https://admin-nova.vercel.app/)
 
-![image.png](https://s2.loli.net/2023/10/10/YATI4y9kNOFDr6i.png)
-![image.png](https://s2.loli.net/2023/10/10/2D7o5hpdTVlOY3y.png)
-![image.png](https://s2.loli.net/2023/10/10/tmRANIG7JkFUS9K.png)
-![image.png](https://s2.loli.net/2023/10/10/cy8nrv1kSLpjCT9.png)
-![image.png](https://s2.loli.net/2023/10/10/rACdG2fUI6oJN7H.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-1.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-2.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-3.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-4.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-5.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-6.png)
 
 ## 代码仓库
 
@@ -49,7 +51,7 @@
 
 ## 安装使用
 
-本地开发环境建议使用 pnpm 8.x 、Node.js 16.x
+本地开发环境建议使用 pnpm 8.x 、Node.js 18.x
 
 ```bash
 # install dependencies
@@ -70,11 +72,13 @@ pnpm build
 
 ## 学习交流
 
-Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在QQ交流群内提问。
+Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨在帮助开发者更方便地进行中大型管理系统开发，有使用问题欢迎在交流群内提问。
 
-| Q群 | 微信 |
-| :--: |:--: |
-| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
+| Q群 | 微信群 | 个人微信 |
+| :--: |:--: |:--: |
+| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/wx-group.png" width=170>|<img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
+
+> 微信群二维码失效请加我为好友
 
 ## 贡献
 

@@ -16,27 +16,29 @@
 
 ## Introduction
 
-[Nova-admin](https://github.com/chansee97/nova-admin) A free and open-source template for middle platform/back-end based on Vue3, Vite4, Typescript, pinia, Naive UI, and Vue-Router to help improve the development efficiency of middle platform/back-end
+[Nova-admin](https://github.com/chansee97/nova-admin) is a clean and concise back-end management template based on Vue3, Vite5, Typescript, and Naive UI. It implements complete functionality in a simple way, while also considering code standards, readability, and avoiding excessive encapsulation to facilitate secondary development.
 
 ## Features
 
-- **Latest popular technology stack** - Developed based on the latest technology stack such as Vue3, Vite, TypeScript, NaiveUI, Pinia, etc
-- **Network request function encapsulation** - Based on [alova](https://alova.js.org/) encapsulation and configuration, unified response processing and multi-scenario capabilities
-- **Authority Control** - Perfect front and back-end authority management solution
-- **Routing system** - Support local static routing and background return dynamic routing, routing is simple and easy to configure
-- **Component packaging** - Secondary packaging of components with high frequency of daily use to meet basic workrequirements
-- **Theme Configuration** - Dark Theme Adaptation
-- **Code Specification** - Only perform eslint verification at commit time, no too many restrictions, easier development
+- Developed based on the latest technology stack including Vue3, Vite5, TypeScript, NaiveUI, Unocss, etc.
+- Based on [alova](https://alova.js.org/) encapsulation and configuration, providing unified response handling and multi-scenario capabilities.
+- Comprehensive front-end and back-end permission management solution.
+- Supports local static routes and dynamically generated routes from the back end, with easy route configuration.
+- Secondary encapsulation of commonly used components to meet basic work requirements.
+- Dark theme adaptation, maintaining the Naive style for interface aesthetics.
+- Only performs eslint validation during submission without excessive restrictions for simpler development.
+- Flexible and configurable interface style layout.
 
 ## Project preview
 
 - [Nova-Admin preview](https://admin-nova.vercel.app/)
 
-![image.png](https://s2.loli.net/2023/10/10/YATI4y9kNOFDr6i.png)
-![image.png](https://s2.loli.net/2023/10/10/2D7o5hpdTVlOY3y.png)
-![image.png](https://s2.loli.net/2023/10/10/tmRANIG7JkFUS9K.png)
-![image.png](https://s2.loli.net/2023/10/10/cy8nrv1kSLpjCT9.png)
-![image.png](https://s2.loli.net/2023/10/10/rACdG2fUI6oJN7H.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-1.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-2.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-3.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-4.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-5.png)
+![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-6.png)
 
 ## Repo
 
@@ -49,7 +51,7 @@
 
 ## Install and use
 
-The local development environment is recommended to use pnpm 8.x, Node.js 16.x
+The local development environment is recommended to use pnpm 8.x, Node.js 18.x
 
 ```bash
 # install dependencies
@@ -72,9 +74,11 @@ This project uses ApiFox for interface mock, check the online documentation for 
 
 Nova-Admin is a completely open-source and free project. It is still being optimized and iterated. It is designed to help developers more conveniently develop medium and large management systems. If you have any questions, please ask questions in the QQ exchange group.
 
-| Q-Group | wechat |
-| :--: |:--: |
-| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
+| Q-Group | wechat-Group |wechat |
+| :--: |:--: |:--: |
+| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/wx-group.png" width=170>|<img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
+
+> The WeChat group QR code is invalid, please add me as a friend.
 
 ## Contribution
 
