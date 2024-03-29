@@ -14,7 +14,7 @@ export const DEFAULT_BACKEND_OPTIONS = {
 
 /** 请求不成功各种状态的错误 */
 export const ERROR_STATUS = {
-  0: '请求错误~',
+  default: '请求错误~',
   400: '400: 请求出现语法错误~',
   401: '401: 用户未授权~',
   403: '403: 服务器拒绝访问~',

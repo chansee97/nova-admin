@@ -99,7 +99,7 @@ checkUserAccount()
             忘记密码？
           </n-button>
         </div>
-        <n-button block type="primary" size="large" :loading="isLoading" @click="handleLogin">
+        <n-button block type="primary" size="large" :loading="isLoading" :disabled="isLoading" @click="handleLogin">
           登录
         </n-button>
         <n-button type="primary" text @click="toOtherForm('register')">

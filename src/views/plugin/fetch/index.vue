@@ -30,10 +30,9 @@ function handleRequestHook() {
 function pinterEnv() {
   msg.value = import.meta.env
 }
-function get() {
-  fetachGet({ a: 112211, b: false }).then((res) => {
-    msg.value = res
-  })
+async function get() {
+  const res = await fetachGet({ a: 112211, b: false })
+  msg.value = res
 }
 function delete2() {
   fetchDelete().then((res) => {

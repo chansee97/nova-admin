@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
+import Reload from './Reload.vue'
 import { renderIcon } from '@/utils'
 import { useAppStore, useTabStore } from '@/store'
 
@@ -133,6 +134,7 @@ function handleDropTabs(key: string, option: any) {
         </div>
       </n-tab>
       <template #suffix>
+        <Reload />
         <n-dropdown
           :options="tabStore.allTabs"
           :render-label="renderDropTabsLabel"
@@ -141,9 +143,9 @@ function handleDropTabs(key: string, option: any) {
           size="small"
           @select="handleDropTabs"
         >
-          <n-button tertiary circle type="primary">
+          <CommonWrapper>
             <i-icon-park-outline-application-menu />
-          </n-button>
+          </CommonWrapper>
         </n-dropdown>
       </template>
     </n-tabs>

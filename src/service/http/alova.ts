@@ -70,15 +70,15 @@ export function createAlovaInstance(
           const apiData = await response.json()
           // 请求成功
           if (apiData[_backendConfig.codeKey] === _backendConfig.successCode)
-            return handleServiceResult(apiData.data, null)
+            return handleServiceResult(apiData)
 
           // 业务请求失败
           const errorResult = handleBusinessError(apiData, _backendConfig)
-          return handleServiceResult(null, errorResult)
+          return handleServiceResult(errorResult, false)
         }
         // 接口请求失败
         const errorResult = handleResponseError(response)
-        return handleServiceResult(null, errorResult)
+        return handleServiceResult(errorResult, false)
       },
       onError: (error, method) => {
         const tip = `[${method.type}] - [${method.url}] - ${error.message}`

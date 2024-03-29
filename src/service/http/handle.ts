@@ -1,5 +1,5 @@
-import { showError } from './utils'
 import {
+  ERROR_NO_TIP_STATUS,
   ERROR_STATUS,
 } from './config'
 import { useAuthStore } from '@/store'
@@ -15,12 +15,13 @@ type ErrorStatus = keyof typeof ERROR_STATUS
  */
 export function handleResponseError(response: Response) {
   const error: Service.RequestError = {
-    type: 'Response',
+    errorType: 'Response Error',
     code: 0,
-    msg: ERROR_STATUS[0],
+    msg: ERROR_STATUS.default,
+    data: null,
   }
   const errorCode: ErrorStatus = response.status as ErrorStatus
-  const msg = ERROR_STATUS[errorCode] || ERROR_STATUS[0]
+  const msg = ERROR_STATUS[errorCode] || ERROR_STATUS.default
   Object.assign(error, { code: errorCode, msg })
 
   showError(error)
@@ -37,9 +38,10 @@ export function handleResponseError(response: Response) {
 export function handleBusinessError(data: Record<string, any>, config: Required<Service.BackendConfig>) {
   const { codeKey, msgKey } = config
   const error: Service.RequestError = {
-    type: 'Business',
+    errorType: 'Business Error',
     code: data[codeKey],
     msg: data[msgKey],
+    data: data.data,
   }
 
   showError(error)
@@ -50,22 +52,15 @@ export function handleBusinessError(data: Record<string, any>, config: Required<
 /**
  * @description: 统一成功和失败返回类型
  * @param {any} data
- * @param {Service} error
+ * @param {boolean} isSuccess
  * @return {*} result
  */
-export function handleServiceResult<T = any>(data: any, error: Service.RequestError | null) {
-  if (error) {
-    const fail: Service.FailedResult = {
-      error,
-      data: null,
-    }
-    return fail
+export function handleServiceResult(data: any, isSuccess: boolean = true) {
+  return {
+    isSuccess,
+    errorType: null,
+    ...data,
   }
-  const success: Service.SuccessResult<T> = {
-    error: null,
-    data,
-  }
-  return success
 }
 
 /**
@@ -83,4 +78,13 @@ export async function handleRefreshToken() {
     // 刷新失败，退出
     await authStore.resetAuthStore()
   }
+}
+
+export function showError(error: Service.RequestError) {
+  // 如果error不需要提示,则跳过
+  const code = Number(error.code)
+  if (ERROR_NO_TIP_STATUS.includes(code))
+    return
+
+  window.$message.error(error.msg)
 }

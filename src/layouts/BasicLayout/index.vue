@@ -7,7 +7,6 @@ import {
   Logo,
   Menu,
   Notices,
-  Reload,
   Search,
   Setting,
   TabBar,
@@ -52,7 +51,6 @@ const appStore = useAppStore()
           </div>
           <div class="flex-y-center h-full">
             <Search />
-            <Reload />
             <Notices />
             <FullScreen />
             <DarkModeSwitch />

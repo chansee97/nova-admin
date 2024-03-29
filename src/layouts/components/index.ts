@@ -10,7 +10,6 @@ import Setting from './header/Setting.vue'
 import Notices from './header/Notices.vue'
 import UserCenter from './header/UserCenter.vue'
 import Search from './header/Search.vue'
-import Reload from './header/Reload.vue'
 
 /* 标签栏组件  */
 import TabBar from './tab/TabBar.vue'
@@ -29,7 +28,6 @@ export {
   Notices,
   UserCenter,
   Search,
-  Reload,
   TabBar,
   BackTop,
 }
