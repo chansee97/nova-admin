@@ -5,8 +5,7 @@ import lib from '@/../package.json'
 <template>
   <n-space vertical>
     <n-card title="关于">
-      Nova-admin是一款基于Vue3+vite+TypeScript+Navie
-      UI的后台管理模板，力求使用简约的代码实现完备功能，降低学习门槛和维护成本，让大家能早点下班做自己的事情
+      Nova-admin是一款基于Vue3+vite+TypeScript+NavieUI的后台管理模板，力求使用简约的代码实现完备功能，降低学习门槛和维护成本，让大家能早点下班做自己的事情
     </n-card>
     <n-card title="信息">
       <n-descriptions
@@ -23,6 +22,17 @@ import lib from '@/../package.json'
             type="primary"
           >
             Github
+          </n-button>
+        </n-descriptions-item>
+        <n-descriptions-item label="Github">
+          <n-button
+            text
+            tag="a"
+            href="https://gitee.com/chansee97/nova-admin"
+            target="_blank"
+            type="primary"
+          >
+            Gitee
           </n-button>
         </n-descriptions-item>
         <n-descriptions-item label="预览地址">

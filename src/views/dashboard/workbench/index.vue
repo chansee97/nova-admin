@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Chart from './components/chart.vue'
 import { useAuthStore } from '@/store'
 
 const { userInfo } = useAuthStore()
@@ -9,144 +10,89 @@ const { userInfo } = useAuthStore()
     :x-gap="16"
     :y-gap="16"
   >
-    <n-gi :span="24">
-      <n-card>
-        <n-space justify="space-between">
-          <div class="flex-y-center">
-            <n-avatar
-              round
-              :size="64"
-              :src="userInfo?.avatar"
-            />
-            <div class="pl-12px">
-              <h3 class="text-18px font-semibold">
-                您好，{{ userInfo?.nickname }},今天又是充满活力的一天！
-              </h3>
-              <p class="leading-30px text-[#999]">
-                今日多云转晴，20℃ - 25℃！
-              </p>
-            </div>
-          </div>
-          <n-row class="w-450px">
-            <n-col :span="10">
-              <n-statistic
-                label="统计数据"
-                :value="99"
-              >
-                <template #prefix>
-                  <i-icon-park-outline-chart-histogram />
-                </template>
-                <template #suffix>
-                  / 100
-                </template>
-              </n-statistic>
-            </n-col>
-            <n-col :span="10">
-              <n-statistic
-                label="活跃用户"
-                value="34,123"
-              >
-                <template #prefix>
-                  <i-icon-park-outline-customer />
-                </template>
-              </n-statistic>
-            </n-col>
-            <n-col :span="4">
-              <n-statistic
-                label="待办"
-                :value="18"
-              >
-                <template #prefix>
-                  <i-icon-park-outline-list-checkbox />
-                </template>
-              </n-statistic>
-            </n-col>
-          </n-row>
-        </n-space>
-      </n-card>
-    </n-gi>
-    <n-gi :span="17">
+    <n-gi :span="16">
       <n-space
         vertical
         :size="16"
       >
-        <n-card title="项目">
-          <template #header-extra>
-            <n-button
-              type="primary"
-              quaternary
-            >
-              更多
-            </n-button>
-          </template>
+        <n-card style="--n-padding-left: 0;">
+          <Chart />
+        </n-card>
+        <n-card>
           <n-grid
             :x-gap="8"
             :y-gap="8"
           >
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
+            <n-gi :span="6">
+              <n-card>
+                <n-thing>
+                  <template #avatar>
+                    <n-el>
+                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                        <e-icon :size="26" icon="icon-park-outline:user" />
+                      </n-icon-wrapper>
+                    </n-el>
+                  </template>
+                  <template #header>
+                    <n-statistic label="活跃用户">
+                      <n-number-animation show-separator :from="0" :to="12039" />
+                    </n-statistic>
+                  </template>
+                </n-thing>
               </n-card>
             </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
+            <n-gi :span="6">
+              <n-card>
+                <n-thing>
+                  <template #avatar>
+                    <n-el>
+                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                        <e-icon :size="26" icon="icon-park-outline:every-user" />
+                      </n-icon-wrapper>
+                    </n-el>
+                  </template>
+                  <template #header>
+                    <n-statistic label="用户">
+                      <n-number-animation show-separator :from="0" :to="44039" />
+                    </n-statistic>
+                  </template>
+                </n-thing>
               </n-card>
             </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
+            <n-gi :span="6">
+              <n-card>
+                <n-thing>
+                  <template #avatar>
+                    <n-el>
+                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                        <e-icon :size="26" icon="icon-park-outline:preview-open" />
+                      </n-icon-wrapper>
+                    </n-el>
+                  </template>
+                  <template #header>
+                    <n-statistic label="浏览量">
+                      <n-number-animation show-separator :from="0" :to="551039" />
+                    </n-statistic>
+                  </template>
+                </n-thing>
               </n-card>
             </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-                <template #action>
-                  #action
-                </template>
+            <n-gi :span="6">
+              <n-card>
+                <n-thing>
+                  <template #avatar>
+                    <n-el>
+                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                        <e-icon :size="26" icon="icon-park-outline:star" />
+                      </n-icon-wrapper>
+                    </n-el>
+                  </template>
+                  <template #header>
+                    <n-statistic label="收藏数">
+                      <n-number-animation show-separator :from="0" :to="7739" />
+                    </n-statistic>
+                  </template>
+                </n-thing>
               </n-card>
             </n-gi>
           </n-grid>
@@ -221,7 +167,7 @@ const { userInfo } = useAuthStore()
         </n-card>
       </n-space>
     </n-gi>
-    <n-gi :span="7">
+    <n-gi :span="8">
       <n-space
         vertical
         :size="16"
@@ -280,61 +226,43 @@ const { userInfo } = useAuthStore()
             </n-list-item>
           </n-list>
         </n-card>
-        <n-card title="快捷入口">
-          <n-grid
-            :x-gap="8"
-            :y-gap="8"
-          >
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-            <n-gi :span="8">
-              <n-card
-                title="卡片"
-                hoverable
-              >
-                卡片内容
-              </n-card>
-            </n-gi>
-          </n-grid>
-        </n-card>
+        <n-grid
+          :x-gap="8"
+          :y-gap="8"
+        >
+          <n-gi :span="12">
+            <n-card>
+              <n-flex vertical align="center">
+                <n-text depth="3">
+                  订单数
+                </n-text>
+                <n-icon-wrapper :size="46" :border-radius="999">
+                  <e-icon :size="26" icon="icon-park-outline:all-application" />
+                </n-icon-wrapper>
+                <n-text strong class="text-2xl">
+                  1,234,123
+                </n-text>
+              </n-flex>
+            </n-card>
+          </n-gi>
+          <n-gi :span="12">
+            <n-card>
+              <n-flex vertical align="center">
+                <n-text depth="3">
+                  待办
+                </n-text>
+                <n-el>
+                  <n-icon-wrapper :size="46" color="var(--warning-color)" :border-radius="999">
+                    <e-icon :size="26" icon="icon-park-outline:list-bottom" />
+                  </n-icon-wrapper>
+                </n-el>
+                <n-text strong class="text-2xl">
+                  78
+                </n-text>
+              </n-flex>
+            </n-card>
+          </n-gi>
+        </n-grid>
         <n-card title="任务进度">
           <n-timeline>
             <n-timeline-item content="啊" />

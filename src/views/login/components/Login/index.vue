@@ -21,17 +21,10 @@ const rules = {
     trigger: 'blur',
     message: '请输入密码',
   },
-  code: {
-    required: true,
-    trigger: 'blur',
-    min: 4,
-    message: '最短长度为 4',
-  },
 }
 const formValue = ref({
   account: 'super',
   pwd: '123456',
-  code: '1234',
 })
 const isRemember = ref(false)
 const isLoading = ref(false)
@@ -82,12 +75,6 @@ checkUserAccount()
             <i-icon-park-outline-preview-open />
           </template>
         </n-input>
-      </n-form-item>
-      <n-form-item path="code">
-        <n-space align="center">
-          <n-input v-model:value="formValue.code" clearable placeholder="输入验证码" :maxlength="4" />
-          <div>验证码</div>
-        </n-space>
       </n-form-item>
       <n-space vertical :size="20">
         <div class="flex-y-center justify-between">
