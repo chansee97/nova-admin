@@ -34,12 +34,12 @@
 
 ## Project preview
 
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-1.png)
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-2.png)
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-3.png)
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-4.png)
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-5.png)
-![preview](https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/preview-6.png)
+![preview-1.png](https://s2.loli.net/2024/03/31/UZoajnEekMX9cLi.png)
+![preview-2.jpg](https://s2.loli.net/2024/03/31/8VwMSyXWtO6avKg.jpg)
+![preview-5.png](https://s2.loli.net/2024/03/31/TCtE2ZBU7MJ6HrY.png)
+![preview-6.png](https://s2.loli.net/2024/03/31/YM1OrxZCimzLcd6.png)
+![preview-4.png](https://s2.loli.net/2024/03/31/hgYHKjACqs7rcPV.png)
+![preview-3.png](https://s2.loli.net/2024/03/31/TuYajAH9LWsMPf5.png)
 
 ## Repo
 
