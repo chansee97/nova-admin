@@ -42,7 +42,7 @@ const appStore = useAppStore()
 
 .list-enter-from,.list-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateX(-30px);
 }
 
 .list-leave-active {

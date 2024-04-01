@@ -3,7 +3,6 @@ interface Window {
   $dialog: import('naive-ui').DialogApi
   $message: import('naive-ui').MessageApi
   $notification: import('naive-ui').NotificationApi
-  $NProgress: import('NProgress').NProgress
 }
 
 declare const AMap: any

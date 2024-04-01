@@ -67,7 +67,6 @@ export const useAppStore = defineStore('app-store', {
     },
     /* 设置主题色 */
     setPrimaryColor(color: string) {
-      docEle.value.style.setProperty('--primary-color', color)
       const brightenColor = chroma(color).brighten(1).hex()
       const darkenColor = chroma(color).darken(1).hex()
       set(this.theme, 'common.primaryColor', color)
