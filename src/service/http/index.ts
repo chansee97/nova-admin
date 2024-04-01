@@ -6,7 +6,7 @@ const isHttpProxy = import.meta.env.VITE_HTTP_PROXY === 'Y' || false
 
 const { url } = generateProxyPattern(serviceConfig[import.meta.env.MODE])
 
-export const alovaInstance = createAlovaInstance({
+export const request = createAlovaInstance({
   baseURL: isHttpProxy ? url.proxy : url.value,
 })
 

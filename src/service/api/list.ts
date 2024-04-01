@@ -1,5 +1,5 @@
-import { alovaInstance } from '../http'
+import { request } from '../http'
 
 export function fetchUserList() {
-  return alovaInstance.Get('/userList')
+  return request.Get('/userList')
 }

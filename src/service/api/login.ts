@@ -1,4 +1,4 @@
-import { alovaInstance } from '../http'
+import { request } from '../http'
 
 interface Ilogin {
   username: string
@@ -6,14 +6,14 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  const methodInstance = alovaInstance.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/login', params)
+  const methodInstance = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/login', params)
   methodInstance.meta = {
     authRole: null,
   }
   return methodInstance
 }
 export function fetchUpdateToken(params: any) {
-  const method = alovaInstance.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/updateToken', params)
+  const method = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/updateToken', params)
   method.meta = {
     authRole: 'refreshToken',
   }
@@ -21,5 +21,5 @@ export function fetchUpdateToken(params: any) {
 }
 
 export function fetchUserRoutes(params: { id: number }) {
-  return alovaInstance.Get<Service.ResponseResult<AppRoute.RowRoute[]> >('/getUserRoutes', { params })
+  return request.Get<Service.ResponseResult<AppRoute.RowRoute[]> >('/getUserRoutes', { params })
 }
