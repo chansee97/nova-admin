@@ -36,8 +36,8 @@ declare namespace AppRoute {
     componentPath?: string | null
     // 路由id
     id: numnber
-    // 父级路由id，顶级页面为0
-    pid: number
+    // 父级路由id，顶级页面为null
+    pid: number | null
   }
 
   type RowRoute = {
