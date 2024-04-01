@@ -193,16 +193,20 @@ const downloadProcess = computed(() => {
           </n-button>
         </n-descriptions-item>
         <n-descriptions-item label="带进度的下载文件" :span="3">
-          <n-input v-model:value="downloadPath" />
-          <div>文件大小：{{ downloading.total }}B</div>
-          <div>已下载：{{ downloading.loaded }}B</div>
-          <n-progress type="line" indicator-placement="inside" :percentage="downloadProcess" />
-          <n-button strong secondary @click="sendDownloadFile">
-            开始下载
-          </n-button>
-          <n-button strong secondary type="warning" @click="abortDownloadFile">
-            中断下载
-          </n-button>
+          <n-space vertical>
+            <n-input v-model:value="downloadPath" />
+            <div>文件大小：{{ downloading.total }}B</div>
+            <div>已下载：{{ downloading.loaded }}B</div>
+            <n-progress type="line" indicator-placement="inside" :percentage="downloadProcess" />
+            <n-space>
+              <n-button strong secondary @click="sendDownloadFile">
+                开始下载
+              </n-button>
+              <n-button strong secondary type="warning" @click="abortDownloadFile">
+                中断下载
+              </n-button>
+            </n-space>
+          </n-space>
         </n-descriptions-item>
         <n-descriptions-item label="转换请求数据">
           <n-button strong secondary type="success" @click="getDictData">
