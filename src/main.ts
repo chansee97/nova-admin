@@ -18,7 +18,7 @@ async function setupApp() {
   // 注册模块 Vue-router
   await installRouter(app)
 
-  /* 注册模块 Vue-router/Pinia */
+  /* 注册模块 指令/静态资源 */
   Object.values(
     import.meta.glob<{ install: (app: App) => void }>('./modules/*.ts', {
       eager: true,

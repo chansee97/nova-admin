@@ -56,11 +56,12 @@ export function handleBusinessError(data: Record<string, any>, config: Required<
  * @return {*} result
  */
 export function handleServiceResult(data: any, isSuccess: boolean = true) {
-  return {
+  const result = {
     isSuccess,
     errorType: null,
     ...data,
   }
+  return result
 }
 
 /**
@@ -69,7 +70,7 @@ export function handleServiceResult(data: any, isSuccess: boolean = true) {
  */
 export async function handleRefreshToken() {
   const authStore = useAuthStore()
-  const data = await fetchUpdateToken({ refreshToken: local.get('refreshToken') })
+  const { data } = await fetchUpdateToken({ refreshToken: local.get('refreshToken') })
   if (data) {
     local.set('token', data.accessToken)
     local.set('refreshToken', data.refreshToken)

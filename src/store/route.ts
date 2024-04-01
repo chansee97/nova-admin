@@ -181,6 +181,10 @@ export const useRouteStore = defineStore('route-store', {
       this.isInitAuthRoute = false
       // 初始化路由信息
       const rowRoutes = await this.initRouteInfo()
+      if (!rowRoutes) {
+        window.$message.error('获取路由失败，请稍后再试')
+        return
+      }
       this.rowRoutes = rowRoutes
       // 生成真实路由并插入
       this.createRoutes(rowRoutes)

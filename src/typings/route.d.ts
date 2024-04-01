@@ -1,5 +1,5 @@
 declare namespace AppRoute {
-  /** 路由描述 */
+  /** 单个路由所携带的meta标识 */
   interface RouteMeta {
   /* 页面标题，通常必选。 */
     title: string
@@ -17,7 +17,7 @@ declare namespace AppRoute {
     order?: number
     /* 嵌套外链  */
     herf?: string
-    /** 当前路由需要选中的菜单项(用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况) */
+    /** 当前路由需要选中的菜单项，用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况 */
     activeMenu?: string
     /** 当前路由是否会被添加到Tab中 */
     withoutTab?: boolean
@@ -34,9 +34,9 @@ declare namespace AppRoute {
     redirect?: string
     /* 页面组件地址 */
     componentPath?: string | null
-    // 路由id
+    /* 路由id */
     id: numnber
-    // 父级路由id，顶级页面为null
+    /* 父级路由id，顶级页面为null */
     pid: number | null
   }
 
@@ -44,6 +44,9 @@ declare namespace AppRoute {
     [K in keyof RouteMeta as `meta.${K}`]?: RouteMeta[K]
   } & baseRoute
 
+  /**
+   * 挂载到项目上的真实路由结构
+   */
   interface Route extends baseRoute {
     /** 子路由 */
     children?: Route[]
