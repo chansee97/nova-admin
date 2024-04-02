@@ -112,24 +112,16 @@ function getDictData() {
     msg.value = res
   })
 }
+
+const filePath = ref('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
 // 模拟获取二进制文件
-const imagePath = ref('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
 function getBlobFile() {
-  getBlob(imagePath.value).then((res) => {
-    msg.value = 'this is blob!'
-    const link = URL.createObjectURL(res)
-    const eleLink = document.createElement('a')
-    eleLink.download = 'okk'
-    eleLink.style.display = 'none'
-    eleLink.href = link
-    document.body.appendChild(eleLink)
-    eleLink.click()
-    document.body.removeChild(eleLink)
+  getBlob(filePath.value).then((res) => {
+    downloadLink(res, 'BlobOk')
   })
 }
-// 下载大文件获取进度
-const downloadPath = ref('https://suqiqi.oss-cn-beijing.aliyuncs.com/test/video/1.mp4')
-const { downloading, abort: abortDownloadFile, send: sendDownloadFile } = useRequest(downloadFile(downloadPath.value), {
+// 下载文件获取进度
+const { downloading, abort: abortDownloadFile, send: sendDownloadFile } = useRequest(downloadFile(filePath.value), {
   // 当immediate为false时，默认不发出
   immediate: false,
 })
@@ -138,6 +130,21 @@ const downloadProcess = computed(() => {
     return 0
   return Math.floor(downloading.value.loaded / downloading.value.total * 100)
 })
+async function handleDownloadFile() {
+  const res = await sendDownloadFile()
+  downloadLink(res, 'fileOk')
+}
+
+function downloadLink(data: Blob, name: string) {
+  const link = URL.createObjectURL(data)
+  const eleLink = document.createElement('a')
+  eleLink.download = name
+  eleLink.style.display = 'none'
+  eleLink.href = link
+  document.body.appendChild(eleLink)
+  eleLink.click()
+  document.body.removeChild(eleLink)
+}
 </script>
 
 <template>
@@ -194,12 +201,12 @@ const downloadProcess = computed(() => {
         </n-descriptions-item>
         <n-descriptions-item label="带进度的下载文件" :span="3">
           <n-space vertical>
-            <n-input v-model:value="downloadPath" />
+            <n-input v-model:value="filePath" />
             <div>文件大小：{{ downloading.total }}B</div>
             <div>已下载：{{ downloading.loaded }}B</div>
             <n-progress type="line" indicator-placement="inside" :percentage="downloadProcess" />
             <n-space>
-              <n-button strong secondary @click="sendDownloadFile">
+              <n-button strong secondary @click="handleDownloadFile">
                 开始下载
               </n-button>
               <n-button strong secondary type="warning" @click="abortDownloadFile">

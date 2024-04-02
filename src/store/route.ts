@@ -135,7 +135,6 @@ export const useRouteStore = defineStore('route-store', {
       })
 
       resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
-      console.warn('🚀 ~ createRoutes ~ resultRouter:', resultRouter)
       this.setRedirect(resultRouter)
       const appRootRoute: RouteRecordRaw = {
         path: '/appRoot',

@@ -37,10 +37,14 @@ export function withoutToken() {
 export function dictData() {
   return request.Get('/getDictData', {
     transformData(rawData, _headers) {
-      const { data } = rawData as any
+      const response = rawData as any
       return {
-        gender: data.gender === 0 ? '男' : '女',
-        status: `状态是${data.status}`,
+        ...response,
+        data: {
+          ...response.data,
+          gender: response.data.gender === 0 ? '男' : '女',
+          status: `状态是${response.data.status}`,
+        },
       }
     },
   })
@@ -57,10 +61,15 @@ export function getBlob(url: string) {
 
 /* 带进度的下载文件 */
 export function downloadFile(url: string) {
-  return blankInstance.Get(url, {
+  const methodInstance = blankInstance.Get<Blob>(url, {
     // 开启下载进度
     enableDownload: true,
   })
+  methodInstance.meta = {
+    // 标识为bolb数据
+    isBlob: true,
+  }
+  return methodInstance
 }
 /* 测试状态码500失败 */
 export function FailedRequest() {
