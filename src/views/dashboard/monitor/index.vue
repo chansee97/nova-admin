@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import Chart from './components/chart.vue'
+import Chart2 from './components/chart2.vue'
+import Chart3 from './components/chart3.vue'
+
 const tableData = [
   {
     id: 0,
@@ -170,10 +174,10 @@ const tableData = [
             pane-style="padding: 20px;"
           >
             <n-tab-pane name="流量趋势">
-              流量趋势
+              <Chart />
             </n-tab-pane>
             <n-tab-pane name="访问量趋势">
-              访问量趋势
+              <Chart2 />
             </n-tab-pane>
           </n-tabs>
         </n-card>
@@ -185,7 +189,7 @@ const tableData = [
             content: true,
           }"
         >
-          1
+          <Chart3 />
         </n-card>
       </n-gi>
       <n-gi :span="16">

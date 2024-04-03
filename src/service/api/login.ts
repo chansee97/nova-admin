@@ -12,8 +12,8 @@ export function fetchLogin(params: Ilogin) {
   }
   return methodInstance
 }
-export function fetchUpdateToken(params: any) {
-  const method = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/updateToken', params)
+export function fetchUpdateToken(data: any) {
+  const method = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/updateToken', data)
   method.meta = {
     authRole: 'refreshToken',
   }
