@@ -58,10 +58,10 @@ function handleRegister() {}
           show-password-on="click"
         >
           <template #password-invisible-icon>
-            <i-icon-park-outline-preview-close-one />
+            <icon-park-outline-preview-close-one />
           </template>
           <template #password-visible-icon>
-            <i-icon-park-outline-preview-open />
+            <icon-park-outline-preview-open />
           </template>
         </n-input>
       </n-form-item>
@@ -74,10 +74,10 @@ function handleRegister() {}
           show-password-on="click"
         >
           <template #password-invisible-icon>
-            <i-icon-park-outline-preview-close-one />
+            <icon-park-outline-preview-close-one />
           </template>
           <template #password-visible-icon>
-            <i-icon-park-outline-preview-open />
+            <icon-park-outline-preview-open />
           </template>
         </n-input>
       </n-form-item>

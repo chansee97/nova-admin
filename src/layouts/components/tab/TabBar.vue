@@ -130,7 +130,7 @@ function handleDropTabs(key: string, option: any) {
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-2">
-          <e-icon :icon="item.meta.icon" /> {{ item.meta.title }}
+          <nova-icon :icon="item.meta.icon" /> {{ item.meta.title }}
         </div>
       </n-tab>
       <template #suffix>
@@ -144,7 +144,7 @@ function handleDropTabs(key: string, option: any) {
           @select="handleDropTabs"
         >
           <CommonWrapper>
-            <i-icon-park-outline-application-menu />
+            <icon-park-outline-application-menu />
           </CommonWrapper>
         </n-dropdown>
       </template>

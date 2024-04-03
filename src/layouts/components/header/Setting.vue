@@ -76,7 +76,7 @@ function resetSetting() {
     <template #trigger>
       <CommonWrapper @click="openSetting">
         <div>
-          <i-icon-park-outline-setting-two />
+          <icon-park-outline-setting-two />
           <n-drawer v-model:show="drawerActive" :width="300">
             <n-drawer-content title="系统设置" closable>
               <n-space vertical>

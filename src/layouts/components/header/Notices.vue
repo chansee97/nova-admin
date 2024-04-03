@@ -102,7 +102,7 @@ const groupMessage = computed(() => {
         <template #trigger>
           <CommonWrapper>
             <n-badge :value="massageCount" :max="99" style="color: unset">
-              <i-icon-park-outline-remind />
+              <icon-park-outline-remind />
             </n-badge>
           </CommonWrapper>
         </template>

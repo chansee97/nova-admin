@@ -14,7 +14,7 @@ const text = useVModel(props, 'modelValue', emit)
       {{ text }}
     </n-ellipsis>
     <span v-copy="text" class="copy_icon">
-      <i-icon-park-outline-copy />
+      <icon-park-outline-copy />
     </span>
   </div>
 </template>

@@ -12,10 +12,7 @@ const name = import.meta.env.VITE_APP_NAME
     class="h-60px text-xl flex-center cursor-pointer"
     @click="router.push('/')"
   >
-    <SvgIcon
-      name="logo"
-      :size="32"
-    />
+    <svg-icons-logo class="text-1.5em" />
     <span
       v-show="!appStore.collapsed"
       class="mx-3 text-ellipsis overflow-hidden whitespace-nowrap"

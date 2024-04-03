@@ -50,7 +50,7 @@ const tableData = [
               color="#de4307"
               size="42"
             >
-              <i-icon-park-outline-chart-histogram />
+              <icon-park-outline-chart-histogram />
             </n-icon>
           </n-space>
           <template #footer>
@@ -82,7 +82,7 @@ const tableData = [
               color="#ffb549"
               size="42"
             >
-              <i-icon-park-outline-chart-graph />
+              <icon-park-outline-chart-graph />
             </n-icon>
           </n-space>
           <template #footer>
@@ -114,7 +114,7 @@ const tableData = [
               color="#1687a7"
               size="42"
             >
-              <i-icon-park-outline-average />
+              <icon-park-outline-average />
             </n-icon>
           </n-space>
           <template #footer>
@@ -146,7 +146,7 @@ const tableData = [
               color="#42218E"
               size="42"
             >
-              <i-icon-park-outline-chart-pie />
+              <icon-park-outline-chart-pie />
             </n-icon>
           </n-space>
           <template #footer>

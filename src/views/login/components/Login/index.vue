@@ -69,10 +69,10 @@ checkUserAccount()
       <n-form-item path="pwd">
         <n-input v-model:value="formValue.pwd" type="password" placeholder="输入密码" clearable show-password-on="click">
           <template #password-invisible-icon>
-            <i-icon-park-outline-preview-close-one />
+            <icon-park-outline-preview-close-one />
           </template>
           <template #password-visible-icon>
-            <i-icon-park-outline-preview-open />
+            <icon-park-outline-preview-open />
           </template>
         </n-input>
       </n-form-item>
@@ -99,17 +99,17 @@ checkUserAccount()
     <n-space justify="center">
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-wechat /></n-icon>
+          <n-icon><icon-park-outline-wechat /></n-icon>
         </template>
       </n-button>
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-tencent-qq /></n-icon>
+          <n-icon><icon-park-outline-tencent-qq /></n-icon>
         </template>
       </n-button>
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-github-one /></n-icon>
+          <n-icon><icon-park-outline-github-one /></n-icon>
         </template>
       </n-button>
     </n-space>

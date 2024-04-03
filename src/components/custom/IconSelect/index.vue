@@ -18,7 +18,7 @@ function handleSelectIcon(icon: string) {
     <template #trigger>
       <n-input v-model:value="currentIcon" readonly placeholder="选择目标图标">
         <template #suffix>
-          <e-icon :icon="currentIcon || 'icon-park-outline:all-application'" />
+          <nova-icon :icon="currentIcon || 'icon-park-outline:all-application'" />
         </template>
       </n-input>
     </template>
@@ -33,7 +33,7 @@ function handleSelectIcon(icon: string) {
           class="border border-gray-200 m-2px p-5px flex-center"
           @click="handleSelectIcon(item)"
         >
-          <e-icon :icon="item" :size="24" />
+          <nova-icon :icon="item" :size="24" />
         </div>
       </div>
       <n-empty v-else class="w-full" description="没有符合条件的图标" />

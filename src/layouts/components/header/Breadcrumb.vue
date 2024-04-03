@@ -21,7 +21,7 @@ const appStore = useAppStore()
       class="flex-center gap-2 cursor-pointer split"
       @click="router.push(item.path)"
     >
-      <e-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
+      <nova-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
       <span class="whitespace-nowrap">{{ item.meta.title }}</span>
     </n-el>
   </TransitionGroup>

@@ -1,4 +1,3 @@
-import path from 'node:path'
 import UnoCSS from '@unocss/vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -7,12 +6,10 @@ import AutoImport from 'unplugin-auto-import/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import viteCompression from 'vite-plugin-compression'
 import Icons from 'unplugin-icons/vite'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 
 // https://github.com/antfu/unplugin-icons
 import IconsResolver from 'unplugin-icons/resolver'
-
-// https://github.com/vbenjs/vite-plugin-svg-icons/blob/main/README.zh_CN.md
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 /**
  * @description: 设置vite插件配置
@@ -43,28 +40,31 @@ export function createVitePlugins(env: ImportMetaEnv) {
     // auto import components lib
     Components({
       dts: 'src/typings/components.d.ts',
-      resolvers: [IconsResolver(), NaiveUiResolver()],
+      resolvers: [
+        IconsResolver({
+          prefix: false,
+          customCollections: [
+            'svg-icons',
+          ],
+        }),
+        NaiveUiResolver(),
+      ],
     }),
 
     // auto import iconify's icons
     Icons({
       defaultStyle: 'display:inline-block',
       compiler: 'vue3',
+      customCollections: {
+        'svg-icons': FileSystemIconLoader(
+          'src/assets/svg-icons',
+          svg => svg.replace(/^<svg /, '<svg fill="currentColor" width="1.2em" height="1.2em"'),
+        ),
+      },
     }),
-
-    // auto use svg icon
-    createSvgIconsPlugin({
-      // 指定需要缓存的图标文件夹
-      iconDirs: [path.resolve(__dirname, '../src/assets/icons')],
-      // 指定symbolId格式
-      symbolId: 'icon-[dir]-[name]',
-      // inject: 'body-last',
-      // customDomId: '__svg__icons__dom__',
-    }),
-
   ]
   // use compression
-  if (env.VITE_COMPRESS_OPEN === 'Y') {
+  if (env.VITE_BUILD_COMPRESS === 'Y') {
     const { VITE_COMPRESS_TYPE = 'gzip' } = env
     plugins.push(viteCompression({
       algorithm: VITE_COMPRESS_TYPE, // 压缩算法

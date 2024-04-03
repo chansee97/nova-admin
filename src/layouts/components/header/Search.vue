@@ -48,7 +48,7 @@ function handleSelect(value: string) {
   >
     <template #prefix>
       <n-icon>
-        <i-icon-park-outline-search />
+        <icon-park-outline-search />
       </n-icon>
     </template>
   </n-auto-complete>

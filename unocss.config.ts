@@ -11,9 +11,4 @@ export default defineConfig({
     'flex-x-center': 'flex justify-center',
     'flex-y-center': 'flex items-center',
   },
-  theme: {
-    colors: {
-      primary: '#165DFFFF',
-    },
-  },
 })
