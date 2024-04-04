@@ -93,9 +93,13 @@ If you feel that this project is helpful for your work or study, please help me 
 | :--: |:--: |
 | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-wechat.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-alipay.png" width=170>|
 
-## [Contributors](https://github.com/chansee97/nova-admin/graphs/contributors)
+## Contributors
 
-[![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)](https://contrib.rocks/preview?repo=chansee97/nova-admin)
+Thanks for all their contributions!
+
+<a href="https://github.com/chansee97/nova-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chansee97/nova-admin" alt="contributors" />
+</a>
 
 ## Star History
 

@@ -93,10 +93,13 @@ Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨
 | :--: |:--: |
 | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-wechat.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-alipay.png" width=170>|
 
-## [贡献者](https://github.com/chansee97/nova-admin/graphs/contributors)
+## 贡献者
 
-[![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)](https://contrib.rocks/preview?repo=chansee97/nova-admin)
+感谢他们的所做的一切贡献！
 
+<a href="https://github.com/chansee97/nova-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chansee97/nova-admin" alt="contributors" />
+</a>
 ## Star 历史
 
 [![Star History Chart](https://api.star-history.com/svg?repos=chansee97/nova-admin&type=Date)](https://star-history.com/#chansee97/nova-admin&Date)
