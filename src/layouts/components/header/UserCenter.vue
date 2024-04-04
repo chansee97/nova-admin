@@ -64,14 +64,15 @@ function handleSelect(key: string | number) {
     :options="options"
     @select="handleSelect"
   >
-    <CommonWrapper>
-      <n-avatar
-        round
-        size="large"
-        :src="userInfo?.avatar"
-      />
-      <span class="overflow-hidden text-ellipsis whitespace-nowrap">{{ userInfo?.nickname }}</span>
-    </CommonWrapper>
+    <n-avatar
+      round
+
+      :src="userInfo?.avatar"
+    >
+      <template #fallback>
+        <icon-park-outline-user />
+      </template>
+    </n-avatar>
   </n-dropdown>
 </template>
 

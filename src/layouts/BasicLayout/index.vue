@@ -49,7 +49,7 @@ const appStore = useAppStore()
             <CollapaseButton />
             <Breadcrumb />
           </div>
-          <div class="flex-y-center h-full">
+          <div class="flex-y-center gap-1 h-full p-x-xl">
             <Search />
             <Notices />
             <FullScreen />
