@@ -19,7 +19,7 @@ export function setupRouterGuard(router: Router) {
     appStore.showProgress && window.$loadingBar?.start()
 
     // 判断有无TOKEN,登录鉴权
-    const isLogin = Boolean(local.get('token'))
+    const isLogin = Boolean(local.get('accessToken'))
     if (!isLogin) {
       if (to.name === 'login')
         next()

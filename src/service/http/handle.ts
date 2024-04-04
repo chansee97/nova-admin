@@ -72,7 +72,7 @@ export async function handleRefreshToken() {
   const authStore = useAuthStore()
   const { data } = await fetchUpdateToken({ refreshToken: local.get('refreshToken') })
   if (data) {
-    local.set('token', data.accessToken)
+    local.set('accessToken', data.accessToken)
     local.set('refreshToken', data.refreshToken)
   }
   else {

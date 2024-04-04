@@ -95,7 +95,7 @@ If you feel that this project is helpful for your work or study, please help me 
 
 ## [Contributors](https://github.com/chansee97/nova-admin/graphs/contributors)
 
-![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)
+[![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)](https://contrib.rocks/preview?repo=chansee97/nova-admin)
 
 ## Star History
 

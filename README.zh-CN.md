@@ -95,7 +95,7 @@ Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨
 
 ## [贡献者](https://github.com/chansee97/nova-admin/graphs/contributors)
 
-![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)
+[![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)](https://contrib.rocks/preview?repo=chansee97/nova-admin)
 
 ## Star 历史
 

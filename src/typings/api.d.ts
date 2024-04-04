@@ -14,11 +14,13 @@ declare namespace ApiAuth {
     email?: string
     /* 用户昵称 */
     nickname?: string
-    notes?: string
+    /* 用户电话 */
     tel?: string
     /** 用户角色类型 */
     role: Auth.RoleType
+    /** 访问toekn */
     accessToken: string
+    /** 刷新toekn */
     refreshToken: string
   }
 }

@@ -39,15 +39,15 @@ function handleLogin() {
     const { account, pwd } = formValue.value
 
     if (isRemember.value)
-      local.set('login_account', { account, pwd })
-    else local.remove('login_account')
+      local.set('loginAccount', { account, pwd })
+    else local.remove('loginAccount')
 
     await authStore.login(account, pwd)
     isLoading.value = false
   })
 }
 function checkUserAccount() {
-  const loginAccount = local.get('login_account')
+  const loginAccount = local.get('loginAccount')
   if (!loginAccount)
     return
 
