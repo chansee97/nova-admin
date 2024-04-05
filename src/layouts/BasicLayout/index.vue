@@ -54,6 +54,7 @@ const appStore = useAppStore()
             <Notices />
             <FullScreen />
             <DarkModeSwitch />
+            <LangsSwitch />
             <Setting />
             <UserCenter />
           </div>

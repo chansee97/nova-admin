@@ -19,6 +19,13 @@ declare namespace NaiveUI {
   type ThemeColor = 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
 }
 
+declare module '~icons/*' {
+  import type { FunctionalComponent, SVGAttributes } from 'vue'
+
+  const component: FunctionalComponent<SVGAttributes>
+  export default component
+}
+
 declare namespace Storage {
   interface Session {
     demoKey: string
@@ -33,5 +40,11 @@ declare namespace Storage {
     refreshToken: string
     /* 存储登录账号 */
     loginAccount: any
+    /* 存储当前语言 */
+    lang: App.lang
   }
+}
+
+declare namespace App {
+  type lang = 'zh' | 'en'
 }

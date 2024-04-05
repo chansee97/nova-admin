@@ -3,21 +3,23 @@ const emit = defineEmits(['update:modelValue'])
 function toLogin() {
   emit('update:modelValue', 'login')
 }
+const { t } = useI18n()
+
 const rules = {
   account: {
     required: true,
     trigger: 'blur',
-    message: '请输入账户',
+    message: t('login.accountRuleTip'),
   },
   pwd: {
     required: true,
     trigger: 'blur',
-    message: '请输入密码',
+    message: t('login.passwordRuleTip'),
   },
   rePwd: {
     required: true,
     trigger: 'blur',
-    message: '请再次确认密码',
+    message: t('login.checkPasswordRuleTip'),
   },
 }
 const formValue = ref({
@@ -34,7 +36,7 @@ function handleRegister() {}
 <template>
   <div>
     <n-h2 depth="3" class="text-center">
-      注册
+      {{ $t('login.registerTitle') }}
     </n-h2>
     <n-form
       :rules="rules"
@@ -46,14 +48,14 @@ function handleRegister() {}
         <n-input
           v-model:value="formValue.account"
           clearable
-          placeholder="输入账号"
+          :placeholder="$t('login.accountPlaceholder')"
         />
       </n-form-item>
       <n-form-item path="pwd">
         <n-input
           v-model:value="formValue.pwd"
           type="password"
-          placeholder="输入密码"
+          :placeholder="$t('login.passwordPlaceholder')"
           clearable
           show-password-on="click"
         >
@@ -69,7 +71,7 @@ function handleRegister() {}
         <n-input
           v-model:value="formValue.rePwd"
           type="password"
-          placeholder="请再次输入密码"
+          :placeholder="$t('login.checkPasswordPlaceholder')"
           clearable
           show-password-on="click"
         >
@@ -88,17 +90,11 @@ function handleRegister() {}
           class="w-full"
         >
           <n-checkbox v-model:checked="isRead">
-            我已阅读并同意 <n-button
+            {{ $t('login.readAndAgree') }} <n-button
               type="primary"
               text
             >
-              用户协议
-            </n-button> 及
-            <n-button
-              type="primary"
-              text
-            >
-              xx社区规范
+              {{ $t('login.userAgreement') }}
             </n-button>
           </n-checkbox>
           <n-button
@@ -106,16 +102,18 @@ function handleRegister() {}
             type="primary"
             @click="handleRegister"
           >
-            立即注册
+            {{ $t('login.signUp') }}
           </n-button>
-          <n-button
-            tertiary
-            block
-            type="primary"
-            @click="toLogin"
-          >
-            已有账号？去登录
-          </n-button>
+          <n-flex justify="center">
+            <n-text>{{ $t('login.haveAccountText') }}</n-text>
+            <n-button
+              text
+              type="primary"
+              @click="toLogin"
+            >
+              {{ $t('login.signIn') }}
+            </n-button>
+          </n-flex>
         </n-space>
       </n-form-item>
     </n-form>

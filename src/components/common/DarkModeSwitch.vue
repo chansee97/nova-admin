@@ -3,30 +3,35 @@ import { NFlex, NText } from 'naive-ui'
 import { useAppStore } from '@/store'
 import { renderIcon } from '@/utils'
 
+const { t } = useI18n()
+
 const appStore = useAppStore()
-const options = [
-  {
-    label: 'Light',
-    value: 'light',
-    icon: 'icon-park-outline:sun-one',
-  },
-  {
-    label: 'Dark',
-    value: 'dark',
-    icon: 'icon-park-outline:moon',
-  },
-  {
-    label: 'System',
-    value: 'auto',
-    icon: 'icon-park-outline:laptop-computer',
-  },
-]
+
+const options = computed(() => {
+  return [
+    {
+      label: t('app.lignt'),
+      value: 'light',
+      icon: 'icon-park-outline:sun-one',
+    },
+    {
+      label: t('app.dark'),
+      value: 'dark',
+      icon: 'icon-park-outline:moon',
+    },
+    {
+      label: t('app.system'),
+      value: 'auto',
+      icon: 'icon-park-outline:laptop-computer',
+    },
+  ]
+})
 
 function renderLabel(option: any) {
   return h(NFlex, { align: 'center' }, {
     default: () => [
       renderIcon(option.icon)(),
-      h(NText, { depth: 3 }, { default: () => option.value }),
+      option.label,
     ],
   })
 }

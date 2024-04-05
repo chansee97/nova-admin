@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import Reload from './Reload.vue'
+import DropTabs from './DropTabs.vue'
 import { renderIcon } from '@/utils'
 import { useAppStore, useTabStore } from '@/store'
 
@@ -14,38 +15,41 @@ function handleTab(route: RouteLocationNormalized) {
 function handleClose(path: string) {
   tabStore.closeTab(path)
 }
-const options = [
-  {
-    label: '刷新',
-    key: 'reload',
-    icon: renderIcon('icon-park-outline:redo'),
-  },
-  {
-    label: '关闭',
-    key: 'closeCurrent',
-    icon: renderIcon('icon-park-outline:close'),
-  },
-  {
-    label: '关闭其他',
-    key: 'closeOther',
-    icon: renderIcon('icon-park-outline:delete-four'),
-  },
-  {
-    label: '关闭左侧',
-    key: 'closeLeft',
-    icon: renderIcon('icon-park-outline:to-left'),
-  },
-  {
-    label: '关闭右侧',
-    key: 'closeRight',
-    icon: renderIcon('icon-park-outline:to-right'),
-  },
-  {
-    label: '全部关闭',
-    key: 'closeAll',
-    icon: renderIcon('icon-park-outline:fullwidth'),
-  },
-]
+const { t } = useI18n()
+const options = computed(() => {
+  return [
+    {
+      label: t('common.reload'),
+      key: 'reload',
+      icon: renderIcon('icon-park-outline:redo'),
+    },
+    {
+      label: t('common.close'),
+      key: 'closeCurrent',
+      icon: renderIcon('icon-park-outline:close'),
+    },
+    {
+      label: t('app.closeOther'),
+      key: 'closeOther',
+      icon: renderIcon('icon-park-outline:delete-four'),
+    },
+    {
+      label: t('app.closeLeft'),
+      key: 'closeLeft',
+      icon: renderIcon('icon-park-outline:to-left'),
+    },
+    {
+      label: t('app.closeRight'),
+      key: 'closeRight',
+      icon: renderIcon('icon-park-outline:to-right'),
+    },
+    {
+      label: t('app.closeAll'),
+      key: 'closeAll',
+      icon: renderIcon('icon-park-outline:fullwidth'),
+    },
+  ]
+})
 const showDropdown = ref(false)
 const x = ref(0)
 const y = ref(0)
@@ -91,17 +95,6 @@ function handleContextMenu(e: MouseEvent, route: RouteLocationNormalized) {
 function onClickoutside() {
   showDropdown.value = false
 }
-
-function renderDropTabsLabel(option: any) {
-  return option.meta.title
-}
-function renderDropTabsIcon(option: any) {
-  return renderIcon(option.meta.icon)!()
-}
-
-function handleDropTabs(key: string, option: any) {
-  router.push(option.path)
-}
 </script>
 
 <template>
@@ -119,7 +112,9 @@ function handleDropTabs(key: string, option: any) {
         :name="item.path"
         @click="router.push(item.path)"
       >
-        {{ item.meta.title }}
+        <div class="flex-x-center gap-2">
+          <nova-icon :icon="item.meta.icon" /> {{ $t(`route.${String(item.name)}`, item.meta.title) }}
+        </div>
       </n-tab>
       <n-tab
         v-for="item in tabStore.tabs"
@@ -130,23 +125,12 @@ function handleDropTabs(key: string, option: any) {
         @contextmenu="handleContextMenu($event, item)"
       >
         <div class="flex-x-center gap-2">
-          <nova-icon :icon="item.meta.icon" /> {{ item.meta.title }}
+          <nova-icon :icon="item.meta.icon" /> {{ $t(`route.${String(item.name)}`, item.meta.title) }}
         </div>
       </n-tab>
       <template #suffix>
         <Reload />
-        <n-dropdown
-          :options="tabStore.allTabs"
-          :render-label="renderDropTabsLabel"
-          :render-icon="renderDropTabsIcon"
-          trigger="click"
-          size="small"
-          @select="handleDropTabs"
-        >
-          <CommonWrapper>
-            <icon-park-outline-application-menu />
-          </CommonWrapper>
-        </n-dropdown>
+        <DropTabs />
       </template>
     </n-tabs>
     <n-dropdown
@@ -162,4 +146,4 @@ function handleDropTabs(key: string, option: any) {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped></style>./DropTabs.vue

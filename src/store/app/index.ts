@@ -2,6 +2,7 @@ import type { GlobalThemeOverrides } from 'naive-ui'
 import chroma from 'chroma-js'
 import { set } from 'radash'
 import themeConfig from './theme.json'
+import { local, setLocale } from '@/utils'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 
@@ -17,6 +18,7 @@ export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
       footerText: 'Copyright © 2024 chansee97',
+      lang: 'zh',
       theme: themeConfig as GlobalThemeOverrides,
       primaryColor: themeConfig.common.primaryColor,
       collapsed: false,
@@ -64,6 +66,11 @@ export const useAppStore = defineStore('app-store', {
 
       // 重置所有配色
       this.setPrimaryColor(this.primaryColor)
+    },
+    setAppLang(lang: App.lang) {
+      setLocale(lang)
+      local.set('lang', lang)
+      this.lang = lang
     },
     /* 设置主题色 */
     setPrimaryColor(color: string) {

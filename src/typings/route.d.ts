@@ -23,6 +23,8 @@ declare namespace AppRoute {
     withoutTab?: boolean
     /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
     pinTab?: boolean
+    /** 当前路由i18n标识 */
+    i18nKey?: string
   }
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   interface baseRoute {

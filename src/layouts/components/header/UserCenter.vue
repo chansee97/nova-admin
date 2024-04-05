@@ -2,46 +2,50 @@
 import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'
 
+const { t } = useI18n()
+
 const { userInfo, resetAuthStore } = useAuthStore()
 const router = useRouter()
 
-const options = [
-  {
-    label: '个人中心',
-    key: 'userCenter',
-    icon: renderIcon('carbon:user-avatar-filled-alt'),
-  },
-  {
-    type: 'divider',
-    key: 'd1',
-  },
-  {
-    label: 'Github',
-    key: 'guthub',
-    icon: renderIcon('icon-park-outline:github'),
-  },
-  {
-    label: 'gitee',
-    key: 'gitee',
-    icon: renderIcon('simple-icons:gitee'),
-  },
-  {
-    type: 'divider',
-    key: 'd1',
-  },
-  {
-    label: '退出登录',
-    key: 'loginOut',
-    icon: renderIcon('icon-park-outline:logout'),
-  },
-]
+const options = computed(() => {
+  return [
+    {
+      label: t('app.userCenter'),
+      key: 'userCenter',
+      icon: renderIcon('carbon:user-avatar-filled-alt'),
+    },
+    {
+      type: 'divider',
+      key: 'd1',
+    },
+    {
+      label: 'Github',
+      key: 'guthub',
+      icon: renderIcon('icon-park-outline:github'),
+    },
+    {
+      label: 'Gitee',
+      key: 'gitee',
+      icon: renderIcon('simple-icons:gitee'),
+    },
+    {
+      type: 'divider',
+      key: 'd1',
+    },
+    {
+      label: t('app.loginOut'),
+      key: 'loginOut',
+      icon: renderIcon('icon-park-outline:logout'),
+    },
+  ]
+})
 function handleSelect(key: string | number) {
   if (key === 'loginOut') {
     window.$dialog?.info({
-      title: '退出登录',
-      content: '确认退出当前账号？',
-      positiveText: '确定',
-      negativeText: '取消',
+      title: t('app.loginOutTitle'),
+      content: t('app.loginOutContent'),
+      positiveText: t('common.confirm'),
+      negativeText: t('common.cancel'),
       onPositiveClick: () => {
         resetAuthStore()
       },

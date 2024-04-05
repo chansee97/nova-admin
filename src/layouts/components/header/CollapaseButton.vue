@@ -12,7 +12,7 @@ const appStore = useAppStore()
         <icon-park-outline-menu-fold v-else />
       </CommonWrapper>
     </template>
-    <span>切换侧边栏</span>
+    <span>{{ $t('app.toggleSider') }}</span>
   </n-tooltip>
 </template>
 

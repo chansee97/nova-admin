@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 import { h } from 'vue'
 import { clone, construct, min } from 'radash'
 import type { RouteRecordRaw } from 'vue-router'
-import { arrayToTree, local, renderIcon } from '@/utils'
+import { $t, arrayToTree, local, renderIcon } from '@/utils'
 import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
 import { staticRoutes } from '@/router/routes.static'
@@ -81,9 +81,9 @@ export const useRouteStore = defineStore('route-store', {
                             path: item.path,
                           },
                         },
-                        { default: () => item.meta.title },
+                        { default: () => $t(`route.${String(item.name)}`, item.meta.title) },
                       )
-                  : item.meta.title,
+                  : $t(`route.${String(item.name)}`, item.meta.title),
             key: item.path,
             icon: item.meta.icon ? renderIcon(item.meta.icon) : undefined,
           }
@@ -142,7 +142,7 @@ export const useRouteStore = defineStore('route-store', {
         redirect: import.meta.env.VITE_HOME_PATH,
         component: BasicLayout,
         meta: {
-          title: '首页',
+          title: '',
           icon: 'icon-park-outline:home',
         },
         children: [],

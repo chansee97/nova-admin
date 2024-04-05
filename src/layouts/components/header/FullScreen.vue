@@ -12,7 +12,7 @@ const appStore = useAppStore()
         <icon-park-outline-full-screen-two v-else />
       </CommonWrapper>
     </template>
-    <span>全屏</span>
+    <span>{{ $t('app.toggleFullScreen') }}</span>
   </n-tooltip>
 </template>
 

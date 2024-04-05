@@ -21,7 +21,7 @@ function handleReload() {
         <icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
       </CommonWrapper>
     </template>
-    <span>刷新页面</span>
+    <span>{{ $t('common.reload') }}</span>
   </n-tooltip>
 </template>
 
