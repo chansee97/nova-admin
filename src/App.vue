@@ -5,7 +5,10 @@ import { naiveI18nOptions } from '@/utils'
 
 const appStore = useAppStore()
 
-const naiveLocale = computed(() => naiveI18nOptions[appStore.lang])
+const naiveLocale = computed(() => {
+  return naiveI18nOptions[appStore.lang] ? naiveI18nOptions[appStore.lang] : naiveI18nOptions.enUS
+},
+)
 </script>
 
 <template>
