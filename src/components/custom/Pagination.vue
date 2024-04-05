@@ -9,24 +9,6 @@ const emit = defineEmits(['change'])
 const page = ref(1)
 const pageSize = ref(10)
 const displayOrder: Array<'pages' | 'size-picker' | 'quick-jumper'> = ['size-picker', 'pages']
-const pageSizes = [
-  {
-    label: '10 每页',
-    value: 10,
-  },
-  {
-    label: '20 每页',
-    value: 20,
-  },
-  {
-    label: '30 每页',
-    value: 30,
-  },
-  {
-    label: '50 每页',
-    value: 50,
-  },
-]
 
 function changePage() {
   emit('change', page.value, pageSize.value)
@@ -41,7 +23,6 @@ function changePage() {
     :item-count="props.count"
     :display-order="displayOrder"
     show-size-picker
-    :page-sizes="pageSizes"
     @update-page="changePage"
     @update-page-size="changePage"
   />

@@ -46,5 +46,5 @@ declare namespace Storage {
 }
 
 declare namespace App {
-  type lang = 'zh' | 'en'
+  type lang = 'zhCN' | 'enUS'
 }

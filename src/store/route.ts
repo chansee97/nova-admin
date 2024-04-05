@@ -1,7 +1,7 @@
 import type { MenuOption } from 'naive-ui'
 import { RouterLink } from 'vue-router'
 import { h } from 'vue'
-import { clone, construct, min } from 'radash'
+import { clone, construct } from 'radash'
 import type { RouteRecordRaw } from 'vue-router'
 import { $t, arrayToTree, local, renderIcon } from '@/utils'
 import { router } from '@/router'

@@ -50,7 +50,8 @@
     "closeOther": "Close other",
     "closeAll": "Close all",
     "closeLeft": "Close left",
-    "closeRight": "Close right"
+    "closeRight": "Close right",
+    "backHome": "Back to the homepage"
   },
   "login": {
     "signInTitle": "Login",

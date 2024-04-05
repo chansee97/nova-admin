@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+import { darkTheme } from 'naive-ui'
 import { useAppStore } from './store'
+import { naiveI18nOptions } from '@/utils'
 
-const locale = zhCN
-const dateLocale = dateZhCN
 const appStore = useAppStore()
+
+const naiveLocale = computed(() => naiveI18nOptions[appStore.lang])
 </script>
 
 <template>
   <n-config-provider
     class="wh-full" inline-theme-disabled :theme="appStore.colorMode === 'dark' ? darkTheme : null"
-    :locale="locale" :date-locale="dateLocale" :theme-overrides="appStore.theme"
+    :locale="naiveLocale.locale" :date-locale="naiveLocale.dateLocale" :theme-overrides="appStore.theme"
   >
     <naive-provider>
       <router-view />

@@ -29,7 +29,7 @@ declare namespace Service {
     /** 错误码 */
     code: RequestCode
     /** 错误信息 */
-    msg: string
+    message: string
     /** 返回的数据 */
     data?: any
   }
@@ -42,7 +42,7 @@ declare namespace Service {
     /** 错误码 */
     code: RequestCode
     /** 错误信息 */
-    msg: string
+    message: string
     /** 返回的数据 */
     data: T
   }

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { FormInst } from 'naive-ui'
+
 const emit = defineEmits(['update:modelValue'])
 function toLogin() {
   emit('update:modelValue', 'login')

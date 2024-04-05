@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NFlex, NText } from 'naive-ui'
+import { NFlex } from 'naive-ui'
 import { useAppStore } from '@/store'
 import { renderIcon } from '@/utils'
 

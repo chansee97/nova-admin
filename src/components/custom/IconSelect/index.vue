@@ -36,7 +36,7 @@ function handleSelectIcon(icon: string) {
           <nova-icon :icon="item" :size="24" />
         </div>
       </div>
-      <n-empty v-else class="w-full" description="没有符合条件的图标" />
+      <n-empty v-else class="w-full" />
     </div>
   </n-popover>
 </template>

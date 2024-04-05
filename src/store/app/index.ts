@@ -18,7 +18,7 @@ export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
       footerText: 'Copyright © 2024 chansee97',
-      lang: 'zh',
+      lang: 'enUS' as App.lang,
       theme: themeConfig as GlobalThemeOverrides,
       primaryColor: themeConfig.common.primaryColor,
       collapsed: false,

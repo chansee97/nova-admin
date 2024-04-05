@@ -66,8 +66,7 @@
     "yaml",
     "toml"
   ],
-  "i18n-ally.displayLanguage": "zh",
-  // "i18n-ally.enabledParsers": ["ts"],
+  "i18n-ally.displayLanguage": "zhCN",
   "i18n-ally.enabledFrameworks": ["vue"],
   "i18n-ally.editor.preferEditor": true,
   "i18n-ally.keystyle": "nested",
