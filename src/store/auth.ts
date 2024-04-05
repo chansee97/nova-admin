@@ -52,8 +52,8 @@ export const useAuthStore = defineStore('auth-store', {
     },
 
     /* 用户登录 */
-    async login(username: string, password: string) {
-      const { isSuccess, data } = await fetchLogin({ username, password })
+    async login(userName: string, password: string) {
+      const { isSuccess, data } = await fetchLogin({ userName, password })
       if (!isSuccess) {
         window.$message.error('登录失败，请检查用户名和密码')
         return

@@ -52,7 +52,7 @@ function handleValidateClick() {
             {{ userInfo?.id }}
           </n-descriptions-item>
           <n-descriptions-item label="用户名">
-            {{ userInfo?.username }}
+            {{ userInfo?.userName }}
           </n-descriptions-item>
           <n-descriptions-item label="真实名称">
             {{ userInfo?.nickname }}

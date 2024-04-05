@@ -23,10 +23,10 @@ declare namespace AppRoute {
     withoutTab?: boolean
     /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
     pinTab?: boolean
-    /** 当前路由i18n标识 */
-    i18nKey?: string
+    /** 当前路由在左侧菜单是目录还是页面,不设置默认为page */
+    menuType?: 'dir' | 'page'
   }
-  /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
+
   interface baseRoute {
     /** 路由名称(路由唯一标识) */
     name: string
@@ -42,6 +42,7 @@ declare namespace AppRoute {
     pid: number | null
   }
 
+  /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */
   type RowRoute = {
     [K in keyof RouteMeta as `meta.${K}`]?: RouteMeta[K]
   } & baseRoute

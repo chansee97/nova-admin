@@ -72,7 +72,7 @@ export const useRouteStore = defineStore('route-store', {
             id: item.id,
             pid: item.pid,
             label:
-                (!item.children || item.children.length === 0)
+                (!item.meta.menuType || item.meta.menuType === 'page')
                   ? () =>
                       h(
                         RouterLink,
@@ -83,35 +83,12 @@ export const useRouteStore = defineStore('route-store', {
                         },
                         { default: () => $t(`route.${String(item.name)}`, item.meta.title) },
                       )
-                  : $t(`route.${String(item.name)}`, item.meta.title),
+                  : () => $t(`route.${String(item.name)}`, item.meta.title),
             key: item.path,
             icon: item.meta.icon ? renderIcon(item.meta.icon) : undefined,
           }
           return target
         })
-    },
-    setRedirect(routes: AppRoute.Route[]) {
-      routes.forEach((route) => {
-        if (route.children) {
-          if (!route.redirect) {
-            // 过滤出没有隐藏的子元素集
-            const visibleChilds = route.children.filter(child => !child.meta.hide)
-
-            // 过滤出含有order属性的页面
-            const orderChilds = visibleChilds.filter(child => child.meta.order)
-
-            // 重定向页默认第一个子元素的路径
-            let target = route.children[0]
-            if (orderChilds.length > 0)
-            // 有order则取最小者重定向
-              target = min(orderChilds, i => i.meta.order as number) as AppRoute.Route
-
-            route.redirect = target.path
-          }
-
-          this.setRedirect(route.children)
-        }
-      })
     },
     createRoutes(routes: AppRoute.RowRoute[]) {
       const { hasPermission } = usePermission()
@@ -128,14 +105,19 @@ export const useRouteStore = defineStore('route-store', {
 
       // 生成路由，有redirect的不需要引入文件
       const modules = import.meta.glob('@/views/**/*.vue')
-      resultRouter = resultRouter.map((item: any) => {
+      resultRouter = resultRouter.map((item: AppRoute.Route) => {
         if (item.componentPath && !item.redirect)
           item.component = modules[`/src/views${item.componentPath}`]
+
+        // 判断是否是目录，代表目录的路由没有实际页面
+        if (item.meta.menuType === 'dir')
+          item.redirect = '/404'
+
         return item
       })
 
+      // 生成路由表
       resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
-      this.setRedirect(resultRouter)
       const appRootRoute: RouteRecordRaw = {
         path: '/appRoot',
         name: 'appRoot',

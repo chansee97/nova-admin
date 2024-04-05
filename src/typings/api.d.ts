@@ -7,7 +7,7 @@ declare namespace ApiAuth {
     /** 用户id */
     id: number
     /** 用户名 */
-    username: string
+    userName: string
     /* 用户头像 */
     avatar?: string
     /* 用户邮箱 */
