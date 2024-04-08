@@ -12,14 +12,14 @@ const appStore = useAppStore()
 <template>
   <TransitionGroup v-if="appStore.showBreadcrumb" name="list" tag="ul" style="display: flex; gap:1em;">
     <n-el
-      v-for="(item) in routes"
+      v-for="(item, index) in routes"
       :key="item.path"
       tag="li" style="
             color: var(--text-color-2);
             transition: 0.3s var(--cubic-bezier-ease-in-out);
           "
       class="flex-center gap-2 cursor-pointer split"
-      @click="router.push(item.path)"
+      @click="() => index === 0 ? router.push(item.path) : console.log('route not allowed')"
     >
       <nova-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
       <span class="whitespace-nowrap">{{ $t(`route.${String(item.name)}`, item.meta.title) }}</span>
