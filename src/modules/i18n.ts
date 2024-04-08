@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import type { App } from 'vue'
-import enUS from '../../locales/enUS.json'
-import zhCN from '../../locales/zhCN.json'
+import enUS from '../../locales/en_US.json'
+import zhCN from '../../locales/zh_CN.json'
 import { local } from '@/utils'
 
 export const i18n = createI18n({

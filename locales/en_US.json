@@ -116,5 +116,26 @@
     "setting": "System settings",
     "userCenter": "Personal Center",
     "accountSetting": "User settings"
+  },
+  "http": {
+    "defaultTip": "Request error",
+    "400": "Syntax error in the request",
+    "401": "User unauthorized",
+    "403": "Server refused access",
+    "404": "Requested resource does not exist",
+    "405": "Request method not allowed",
+    "408": "Network request timed out",
+    "500": "Internal server error",
+    "501": "Server not implemented the requested functionality",
+    "502": "Bad gateway",
+    "503": "Service unavailable",
+    "504": "Gateway timeout",
+    "505": "HTTP version not supported for this request"
+  },
+  "components": {
+    "iconSelector": {
+      "inputPlaceholder": "Select target icon",
+      "searchPlaceholder": "Search icon"
+    }
   }
 }
