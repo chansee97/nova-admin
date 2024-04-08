@@ -19,7 +19,7 @@ const appStore = useAppStore()
             transition: 0.3s var(--cubic-bezier-ease-in-out);
           "
       class="flex-center gap-2 cursor-pointer split"
-      @click="() => index === 0 ? router.push(item.path) : console.log('route not allowed')"
+      @click="() => index === 0 ? router.push(item.path) : false"
     >
       <nova-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
       <span class="whitespace-nowrap">{{ $t(`route.${String(item.name)}`, item.meta.title) }}</span>
