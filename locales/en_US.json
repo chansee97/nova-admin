@@ -51,7 +51,8 @@
     "closeAll": "Close all",
     "closeLeft": "Close left",
     "closeRight": "Close right",
-    "backHome": "Back to the homepage"
+    "backHome": "Back to the homepage",
+    "getRouteError": "Failed to obtain route, please try again later."
   },
   "login": {
     "signInTitle": "Login",
@@ -118,7 +119,6 @@
     "accountSetting": "User settings"
   },
   "http": {
-    "defaultTip": "Request error",
     "400": "Syntax error in the request",
     "401": "User unauthorized",
     "403": "Server refused access",
@@ -130,7 +130,8 @@
     "502": "Bad gateway",
     "503": "Service unavailable",
     "504": "Gateway timeout",
-    "505": "HTTP version not supported for this request"
+    "505": "HTTP version not supported for this request",
+    "defaultTip": "Request error"
   },
   "components": {
     "iconSelector": {

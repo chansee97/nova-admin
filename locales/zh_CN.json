@@ -51,7 +51,9 @@
     "closeLeft": "关闭左侧",
     "closeRight": "关闭右侧",
     "closeAll": "全部关闭",
-    "backHome": "回到首页"
+    "backHome": "回到首页",
+    "getRouteError": "获取路由失败，请稍后再试"
+
   },
   "http": {
     "defaultTip": "请求错误",
