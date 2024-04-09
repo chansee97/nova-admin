@@ -70,11 +70,12 @@ function handleSelect(key: string | number) {
   >
     <n-avatar
       round
-
-      :src="userInfo?.avatar"
+      :src="'222' || userInfo?.avatar"
     >
       <template #fallback>
-        <icon-park-outline-user />
+        <div class="wh-full flex-center">
+          <icon-park-outline-user />
+        </div>
       </template>
     </n-avatar>
   </n-dropdown>
