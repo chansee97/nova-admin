@@ -70,7 +70,8 @@ function handleSelect(key: string | number) {
   >
     <n-avatar
       round
-      :src="'222' || userInfo?.avatar"
+
+      :src="userInfo?.avatar"
     >
       <template #fallback>
         <div class="wh-full flex-center">
