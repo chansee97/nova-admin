@@ -1,7 +1,9 @@
 declare namespace AppRoute {
+
+  type MenuType = 'dir' | 'page'
   /** 单个路由所携带的meta标识 */
   interface RouteMeta {
-  /* 页面标题，通常必选。 */
+    /* 页面标题，通常必选。 */
     title: string
     /* 图标，一般配合菜单使用 */
     icon?: string
@@ -17,14 +19,14 @@ declare namespace AppRoute {
     order?: number
     /* 嵌套外链  */
     herf?: string
-    /** 当前路由需要选中的菜单项，用于跳转至不在左侧菜单显示的路由且需要高亮某个菜单的情况 */
+    /** 当前路由不在左侧菜单显示，但需要需要高亮某个菜单的情况 */
     activeMenu?: string
     /** 当前路由是否会被添加到Tab中 */
     withoutTab?: boolean
     /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
     pinTab?: boolean
     /** 当前路由在左侧菜单是目录还是页面,不设置默认为page */
-    menuType?: 'dir' | 'page'
+    menuType?: MenuType
   }
 
   interface baseRoute {

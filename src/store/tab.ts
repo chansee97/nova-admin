@@ -100,7 +100,7 @@ export const useTabStore = defineStore('tab-store', {
     enabled: true,
     strategies: [
       {
-        storage: localStorage,
+        storage: sessionStorage,
       },
     ],
   },

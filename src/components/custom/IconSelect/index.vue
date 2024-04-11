@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { icons } from './icons'
 
-const currentIcon = ref('')
+const value = defineModel('value', { type: String })
 const searchValue = ref('')
 const showPopover = ref(false)
 
@@ -10,7 +10,7 @@ const { t } = useI18n()
 const iconList = computed(() => icons.filter(item => item.includes(searchValue.value)))
 
 function handleSelectIcon(icon: string) {
-  currentIcon.value = icon
+  value.value = icon
   showPopover.value = false
 }
 </script>
@@ -18,9 +18,9 @@ function handleSelectIcon(icon: string) {
 <template>
   <n-popover v-model:show="showPopover" placement="bottom" trigger="click">
     <template #trigger>
-      <n-input v-model:value="currentIcon" readonly :placeholder="t('components.iconSelector.inputPlaceholder')">
+      <n-input :value="value" readonly :placeholder="t('components.iconSelector.inputPlaceholder')">
         <template #suffix>
-          <nova-icon :icon="currentIcon || 'icon-park-outline:all-application'" />
+          <nova-icon :icon="value || 'icon-park-outline:all-application'" />
         </template>
       </n-input>
     </template>
