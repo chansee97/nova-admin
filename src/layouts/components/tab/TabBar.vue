@@ -2,8 +2,13 @@
 import type { RouteLocationNormalized } from 'vue-router'
 import Reload from './Reload.vue'
 import DropTabs from './DropTabs.vue'
-import { renderIcon } from '@/utils'
 import { useAppStore, useTabStore } from '@/store'
+import IconRedo from '~icons/icon-park-outline/redo'
+import IconClose from '~icons/icon-park-outline/close'
+import IconDelete from '~icons/icon-park-outline/delete-four'
+import IconLeft from '~icons/icon-park-outline/to-left'
+import IconRight from '~icons/icon-park-outline/to-right'
+import IconFullwith from '~icons/icon-park-outline/fullwidth'
 
 const tabStore = useTabStore()
 const appStore = useAppStore()
@@ -21,32 +26,32 @@ const options = computed(() => {
     {
       label: t('common.reload'),
       key: 'reload',
-      icon: renderIcon('icon-park-outline:redo'),
+      icon: () => h(IconRedo),
     },
     {
       label: t('common.close'),
       key: 'closeCurrent',
-      icon: renderIcon('icon-park-outline:close'),
+      icon: () => h(IconClose),
     },
     {
       label: t('app.closeOther'),
       key: 'closeOther',
-      icon: renderIcon('icon-park-outline:delete-four'),
+      icon: () => h(IconDelete),
     },
     {
       label: t('app.closeLeft'),
       key: 'closeLeft',
-      icon: renderIcon('icon-park-outline:to-left'),
+      icon: () => h(IconLeft),
     },
     {
       label: t('app.closeRight'),
       key: 'closeRight',
-      icon: renderIcon('icon-park-outline:to-right'),
+      icon: () => h(IconRight),
     },
     {
       label: t('app.closeAll'),
       key: 'closeAll',
-      icon: renderIcon('icon-park-outline:fullwidth'),
+      icon: () => h(IconFullwith),
     },
   ]
 })

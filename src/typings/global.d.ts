@@ -19,13 +19,6 @@ declare namespace NaiveUI {
   type ThemeColor = 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
 }
 
-declare module '~icons/*' {
-  import type { FunctionalComponent, SVGAttributes } from 'vue'
-
-  const component: FunctionalComponent<SVGAttributes>
-  export default component
-}
-
 declare namespace Storage {
   interface Session {
     demoKey: string

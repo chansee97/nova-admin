@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { NFlex } from 'naive-ui'
 import { useAppStore } from '@/store'
-import { renderIcon } from '@/utils'
+import IconSun from '~icons/icon-park-outline/sun-one'
+import IconMoon from '~icons/icon-park-outline/moon'
+import IconAuto from '~icons/icon-park-outline/laptop-computer'
 
 const { t } = useI18n()
 
@@ -12,17 +14,17 @@ const options = computed(() => {
     {
       label: t('app.lignt'),
       value: 'light',
-      icon: 'icon-park-outline:sun-one',
+      icon: IconSun,
     },
     {
       label: t('app.dark'),
       value: 'dark',
-      icon: 'icon-park-outline:moon',
+      icon: IconMoon,
     },
     {
       label: t('app.system'),
       value: 'auto',
-      icon: 'icon-park-outline:laptop-computer',
+      icon: IconAuto,
     },
   ]
 })
@@ -30,7 +32,7 @@ const options = computed(() => {
 function renderLabel(option: any) {
   return h(NFlex, { align: 'center' }, {
     default: () => [
-      renderIcon(option.icon)(),
+      h(option.icon),
       option.label,
     ],
   })

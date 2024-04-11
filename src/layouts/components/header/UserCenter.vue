@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'
+import IconGithub from '~icons/icon-park-outline/github'
+import IconUser from '~icons/icon-park-outline/user'
+import IconLogout from '~icons/icon-park-outline/logout'
+import IconBookOpen from '~icons/icon-park-outline/book-open'
 
 const { t } = useI18n()
 
@@ -12,7 +16,7 @@ const options = computed(() => {
     {
       label: t('app.userCenter'),
       key: 'userCenter',
-      icon: renderIcon('carbon:user-avatar-filled-alt'),
+      icon: () => h(IconUser),
     },
     {
       type: 'divider',
@@ -21,12 +25,17 @@ const options = computed(() => {
     {
       label: 'Github',
       key: 'guthub',
-      icon: renderIcon('icon-park-outline:github'),
+      icon: () => h(IconGithub),
     },
     {
       label: 'Gitee',
       key: 'gitee',
       icon: renderIcon('simple-icons:gitee'),
+    },
+    {
+      label: 'Docs',
+      key: 'docs',
+      icon: () => h(IconBookOpen),
     },
     {
       type: 'divider',
@@ -35,7 +44,7 @@ const options = computed(() => {
     {
       label: t('app.loginOut'),
       key: 'loginOut',
-      icon: renderIcon('icon-park-outline:logout'),
+      icon: () => h(IconLogout),
     },
   ]
 })
@@ -59,6 +68,9 @@ function handleSelect(key: string | number) {
 
   if (key === 'gitee')
     window.open('https://gitee.com/chansee97/nova-admin')
+
+  if (key === 'docs')
+    window.open('https://nova-admin-docs.netlify.app/')
 }
 </script>
 
