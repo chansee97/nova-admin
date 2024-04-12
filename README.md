@@ -31,6 +31,7 @@
 - Dark theme adaptation, maintaining the Naive style for interface aesthetics.
 - Only performs eslint validation during submission without excessive restrictions for simpler development.
 - Flexible and configurable interface style layout.
+- Multilanguage (i18n) support.
 
 ## Project preview
 
@@ -52,7 +53,7 @@
 
 ## Install and use
 
-The local development environment is recommended to use pnpm 8.x, Node.js 18.x
+The local development environment is recommended to use pnpm 8.x, Node.js must be version 20.x.
 
 ```bash
 # install dependencies
