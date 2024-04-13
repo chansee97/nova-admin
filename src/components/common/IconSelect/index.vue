@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { icons } from './icons'
 
+interface Props {
+  disabled?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  disabled: false,
+})
+
 const value = defineModel('value', { type: String })
 const searchValue = ref('')
 const showPopover = ref(false)
@@ -16,11 +23,11 @@ function handleSelectIcon(icon: string) {
 </script>
 
 <template>
-  <n-popover v-model:show="showPopover" placement="bottom" trigger="click">
+  <n-popover v-model:show="showPopover" placement="bottom" trigger="click" :disabled="props.disabled">
     <template #trigger>
       <n-input :value="value" readonly :placeholder="t('components.iconSelector.inputPlaceholder')">
         <template #suffix>
-          <nova-icon :icon="value || 'icon-park-outline:all-application'" />
+          <nova-icon :icon="value" />
         </template>
       </n-input>
     </template>
@@ -30,9 +37,7 @@ function handleSelectIcon(icon: string) {
     <div class="w-400px">
       <div v-if="iconList.length > 0" class="grid grid-cols-9 h-auto overflow-auto gap-1">
         <div
-          v-for="(item, index) in iconList"
-          :key="index"
-          class="border border-gray-200 m-2px p-5px flex-center"
+          v-for="(item, index) in iconList" :key="index" class="border border-gray-200 m-2px p-5px flex-center"
           @click="handleSelectIcon(item)"
         >
           <nova-icon :icon="item" :size="24" />

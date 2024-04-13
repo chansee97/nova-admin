@@ -19,7 +19,7 @@ declare namespace AppRoute {
     order?: number
     /* 嵌套外链  */
     herf?: string
-    /** 当前路由不在左侧菜单显示，但需要需要高亮某个菜单的情况 */
+    /** 当前路由不在左侧菜单显示，但需要高亮某个菜单的情况 */
     activeMenu?: string
     /** 当前路由是否会被添加到Tab中 */
     withoutTab?: boolean

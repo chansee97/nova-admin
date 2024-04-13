@@ -24,6 +24,7 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
     title: '图标',
     align: 'center',
     key: 'meta.icon',
+    width: '6em',
     render: (row) => {
       return row['meta.icon'] && renderIcon(row['meta.icon'], { size: 20 })()
     },
@@ -31,7 +32,6 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '标题',
     align: 'center',
-    width: 200,
     key: 'meta.title',
     ellipsis: {
       tooltip: true,
@@ -40,7 +40,6 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '路径',
     key: 'path',
-    width: 300,
     ellipsis: {
       tooltip: true,
     },
@@ -49,7 +48,6 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '组件路径',
     key: 'componentPath',
-    width: 300,
     ellipsis: {
       tooltip: true,
     },
@@ -61,11 +59,13 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
     title: '排序值',
     key: 'meta.order',
     align: 'center',
+    width: '6em',
   },
   {
     title: '菜单类型',
     align: 'center',
     key: 'meta.menuType',
+    width: '6em',
     render: (row) => {
       const menuType = row['meta.menuType'] || 'page'
       const menuTagType: Record<AppRoute.MenuType, NaiveUI.ThemeColor> = {
@@ -98,7 +98,7 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
           <NPopconfirm onPositiveClick={() => deleteData(rowData.id)}>
             {{
               default: () => '确认删除',
-              trigger: () => <NButton size="small">删除</NButton>,
+              trigger: () => <NButton size="small" type="error">删除</NButton>,
             }}
           </NPopconfirm>
         </NSpace>

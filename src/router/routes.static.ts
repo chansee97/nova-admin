@@ -261,7 +261,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     'meta.requiresAuth': true,
     'meta.icon': 'logos:vueuse',
     'meta.herf': 'https://vueuse.org/guide/',
-    'componentPath': '/docments/vueuse/index.vue',
+    'componentPath': 'null',
     'id': 27,
     'pid': 24,
   },
