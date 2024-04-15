@@ -1,5 +1,5 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
-import chroma from 'chroma-js'
+import { colord } from 'colord'
 import { set } from 'radash'
 import themeConfig from './theme.json'
 import { local, setLocale } from '@/utils'
@@ -74,8 +74,8 @@ export const useAppStore = defineStore('app-store', {
     },
     /* 设置主题色 */
     setPrimaryColor(color: string) {
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
+      const brightenColor = colord(color).lighten(0.1).toHex()
+      const darkenColor = colord(color).darken(0.05).toHex()
       set(this.theme, 'common.primaryColor', color)
       set(this.theme, 'common.primaryColorHover', brightenColor)
       set(this.theme, 'common.primaryColorPressed', darkenColor)
