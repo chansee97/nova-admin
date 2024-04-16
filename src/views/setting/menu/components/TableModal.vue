@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import type {
+  FormItemRule,
+} from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
 import { useLoading } from '@/hooks'
+import { Regex } from '@/constants'
 
 interface Props {
   modalName?: string
@@ -129,7 +133,16 @@ function filterDirectory(node: any[]) {
 const rules = {
   'name': {
     required: true,
-    message: '请输入菜单名称',
+    // message: '请输入菜单名称',
+    validator(rule: FormItemRule, value: string) {
+      if (!value)
+        return new Error('请输入菜单名称')
+
+      if (!new RegExp(Regex.RouteName).test(value))
+        return new Error('菜单只能包含英文数字_!@#$%^&*~-')
+
+      return true
+    },
     trigger: 'blur',
   },
   'path': {
@@ -145,6 +158,15 @@ const rules = {
   'meta.title': {
     required: true,
     message: '请输入菜单标题',
+    trigger: 'blur',
+  },
+  'meta.herf': {
+    validator(rule: FormItemRule, value: string) {
+      if (!new RegExp(Regex.Url).test(value))
+        return new Error('请输入正确的URL地址')
+
+      return true
+    },
     trigger: 'blur',
   },
 }
@@ -189,13 +211,13 @@ const options = [
           />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="1" label="菜单名称" path="name">
-          <n-input v-model:value="formModel.name" />
+          <n-input v-model:value="formModel.name" placeholder="Eg: system" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="1" label="标题" path="meta.title">
-          <n-input v-model:value="formModel['meta.title']" />
+          <n-input v-model:value="formModel['meta.title']" placeholder="Eg: My-System" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="2" label="路由路径" path="path">
-          <n-input v-model:value="formModel.path" />
+          <n-input v-model:value="formModel.path" placeholder="Eg: /system/user" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="1" label="菜单类型" path="meta.menuType">
           <n-radio-group v-model:value="formModel['meta.menuType']" name="radiogroup">
@@ -213,9 +235,13 @@ const options = [
           <icon-select v-model:value="formModel['meta.icon']" :disabled="modalType === 'view'" />
         </n-form-item-grid-item>
         <n-form-item-grid-item v-if="formModel['meta.menuType'] === 'page'" :span="2" label="组件路径" path="componentPath">
-          <n-input v-model:value="formModel.componentPath" />
+          <n-input v-model:value="formModel.componentPath" placeholder="Eg: /system/user/index.vue" />
         </n-form-item-grid-item>
-        <n-form-item-grid-item :span="1" label="菜单排序" path="meta.order">
+        <n-form-item-grid-item :span="1" path="meta.order">
+          <template #label>
+            菜单排序
+            <HelpInfo message="数字越小，同级中越靠前" />
+          </template>
           <n-input-number v-model:value="formModel['meta.order']" />
         </n-form-item-grid-item>
         <n-form-item-grid-item v-if="formModel['meta.menuType'] === 'page'" :span="1" path="meta.herf">
@@ -223,7 +249,7 @@ const options = [
             外链页面
             <HelpInfo message="填写后，点击菜单将跳转到该地址，组件路径任意填写" />
           </template>
-          <n-input v-model:value="formModel['meta.herf']" />
+          <n-input v-model:value="formModel['meta.herf']" placeholder="Eg: https://example.com" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="1" label="登录访问" path="meta.requiresAuth">
           <n-switch v-model:value="formModel['meta.requiresAuth']" />

@@ -4,7 +4,7 @@ import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchUserList } from '@/service'
 import { useBoolean, useLoading } from '@/hooks'
-import { genderLabels } from '@/constants'
+import { Gender } from '@/constants'
 
 const { loading, startLoading, endLoading } = useLoading(false)
 const { bool: visible, setTrue: openModal } = useBoolean(false)
@@ -45,7 +45,7 @@ const columns: DataTableColumns = [
       if (rowData.gender) {
         return (
           <NTag type={tagType[rowData.gender]}>
-            {genderLabels[rowData.gender]}
+            {Gender[rowData.gender]}
           </NTag>
         )
       }
