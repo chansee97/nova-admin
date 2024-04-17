@@ -1,4 +1,4 @@
-const STORAGE_PREFIX = 'nova_'
+const STORAGE_PREFIX = import.meta.env.VITE_STORAGE_PREFIX
 
 interface StorageData<T> {
   value: T
