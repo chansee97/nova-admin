@@ -47,13 +47,16 @@
 - [Gitee](https://gitee.com/chansee97/nova-admin)
 - [Github](https://github.com/chansee97/nova-admin)
 
-## Related projects
+## Interface document
 
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
+This project uses ApiFox for interface mock, check the online documentation for more interface details
+[online aipfox docs](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
 
 ## Install and use
 
 The local development environment is recommended to use pnpm 8.x, Node.js must be version 20.x.
+
+It is recommended to directly download the compressed package from [Releases](https://github.com/chansee97/nova-admin/releases)
 
 ```bash
 # install dependencies
@@ -67,10 +70,9 @@ pnpm build
 
 ```
 
-## Interface document
+## Related projects
 
-This project uses ApiFox for interface mock, check the online documentation for more interface details
-[online aipfox docs](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
+- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
 
 ## Learn to communicate
 

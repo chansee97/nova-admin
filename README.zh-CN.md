@@ -47,13 +47,16 @@
 - [Gitee](https://gitee.com/chansee97/nova-admin)
 - [Github](https://github.com/chansee97/nova-admin)
 
-## 相关项目
+## 接口文档
 
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (开发中)基于TS, NestJs, typeorm的Nova-Admin配套后台项目
+本项目使用ApiFox进行接口mock，查看在线文档以了解更多接口详情
+[在线apifox文档](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
 
 ## 安装使用
 
 本地开发环境建议使用 pnpm 8.x 、Node.js 必须 20.x
+
+推荐直接下载[Releases](https://github.com/chansee97/nova-admin/releases)压缩包
 
 ```bash
 # install dependencies
@@ -67,10 +70,9 @@ pnpm build
 
 ```
 
-## 接口文档
+## 相关项目
 
-本项目使用ApiFox进行接口mock，查看在线文档以了解更多接口详情
-[在线apifox文档](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
+- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (开发中)基于TS, NestJs, typeorm的Nova-Admin配套后台项目
 
 ## 学习交流
 
