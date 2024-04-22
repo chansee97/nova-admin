@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import LayoutSelector from '../common/LayoutSelector.vue'
 import { useAppStore } from '@/store'
 
 const appStore = useAppStore()
@@ -85,6 +86,8 @@ function resetSetting() {
           <n-drawer v-model:show="drawerActive" :width="360">
             <n-drawer-content :title="t('app.systemSetting')" closable>
               <n-space vertical>
+                <n-divider>{{ $t('app.layoutSetting') }}</n-divider>
+                <LayoutSelector v-model:value="appStore.layoutMode" />
                 <n-divider>{{ $t('app.themeSetting') }}</n-divider>
                 <n-space justify="space-between">
                   {{ $t('app.colorWeak') }}
@@ -97,14 +100,16 @@ function resetSetting() {
                 <n-space align="center" justify="space-between">
                   {{ $t('app.themeColor') }}
                   <n-color-picker
-                    v-model:value="appStore.primaryColor"
-                    class="w-10em" :swatches="palette"
+                    v-model:value="appStore.primaryColor" class="w-10em" :swatches="palette"
                     @update:value="appStore.setPrimaryColor"
                   />
                 </n-space>
                 <n-space align="center" justify="space-between">
                   {{ $t('app.pageTransition') }}
-                  <n-select v-model:value="appStore.transitionAnimation" class="w-10em" :options="transitionSelectorOptions" @update:value="appStore.reloadPage" />
+                  <n-select
+                    v-model:value="appStore.transitionAnimation" class="w-10em"
+                    :options="transitionSelectorOptions" @update:value="appStore.reloadPage"
+                  />
                 </n-space>
 
                 <n-divider>{{ $t('app.interfaceDisplay') }}</n-divider>

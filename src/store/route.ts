@@ -8,7 +8,7 @@ import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
 import { staticRoutes } from '@/router/routes.static'
 import { usePermission } from '@/hooks'
-import { BasicLayout } from '@/layouts/index'
+import Layout from '@/layouts/index.vue'
 import { useAuthStore } from '@/store/auth'
 
 interface RoutesStatus {
@@ -121,7 +121,7 @@ export const useRouteStore = defineStore('route-store', {
         path: '/appRoot',
         name: 'appRoot',
         redirect: import.meta.env.VITE_HOME_PATH,
-        component: BasicLayout,
+        component: Layout,
         meta: {
           title: '',
           icon: 'icon-park-outline:home',

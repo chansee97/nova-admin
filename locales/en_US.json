@@ -52,7 +52,10 @@
     "closeLeft": "Close left",
     "closeRight": "Close right",
     "backHome": "Back to the homepage",
-    "getRouteError": "Failed to obtain route, please try again later."
+    "getRouteError": "Failed to obtain route, please try again later.",
+    "layoutSetting": "Layout settings",
+    "leftMenu": "Left menu",
+    "topMenu": "Top menu"
   },
   "login": {
     "signInTitle": "Login",

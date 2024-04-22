@@ -11,7 +11,7 @@ import {
   Setting,
   TabBar,
   UserCenter,
-} from '../components'
+} from './components'
 import { useAppStore, useRouteStore } from '@/store'
 
 const routeStore = useRouteStore()
