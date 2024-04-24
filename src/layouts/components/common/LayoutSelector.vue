@@ -41,7 +41,7 @@ const value = defineModel<LayoutMode>('value', { required: true })
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .grid{
   height: 60px;
   width: 86px;
