@@ -39,7 +39,7 @@ declare namespace AppRoute {
     /* 页面组件地址 */
     componentPath?: string | null
     /* 路由id */
-    id: numnber
+    id: number
     /* 父级路由id，顶级页面为null */
     pid: number | null
   }
