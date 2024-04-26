@@ -3,7 +3,8 @@
     "confirm": "确认",
     "cancel": "取消",
     "reload": "刷新",
-    "close": "关闭"
+    "close": "关闭",
+    "choose": "选择"
   },
   "app": {
     "loginOut": "退出登录",
@@ -74,8 +75,10 @@
   },
   "components": {
     "iconSelector": {
+      "selectorTitle": "图标选择",
       "inputPlaceholder": "选择目标图标",
-      "searchPlaceholder": "搜索图标"
+      "searchPlaceholder": "搜索图标",
+      "clearIcon": "清除图标"
     }
   },
   "login": {
