@@ -81,11 +81,10 @@ const MassageData = ref<Message.List[]>([
 ])
 const currentTab = ref(0)
 function handleRead(id: number) {
-  // MassageData.value[currentTab.value].list[index].isRead = true
   const data = MassageData.value.find(i => i.id === id)
   if (data)
     data.isRead = true
-  window.$message.success(`已读id: ${id}`)
+  window.$message.success(`id: ${id}`)
 }
 const massageCount = computed(() => {
   return MassageData.value.filter(i => !i.isRead).length
@@ -102,18 +101,18 @@ const groupMessage = computed(() => {
         <template #trigger>
           <CommonWrapper>
             <n-badge :value="massageCount" :max="99" style="color: unset">
-              <i-icon-park-outline-remind />
+              <icon-park-outline-remind />
             </n-badge>
           </CommonWrapper>
         </template>
-        <span>消息通知</span>
+        <span>{{ $t('app.notificationsTips') }}</span>
       </n-tooltip>
     </template>
     <n-tabs v-model:value="currentTab" type="line" animated justify-content="space-evenly" class="w-390px">
       <n-tab-pane :name="0">
         <template #tab>
           <n-space class="w-130px" justify="center">
-            通知
+            {{ $t('app.notifications') }}
             <n-badge type="info" :value="groupMessage[0]?.filter(i => !i.isRead).length" :max="99" />
           </n-space>
         </template>
@@ -122,7 +121,7 @@ const groupMessage = computed(() => {
       <n-tab-pane :name="1">
         <template #tab>
           <n-space class="w-130px" justify="center">
-            消息
+            {{ $t('app.messages') }}
             <n-badge type="warning" :value="groupMessage[1]?.filter(i => !i.isRead).length" :max="99" />
           </n-space>
         </template>
@@ -131,7 +130,7 @@ const groupMessage = computed(() => {
       <n-tab-pane :name="2">
         <template #tab>
           <n-space class="w-130px" justify="center">
-            待办
+            {{ $t('app.todos') }}
             <n-badge type="error" :value="groupMessage[2]?.filter(i => !i.isRead).length" :max="99" />
           </n-space>
         </template>

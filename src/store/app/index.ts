@@ -1,9 +1,11 @@
 import type { GlobalThemeOverrides } from 'naive-ui'
-import chroma from 'chroma-js'
+import { colord } from 'colord'
 import { set } from 'radash'
 import themeConfig from './theme.json'
+import { local, setLocale } from '@/utils'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
+export type LayoutMode = 'leftMenu' | 'topMenu'
 
 const docEle = ref(document.documentElement)
 
@@ -17,6 +19,7 @@ export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
       footerText: 'Copyright © 2024 chansee97',
+      lang: 'enUS' as App.lang,
       theme: themeConfig as GlobalThemeOverrides,
       primaryColor: themeConfig.common.primaryColor,
       collapsed: false,
@@ -31,6 +34,7 @@ export const useAppStore = defineStore('app-store', {
       showBreadcrumbIcon: true,
       showWatermark: false,
       transitionAnimation: 'fade-slide' as TransitionAnimation,
+      layoutMode: 'leftMenu' as LayoutMode,
     }
   },
   getters: {
@@ -61,15 +65,20 @@ export const useAppStore = defineStore('app-store', {
       this.showBreadcrumbIcon = true
       this.showWatermark = false
       this.transitionAnimation = 'fade-slide'
+      this.layoutMode = 'leftMenu'
 
       // 重置所有配色
       this.setPrimaryColor(this.primaryColor)
     },
+    setAppLang(lang: App.lang) {
+      setLocale(lang)
+      local.set('lang', lang)
+      this.lang = lang
+    },
     /* 设置主题色 */
     setPrimaryColor(color: string) {
-      docEle.value.style.setProperty('--primary-color', color)
-      const brightenColor = chroma(color).brighten(1).hex()
-      const darkenColor = chroma(color).darken(1).hex()
+      const brightenColor = colord(color).lighten(0.1).toHex()
+      const darkenColor = colord(color).darken(0.05).toHex()
       set(this.theme, 'common.primaryColor', color)
       set(this.theme, 'common.primaryColorHover', brightenColor)
       set(this.theme, 'common.primaryColorPressed', darkenColor)

@@ -104,7 +104,7 @@ const radioDate = [
                   color="#de4307"
                   size="24"
                 >
-                  <i-icon-park-outline-chart-histogram />
+                  <icon-park-outline-chart-histogram />
                 </n-icon>
               </template>
               <template #action>

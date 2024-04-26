@@ -1,0 +1,42 @@
+name: 🐞 Bug report
+description: Create a report to help us improve
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Description
+      description: Please explain clearly how the bug reappears. If possible, it is best to add the cause of the problem.
+      placeholder: bug description
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-comments
+    attributes:
+      label: Additional comments
+      description: e.g. some background/context of how you ran into this bug.
+
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Validations
+      description: Before submitting the issue, please make sure you do the following
+      options:
+        - label: Ensure this issue not a bug proposal.
+          required: true
+        - label: Read the [docs](https://nova-admin-docs.netlify.app/).
+          required: true
+        - label: Check that there isn't [already an issue](https://github.com/chansee97/nova-admin/issues) that descript the same thing to avoid creating a duplicate.
+          required: true

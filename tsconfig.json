@@ -10,7 +10,7 @@
       "@/*": ["src/*"]
     },
     "resolveJsonModule": true,
-    "types": ["node", "vite/client", "naive-ui/volar"],
+    "types": ["node", "vite/client", "naive-ui/volar", "unplugin-icons/types/vue"],
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,

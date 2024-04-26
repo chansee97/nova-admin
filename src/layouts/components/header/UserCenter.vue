@@ -1,47 +1,60 @@
 <script setup lang="ts">
 import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'
+import IconGithub from '~icons/icon-park-outline/github'
+import IconUser from '~icons/icon-park-outline/user'
+import IconLogout from '~icons/icon-park-outline/logout'
+import IconBookOpen from '~icons/icon-park-outline/book-open'
+
+const { t } = useI18n()
 
 const { userInfo, resetAuthStore } = useAuthStore()
 const router = useRouter()
 
-const options = [
-  {
-    label: '个人中心',
-    key: 'userCenter',
-    icon: renderIcon('carbon:user-avatar-filled-alt'),
-  },
-  {
-    type: 'divider',
-    key: 'd1',
-  },
-  {
-    label: 'Github',
-    key: 'guthub',
-    icon: renderIcon('icon-park-outline:github'),
-  },
-  {
-    label: 'gitee',
-    key: 'gitee',
-    icon: renderIcon('simple-icons:gitee'),
-  },
-  {
-    type: 'divider',
-    key: 'd1',
-  },
-  {
-    label: '退出登录',
-    key: 'loginOut',
-    icon: renderIcon('icon-park-outline:logout'),
-  },
-]
+const options = computed(() => {
+  return [
+    {
+      label: t('app.userCenter'),
+      key: 'userCenter',
+      icon: () => h(IconUser),
+    },
+    {
+      type: 'divider',
+      key: 'd1',
+    },
+    {
+      label: 'Github',
+      key: 'guthub',
+      icon: () => h(IconGithub),
+    },
+    {
+      label: 'Gitee',
+      key: 'gitee',
+      icon: renderIcon('simple-icons:gitee'),
+    },
+    {
+      label: 'Docs',
+      key: 'docs',
+      icon: () => h(IconBookOpen),
+    },
+    {
+      type: 'divider',
+      key: 'd1',
+    },
+    {
+      label: t('app.loginOut'),
+      key: 'loginOut',
+      icon: () => h(IconLogout),
+    },
+  ]
+})
 function handleSelect(key: string | number) {
   if (key === 'loginOut') {
     window.$dialog?.info({
-      title: '退出登录',
-      content: '确认退出当前账号？',
-      positiveText: '确定',
-      negativeText: '取消',
+      title: t('app.loginOutTitle'),
+      content: t('app.loginOutContent'),
+      positiveText: t('common.confirm'),
+      negativeText: t('common.cancel'),
       onPositiveClick: () => {
         resetAuthStore()
       },
@@ -55,6 +68,9 @@ function handleSelect(key: string | number) {
 
   if (key === 'gitee')
     window.open('https://gitee.com/chansee97/nova-admin')
+
+  if (key === 'docs')
+    window.open('https://nova-admin-docs.netlify.app/')
 }
 </script>
 
@@ -64,14 +80,17 @@ function handleSelect(key: string | number) {
     :options="options"
     @select="handleSelect"
   >
-    <CommonWrapper>
-      <n-avatar
-        round
-        size="large"
-        :src="userInfo?.avatar"
-      />
-      <span class="overflow-hidden text-ellipsis whitespace-nowrap">{{ userInfo?.nickname }}</span>
-    </CommonWrapper>
+    <n-avatar
+      round
+
+      :src="userInfo?.avatar"
+    >
+      <template #fallback>
+        <div class="wh-full flex-center">
+          <icon-park-outline-user />
+        </div>
+      </template>
+    </n-avatar>
   </n-dropdown>
 </template>
 

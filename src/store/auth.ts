@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth-store', {
   state: (): AuthStatus => {
     return {
       userInfo: local.get('userInfo'),
-      token: local.get('token') || '',
+      token: local.get('accessToken') || '',
     }
   },
   getters: {
@@ -46,15 +46,15 @@ export const useAuthStore = defineStore('auth-store', {
       }
     },
     clearAuthStorage() {
-      local.remove('token')
+      local.remove('accessToken')
       local.remove('refreshToken')
       local.remove('userInfo')
     },
 
     /* 用户登录 */
-    async login(username: string, password: string) {
-      const { error, data } = await fetchLogin({ username, password })
-      if (error)
+    async login(userName: string, password: string) {
+      const { isSuccess, data } = await fetchLogin({ userName, password })
+      if (!isSuccess)
         return
 
       // 处理登录信息
@@ -65,7 +65,7 @@ export const useAuthStore = defineStore('auth-store', {
     async handleAfterLogin(data: ApiAuth.loginInfo) {
       // 将token和userInfo保存下来
       local.set('userInfo', data)
-      local.set('token', data.accessToken)
+      local.set('accessToken', data.accessToken)
       local.set('refreshToken', data.refreshToken)
       this.token = data.accessToken
       this.userInfo = data

@@ -17,12 +17,12 @@ export function handleResponseError(response: Response) {
   const error: Service.RequestError = {
     errorType: 'Response Error',
     code: 0,
-    msg: ERROR_STATUS.default,
+    message: ERROR_STATUS.default,
     data: null,
   }
   const errorCode: ErrorStatus = response.status as ErrorStatus
-  const msg = ERROR_STATUS[errorCode] || ERROR_STATUS.default
-  Object.assign(error, { code: errorCode, msg })
+  const message = ERROR_STATUS[errorCode] || ERROR_STATUS.default
+  Object.assign(error, { code: errorCode, message })
 
   showError(error)
 
@@ -40,7 +40,7 @@ export function handleBusinessError(data: Record<string, any>, config: Required<
   const error: Service.RequestError = {
     errorType: 'Business Error',
     code: data[codeKey],
-    msg: data[msgKey],
+    message: data[msgKey],
     data: data.data,
   }
 
@@ -56,11 +56,12 @@ export function handleBusinessError(data: Record<string, any>, config: Required<
  * @return {*} result
  */
 export function handleServiceResult(data: any, isSuccess: boolean = true) {
-  return {
+  const result = {
     isSuccess,
     errorType: null,
     ...data,
   }
+  return result
 }
 
 /**
@@ -69,9 +70,9 @@ export function handleServiceResult(data: any, isSuccess: boolean = true) {
  */
 export async function handleRefreshToken() {
   const authStore = useAuthStore()
-  const data = await fetchUpdateToken({ refreshToken: local.get('refreshToken') })
+  const { data } = await fetchUpdateToken({ refreshToken: local.get('refreshToken') })
   if (data) {
-    local.set('token', data.accessToken)
+    local.set('accessToken', data.accessToken)
     local.set('refreshToken', data.refreshToken)
   }
   else {
@@ -86,5 +87,5 @@ export function showError(error: Service.RequestError) {
   if (ERROR_NO_TIP_STATUS.includes(code))
     return
 
-  window.$message.error(error.msg)
+  window.$message.error(error.message)
 }

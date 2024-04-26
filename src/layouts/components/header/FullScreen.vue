@@ -8,11 +8,11 @@ const appStore = useAppStore()
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
       <CommonWrapper @click="appStore.toggleFullScreen()">
-        <i-icon-park-outline-off-screen-two v-if="appStore.fullScreen" />
-        <i-icon-park-outline-full-screen-two v-else />
+        <icon-park-outline-off-screen-two v-if="appStore.fullScreen" />
+        <icon-park-outline-full-screen-two v-else />
       </CommonWrapper>
     </template>
-    <span>全屏</span>
+    <span>{{ $t('app.toggleFullScreen') }}</span>
   </n-tooltip>
 </template>
 

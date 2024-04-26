@@ -6,7 +6,7 @@ export const routes: RouteRecordRaw[] = [
     path: '/',
     name: 'root',
     redirect: '/appRoot',
-    component: () => import('@/layouts/index'),
+    // component: () => import('@/layouts/index'),
     children: [
     ],
   },

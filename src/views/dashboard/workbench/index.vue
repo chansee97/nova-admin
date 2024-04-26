@@ -29,7 +29,7 @@ const { userInfo } = useAuthStore()
                   <template #avatar>
                     <n-el>
                       <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <e-icon :size="26" icon="icon-park-outline:user" />
+                        <nova-icon :size="26" icon="icon-park-outline:user" />
                       </n-icon-wrapper>
                     </n-el>
                   </template>
@@ -47,7 +47,7 @@ const { userInfo } = useAuthStore()
                   <template #avatar>
                     <n-el>
                       <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <e-icon :size="26" icon="icon-park-outline:every-user" />
+                        <nova-icon :size="26" icon="icon-park-outline:every-user" />
                       </n-icon-wrapper>
                     </n-el>
                   </template>
@@ -65,7 +65,7 @@ const { userInfo } = useAuthStore()
                   <template #avatar>
                     <n-el>
                       <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <e-icon :size="26" icon="icon-park-outline:preview-open" />
+                        <nova-icon :size="26" icon="icon-park-outline:preview-open" />
                       </n-icon-wrapper>
                     </n-el>
                   </template>
@@ -83,7 +83,7 @@ const { userInfo } = useAuthStore()
                   <template #avatar>
                     <n-el>
                       <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <e-icon :size="26" icon="icon-park-outline:star" />
+                        <nova-icon :size="26" icon="icon-park-outline:star" />
                       </n-icon-wrapper>
                     </n-el>
                   </template>
@@ -237,7 +237,7 @@ const { userInfo } = useAuthStore()
                   订单数
                 </n-text>
                 <n-icon-wrapper :size="46" :border-radius="999">
-                  <e-icon :size="26" icon="icon-park-outline:all-application" />
+                  <nova-icon :size="26" icon="icon-park-outline:all-application" />
                 </n-icon-wrapper>
                 <n-text strong class="text-2xl">
                   1,234,123
@@ -253,7 +253,7 @@ const { userInfo } = useAuthStore()
                 </n-text>
                 <n-el>
                   <n-icon-wrapper :size="46" color="var(--warning-color)" :border-radius="999">
-                    <e-icon :size="26" icon="icon-park-outline:list-bottom" />
+                    <nova-icon :size="26" icon="icon-park-outline:list-bottom" />
                   </n-icon-wrapper>
                 </n-el>
                 <n-text strong class="text-2xl">

@@ -21,7 +21,7 @@ interface Emits {
             </n-ellipsis>
           </template>
           <template #avatar>
-            <e-icon :icon="item.icon" :size="30" class="c-primary" />
+            <nova-icon :icon="item.icon" :size="30" class="c-primary" />
           </template>
           <template v-if="item.tagTitle" #header-extra>
             <n-tag :bordered="false" :type="item.tagType" size="small">

@@ -3,7 +3,6 @@ interface Window {
   $dialog: import('naive-ui').DialogApi
   $message: import('naive-ui').MessageApi
   $notification: import('naive-ui').NotificationApi
-  $NProgress: import('NProgress').NProgress
 }
 
 declare const AMap: any
@@ -26,10 +25,19 @@ declare namespace Storage {
   }
 
   interface Local {
+    /* 存储用户信息 */
     userInfo: ApiAuth.loginInfo
-    token: string
+    /* 存储访问token */
+    accessToken: string
+    /* 存储刷新token */
     refreshToken: string
-    tabsRoutes: string
-    login_account: any
+    /* 存储登录账号 */
+    loginAccount: any
+    /* 存储当前语言 */
+    lang: App.lang
   }
+}
+
+declare namespace App {
+  type lang = 'zhCN' | 'enUS'
 }

@@ -7,18 +7,20 @@ declare namespace ApiAuth {
     /** 用户id */
     id: number
     /** 用户名 */
-    username: string
+    userName: string
     /* 用户头像 */
     avatar?: string
     /* 用户邮箱 */
     email?: string
     /* 用户昵称 */
     nickname?: string
-    notes?: string
+    /* 用户电话 */
     tel?: string
     /** 用户角色类型 */
     role: Auth.RoleType
+    /** 访问toekn */
     accessToken: string
+    /** 刷新toekn */
     refreshToken: string
   }
 }

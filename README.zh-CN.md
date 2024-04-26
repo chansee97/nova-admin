@@ -31,6 +31,7 @@
 - 黑暗主题适配, 界面样式保持Naive风格
 - 仅在提交时进行eslint校验，没有过多限制，开发更简便
 - 界面样式布局灵活可配置
+- 多语言（i18n）支持
 
 ## 项目预览
 
@@ -46,13 +47,16 @@
 - [Gitee](https://gitee.com/chansee97/nova-admin)
 - [Github](https://github.com/chansee97/nova-admin)
 
-## 相关项目
+## 接口文档
 
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (开发中)基于TS, NestJs, typeorm的Nova-Admin配套后台项目
+本项目使用ApiFox进行接口mock，查看在线文档以了解更多接口详情
+[在线apifox文档](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
 
 ## 安装使用
 
-本地开发环境建议使用 pnpm 8.x 、Node.js 18.x
+本地开发环境建议使用 pnpm 8.x 、Node.js 必须 20.x
+
+推荐直接下载[Releases](https://github.com/chansee97/nova-admin/releases)压缩包
 
 ```bash
 # install dependencies
@@ -66,10 +70,9 @@ pnpm build
 
 ```
 
-## 接口文档
+## 相关项目
 
-本项目使用ApiFox进行接口mock，查看在线文档以了解更多接口详情
-[在线apifox文档](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
+- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (开发中)基于TS, NestJs, typeorm的Nova-Admin配套后台项目
 
 ## 学习交流
 
@@ -93,9 +96,13 @@ Nova-Admin 是完全开源免费的项目，目前仍然在优化迭代中，旨
 | :--: |:--: |
 | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-wechat.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/sponsor-alipay.png" width=170>|
 
-## [贡献者](https://github.com/chansee97/nova-admin/graphs/contributors)
+## 贡献者
 
-![Contributors](https://contrib.rocks/image?repo=chansee97/nova-admin)
+感谢他们的所做的一切贡献！
+
+<a href="https://github.com/chansee97/nova-admin/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chansee97/nova-admin" alt="contributors" />
+</a>
 
 ## Star 历史
 

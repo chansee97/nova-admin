@@ -3,12 +3,12 @@ import { RouterLink } from 'vue-router'
 import { h } from 'vue'
 import { clone, construct, min } from 'radash'
 import type { RouteRecordRaw } from 'vue-router'
-import { arrayToTree, local, renderIcon } from '@/utils'
+import { $t, arrayToTree, local, renderIcon } from '@/utils'
 import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
 import { staticRoutes } from '@/router/routes.static'
 import { usePermission } from '@/hooks'
-import { BasicLayout } from '@/layouts/index'
+import Layout from '@/layouts/index.vue'
 import { useAuthStore } from '@/store/auth'
 
 interface RoutesStatus {
@@ -34,29 +34,29 @@ export const useRouteStore = defineStore('route-store', {
       this.$reset()
     },
     resetRoutes() {
-      /* 删除后面添加的路由 */
       router.removeRoute('appRoot')
     },
-    /* 设置当前高亮的菜单key */
+    // set the currently highlighted menu key
     setActiveMenu(key: string) {
       this.activeMenu = key
     },
     /* 生成侧边菜单的数据 */
     createMenus(userRoutes: AppRoute.RowRoute[]) {
       const resultMenus = clone(userRoutes).map(i => construct(i)) as AppRoute.Route[]
-      // arrayToTree2()
-      /** 过滤不需要显示的菜单 */
+
+      // filter menus that do not need to be displayed
       const visibleMenus = resultMenus.filter(route => !route.meta.hide)
-      // 生成侧边菜单
+
+      // generate side menu
       this.menus = arrayToTree(this.transformAuthRoutesToMenus(visibleMenus))
     },
 
-    //* 将返回的路由表渲染成侧边栏 */
+    // render the returned routing table as a sidebar
     transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]): MenuOption[] {
       const { hasPermission } = usePermission()
-      /** 过滤没有权限的侧边菜单 */
+      // Filter out side menus without permission
       return userRoutes.filter(i => hasPermission(i.meta.roles))
-      /** 根据order大小菜单排序  */
+        //  Sort the menu according to the order size
         .sort((a, b) => {
           if (a.meta && a.meta.order && b.meta && b.meta.order)
             return a.meta.order - b.meta.order
@@ -66,13 +66,14 @@ export const useRouteStore = defineStore('route-store', {
             return 1
           else return 0
         })
-        /** 转换为侧边菜单数据结构 */
+
+        // Convert to side menu data structure
         .map((item) => {
           const target: MenuOption = {
             id: item.id,
             pid: item.pid,
             label:
-                (!item.children || item.children.length === 0)
+                (!item.meta.menuType || item.meta.menuType === 'page')
                   ? () =>
                       h(
                         RouterLink,
@@ -81,30 +82,75 @@ export const useRouteStore = defineStore('route-store', {
                             path: item.path,
                           },
                         },
-                        { default: () => item.meta.title },
+                        { default: () => $t(`route.${String(item.name)}`, item.meta.title) },
                       )
-                  : item.meta.title,
+                  : () => $t(`route.${String(item.name)}`, item.meta.title),
             key: item.path,
             icon: item.meta.icon ? renderIcon(item.meta.icon) : undefined,
           }
           return target
         })
     },
+    createRoutes(routes: AppRoute.RowRoute[]) {
+      const { hasPermission } = usePermission()
+
+      // Structure the meta field
+      let resultRouter = clone(routes).map(i => construct(i)) as AppRoute.Route[]
+
+      // Route permission filtering
+      resultRouter = resultRouter.filter(i => hasPermission(i.meta.roles))
+
+      // Generate an array of route names that need to be kept alive
+      this.cacheRoutes = resultRouter.filter((i) => {
+        return i.meta.keepAlive
+      })
+        .map(i => i.name)
+
+      // Generate routes, no need to import files for those with redirect
+      const modules = import.meta.glob('@/views/**/*.vue')
+      resultRouter = resultRouter.map((item: AppRoute.Route) => {
+        if (item.componentPath && !item.redirect)
+          item.component = modules[`/src/views${item.componentPath}`]
+        return item
+      })
+
+      // Generate route tree
+      resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
+
+      const appRootRoute: RouteRecordRaw = {
+        path: '/appRoot',
+        name: 'appRoot',
+        redirect: import.meta.env.VITE_HOME_PATH,
+        component: Layout,
+        meta: {
+          title: '',
+          icon: 'icon-park-outline:home',
+        },
+        children: [],
+      }
+
+      // Set the correct redirect path for the route
+      this.setRedirect(resultRouter)
+
+      // Insert the processed route into the root route
+      appRootRoute.children = resultRouter as unknown as RouteRecordRaw[]
+      router.addRoute(appRootRoute)
+    },
     setRedirect(routes: AppRoute.Route[]) {
       routes.forEach((route) => {
         if (route.children) {
           if (!route.redirect) {
-            // 过滤出没有隐藏的子元素集
+            // Filter out a collection of child elements that are not hidden
             const visibleChilds = route.children.filter(child => !child.meta.hide)
 
-            // 过滤出含有order属性的页面
+            // Redirect page to the path of the first child element by default
+            let target = visibleChilds[0]
+
+            // Filter out pages with the order attribute
             const orderChilds = visibleChilds.filter(child => child.meta.order)
 
-            // 重定向页默认第一个子元素的路径
-            let target = route.children[0]
             if (orderChilds.length > 0)
-            // 有order则取最小者重定向
-              target = min(orderChilds, i => i.meta.order as number) as AppRoute.Route
+              target = min(orderChilds, i => i.meta.order!) as AppRoute.Route
 
             route.redirect = target.path
           }
@@ -113,48 +159,8 @@ export const useRouteStore = defineStore('route-store', {
         }
       })
     },
-    createRoutes(routes: AppRoute.RowRoute[]) {
-      const { hasPermission } = usePermission()
-      // 结构化meta字段
-      let resultRouter = clone(routes).map(i => construct(i)) as AppRoute.Route[]
-      // 路由权限过滤
-      resultRouter = resultRouter.filter(i => hasPermission(i.meta.roles))
-
-      // 生成需要keepAlive的路由name数组
-      this.cacheRoutes = resultRouter.filter((i) => {
-        return i.meta.keepAlive
-      })
-        .map(i => i.name)
-
-      // 生成路由，有redirect的不需要引入文件
-      const modules = import.meta.glob('@/views/**/*.vue')
-      resultRouter = resultRouter.map((item: any) => {
-        if (item.componentPath && !item.redirect)
-          item.component = modules[`/src/views${item.componentPath}`]
-        return item
-      })
-
-      resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
-      this.setRedirect(resultRouter)
-      const appRootRoute: RouteRecordRaw = {
-        path: '/appRoot',
-        name: 'appRoot',
-        redirect: import.meta.env.VITE_HOME_PATH,
-        component: BasicLayout,
-        meta: {
-          title: '首页',
-          icon: 'icon-park-outline:home',
-        },
-        children: [],
-      }
-      // 根据角色过滤后的插入根路由中
-      appRootRoute.children = resultRouter as unknown as RouteRecordRaw[]
-      // 插入路由表
-      router.addRoute(appRootRoute)
-    },
     async initRouteInfo() {
       if (import.meta.env.VITE_AUTH_ROUTE_MODE === 'dynamic') {
-        // 根据用户id来获取用户的路由
         const userInfo = local.get('userInfo')
 
         if (!userInfo || !userInfo.id) {
@@ -163,6 +169,7 @@ export const useRouteStore = defineStore('route-store', {
           return
         }
 
+        // Get user's route
         const { data } = await fetchUserRoutes({
           id: userInfo.id,
         })
@@ -179,12 +186,19 @@ export const useRouteStore = defineStore('route-store', {
     },
     async initAuthRoute() {
       this.isInitAuthRoute = false
-      // 初始化路由信息
+
+      // Initialize route information
       const rowRoutes = await this.initRouteInfo()
+      if (!rowRoutes) {
+        window.$message.error($t(`app.getRouteError`))
+        return
+      }
       this.rowRoutes = rowRoutes
-      // 生成真实路由并插入
+
+      // Generate actual route and insert
       this.createRoutes(rowRoutes)
-      // 生成侧边菜单
+
+      // Generate side menu
       this.createMenus(rowRoutes)
 
       this.isInitAuthRoute = true

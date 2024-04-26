@@ -15,11 +15,11 @@ export function setupRouterGuard(router: Router) {
       window.open(to.meta.herf)
       return false
     }
-    // 开始 NProgress
-    appStore.showProgress && window.$NProgress?.start()
+    // 开始 loadingBar
+    appStore.showProgress && window.$loadingBar?.start()
 
     // 判断有无TOKEN,登录鉴权
-    const isLogin = Boolean(local.get('token'))
+    const isLogin = Boolean(local.get('accessToken'))
     if (!isLogin) {
       if (to.name === 'login')
         next()
@@ -67,7 +67,7 @@ export function setupRouterGuard(router: Router) {
   router.afterEach((to) => {
     // 修改网页标题
     document.title = `${to.meta.title} - ${title}`
-    // 结束 NProgress
-    appStore.showProgress && window.$NProgress?.done()
+    // 结束 loadingBar
+    appStore.showProgress && window.$loadingBar?.finish()
   })
 }

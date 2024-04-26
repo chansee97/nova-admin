@@ -4,7 +4,7 @@ import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchUserList } from '@/service'
 import { useBoolean, useLoading } from '@/hooks'
-import { genderLabels } from '@/constants'
+import { Gender } from '@/constants'
 
 const { loading, startLoading, endLoading } = useLoading(false)
 const { bool: visible, setTrue: openModal } = useBoolean(false)
@@ -45,7 +45,7 @@ const columns: DataTableColumns = [
       if (rowData.gender) {
         return (
           <NTag type={tagType[rowData.gender]}>
-            {genderLabels[rowData.gender]}
+            {Gender[rowData.gender]}
           </NTag>
         )
       }
@@ -187,13 +187,13 @@ function handleAddTable() {
       <n-flex class="mt-1em" justify="end">
         <NButton type="primary" @click="getUserList">
           <template #icon>
-            <i-icon-park-outline-search />
+            <icon-park-outline-search />
           </template>
           搜索
         </NButton>
         <NButton strong secondary @click="handleResetSearch">
           <template #icon>
-            <i-icon-park-outline-redo />
+            <icon-park-outline-redo />
           </template>
           重置
         </NButton>
@@ -204,19 +204,19 @@ function handleAddTable() {
         <div class="flex gap-4">
           <NButton type="primary" @click="handleAddTable">
             <template #icon>
-              <i-icon-park-outline-add-one />
+              <icon-park-outline-add-one />
             </template>
             新建
           </NButton>
           <NButton strong secondary>
             <template #icon>
-              <i-icon-park-outline-afferent />
+              <icon-park-outline-afferent />
             </template>
             批量导入
           </NButton>
           <NButton strong secondary class="ml-a">
             <template #icon>
-              <i-icon-park-outline-download />
+              <icon-park-outline-download />
             </template>
             下载
           </NButton>

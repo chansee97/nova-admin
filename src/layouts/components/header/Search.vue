@@ -6,16 +6,18 @@ import { renderIcon } from '@/utils'
 const routeStore = useRouteStore()
 const searchValue = ref('')
 
+const { t } = useI18n()
+
 const options = computed(() => {
   return routeStore.rowRoutes.filter((item) => {
     const conditions = [
-      item['meta.title']?.includes(searchValue.value),
+      t(`route.${String(item.name)}`, item['meta.title'] || item.name)?.includes(searchValue.value),
       item.path?.includes(searchValue.value),
     ]
     return conditions.some(condition => condition)
   }).map((item) => {
     return {
-      label: item['meta.title'],
+      label: t(`route.${String(item.name)}`, item['meta.title'] || item.name),
       value: item.path,
       icon: item['meta.icon'],
     }
@@ -44,11 +46,11 @@ function handleSelect(value: string) {
   <n-auto-complete
     v-model:value="searchValue" class="w-20em m-r-1em" :input-props="{
       autocomplete: 'disabled',
-    }" :options="options" :render-label="renderLabel" placeholder="搜索页面/路径" clearable @select="handleSelect"
+    }" :options="options" :render-label="renderLabel" :placeholder="$t('app.searchPlaceholder')" clearable @select="handleSelect"
   >
     <template #prefix>
       <n-icon>
-        <i-icon-park-outline-search />
+        <icon-park-outline-search />
       </n-icon>
     </template>
   </n-auto-complete>

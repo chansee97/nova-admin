@@ -1,4 +1,4 @@
-import { defineConfig, presetAttributify, presetUno } from 'unocss'
+import { defineConfig, presetAttributify, presetUno, transformerVariantGroup } from 'unocss'
 
 // https://github.com/unocss/unocss
 
@@ -11,9 +11,7 @@ export default defineConfig({
     'flex-x-center': 'flex justify-center',
     'flex-y-center': 'flex items-center',
   },
-  theme: {
-    colors: {
-      primary: '#165DFFFF',
-    },
-  },
+  transformers: [
+    transformerVariantGroup(),
+  ],
 })

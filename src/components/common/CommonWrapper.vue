@@ -18,7 +18,6 @@
 <style scoped>
   .el {
     color: var(--n-text-color);
-    background-color: var(--card-color);
     transition: 0.3s var(--cubic-bezier-ease-in-out);
   }
   .el:hover {

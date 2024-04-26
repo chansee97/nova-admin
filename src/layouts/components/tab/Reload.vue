@@ -18,10 +18,10 @@ function handleReload() {
   <n-tooltip placement="bottom" trigger="hover">
     <template #trigger>
       <CommonWrapper @click="handleReload">
-        <i-icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
+        <icon-park-outline-refresh :class="{ 'animate-spin': loading }" />
       </CommonWrapper>
     </template>
-    <span>刷新页面</span>
+    <span>{{ $t('common.reload') }}</span>
   </n-tooltip>
 </template>
 

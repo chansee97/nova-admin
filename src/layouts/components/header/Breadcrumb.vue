@@ -21,8 +21,8 @@ const appStore = useAppStore()
       class="flex-center gap-2 cursor-pointer split"
       @click="router.push(item.path)"
     >
-      <e-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
-      <span class="whitespace-nowrap">{{ item.meta.title }}</span>
+      <nova-icon v-if="appStore.showBreadcrumbIcon" :icon="item.meta.icon" />
+      <span class="whitespace-nowrap">{{ $t(`route.${String(item.name)}`, item.meta.title) }}</span>
     </n-el>
   </TransitionGroup>
 </template>
@@ -34,7 +34,6 @@ const appStore = useAppStore()
 }
 
 .list-move,
-/* 对移动中的元素应用的过渡 */
 .list-enter-active,
 .list-leave-active {
   transition: all 0.3s ease;
@@ -42,7 +41,7 @@ const appStore = useAppStore()
 
 .list-enter-from,.list-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  transform: translateX(-30px);
 }
 
 .list-leave-active {

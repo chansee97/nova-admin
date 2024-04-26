@@ -10,18 +10,22 @@ const authStore = useAuthStore()
 function toOtherForm(type: any) {
   emit('update:modelValue', type)
 }
-const rules = {
-  account: {
-    required: true,
-    trigger: 'blur',
-    message: '请输入账户',
-  },
-  pwd: {
-    required: true,
-    trigger: 'blur',
-    message: '请输入密码',
-  },
-}
+
+const { t } = useI18n()
+const rules = computed(() => {
+  return {
+    account: {
+      required: true,
+      trigger: 'blur',
+      message: t('login.accountRuleTip'),
+    },
+    pwd: {
+      required: true,
+      trigger: 'blur',
+      message: t('login.passwordRuleTip'),
+    },
+  }
+})
 const formValue = ref({
   account: 'super',
   pwd: '123456',
@@ -39,77 +43,82 @@ function handleLogin() {
     const { account, pwd } = formValue.value
 
     if (isRemember.value)
-      local.set('login_account', { account, pwd })
-    else local.remove('login_account')
+      local.set('loginAccount', { account, pwd })
+    else local.remove('loginAccount')
 
     await authStore.login(account, pwd)
     isLoading.value = false
   })
 }
+onMounted(() => {
+  checkUserAccount()
+})
 function checkUserAccount() {
-  const loginAccount = local.get('login_account')
+  const loginAccount = local.get('loginAccount')
   if (!loginAccount)
     return
 
   formValue.value = loginAccount
   isRemember.value = true
 }
-checkUserAccount()
 </script>
 
 <template>
   <div>
     <n-h2 depth="3" class="text-center">
-      登录
+      {{ $t('login.signInTitle') }}
     </n-h2>
     <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
       <n-form-item path="account">
-        <n-input v-model:value="formValue.account" clearable placeholder="输入账号" />
+        <n-input v-model:value="formValue.account" clearable :placeholder="$t('login.accountPlaceholder')" />
       </n-form-item>
       <n-form-item path="pwd">
-        <n-input v-model:value="formValue.pwd" type="password" placeholder="输入密码" clearable show-password-on="click">
+        <n-input v-model:value="formValue.pwd" type="password" :placeholder="$t('login.passwordPlaceholder')" clearable show-password-on="click">
           <template #password-invisible-icon>
-            <i-icon-park-outline-preview-close-one />
+            <icon-park-outline-preview-close-one />
           </template>
           <template #password-visible-icon>
-            <i-icon-park-outline-preview-open />
+            <icon-park-outline-preview-open />
           </template>
         </n-input>
       </n-form-item>
       <n-space vertical :size="20">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="isRemember">
-            记住我
+            {{ $t('login.rememberMe') }}
           </n-checkbox>
           <n-button type="primary" text @click="toOtherForm('resetPwd')">
-            忘记密码？
+            {{ $t('login.forgotPassword') }}
           </n-button>
         </div>
         <n-button block type="primary" size="large" :loading="isLoading" :disabled="isLoading" @click="handleLogin">
-          登录
+          {{ $t('login.signIn') }}
         </n-button>
-        <n-button type="primary" text @click="toOtherForm('register')">
-          立即注册
-        </n-button>
+        <n-flex>
+          <n-text>{{ $t('login.noAccountText') }}</n-text>
+          <n-button type="primary" text @click="toOtherForm('register')">
+            {{ $t('login.signUp') }}
+          </n-button>
+        </n-flex>
       </n-space>
     </n-form>
     <n-divider>
-      <span op-80>其他登录</span>
+      <span op-80>{{ $t('login.or') }}</span>
     </n-divider>
     <n-space justify="center">
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-wechat /></n-icon>
+          <n-icon><icon-park-outline-wechat /></n-icon>
         </template>
       </n-button>
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-tencent-qq /></n-icon>
+          <n-icon><icon-park-outline-tencent-qq /></n-icon>
         </template>
       </n-button>
       <n-button circle>
         <template #icon>
-          <n-icon><i-icon-park-outline-github-one /></n-icon>
+          <n-icon><icon-park-outline-github-one /></n-icon>
         </template>
       </n-button>
     </n-space>

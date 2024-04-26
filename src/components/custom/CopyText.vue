@@ -1,31 +1,17 @@
 <script setup lang="ts">
 const props = defineProps<{
-  modelValue: string
   maxLength?: string
 }>()
-const emit = defineEmits(['update:modelValue'])
-
-const text = useVModel(props, 'modelValue', emit)
+const modelValue = defineModel<string>()
 </script>
 
 <template>
-  <div v-if="text" class="copy-wrap">
-    <n-ellipsis :style="{ 'max-width': maxLength || '12em' }">
-      {{ text }}
+  <div v-if="modelValue" class="inline-flex items-center gap-0.5em">
+    <n-ellipsis :style="{ 'max-width': props.maxLength || '12em' }">
+      {{ modelValue }}
     </n-ellipsis>
-    <span v-copy="text" class="copy_icon">
-      <i-icon-park-outline-copy />
+    <span v-copy="modelValue" class="cursor-pointer">
+      <icon-park-outline-copy />
     </span>
   </div>
 </template>
-
-<style scoped>
-.copy-wrap{
-  display: inline-flex;
-  align-items: center;
-  gap:0.5em;
-}
-.copy_icon{
-  cursor: pointer;
-}
-</style>

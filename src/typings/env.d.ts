@@ -14,7 +14,7 @@ interface ImportMetaEnv {
   /** 开启请求代理 */
   readonly VITE_HTTP_PROXY?: 'Y' | 'N'
   /** 是否开启打包压缩 */
-  readonly VITE_COMPRESS_OPEN?: 'Y' | 'N'
+  readonly VITE_BUILD_COMPRESS?: 'Y' | 'N'
   /** 压缩算法类型 */
   readonly VITE_COMPRESS_TYPE?:
     | 'gzip'

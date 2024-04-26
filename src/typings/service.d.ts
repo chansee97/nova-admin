@@ -20,7 +20,7 @@ declare namespace Service {
     successCode?: number | string
   }
 
-  type RequestErrorType = 'Response Error' | 'Business Error'
+  type RequestErrorType = 'Response Error' | 'Business Error' | null
   type RequestCode = string | number
 
   interface RequestError {
@@ -29,8 +29,21 @@ declare namespace Service {
     /** 错误码 */
     code: RequestCode
     /** 错误信息 */
-    msg: string
+    message: string
     /** 返回的数据 */
     data?: any
+  }
+
+  interface ResponseResult<T> extends RequestError {
+    /** 请求服务是否成功 */
+    isSuccess: boolean
+    /** 请求服务的错误类型 */
+    errorType: RequestErrorType
+    /** 错误码 */
+    code: RequestCode
+    /** 错误信息 */
+    message: string
+    /** 返回的数据 */
+    data: T
   }
 }
