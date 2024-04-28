@@ -32,7 +32,7 @@ const defaultFormModal: AppRoute.RowRoute = {
   'meta.keepAlive': false,
   'meta.hide': false,
   'meta.order': undefined,
-  'meta.herf': undefined,
+  'meta.href': undefined,
   'meta.activeMenu': undefined,
   'meta.withoutTab': true,
   'meta.pinTab': false,
@@ -160,7 +160,7 @@ const rules = {
     message: '请输入菜单标题',
     trigger: 'blur',
   },
-  'meta.herf': {
+  'meta.href': {
     validator(rule: FormItemRule, value: string) {
       if (!new RegExp(Regex.Url).test(value))
         return new Error('请输入正确的URL地址')
@@ -244,12 +244,12 @@ const options = [
           </template>
           <n-input-number v-model:value="formModel['meta.order']" />
         </n-form-item-grid-item>
-        <n-form-item-grid-item v-if="formModel['meta.menuType'] === 'page'" :span="1" path="meta.herf">
+        <n-form-item-grid-item v-if="formModel['meta.menuType'] === 'page'" :span="1" path="meta.href">
           <template #label>
             外链页面
             <HelpInfo message="填写后，点击菜单将跳转到该地址，组件路径任意填写" />
           </template>
-          <n-input v-model:value="formModel['meta.herf']" placeholder="Eg: https://example.com" />
+          <n-input v-model:value="formModel['meta.href']" placeholder="Eg: https://example.com" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="1" label="登录访问" path="meta.requiresAuth">
           <n-switch v-model:value="formModel['meta.requiresAuth']" />

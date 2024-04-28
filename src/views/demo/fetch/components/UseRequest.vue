@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { useRequest } from 'alova'
 import {
-  fetachGet,
+  fetchGet,
 } from '@/service'
 
 const emit = defineEmits<{
   update: [data: any] // 具名元组语法
 }>()
 
-const { data: fetachGetData, send: sendFetachGet } = useRequest(fetachGet({ a: 112211 }), {
+const { data: fetchGetData, send: sendFetchGet } = useRequest(fetchGet({ a: 112211 }), {
   // 当immediate为false时，默认不发出
   immediate: false,
 })
 
 async function handleRequestHook() {
-  await sendFetachGet()
-  emit('update', fetachGetData.value)
+  await sendFetchGet()
+  emit('update', fetchGetData.value)
 }
 </script>
 
