@@ -23,7 +23,7 @@ const emit = defineEmits<{
 const defaultFormModal: AppRoute.RowRoute = {
   'name': '',
   'path': '',
-  'id': undefined,
+  'id': -1,
   'pid': null,
   'meta.title': '',
   'meta.icon': '',

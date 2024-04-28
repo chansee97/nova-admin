@@ -3,7 +3,8 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "close": "Closure",
-    "reload": "Refresh"
+    "reload": "Refresh",
+    "choose": "Choose"
   },
   "app": {
     "loginOut": "Login out",
@@ -139,7 +140,9 @@
   "components": {
     "iconSelector": {
       "inputPlaceholder": "Select target icon",
-      "searchPlaceholder": "Search icon"
+      "searchPlaceholder": "Search icon",
+      "clearIcon": "Clear icon",
+      "selectorTitle": "Icon selection"
     }
   }
 }
