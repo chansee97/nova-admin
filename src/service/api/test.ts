@@ -1,7 +1,7 @@
 import { blankInstance, request } from '../http'
 
 /* get方法测试 */
-export function fetachGet(params?: any) {
+export function fetchGet(params?: any) {
   return request.Get('/getAPI', { params })
 }
 
@@ -53,7 +53,7 @@ export function dictData() {
 export function getBlob(url: string) {
   const methodInstance = blankInstance.Get<Blob>(url)
   methodInstance.meta = {
-    // 标识为bolb数据
+    // 标识为blob数据
     isBlob: true,
   }
   return methodInstance
@@ -66,7 +66,7 @@ export function downloadFile(url: string) {
     enableDownload: true,
   })
   methodInstance.meta = {
-    // 标识为bolb数据
+    // 标识为blob数据
     isBlob: true,
   }
   return methodInstance

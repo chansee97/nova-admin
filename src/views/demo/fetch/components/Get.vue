@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  fetachGet,
+  fetchGet,
 } from '@/service'
 
 const emit = defineEmits<{
@@ -8,7 +8,7 @@ const emit = defineEmits<{
 }>()
 
 async function pinterEnv() {
-  const res = await fetachGet({ a: 112211, b: false })
+  const res = await fetchGet({ a: 112211, b: false })
   emit('update', res)
 }
 </script>

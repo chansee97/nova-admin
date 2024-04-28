@@ -7,9 +7,9 @@ import {
   dictData,
   downloadFile,
   expiredTokenRequest,
-  fetachGet,
   fetchDelete,
   fetchFormPost,
+  fetchGet,
   fetchPost,
   fetchPut,
   fetchUpdateToken,
@@ -18,20 +18,20 @@ import {
 } from '@/service'
 
 const msg = ref()
-const { data: fetachGetData, send: sendFetachGet } = useRequest(fetachGet({ a: 112211 }), {
+const { data: fetchGetData, send: sendFetchGet } = useRequest(fetchGet({ a: 112211 }), {
   // 当immediate为false时，默认不发出
   immediate: false,
 })
 
 function handleRequestHook() {
-  sendFetachGet()
-  msg.value = fetachGetData.value
+  sendFetchGet()
+  msg.value = fetchGetData.value
 }
 function pinterEnv() {
   msg.value = import.meta.env
 }
 async function get() {
-  const res = await fetachGet({ a: 112211, b: false })
+  const res = await fetchGet({ a: 112211, b: false })
   msg.value = res
 }
 function delete2() {

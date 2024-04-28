@@ -260,7 +260,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     'meta.title': 'VueUse（外链）',
     'meta.requiresAuth': true,
     'meta.icon': 'logos:vueuse',
-    'meta.herf': 'https://vueuse.org/guide/',
+    'meta.href': 'https://vueuse.org/guide/',
     'componentPath': 'null',
     'id': 27,
     'pid': 24,
