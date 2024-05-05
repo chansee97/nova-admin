@@ -4,7 +4,8 @@
     "confirm": "Confirm",
     "close": "Closure",
     "reload": "Refresh",
-    "choose": "Choose"
+    "choose": "Choose",
+    "navigate": "Navigate"
   },
   "app": {
     "loginOut": "Login out",
