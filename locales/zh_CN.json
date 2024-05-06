@@ -4,7 +4,8 @@
     "cancel": "取消",
     "reload": "刷新",
     "close": "关闭",
-    "choose": "选择"
+    "choose": "选择",
+    "navigate": "切换"
   },
   "app": {
     "loginOut": "退出登录",
