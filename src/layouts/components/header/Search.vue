@@ -134,7 +134,7 @@ function handleEnter() {
   </CommonWrapper>
   <n-modal
     v-model:show="showModal"
-    class="w-560px fixed top-100px inset-x-0"
+    class="w-560px fixed top-60px inset-x-0"
     size="small"
     preset="card"
     :segmented="{
@@ -153,7 +153,7 @@ function handleEnter() {
         </template>
       </n-input>
     </template>
-    <n-scrollbar ref="scrollbarRef" class="h-600px">
+    <n-scrollbar ref="scrollbarRef" class="h-450px">
       <ul
         v-if="options.length"
         class="flex flex-col gap-8px p-1 p-r-3"
@@ -175,7 +175,7 @@ function handleEnter() {
         </n-el>
       </ul>
 
-      <n-empty v-else size="large" class="h-600px flex-center" />
+      <n-empty v-else size="large" class="h-450px flex-center" />
     </n-scrollbar>
 
     <template #footer>
