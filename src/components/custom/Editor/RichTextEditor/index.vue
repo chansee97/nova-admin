@@ -1,77 +1,103 @@
 <script setup lang="ts">
-import Editor from '@tinymce/tinymce-vue'
+import Quill from 'quill'
+import 'quill/dist/quill.snow.css'
+
+defineOptions({
+  name: 'RichTextEditor',
+})
 
 const props = defineProps<{
-  modelValue: string
+  disabled?: boolean
 }>()
 
-const emit = defineEmits(['update:modelValue'])
+const model = defineModel()
 
-const data = useVModel(props, 'modelValue', emit)
+let editorInst = null
 
-function imagesUploadHandler(blobInfo: any, _progress: number) {
-  return new Promise((resolve, reject) => {
-    const formData = new FormData()
-    formData.append('file', blobInfo.blob())
-    fetch('www.example.com/upload', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        if (!response.ok)
-          throw new Error('上传失败')
+const editorModel = ref<string>()
 
-        // 处理上传成功后的响应数据
-        resolve('上传成功')
-      })
-      .catch((error) => {
-        // 处理上传失败的情况
-        reject(error)
-      })
+onMounted(() => {
+  initEditor()
+})
+
+const editorRef = ref()
+function initEditor() {
+  const options = {
+    modules: {
+      toolbar: [
+        { header: [1, 2, 3, 4, 5, 6, false] }, // 标题
+        'bold', // 加粗
+        'italic', // 斜体
+        'strike', // 删除线
+        { size: ['small', false, 'large', 'huge'] }, // 字体大小
+        { font: [] }, // 字体种类
+        { color: [] }, // 字体颜色、
+        { background: [] }, // 字体背景颜色
+        'link', // 插入链接
+        'image', // 插入图片
+        'blockquote', // 引用
+        'link', // 超链接
+        'image', // 插入图片
+        'video', // 插入视频
+        { list: 'bullet' }, // 无序列表
+        { list: 'ordered' }, // 有序列表
+        { script: 'sub' }, // 下标
+        { script: 'super' }, // 上标
+        { align: [] }, // 对齐方式
+        'formula', // 公式
+        'clean', // remove formatting button
+      ],
+    },
+
+    placeholder: 'Insert text here ...',
+    theme: 'snow',
+  }
+  const quill = new Quill(editorRef.value, options)
+
+  quill.on('text-change', (_delta, _oldDelta, _source) => {
+    editorModel.value = quill.getSemanticHTML()
   })
-}
-const initConfig = {
-  language: 'zh_CN', // 语言类型
-  min_height: 700,
-  content_css: 'dark',
-  placeholder: '请输入内容', // textarea中的提示信息
-  branding: false,
-  font_formats:
-          '微软雅黑=Microsoft YaHei,Helvetica Neue,PingFang SC,sans-serif;苹果苹方=PingFang SC,Microsoft YaHei,sans-serif;宋体=simsun,serif;仿宋体=FangSong,serif;黑体=SimHei,sans-serif;Arial=arial,helvetica,sans-serif;Arial Black=arial black,avant garde;Book Antiqua=book antiqua,palatino;', // 字体样式
-  plugins:
-          'print preview searchreplace autolink directionality visualblocks visualchars fullscreen code codesample table charmap hr pagebreak nonbreaking anchor insertdatetime advlist lists wordcount textpattern autosave emoticons', // 插件配置 axupimgs indent2em
-  toolbar: [
-    'fullscreen undo redo restoredraft | cut copy paste pastetext | forecolor backcolor bold italic underline strikethrough anchor | alignleft aligncenter alignright alignjustify outdent indent | bullist numlist | blockquote subscript superscript removeformat ',
-    'styleselect formatselect fontselect fontsizeselect |  table emoticons charmap hr pagebreak insertdatetime  selectall visualblocks | code preview | indent2em lineheight formatpainter',
-  ],
-  paste_data_images: true, // 图片是否可粘贴
-  // 此处为图片上传处理函数
-  images_upload_handler: imagesUploadHandler,
 
+  if (props.disabled)
+    quill.enable(false)
+
+  editorInst = quill
 }
+
+watch(
+  () => model.value,
+  (newValue, _oldValue) => {
+    if (newValue && newValue !== editorModel.value) {
+      editorInst!.setContents(editorInst!.clipboard.convert({
+        html: newValue,
+      }))
+    }
+    else if (!newValue) {
+      editorInst!.setContents([])
+    }
+  },
+)
+
+watch(editorModel, (newValue, oldValue) => {
+  if (newValue && newValue !== oldValue)
+    model.value = newValue
+
+  else if (!newValue)
+    quillInstance!.setContents([])
+})
+
+watch(
+  () => props.disabled,
+  (newValue, _oldValue) => {
+    editorInst!.enable(!newValue)
+  },
+)
+
+onBeforeUnmount(() => quillInstance = null)
 </script>
 
 <template>
-  <div class="tinymce-boxz">
-    <Editor
-      v-model="data"
-      api-key="no-api"
-      :init="initConfig"
-    />
+  <div class="h-2xl">
+    <div ref="editorRef" />
   </div>
 </template>
-
-<style>
- .tinymce-boxz > textarea {
-  display: none;
-}
-
-/* 隐藏apikey没有绑定这个域名的提示 */
-.tox-notifications-container .tox-notification--warning {
-  display: none !important;
-}
-
-.tox.tox-tinymce {
-  max-width: 100%;
-}
-</style>

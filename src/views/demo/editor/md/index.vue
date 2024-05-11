@@ -5,9 +5,7 @@ const text = ref('# Hello Editor ![图片描述](https://via.placeholder.com/350
 <template>
   <n-card title="MarkDown编辑器">
     <n-space vertical :size="12">
-      <n-alert :show-icon="false" type="info">
-        使用 md-editor-v3 实现
-      </n-alert>
+      <n-alert title="基于 md-editor-v3 封装" type="success" />
       <MarkDownEditor v-model="text" />
     </n-space>
   </n-card>

@@ -9,8 +9,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-card>
-    <RichTextEditor v-model="text" />
+  <n-card title="富文本编辑器">
+    <n-space vertical :size="12">
+      <n-alert title="基于 Quill 封装" type="success" />
+      <n-space :size="12">
+        <RichTextEditor v-model="text" />
+        <div>
+          <n-h2>v-html 预览</n-h2>
+          <div v-html="text" />
+        </div>
+      </n-space>
+    </n-space>
   </n-card>
 </template>
 
