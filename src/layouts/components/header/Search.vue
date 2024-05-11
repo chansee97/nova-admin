@@ -101,12 +101,7 @@ function handleArrowup() {
   else
     selectedIndex.value--
 
-  nextTick(() => {
-    const distance = selectedIndex.value * 70 > 350 ? selectedIndex.value * 70 - 350 : 0
-    scrollbarRef.value?.scrollTo({
-      top: distance,
-    })
-  })
+  handleScroll(selectedIndex.value)
 }
 
 // 下箭头操作
@@ -117,14 +112,19 @@ function handleArrowdown() {
   else
     selectedIndex.value++
 
-  nextTick(() => {
-    const distance = selectedIndex.value * 70 > 350 ? selectedIndex.value * 70 - 350 : 0
-    scrollbarRef.value?.scrollTo({
-      top: distance,
-    })
-  })
+  handleScroll(selectedIndex.value)
 }
 
+function handleScroll(currentIndex: number) {
+  // 保持6个选项在可视区域内,6个后开始滚动
+  const keepIndex = 5
+  // 单个元素的高度，包括了元素的gap和容器的padding
+  const elHeight = 70
+  const distance = currentIndex * elHeight > keepIndex * elHeight ? currentIndex * elHeight - keepIndex * elHeight : 0
+  scrollbarRef.value?.scrollTo({
+    top: distance,
+  })
+}
 // 回车键操作
 function handleEnter() {
   const target = options.value[selectedIndex.value]
