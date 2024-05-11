@@ -12,6 +12,9 @@ const selectedIndex = ref<number>(0)
 
 const { bool: showModal, setTrue: openModal, setFalse: closeModal, toggle: toggleModal } = useBoolean(false)
 
+// 鼠标和键盘操作切换锁，防止鼠标和键盘操作冲突
+const { bool: keyboardFlag, setTrue: setKeyboardTrue, setFalse: setKeyboardFalse } = useBoolean(false)
+
 const { ctrl_k, arrowup, arrowdown, enter/* keys you want to monitor */ } = useMagicKeys({
   passive: false,
   onEventFired(e) {
@@ -76,6 +79,8 @@ watchEffect(() => {
   if (!showModal.value || !options.value.length)
     return
 
+  // 设置键盘操作锁，设置后不会被动触发mouseover
+  setKeyboardTrue()
   if (arrowup.value)
     handleArrowup()
 
@@ -97,8 +102,9 @@ function handleArrowup() {
     selectedIndex.value--
 
   nextTick(() => {
+    const distance = selectedIndex.value * 70 > 350 ? selectedIndex.value * 70 - 350 : 0
     scrollbarRef.value?.scrollTo({
-      top: selectedIndex.value * 70,
+      top: distance,
     })
   })
 }
@@ -112,8 +118,9 @@ function handleArrowdown() {
     selectedIndex.value++
 
   nextTick(() => {
+    const distance = selectedIndex.value * 70 > 350 ? selectedIndex.value * 70 - 350 : 0
     scrollbarRef.value?.scrollTo({
-      top: selectedIndex.value * 70,
+      top: distance,
     })
   })
 }
@@ -123,6 +130,14 @@ function handleEnter() {
   const target = options.value[selectedIndex.value]
   if (target)
     handleSelect(target.value)
+}
+
+// 鼠标移入操作
+function handleMouseEnter(index: number) {
+  if (keyboardFlag.value)
+    return
+
+  selectedIndex.value = index
 }
 </script>
 
@@ -156,7 +171,7 @@ function handleEnter() {
     <n-scrollbar ref="scrollbarRef" class="h-450px">
       <ul
         v-if="options.length"
-        class="flex flex-col gap-8px p-1 p-r-3"
+        class="flex flex-col gap-8px p-8px p-r-3"
       >
         <n-el
           v-for="(option, index) in options"
@@ -164,7 +179,8 @@ function handleEnter() {
           class="cursor-pointer shadow h-62px"
           :class="{ 'text-[var(--base-color)] bg-[var(--primary-color-hover)]': index === selectedIndex }"
           @click="handleSelect(option.value)"
-          @mouseover.stop="selectedIndex = index"
+          @mouseenter="handleMouseEnter(index)"
+          @mousemove="setKeyboardFalse"
         >
           <div class="grid grid-rows-2 grid-cols-[40px_1fr_30px] h-full p-2">
             <nova-icon :icon="option.icon" class="row-span-2 place-self-center" />
