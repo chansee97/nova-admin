@@ -5,7 +5,9 @@
     "reload": "刷新",
     "close": "关闭",
     "choose": "选择",
-    "navigate": "切换"
+    "navigate": "切换",
+    "inputPlaceholder": "请输入",
+    "selectPlaceholder": "请选择"
   },
   "app": {
     "loginOut": "退出登录",
@@ -144,6 +146,7 @@
     "dictionarySetting": "字典设置",
     "menuSetting": "菜单设置",
     "userCenter": "个人中心",
-    "about": "关于"
+    "about": "关于",
+    "cascader": "省市区联动"
   }
 }

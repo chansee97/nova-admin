@@ -13,7 +13,9 @@ onMounted(() => {
     <n-space vertical :size="12">
       <n-alert title="基于 Quill 封装" type="success" />
       <n-space :size="12">
-        <RichTextEditor v-model="text" />
+        <div class="h-2xl">
+          <RichTextEditor v-model="text" />
+        </div>
         <div>
           <n-h2>v-html 预览</n-h2>
           <div v-html="text" />

@@ -5,7 +5,9 @@
     "close": "Closure",
     "reload": "Refresh",
     "choose": "Choose",
-    "navigate": "Navigate"
+    "navigate": "Navigate",
+    "inputPlaceholder": "please enter",
+    "selectPlaceholder": "please choose"
   },
   "app": {
     "loginOut": "Login out",
@@ -121,7 +123,8 @@
     "permissionDemo": "Permissions example",
     "setting": "System settings",
     "userCenter": "Personal Center",
-    "accountSetting": "User settings"
+    "accountSetting": "User settings",
+    "cascader": "Administrative region selection"
   },
   "http": {
     "400": "Syntax error in the request",

@@ -83,7 +83,7 @@ watch(editorModel, (newValue, oldValue) => {
     model.value = newValue
 
   else if (!newValue)
-    quillInstance!.setContents([])
+    editorInst!.setContents([])
 })
 
 watch(
@@ -93,11 +93,9 @@ watch(
   },
 )
 
-onBeforeUnmount(() => quillInstance = null)
+onBeforeUnmount(() => editorInst = null)
 </script>
 
 <template>
-  <div class="h-2xl">
-    <div ref="editorRef" />
-  </div>
+  <div ref="editorRef" />
 </template>
