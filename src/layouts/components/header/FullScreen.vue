@@ -2,6 +2,16 @@
 import { useAppStore } from '@/store'
 
 const appStore = useAppStore()
+
+useMagicKeys({
+  passive: false,
+  onEventFired(e) {
+    if (e.key === 'F11' && e.type === 'keydown') {
+      e.preventDefault()
+      appStore.toggleFullScreen()
+    }
+  },
+})
 </script>
 
 <template>
@@ -15,5 +25,3 @@ const appStore = useAppStore()
     <span>{{ $t('app.toggleFullScreen') }}</span>
   </n-tooltip>
 </template>
-
-<style scoped></style>
