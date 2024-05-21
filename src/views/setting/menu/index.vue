@@ -16,6 +16,10 @@ const tableModalRef = ref()
 
 const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
+    type: 'selection',
+    width: 30,
+  },
+  {
     title: '名称',
     key: 'name',
     width: 200,
@@ -79,6 +83,7 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
     title: '操作',
     align: 'center',
     key: 'actions',
+    width: '15em',
     render: (row) => {
       const rowData = row as unknown as CommonList.UserList
       return (
@@ -118,6 +123,11 @@ async function getAllRoutes() {
   tableData.value = arrayToTree(data)
   endLoading()
 }
+
+const checkedRowKeys = ref<number[]>([])
+async function handlePositiveClick() {
+  window.$message.success(`批量删除id:${checkedRowKeys.value.join(',')}`)
+}
 </script>
 
 <template>
@@ -130,10 +140,34 @@ async function getAllRoutes() {
           </template>
           新建
         </NButton>
+
+        <NButton type="primary" secondary class="ml-auto" @click="getAllRoutes">
+          <template #icon>
+            <icon-park-outline-refresh />
+          </template>
+          刷新
+        </NButton>
+
+        <NPopconfirm
+          @positive-click="handlePositiveClick"
+        >
+          <template #trigger>
+            <NButton type="error" secondary>
+              <template #icon>
+                <icon-park-outline-delete-five />
+              </template>
+              批量删除
+            </NButton>
+          </template>
+          确认删除所有选中菜单？
+        </NPopconfirm>
       </div>
       <n-data-table
+        v-model:checked-row-keys="checkedRowKeys"
         :row-key="(row:AppRoute.RowRoute) => row.id" :columns="columns" :data="tableData"
         :loading="loading"
+        size="small"
+        :scroll-x="1200"
       />
       <TableModal ref="tableModalRef" :all-routes="tableData" modal-name="菜单" />
     </n-flex>

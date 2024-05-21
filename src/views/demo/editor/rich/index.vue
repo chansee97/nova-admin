@@ -23,7 +23,7 @@ const active = ref(false)
         </template>
       </n-switch>
       <n-space :size="12">
-        <div class="h-2xl">
+        <div class="h-300px">
           <RichTextEditor v-model="text" :disabled="active" />
         </div>
         <div>
