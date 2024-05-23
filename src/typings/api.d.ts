@@ -2,22 +2,12 @@
 
 /** 后端返回的用户相关类型 */
 declare namespace ApiAuth {
-  /* 登录返回的用户字段 */
-  interface loginInfo {
+  /* 登录返回的用户字段, 该数据是根据用户表扩展而来, 部分字段可能需要覆盖，例如id */
+  interface loginInfo extends Auth.User {
     /** 用户id */
     id: number
-    /** 用户名 */
-    userName: string
-    /* 用户头像 */
-    avatar?: string
-    /* 用户邮箱 */
-    email?: string
-    /* 用户昵称 */
-    nickname?: string
-    /* 用户电话 */
-    tel?: string
     /** 用户角色类型 */
-    role: Auth.RoleType
+    role: RoleType
     /** 访问toekn */
     accessToken: string
     /** 刷新toekn */

@@ -12,7 +12,7 @@ const text = ref('Hello nova-admin')
       </n-button>
     </n-input-group>
     <n-h3>copy-text 组件</n-h3>
-    <copy-text v-model="text" />
+    <copy-text v-model:value="text" />
   </n-card>
 </template>
 

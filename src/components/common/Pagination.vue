@@ -20,6 +20,7 @@ function changePage() {
     v-if="props.count > 0"
     v-model:page="page"
     v-model:page-size="pageSize"
+    :page-sizes="[10, 20, 30, 50]"
     :item-count="props.count"
     :display-order="displayOrder"
     show-size-picker

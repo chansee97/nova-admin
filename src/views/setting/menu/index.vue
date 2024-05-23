@@ -5,6 +5,7 @@ import TableModal from './components/TableModal.vue'
 import { fetchAllRoutes } from '@/service'
 import { useLoading } from '@/hooks'
 import { arrayToTree, renderIcon } from '@/utils'
+import CopyText from '@/components/custom/CopyText.vue'
 
 const { loading, startLoading, endLoading } = useLoading(false)
 
@@ -44,10 +45,11 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '路径',
     key: 'path',
-    ellipsis: {
-      tooltip: true,
+    render: (row) => {
+      return (
+        <CopyText value={row.path} />
+      )
     },
-
   },
   {
     title: '组件路径',

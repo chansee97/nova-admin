@@ -3,8 +3,9 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { useLoading } from '@/hooks'
+import { useBoolean, useLoading } from '@/hooks'
 import { Regex } from '@/constants'
+import { fetchRoleList } from '@/service'
 
 interface Props {
   modalName?: string
@@ -19,6 +20,10 @@ const emit = defineEmits<{
   open: []
   close: []
 }>()
+
+const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
+
+const { loading: submitLoading, startLoading, endLoading } = useLoading(false)
 
 const defaultFormModal: AppRoute.RowRoute = {
   'name': '',
@@ -51,11 +56,11 @@ const modalTitle = computed(() => {
   return `${titleMap[modalType.value]}${props.modalName}`
 })
 
-const modalVisible = ref(false)
 async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
   emit('open')
   modalType.value = type
-  modalVisible.value = true
+  getRoleList()
+  showModal()
   const handlers = {
     async add() {
       formModel.value = { ...defaultFormModal }
@@ -72,10 +77,8 @@ async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
   await handlers[type]()
 }
 
-const { loading: submitLoading, startLoading, endLoading } = useLoading(false)
-
 function closeModal() {
-  modalVisible.value = false
+  hiddenModal()
   endLoading()
   emit('close')
 }
@@ -171,20 +174,11 @@ const rules = {
   },
 }
 
-const options = [
-  {
-    label: 'super',
-    value: 'super',
-  },
-  {
-    label: 'admin',
-    value: 'admin',
-  },
-  {
-    label: 'user',
-    value: 'user',
-  },
-]
+const options = ref<Auth.Role[]>([])
+async function getRoleList() {
+  const { data } = await fetchRoleList()
+  options.value = data
+}
 </script>
 
 <template>
@@ -196,7 +190,9 @@ const options = [
     }"
   >
     <n-form
-      ref="formRef" :rules="rules" label-placement="left" :model="formModel" label-align="left" :label-width="100"
+      ref="formRef"
+      :rules="rules" label-placement="left" :label-width="100"
+      :model="formModel"
       :disabled="modalType === 'view'"
     >
       <n-grid :cols="2" :x-gap="18">
@@ -287,7 +283,12 @@ const options = [
             访问角色
             <HelpInfo message="不填写则表示所有角色都可以访问" />
           </template>
-          <n-select v-model:value="formModel['meta.roles']" multiple filterable :options="options" />
+          <n-select
+            v-model:value="formModel['meta.roles']" multiple filterable
+            label-field="role"
+            value-field="id"
+            :options="options"
+          />
         </n-form-item-grid-item>
       </n-grid>
     </n-form>

@@ -2,7 +2,7 @@
 const props = defineProps<{
   maxLength?: string
 }>()
-const modelValue = defineModel<string>()
+const modelValue = defineModel<string>('value')
 </script>
 
 <template>
