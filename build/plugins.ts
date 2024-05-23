@@ -29,7 +29,22 @@ export function createVitePlugins(env: ImportMetaEnv) {
 
     // auto import api of lib
     AutoImport({
-      imports: ['vue', 'vue-router', 'pinia', '@vueuse/core', 'vue-i18n'],
+      imports: [
+        'vue',
+        'vue-router',
+        'pinia',
+        '@vueuse/core',
+        'vue-i18n',
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+            'useModal',
+          ],
+        },
+      ],
       include: [
         /\.[tj]sx?$/,
         /\.vue$/,
