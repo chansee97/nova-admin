@@ -2,7 +2,6 @@ import { createAlova } from 'alova'
 import VueHook from 'alova/vue'
 import GlobalFetch from 'alova/GlobalFetch'
 import { createServerTokenAuthentication } from '@alova/scene-vue'
-import qs from 'qs'
 import {
   handleBusinessError,
   handleRefreshToken,
@@ -52,7 +51,7 @@ export function createAlovaInstance(
     beforeRequest: onAuthRequired((method) => {
       if (method.meta?.isFormPost) {
         method.config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-        method.data = qs.stringify(method.data)
+        method.data = new URLSearchParams(method.data as URLSearchParams).toString()
       }
       alovaConfig.beforeRequest?.(method)
     }),

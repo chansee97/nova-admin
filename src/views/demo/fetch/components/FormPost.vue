@@ -10,6 +10,7 @@ const emit = defineEmits<{
 async function post() {
   const params = {
     data: '2022-2-2',
+    name: 'for',
   }
   const res = await fetchFormPost(params)
   emit('update', res)

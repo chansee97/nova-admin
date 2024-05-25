@@ -18,7 +18,7 @@ const { system, store } = useColorMode({
 export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
-      footerText: 'Copyright © 2024 chansee97',
+      footerText: import.meta.env.VITE_COPYRIGHT_INFO,
       lang: 'enUS' as App.lang,
       theme: themeConfig as GlobalThemeOverrides,
       primaryColor: themeConfig.common.primaryColor,
@@ -77,7 +77,7 @@ export const useAppStore = defineStore('app-store', {
     },
     /* 设置主题色 */
     setPrimaryColor(color: string) {
-      const brightenColor = colord(color).lighten(0.1).toHex()
+      const brightenColor = colord(color).lighten(0.05).toHex()
       const darkenColor = colord(color).darken(0.05).toHex()
       set(this.theme, 'common.primaryColor', color)
       set(this.theme, 'common.primaryColorHover', brightenColor)
