@@ -4,7 +4,7 @@ import { usePermission } from '@/hooks'
 export function install(app: App) {
   const { hasPermission } = usePermission()
 
-  function updatapermission(el: HTMLElement, permission: Auth.RoleType | Auth.RoleType[]) {
+  function updatapermission(el: HTMLElement, permission: Entity.RoleType | Entity.RoleType[]) {
     if (!permission)
       throw new Error('v-permissson Directive with no explicit role attached')
 
@@ -12,7 +12,7 @@ export function install(app: App) {
       el.parentElement?.removeChild(el)
   }
 
-  const permissionDirective: Directive<HTMLElement, Auth.RoleType | Auth.RoleType[]> = {
+  const permissionDirective: Directive<HTMLElement, Entity.RoleType | Entity.RoleType[]> = {
     mounted(el, binding) {
       updatapermission(el, binding.value)
     },

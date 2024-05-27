@@ -25,7 +25,7 @@ function delteteUser(id: number) {
   window.$message.success(`删除用户id:${id}`)
 }
 
-const columns: DataTableColumns<Auth.User> = [
+const columns: DataTableColumns<Entity.User> = [
   {
     title: '姓名',
     align: 'center',
@@ -74,8 +74,8 @@ const columns: DataTableColumns<Auth.User> = [
           value={row.status}
           checked-value={1}
           unchecked-value={0}
-          onUpdateValue={disabled =>
-            handleUpdateDisabled(disabled, row.id!)}
+          onUpdateValue={value =>
+            handleUpdateDisabled(value, row.id!)}
         >
           {{ checked: () => '启用', unchecked: () => '禁用' }}
         </NSwitch>
@@ -87,16 +87,15 @@ const columns: DataTableColumns<Auth.User> = [
     align: 'center',
     key: 'actions',
     render: (row) => {
-      const rowData = row as unknown as Auth.User
       return (
         <NSpace justify="center">
           <NButton
             size="small"
-            onClick={() => modalRef.value.openModal('edit', rowData)}
+            onClick={() => modalRef.value.openModal('edit', row)}
           >
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => delteteUser(rowData.id!)}>
+          <NPopconfirm onPositiveClick={() => delteteUser(row.id!)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size="small" type="error">删除</NButton>,
@@ -108,11 +107,11 @@ const columns: DataTableColumns<Auth.User> = [
   },
 ]
 
-const listData = ref<CommonList.UserList[]>([])
-function handleUpdateDisabled(disabled: boolean, id: number) {
+const listData = ref<Entity.User[]>([])
+function handleUpdateDisabled(value: 0 | 1, id: number) {
   const index = listData.value.findIndex(item => item.id === id)
   if (index > -1)
-    listData.value[index].disabled = disabled
+    listData.value[index].status = value
 }
 
 async function getUserList() {
@@ -161,7 +160,7 @@ const treeData = ref([
 
 <template>
   <n-flex>
-    <n-card class="w-70">
+    <n-card class="w-60">
       <n-tree
         block-line
         :data="treeData"

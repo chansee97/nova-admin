@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  list?: Message.List[]
+  list?: Entity.Message[]
 }
 const props = defineProps<Props>()
 

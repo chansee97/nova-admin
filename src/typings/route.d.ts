@@ -10,7 +10,7 @@ declare namespace AppRoute {
     /* 是否需要登录权限。 */
     requiresAuth?: boolean
     /* 可以访问的角色 */
-    roles?: Auth.RoleType[]
+    roles?: Entity.RoleType[]
     /* 是否开启页面缓存 */
     keepAlive?: boolean
     /* 有些路由我们并不想在菜单中显示，比如某些编辑页面。 */

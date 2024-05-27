@@ -6,14 +6,14 @@ interface Ilogin {
 }
 
 export function fetchLogin(params: Ilogin) {
-  const methodInstance = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/login', params)
+  const methodInstance = request.Post<Service.ResponseResult<Api.Login.Info>>('/login', params)
   methodInstance.meta = {
     authRole: null,
   }
   return methodInstance
 }
 export function fetchUpdateToken(data: any) {
-  const method = request.Post<Service.ResponseResult<ApiAuth.loginInfo>>('/updateToken', data)
+  const method = request.Post<Service.ResponseResult<Api.Login.Info>>('/updateToken', data)
   method.meta = {
     authRole: 'refreshToken',
   }

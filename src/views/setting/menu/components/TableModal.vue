@@ -174,7 +174,7 @@ const rules = {
   },
 }
 
-const options = ref<Auth.Role[]>([])
+const options = ref<Entity.Role[]>([])
 async function getRoleList() {
   const { data } = await fetchRoleList()
   options.value = data

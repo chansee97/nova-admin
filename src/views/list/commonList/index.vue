@@ -21,7 +21,7 @@ const formRef = ref<FormInst | null>()
 function sendMail(id: number) {
   window.$message.success(`删除用户id:${id}`)
 }
-const columns: DataTableColumns = [
+const columns: DataTableColumns<Entity.DemoList> = [
   {
     title: '姓名',
     align: 'center',
@@ -37,15 +37,14 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'gender',
     render: (row) => {
-      const rowData = row as unknown as CommonList.UserList
       const tagType = {
         0: 'primary',
         1: 'success',
       } as const
-      if (rowData.gender) {
+      if (row.gender) {
         return (
-          <NTag type={tagType[rowData.gender]}>
-            {Gender[rowData.gender]}
+          <NTag type={tagType[row.gender]}>
+            {Gender[row.gender]}
           </NTag>
         )
       }
@@ -66,13 +65,12 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'role',
     render: (row) => {
-      const rowData = row as unknown as CommonList.UserList
-      const tagType: Record<Auth.RoleType, NaiveUI.ThemeColor> = {
+      const tagType: Record<Entity.RoleType, NaiveUI.ThemeColor> = {
         super: 'primary',
         admin: 'warning',
         user: 'success',
       }
-      return <NTag type={tagType[rowData.role]}>{rowData.role}</NTag>
+      return <NTag type={tagType[row.role]}>{row.role}</NTag>
     },
   },
   {
@@ -80,13 +78,11 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'disabled',
     render: (row) => {
-      const rowData = row as unknown as CommonList.UserList
-
       return (
         <NSwitch
-          value={rowData.disabled}
+          value={row.disabled}
           onUpdateValue={disabled =>
-            handleUpdateDisabled(disabled, rowData.id)}
+            handleUpdateDisabled(disabled, row.id)}
         >
           {{ checked: () => '启用', unchecked: () => '禁用' }}
         </NSwitch>
@@ -98,16 +94,15 @@ const columns: DataTableColumns = [
     align: 'center',
     key: 'actions',
     render: (row) => {
-      const rowData = row as unknown as CommonList.UserList
       return (
         <NSpace justify="center">
           <NButton
             size="small"
-            onClick={() => handleEditTable(rowData)}
+            onClick={() => handleEditTable(row)}
           >
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => sendMail(rowData.id)}>
+          <NPopconfirm onPositiveClick={() => sendMail(row.id)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size="small">删除</NButton>,
@@ -119,7 +114,7 @@ const columns: DataTableColumns = [
   },
 ]
 
-const listData = ref<CommonList.UserList[]>([])
+const listData = ref<Entity.DemoList[]>([])
 function handleUpdateDisabled(disabled: boolean, id: number) {
   const index = listData.value.findIndex(item => item.id === id)
   if (index > -1)
@@ -149,13 +144,13 @@ function setModalType(type: ModalType) {
   modalType.value = type
 }
 
-const editData = ref<CommonList.UserList | null>(null)
-function setEditData(data: CommonList.UserList | null) {
+const editData = ref<Entity.DemoList | null>(null)
+function setEditData(data: Entity.DemoList | null) {
   editData.value = data
 }
 
-function handleEditTable(rowData: CommonList.UserList) {
-  setEditData(rowData)
+function handleEditTable(row: Entity.DemoList) {
+  setEditData(row)
   setModalType('edit')
   openModal()
 }

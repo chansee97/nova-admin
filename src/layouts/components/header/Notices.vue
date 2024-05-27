@@ -2,7 +2,7 @@
 import { group } from 'radash'
 import NoticeList from '../common/NoticeList.vue'
 
-const MassageData = ref<Message.List[]>([
+const MassageData = ref<Entity.Message[]>([
   {
     id: 0,
     type: 0,

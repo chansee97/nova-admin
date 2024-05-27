@@ -87,22 +87,21 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
     key: 'actions',
     width: '15em',
     render: (row) => {
-      const rowData = row as unknown as CommonList.UserList
       return (
         <NSpace justify="center">
           <NButton
             size="small"
-            onClick={() => tableModalRef.value.openModal('view', rowData)}
+            onClick={() => tableModalRef.value.openModal('view', row)}
           >
             查看
           </NButton>
           <NButton
             size="small"
-            onClick={() => tableModalRef.value.openModal('edit', rowData)}
+            onClick={() => tableModalRef.value.openModal('edit', row)}
           >
             编辑
           </NButton>
-          <NPopconfirm onPositiveClick={() => deleteData(rowData.id)}>
+          <NPopconfirm onPositiveClick={() => deleteData(row.id)}>
             {{
               default: () => '确认删除',
               trigger: () => <NButton size="small" type="error">删除</NButton>,

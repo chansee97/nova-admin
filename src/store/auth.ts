@@ -5,7 +5,7 @@ import { router } from '@/router'
 import { local } from '@/utils'
 
 interface AuthStatus {
-  userInfo: ApiAuth.loginInfo | null
+  userInfo: Api.Login.Info | null
   token: string
 }
 export const useAuthStore = defineStore('auth-store', {
@@ -62,7 +62,7 @@ export const useAuthStore = defineStore('auth-store', {
     },
 
     /* 登录后的处理函数 */
-    async handleAfterLogin(data: ApiAuth.loginInfo) {
+    async handleAfterLogin(data: Api.Login.Info) {
       // 将token和userInfo保存下来
       local.set('userInfo', data)
       local.set('accessToken', data.accessToken)

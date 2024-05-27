@@ -5,7 +5,11 @@ const props = defineProps({
     default: 0,
   },
 })
-const emit = defineEmits(['change'])
+
+const emit = defineEmits<{
+  change: [page: number, pageSize: number] // 具名元组语法
+}>()
+
 const page = ref(1)
 const pageSize = ref(10)
 const displayOrder: Array<'pages' | 'size-picker' | 'quick-jumper'> = ['size-picker', 'pages']

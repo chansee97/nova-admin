@@ -1,3 +1,12 @@
+/* 存放数据库实体表类型， 具体内容在 ./entities */
+declare namespace Entity {
+}
+
+/* 各类接口返回的数据类型， 具体内容在 ./api */
+declare namespace Api {
+
+}
+
 interface Window {
   $loadingBar: import('naive-ui').LoadingBarApi
   $dialog: import('naive-ui').DialogApi
@@ -26,7 +35,7 @@ declare namespace Storage {
 
   interface Local {
     /* 存储用户信息 */
-    userInfo: ApiAuth.loginInfo
+    userInfo: Api.Login.Info
     /* 存储访问token */
     accessToken: string
     /* 存储刷新token */

@@ -20,7 +20,7 @@ const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoo
 const { loading: submitLoading, startLoading, endLoading } = useLoading(false)
 
 const formModel = ref()
-const defaultFormModal: Auth.User = {
+const defaultFormModal: Entity.User = {
   userName: '',
   gender: undefined,
   email: '',
@@ -107,7 +107,7 @@ const rules = {
   },
 }
 
-const options = ref<Auth.Role[]>([])
+const options = ref<Entity.Role[]>([])
 async function getRoleList() {
   const { data } = await fetchRoleList()
   options.value = data

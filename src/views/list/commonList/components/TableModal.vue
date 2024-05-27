@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type FormModel = Pick<CommonList.UserList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>
+type FormModel = Pick<Entity.DemoList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>
 const props = withDefaults(defineProps<Props>(), {
   type: 'add',
   modalData: null,

@@ -6,9 +6,9 @@ const authStore = useAuthStore()
 const { hasPermission } = usePermission()
 const { role } = authStore.userInfo!
 
-const roleList: Auth.RoleType[] = ['super', 'admin', 'user']
+const roleList: Entity.RoleType[] = ['super', 'admin', 'user']
 
-function toggleUserRole(role: Auth.RoleType) {
+function toggleUserRole(role: Entity.RoleType) {
   authStore.login(role, '123456')
 }
 </script>
