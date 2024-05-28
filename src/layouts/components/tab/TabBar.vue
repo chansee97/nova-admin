@@ -107,7 +107,7 @@ function onClickoutside() {
     <n-tabs
       type="card"
       size="small"
-      :tabs-padding="15"
+      :tabs-padding="10"
       :value="tabStore.currentTabPath"
       @close="handleClose"
     >
@@ -125,7 +125,7 @@ function onClickoutside() {
         v-for="item in tabStore.tabs"
         :key="item.path"
         closable
-        :name="item.path as string"
+        :name="item.path"
         @click="handleTab(item)"
         @contextmenu="handleContextMenu($event, item)"
       >
@@ -150,5 +150,3 @@ function onClickoutside() {
     />
   </div>
 </template>
-
-<style scoped></style>./DropTabs.vue

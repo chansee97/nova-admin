@@ -1,3 +1,8 @@
 .n-modal-mask {
   backdrop-filter: blur(2px);
 }
+
+/* 解决tabs组件不贴合下边缘问题 */
+.v-x-scroll {
+  height: 100%;
+}

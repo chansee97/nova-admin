@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import type { DataTableColumns, FormInst } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
@@ -107,6 +107,7 @@ const columns: DataTableColumns<Entity.User> = [
   },
 ]
 
+const count = ref(0)
 const listData = ref<Entity.User[]>([])
 function handleUpdateDisabled(value: 0 | 1, id: number) {
   const index = listData.value.findIndex(item => item.id === id)
@@ -118,6 +119,7 @@ async function getUserList() {
   startLoading()
   await fetchUserPage().then((res: any) => {
     listData.value = res.data.list
+    count.value = res.data.count
     endLoading()
   })
 }
@@ -207,7 +209,7 @@ const treeData = ref([
             </NButton>
           </div>
           <n-data-table :columns="columns" :data="listData" :loading="loading" />
-          <Pagination :count="100" @change="changePage" />
+          <Pagination :count="count" @change="changePage" />
           <TableModal ref="modalRef" modal-name="用户" />
         </NSpace>
       </n-card>
