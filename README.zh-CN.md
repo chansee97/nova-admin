@@ -5,7 +5,8 @@
 
 <div align="center">
     <img src="https://img.shields.io/github/license/chansee97/nova-admin"/>
-    <img src="https://img.shields.io/github/stars/chansee97/nova-admin"/>
+    <img src="https://badgen.net/github/stars/chansee97/nova-admin?icon=github"/>
+    <img src="https://gitee.com/chansee97/nova-admin/badge/star.svg"/>
     <img src="https://img.shields.io/github/forks/chansee97/nova-admin"/>
 </div>
 
