@@ -3,7 +3,7 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { useBoolean, useLoading } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { Regex } from '@/constants'
 import { fetchRoleList } from '@/service'
 
@@ -22,8 +22,7 @@ const emit = defineEmits<{
 }>()
 
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
-
-const { loading: submitLoading, startLoading, endLoading } = useLoading(false)
+const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 const defaultFormModal: AppRoute.RowRoute = {
   'name': '',

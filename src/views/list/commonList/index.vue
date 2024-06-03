@@ -3,10 +3,10 @@ import type { DataTableColumns, FormInst } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchUserList } from '@/service'
-import { useBoolean, useLoading } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { Gender } from '@/constants'
 
-const { loading, startLoading, endLoading } = useLoading(false)
+const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 const { bool: visible, setTrue: openModal } = useBoolean(false)
 
 const initialModel = {

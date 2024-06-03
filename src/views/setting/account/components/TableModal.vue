@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBoolean, useLoading } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { fetchRoleList } from '@/service'
 
 interface Props {
@@ -17,7 +17,7 @@ const emit = defineEmits<{
 
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
 
-const { loading: submitLoading, startLoading, endLoading } = useLoading(false)
+const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 const formModel = ref()
 const defaultFormModal: Entity.User = {

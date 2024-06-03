@@ -3,11 +3,11 @@ import type { DataTableColumns, FormInst } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchUserPage } from '@/service'
-import { useLoading } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { Gender } from '@/constants'
 import CopyText from '@/components/custom/CopyText.vue'
 
-const { loading, startLoading, endLoading } = useLoading(false)
+const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 const initialModel = {
   condition_1: '',

@@ -3,11 +3,11 @@ import type { DataTableColumns } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchAllRoutes } from '@/service'
-import { useLoading } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { arrayToTree, renderIcon } from '@/utils'
 import CopyText from '@/components/custom/CopyText.vue'
 
-const { loading, startLoading, endLoading } = useLoading(false)
+const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 function deleteData(id: number) {
   window.$message.success(`删除菜单id:${id}`)
