@@ -54,7 +54,8 @@ const pieOptions = ref<ECOption>({
     },
   ],
 }) as Ref<ECOption>
-const { domRef: pieRef } = useEcharts(pieOptions)
+const pieRef = ref<HTMLElement | null>(null)
+useEcharts(pieRef, pieOptions)
 
 // 折线图
 const lineOptions = ref<ECOption>({
@@ -245,7 +246,8 @@ const lineOptions = ref<ECOption>({
     },
   ],
 }) as Ref<ECOption>
-const { domRef: lineRef } = useEcharts(lineOptions)
+const lineRef = ref<HTMLElement | null>(null)
+useEcharts(lineRef, lineOptions)
 
 // 柱状图
 const barOptions = ref<ECOption>({
@@ -385,7 +387,9 @@ const barOptions = ref<ECOption>({
     },
   ],
 }) as Ref<ECOption>
-const { domRef: barRef } = useEcharts(barOptions)
+const barRef = ref<HTMLElement | null>(null)
+useEcharts(barRef, barOptions)
+
 // 雷达图
 const radarOptions = ref<ECOption>({
   title: {
@@ -477,7 +481,8 @@ const radarOptions = ref<ECOption>({
     },
   ],
 }) as Ref<ECOption>
-const { domRef: radarRef } = useEcharts(radarOptions)
+const radarRef = ref<HTMLElement | null>(null)
+useEcharts(radarRef, radarOptions)
 </script>
 
 <template>

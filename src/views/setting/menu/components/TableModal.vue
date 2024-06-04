@@ -3,7 +3,7 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { useBoolean } from '@/hooks'
+import { refForm, useBoolean } from '@/hooks'
 import { Regex } from '@/constants'
 import { fetchRoleList } from '@/service'
 
@@ -24,7 +24,7 @@ const emit = defineEmits<{
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const defaultFormModal: AppRoute.RowRoute = {
+const { target: formModel, setDefault } = refForm<AppRoute.RowRoute>({
   'name': '',
   'path': '',
   'id': -1,
@@ -41,8 +41,7 @@ const defaultFormModal: AppRoute.RowRoute = {
   'meta.withoutTab': true,
   'meta.pinTab': false,
   'meta.menuType': 'page',
-}
-const formModel = ref()
+})
 
 type ModalType = 'add' | 'view' | 'edit'
 const modalType = shallowRef<ModalType>('add')
@@ -62,15 +61,17 @@ async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
   showModal()
   const handlers = {
     async add() {
-      formModel.value = { ...defaultFormModal }
+      setDefault()
     },
     async view() {
-      if (data)
-        formModel.value = { ...data }
+      if (!data)
+        return
+      formModel.value = { ...data }
     },
     async edit() {
-      if (data)
-        formModel.value = { ...data }
+      if (!data)
+        return
+      formModel.value = { ...data }
     },
   }
   await handlers[type]()

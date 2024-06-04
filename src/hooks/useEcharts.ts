@@ -66,73 +66,54 @@ echarts.use([
 
 /**
  * Echarts hooks函数
- * @param options - 图表配置
  * @description 按需引入图表组件，没注册的组件需要先引入
  */
-export function useEcharts(options: Ref<ECOption>) {
+export function useEcharts(el: Ref<HTMLElement | null>, chartOptions: Ref<ECOption>) {
   const appStore = useAppStore()
-
-  const domRef = ref<HTMLElement>()
 
   let chart: echarts.ECharts | null = null
 
-  const initialSize = { width: 0, height: 0 }
-  const { width, height } = useElementSize(domRef, initialSize)
+  const { width, height } = useElementSize(el)
 
-  function canRender() {
-    return initialSize.width > 0 && initialSize.height > 0
-  }
+  const isRendered = computed(() => Boolean(el && chart))
 
-  function isRendered() {
-    return Boolean(domRef.value && chart)
-  }
   async function render() {
     const chartTheme = appStore.colorMode ? 'dark' : 'light'
     await nextTick()
-    if (domRef.value) {
-      chart = echarts.init(domRef.value, chartTheme)
-      update(options.value)
+    if (el) {
+      chart = echarts.init(el.value, chartTheme)
+      update(chartOptions.value)
     }
   }
 
   function update(updateOptions: ECOption) {
-    if (isRendered())
+    if (isRendered.value)
       chart!.setOption({ ...updateOptions, backgroundColor: 'transparent' })
-  }
-
-  function resize() {
-    chart?.resize()
   }
 
   function destroy() {
     chart?.dispose()
     chart = null
   }
-  const sizeWatch = watch([width, height], async ([newWidth, newHeight]) => {
-    initialSize.width = newWidth
-    initialSize.height = newHeight
-    if (newWidth === 0 && newHeight === 0) {
-      // 节点被删除 将chart置为空
-      chart = null
-    }
-    if (!canRender())
-      return
-    if (isRendered())
-      resize()
-    else await render()
+
+  watch([width, height], async ([newWidth, newHeight]) => {
+    if (isRendered.value && newWidth && newHeight)
+      chart?.resize()
   })
 
-  const OptionWatch = watch(options, (newValue) => {
+  watch(chartOptions, (newValue) => {
     update(newValue)
   })
 
+  onMounted(() => {
+    render()
+  })
   onUnmounted(() => {
-    sizeWatch()
-    OptionWatch()
     destroy()
   })
 
   return {
-    domRef,
+    destroy,
+    update,
   }
 }

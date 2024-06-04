@@ -113,7 +113,9 @@ const lineOptions = ref<ECOption>({
     data: [20, 71, 8, 50, 57, 32],
   }],
 }) as Ref<ECOption>
-const { domRef: lineRef } = useEcharts(lineOptions)
+
+const lineRef = ref<HTMLElement | null>(null)
+useEcharts(lineRef, lineOptions)
 </script>
 
 <template>

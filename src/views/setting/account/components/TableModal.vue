@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useBoolean } from '@/hooks'
+import { refForm, useBoolean } from '@/hooks'
 import { fetchRoleList } from '@/service'
 
 interface Props {
@@ -19,15 +19,14 @@ const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoo
 
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const formModel = ref()
-const defaultFormModal: Entity.User = {
+const { target: formModel, setDefault } = refForm<Entity.User>({
   userName: '',
   gender: undefined,
   email: '',
   tel: '',
   role: [],
   status: 1,
-}
+})
 
 type ModalType = 'add' | 'view' | 'edit'
 const modalType = shallowRef<ModalType>('add')
@@ -47,15 +46,17 @@ async function openModal(type: ModalType = 'add', data: any) {
   getRoleList()
   const handlers = {
     async add() {
-      formModel.value = { ...defaultFormModal }
+      setDefault()
     },
     async view() {
-      if (data)
-        formModel.value = { ...data }
+      if (!data)
+        return
+      formModel.value = { ...data }
     },
     async edit() {
-      if (data)
-        formModel.value = { ...data }
+      if (!data)
+        return
+      formModel.value = { ...data }
     },
   }
   await handlers[type]()

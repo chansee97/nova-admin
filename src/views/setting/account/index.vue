@@ -162,7 +162,7 @@ const treeData = ref([
 
 <template>
   <n-flex>
-    <n-card class="w-60">
+    <n-card class="w-70">
       <n-tree
         block-line
         :data="treeData"

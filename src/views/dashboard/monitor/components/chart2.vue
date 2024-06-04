@@ -90,7 +90,9 @@ const option = ref<ECOption>({
     },
   }],
 }) as Ref<ECOption>
-const { domRef: lineRef } = useEcharts(option)
+
+const lineRef = ref<HTMLElement | null>(null)
+useEcharts(lineRef, option)
 </script>
 
 <template>
