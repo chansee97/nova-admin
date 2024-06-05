@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.9.3",
   "private": true,
-  "description": "",
+  "description": "a clean and concise back-end management template based on Vue3, Vite5, Typescript, and Naive UI.",
   "author": {
     "name": "chansee97",
     "email": "chen.dev@foxmail.com",
@@ -36,6 +36,9 @@
     "naive-ui-admin",
     "UnoCSS"
   ],
+  "engines": {
+    "node": ">= 20"
+  },
   "scripts": {
     "dev": "vite --mode dev --port 9980",
     "dev:test": "vite --mode test",
