@@ -3,7 +3,7 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { refForm, useBoolean } from '@/hooks'
+import { useBoolean, useDefault } from '@/hooks'
 import { Regex } from '@/constants'
 import { fetchRoleList } from '@/service'
 
@@ -24,7 +24,7 @@ const emit = defineEmits<{
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const { target: formModel, setDefault } = refForm<AppRoute.RowRoute>({
+const formModel = useDefault<AppRoute.RowRoute>({
   'name': '',
   'path': '',
   'id': -1,
@@ -61,7 +61,8 @@ async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
   showModal()
   const handlers = {
     async add() {
-      setDefault()
+      // @ts-expect-error undefined is safe
+      formModel.value = undefined
     },
     async view() {
       if (!data)
