@@ -36,9 +36,6 @@
     "naive-ui-admin",
     "UnoCSS"
   ],
-  "engines": {
-    "node": ">= 20"
-  },
   "scripts": {
     "dev": "vite --mode dev --port 9980",
     "dev:test": "vite --mode test",
