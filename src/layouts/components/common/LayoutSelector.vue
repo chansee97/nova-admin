@@ -12,7 +12,7 @@ const value = defineModel<LayoutMode>('value', { required: true })
           :class="{
             'outline outline-2': value === 'leftMenu',
           }"
-          class="grid grid-cols-[20%_1fr] grid-rows-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2)"
+          class="grid grid-cols-[20%_1fr] grid-rows-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
           @click="value = 'leftMenu'"
         >
           <div class="bg-[var(--primary-color)] row-span-2" />
@@ -29,7 +29,7 @@ const value = defineModel<LayoutMode>('value', { required: true })
           :class="{
             'outline outline-2': value === 'topMenu',
           }"
-          class="grid  grid-rows-[30%_1fr] outline-[var(--primary-color)] hover:(outline outline-2)"
+          class="grid  grid-rows-[30%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
           @click="value = 'topMenu'"
         >
           <div class="bg-[var(--primary-color)]" />

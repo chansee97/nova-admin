@@ -3,7 +3,7 @@ import piniaPluginPersist from 'pinia-plugin-persist'
 
 export * from './app/index'
 export * from './auth'
-export * from './route'
+export * from './router'
 export * from './tab'
 
 // 安装pinia全局状态库

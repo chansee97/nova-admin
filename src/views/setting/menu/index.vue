@@ -28,16 +28,16 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '图标',
     align: 'center',
-    key: 'meta.icon',
+    key: 'icon',
     width: '6em',
     render: (row) => {
-      return row['meta.icon'] && renderIcon(row['meta.icon'], { size: 20 })()
+      return row.icon && renderIcon(row.icon, { size: 20 })()
     },
   },
   {
     title: '标题',
     align: 'center',
-    key: 'meta.title',
+    key: 'title',
     ellipsis: {
       tooltip: true,
     },
@@ -63,17 +63,17 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   },
   {
     title: '排序值',
-    key: 'meta.order',
+    key: 'order',
     align: 'center',
     width: '6em',
   },
   {
     title: '菜单类型',
     align: 'center',
-    key: 'meta.menuType',
+    key: 'menuType',
     width: '6em',
     render: (row) => {
-      const menuType = row['meta.menuType'] || 'page'
+      const menuType = row.menuType || 'page'
       const menuTagType: Record<AppRoute.MenuType, NaiveUI.ThemeColor> = {
         dir: 'primary',
         page: 'warning',

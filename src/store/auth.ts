@@ -1,4 +1,4 @@
-import { useRouteStore } from './route'
+import { useRouteStore } from './router'
 import { useTabStore } from './tab'
 import { fetchLogin } from '@/service'
 import { router } from '@/router'
@@ -33,7 +33,7 @@ export const useAuthStore = defineStore('auth-store', {
       // 清空标签栏数据
       const tabStore = useTabStore()
       tabStore.clearAllTabs()
-      // 重制当前存储库
+      // 重置当前存储库
       this.$reset()
       // 重定向到登录页
       if (route.meta.requiresAuth) {
@@ -59,14 +59,14 @@ export const useAuthStore = defineStore('auth-store', {
           return
 
         // 处理登录信息
-        await this.handleAfterLogin(data)
+        await this.handleLoginInfo(data)
       }
       catch (e) {
       }
     },
 
-    /* 登录后的处理函数 */
-    async handleAfterLogin(data: Api.Login.Info) {
+    /* 处理登录返回的数据 */
+    async handleLoginInfo(data: Api.Login.Info) {
       // 将token和userInfo保存下来
       local.set('userInfo', data)
       local.set('accessToken', data.accessToken)

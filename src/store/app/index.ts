@@ -33,6 +33,7 @@ export const useAppStore = defineStore('app-store', {
       showBreadcrumb: true,
       showBreadcrumbIcon: true,
       showWatermark: false,
+      showSetting: false,
       transitionAnimation: 'fade-slide' as TransitionAnimation,
       layoutMode: 'leftMenu' as LayoutMode,
     }

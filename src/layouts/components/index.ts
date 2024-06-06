@@ -1,22 +1,18 @@
-/* 侧边栏组件 */
 import Logo from './sider/Logo.vue'
 import Menu from './sider/Menu.vue'
 
-/* 头部栏组件 */
 import Breadcrumb from './header/Breadcrumb.vue'
 import CollapaseButton from './header/CollapaseButton.vue'
 import FullScreen from './header/FullScreen.vue'
-import Setting from './header/Setting.vue'
 import Notices from './header/Notices.vue'
 import UserCenter from './header/UserCenter.vue'
 import Search from './header/Search.vue'
 
-/* 标签栏组件  */
 import TabBar from './tab/TabBar.vue'
 
-/* 其他组件 */
-// 返回顶部
 import BackTop from './common/BackTop.vue'
+import Setting from './common/Setting.vue'
+import SettingDrawer from './common/SettingDrawer.vue'
 
 export {
   Breadcrumb,
@@ -25,6 +21,7 @@ export {
   Logo,
   FullScreen,
   Setting,
+  SettingDrawer,
   Notices,
   UserCenter,
   Search,

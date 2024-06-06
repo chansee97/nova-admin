@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { MenuInst } from 'naive-ui'
-import { useAppStore } from '@/store'
-import { useRouteStore } from '@/store/route'
+import { useAppStore, useRouteStore } from '@/store'
 
 const route = useRoute()
 const appStore = useAppStore()
@@ -27,5 +26,3 @@ watch(
     :value="routesStore.activeMenu"
   />
 </template>
-
-<style scoped></style>

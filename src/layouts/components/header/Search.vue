@@ -38,15 +38,15 @@ const options = computed(() => {
 
   return routeStore.rowRoutes.filter((item) => {
     const conditions = [
-      t(`route.${String(item.name)}`, item['meta.title'] || item.name)?.includes(searchValue.value),
+      t(`route.${String(item.name)}`, item.title || item.name)?.includes(searchValue.value),
       item.path?.includes(searchValue.value),
     ]
-    return conditions.some(condition => !item['meta.hide'] && condition)
+    return conditions.some(condition => !item.hide && condition)
   }).map((item) => {
     return {
-      label: t(`route.${String(item.name)}`, item['meta.title'] || item.name),
+      label: t(`route.${String(item.name)}`, item.title || item.name),
       value: item.path,
-      icon: item['meta.icon'],
+      icon: item.icon,
     }
   })
 })
