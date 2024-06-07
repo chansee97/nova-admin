@@ -2,34 +2,36 @@
 </script>
 
 <template>
-  <div id="loading-container">
-    <div class="boxes">
-      <div class="box">
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
-      <div class="box">
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
-      <div class="box">
-        <div />
-        <div />
-        <div />
-        <div />
-      </div>
-      <div class="box">
-        <div />
-        <div />
-        <div />
-        <div />
+  <naive-provider>
+    <div id="loading-container">
+      <div class="boxes">
+        <div class="box">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+        <div class="box">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+        <div class="box">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+        <div class="box">
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
       </div>
     </div>
-  </div>
+  </naive-provider>
 </template>
 
 <style scoped>
