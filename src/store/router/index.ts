@@ -66,7 +66,12 @@ export const useRouteStore = defineStore('route-store', {
       // Initialize route information
       const rowRoutes = await this.initRouteInfo()
       if (!rowRoutes) {
-        window.$message.error($t(`app.getRouteError`))
+        // Check if the message variable is defined
+        if (window.$message)
+          window.$message.error($t(`app.getRouteError`))
+        else
+          throw new Error($t(`app.getRouteError`))
+
         return
       }
       this.rowRoutes = rowRoutes
