@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('auth-store', {
   },
   actions: {
     /* 登录退出，重置用户信息等 */
-    async resetAuthStore() {
+    async logOut() {
       const route = unref(router.currentRoute)
       // 清除本地缓存
       this.clearAuthStorage()

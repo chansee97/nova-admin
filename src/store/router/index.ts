@@ -41,7 +41,7 @@ export const useRouteStore = defineStore('route-store', {
 
         if (!userInfo || !userInfo.id) {
           const authStore = useAuthStore()
-          authStore.resetAuthStore()
+          authStore.logOut()
           return
         }
 

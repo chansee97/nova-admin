@@ -77,7 +77,7 @@ export async function handleRefreshToken() {
   }
   else {
     // 刷新失败，退出
-    await authStore.resetAuthStore()
+    await authStore.logOut()
   }
 }
 

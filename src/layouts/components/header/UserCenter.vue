@@ -8,7 +8,7 @@ import IconBookOpen from '~icons/icon-park-outline/book-open'
 
 const { t } = useI18n()
 
-const { userInfo, resetAuthStore } = useAuthStore()
+const { userInfo, logOut } = useAuthStore()
 const router = useRouter()
 
 const options = computed(() => {
@@ -56,7 +56,7 @@ function handleSelect(key: string | number) {
       positiveText: t('common.confirm'),
       negativeText: t('common.cancel'),
       onPositiveClick: () => {
-        resetAuthStore()
+        logOut()
       },
     })
   }
