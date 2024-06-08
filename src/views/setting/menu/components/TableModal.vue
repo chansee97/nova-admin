@@ -3,7 +3,7 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { useBoolean, useDefault } from '@/hooks'
+import { useBoolean } from '@/hooks'
 import { Regex } from '@/constants'
 import { fetchRoleList } from '@/service'
 
@@ -24,24 +24,20 @@ const emit = defineEmits<{
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const formModel = useDefault<AppRoute.RowRoute>({
+const formDefault: AppRoute.RowRoute = {
   name: '',
   path: '',
   id: -1,
   pid: null,
   title: '',
-  icon: '',
   requiresAuth: true,
-  roles: [],
   keepAlive: false,
   hide: false,
-  order: undefined,
-  href: undefined,
-  activeMenu: undefined,
   withoutTab: true,
   pinTab: false,
   menuType: 'page',
-})
+}
+const formModel = ref<AppRoute.RowRoute>({ ...formDefault })
 
 type ModalType = 'add' | 'view' | 'edit'
 const modalType = shallowRef<ModalType>('add')
@@ -61,8 +57,7 @@ async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
   showModal()
   const handlers = {
     async add() {
-      // @ts-expect-error undefined is safe
-      formModel.value = undefined
+      formModel.value = { ...formDefault }
     },
     async view() {
       if (!data)
@@ -162,15 +157,6 @@ const rules = {
   title: {
     required: true,
     message: '请输入菜单标题',
-    trigger: 'blur',
-  },
-  href: {
-    validator(rule: FormItemRule, value: string) {
-      if (!new RegExp(Regex.Url).test(value))
-        return new Error('请输入正确的URL地址')
-
-      return true
-    },
     trigger: 'blur',
   },
 }
