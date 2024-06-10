@@ -183,7 +183,9 @@ function handleMouseEnter(index: number) {
           @mousemove="setKeyboardFalse"
         >
           <div class="grid grid-rows-2 grid-cols-[40px_1fr_30px] h-full p-2">
-            <nova-icon :icon="option.icon" class="row-span-2 place-self-center" />
+            <div class="row-span-2 place-self-center">
+              <nova-icon :icon="option.icon" />
+            </div>
             <span>{{ option.label }}</span>
             <icon-park-outline-right class="row-span-2 place-self-center" />
             <span class="op-70">{{ option.value }}</span>

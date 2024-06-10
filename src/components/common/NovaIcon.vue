@@ -13,18 +13,40 @@ interface iconPorps {
 }
 const props = withDefaults(defineProps<iconPorps>(), {
   size: 18,
+  isLocal: false,
 })
+
+const isLocal = computed(() => {
+  return props.icon && props.icon.startsWith('local:')
+})
+
+function getLocalIcon(icon: string) {
+  const svgName = icon.replace('local:', '')
+  const svg = import.meta.glob('@/assets/svg-icons/*.svg', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
+  return svg[`/src/assets/svg-icons/${svgName}.svg`]
+}
 </script>
 
 <template>
   <n-icon
-    v-if="props.icon"
-    :size="props.size"
-    :depth="props.depth"
-    :color="props.color"
+    v-if="icon && !isLocal"
+    :size="size"
+    :depth="depth"
+    :color="color"
   >
-    <Icon :icon="props.icon" />
+    <Icon :icon="icon" />
   </n-icon>
+  <n-icon
+    v-if="icon && isLocal"
+    :size="size"
+    :depth="depth"
+    :color="color"
+    v-html="getLocalIcon(icon)"
+  />
 </template>
 
 <style scoped></style>

@@ -1,4 +1,4 @@
-import { createMenus, createRoutes } from './helper'
+import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 import { $t, local } from '@/utils'
 import { router } from '@/router'
 import { fetchUserRoutes } from '@/service'
@@ -16,9 +16,9 @@ export const useRouteStore = defineStore('route-store', {
   state: (): RoutesStatus => {
     return {
       isInitAuthRoute: false,
+      activeMenu: null,
       menus: [],
       rowRoutes: [],
-      activeMenu: null,
       cacheRoutes: [],
     }
   },
@@ -78,6 +78,9 @@ export const useRouteStore = defineStore('route-store', {
 
       // Generate side menu
       this.menus = createMenus(rowRoutes)
+
+      // Generate the route cache
+      this.cacheRoutes = generateCacheRoutes(rowRoutes)
 
       this.isInitAuthRoute = true
     },

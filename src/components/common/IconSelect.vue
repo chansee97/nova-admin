@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { mapEntries } from 'radash'
+
 interface Props {
   disabled?: boolean
 }
@@ -38,10 +40,34 @@ async function fetchIconAllList(nameList: string[]) {
   })
 }
 
-const iconLists = shallowRef<IconList[]>([])
+// 获取所有本地图标
+function generateLocalIconList() {
+  const localSvgList = import.meta.glob('@/assets/svg-icons/*.svg', {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  })
+
+  function getSvgName(path: string) {
+    const regex = /\/([^/]+)\.svg$/
+    const match = path.match(regex)
+    if (match) {
+      const fileName = match[1]
+      return fileName
+    }
+    return path
+  }
+  return mapEntries(localSvgList, (key, value) => {
+    return [getSvgName(key), value]
+  })
+}
+
+const iconList = shallowRef<IconList[]>([])
+const LocalIconList = shallowRef({})
 
 onMounted(async () => {
-  iconLists.value = await fetchIconAllList(nameList)
+  iconList.value = await fetchIconAllList(nameList)
+  LocalIconList.value = generateLocalIconList()
 })
 
 // 当前tab
@@ -70,9 +96,9 @@ function handleSelectIconTag(icon: string) {
 const icons = computed(() => {
   const hasTag = !!currentTag.value
   if (hasTag)
-    return iconLists.value[currentTab.value]?.categories[currentTag.value]
+    return iconList.value[currentTab.value]?.categories[currentTag.value]
   else
-    return iconLists.value[currentTab.value].icons
+    return iconList.value[currentTab.value].icons
 })
 
 // 符合搜索条件的图标列表
@@ -119,7 +145,19 @@ function clearIcon() {
     </template>
 
     <n-tabs :value="currentTab" type="line" animated placement="left" @update:value="handleChangeTab">
-      <n-tab-pane v-for="(list, index) in iconLists" :key="list.prefix" :name="index" :tab="list.title">
+      <n-tab-pane name="local" tab="local">
+        <n-flex :size="2">
+          <n-el
+            v-for="(_icon, key) in LocalIconList" :key="key"
+            class="hover:(text-[var(--primary-color)] ring-1) ring-[var(--primary-color)] p-1 rounded flex-center"
+            :title="`local:${key}`"
+            @click="handleSelectIcon(`local:${key}`)"
+          >
+            <nova-icon :icon="`local:${key}`" :size="24" />
+          </n-el>
+        </n-flex>
+      </n-tab-pane>
+      <n-tab-pane v-for="(list, index) in iconList" :key="list.prefix" :name="index" :tab="list.title">
         <n-flex vertical>
           <n-flex size="small">
             <n-tag
@@ -136,7 +174,7 @@ function clearIcon() {
             :placeholder="$t('components.iconSelector.searchPlaceholder')"
           />
 
-          <div class="h-410px">
+          <div>
             <n-flex :size="2">
               <n-el
                 v-for="(icon) in visibleIcons" :key="icon"

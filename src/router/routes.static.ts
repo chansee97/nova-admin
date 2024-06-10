@@ -208,7 +208,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     path: '/demo/icons',
     title: '图标',
     requiresAuth: true,
-    icon: 'icon-park-outline:winking-face-with-open-eyes',
+    icon: 'local:cool',
     componentPath: '/demo/icons/index.vue',
     id: 22,
     pid: 13,
