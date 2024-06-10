@@ -4,7 +4,7 @@ import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
 import { fetchAllRoutes } from '@/service'
 import { useBoolean } from '@/hooks'
-import { arrayToTree, renderIcon } from '@/utils'
+import { arrayToTree, createIcon } from '@/utils'
 import CopyText from '@/components/custom/CopyText.vue'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
@@ -31,7 +31,7 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
     key: 'icon',
     width: '6em',
     render: (row) => {
-      return row.icon && renderIcon(row.icon, { size: 20 })()
+      return row.icon && createIcon(row.icon, { size: 20 })
     },
   },
   {
