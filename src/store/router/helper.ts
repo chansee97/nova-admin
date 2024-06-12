@@ -81,7 +81,8 @@ function setRedirect(routes: AppRoute.Route[]) {
         if (orderChilds.length > 0)
           target = min(orderChilds, i => i.meta.order!) as AppRoute.Route
 
-        route.redirect = target.path
+        if (target)
+          route.redirect = target.path
       }
 
       setRedirect(route.children)

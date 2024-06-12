@@ -60,7 +60,6 @@ export const useAppStore = defineStore('app-store', {
       this.loadFlag = true
       this.showLogo = true
       this.showTabs = true
-      this.showLogo = true
       this.showFooter = true
       this.showBreadcrumb = true
       this.showBreadcrumbIcon = true
