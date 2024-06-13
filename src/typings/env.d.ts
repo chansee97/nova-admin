@@ -29,6 +29,8 @@ interface ImportMetaEnv {
   readonly VITE_HOME_PATH: string
   /** 版权信息 */
   readonly VITE_COPYRIGHT_INFO: string
+  /** 是否自动刷新token */
+  readonly VITE_AUTO_REFRESH_TOKEN: 'Y' | 'N'
 
   /** 后端服务的环境类型 */
   readonly MODE: ServiceEnvType
