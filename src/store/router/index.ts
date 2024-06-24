@@ -1,3 +1,4 @@
+import type { MenuOption } from 'naive-ui'
 import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 import { $t, local } from '@/utils'
 import { router } from '@/router'
@@ -7,7 +8,7 @@ import { useAuthStore } from '@/store/auth'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
-  menus: AppRoute.Route[]
+  menus: MenuOption[]
   rowRoutes: AppRoute.RowRoute[]
   activeMenu: string | null
   cacheRoutes: string[]

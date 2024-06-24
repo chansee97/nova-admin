@@ -29,10 +29,28 @@ const value = defineModel<LayoutMode>('value', { required: true })
           :class="{
             'outline outline-2': value === 'topMenu',
           }"
-          class="grid  grid-rows-[30%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
+          class="grid grid-rows-[30%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
           @click="value = 'topMenu'"
         >
           <div class="bg-[var(--primary-color)]" />
+          <div class="bg-[var(--divider-color)]" />
+        </n-el>
+      </template>
+      <span> {{ $t('app.topMenu') }} </span>
+    </n-tooltip>
+
+    <n-tooltip placement="bottom" trigger="hover">
+      <template #trigger>
+        <n-el
+          :class="{
+            'outline outline-2': value === 'mixMenu',
+          }"
+          class="grid grid-cols-[20%_1fr] grid-rows-[15%_15%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
+          @click="value = 'mixMenu'"
+        >
+          <div class="bg-[var(--primary-color)] row-span-3" />
+          <div class="bg-[var(--primary-color)]" />
+          <div class="bg-[var(--primary-color-suppl)]" />
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>

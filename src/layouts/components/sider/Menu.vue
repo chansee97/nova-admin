@@ -4,13 +4,13 @@ import { useAppStore, useRouteStore } from '@/store'
 
 const route = useRoute()
 const appStore = useAppStore()
-const routesStore = useRouteStore()
+const routeStore = useRouteStore()
 
 const menuInstRef = ref<MenuInst | null>(null)
 watch(
   () => route.path,
   () => {
-    menuInstRef.value?.showOption(routesStore.activeMenu as string)
+    menuInstRef.value?.showOption(routeStore.activeMenu as string)
   },
   { immediate: true },
 )
@@ -22,7 +22,7 @@ watch(
     :collapsed="appStore.collapsed"
     :indent="20"
     :collapsed-width="64"
-    :options="routesStore.menus"
-    :value="routesStore.activeMenu"
+    :options="routeStore.menus"
+    :value="routeStore.activeMenu"
   />
 </template>

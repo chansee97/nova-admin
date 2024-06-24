@@ -22,12 +22,14 @@ const isLocal = computed(() => {
 
 function getLocalIcon(icon: string) {
   const svgName = icon.replace('local:', '')
-  const svg = import.meta.glob('@/assets/svg-icons/*.svg', {
+  const svg = import.meta.glob<string>('@/assets/svg-icons/*.svg', {
     query: '?raw',
     import: 'default',
     eager: true,
   })
-  return svg[`/src/assets/svg-icons/${svgName}.svg`]
+
+  const domparser = new DOMParser()
+  return domparser.parseFromString(svg[`/src/assets/svg-icons/${svgName}.svg`], 'image/svg+xml')
 }
 </script>
 
@@ -38,15 +40,13 @@ function getLocalIcon(icon: string) {
     :depth="depth"
     :color="color"
   >
-    <Icon :icon="icon" />
-  </n-icon>
-  <n-icon
-    v-if="icon && isLocal"
-    :size="size"
-    :depth="depth"
-    :color="color"
-    v-html="getLocalIcon(icon)"
-  />
+    <template v-if="isLocal">
+      {{ getLocalIcon(icon) }}
+    </template>
+    <template v-else>
+      <Icon :icon="icon" />
+    </template>
+</n-icon>
 </template>
 
 <style scoped></style>

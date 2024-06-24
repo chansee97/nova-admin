@@ -5,7 +5,7 @@ import themeConfig from './theme.json'
 import { local, setLocale } from '@/utils'
 
 type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
-export type LayoutMode = 'leftMenu' | 'topMenu'
+export type LayoutMode = 'leftMenu' | 'topMenu' | 'mixMenu'
 
 const docEle = ref(document.documentElement)
 
