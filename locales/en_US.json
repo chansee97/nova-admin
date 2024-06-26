@@ -148,6 +148,10 @@
       "searchPlaceholder": "Search icon",
       "clearIcon": "Clear icon",
       "selectorTitle": "Icon selection"
+    },
+    "copyText": {
+      "message": "Copied successfully",
+      "tooltip": "Copy"
     }
   }
 }
