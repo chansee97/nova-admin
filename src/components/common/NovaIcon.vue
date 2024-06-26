@@ -46,7 +46,7 @@ function getLocalIcon(icon: string) {
     <template v-else>
       <Icon :icon="icon" />
     </template>
-</n-icon>
+  </n-icon>
 </template>
 
 <style scoped></style>

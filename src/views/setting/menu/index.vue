@@ -133,22 +133,23 @@ async function handlePositiveClick() {
 
 <template>
   <n-card>
-    <n-flex vertical>
-      <div class="flex gap-4">
-        <NButton type="primary" @click="tableModalRef.openModal('add')">
-          <template #icon>
-            <icon-park-outline-add-one />
-          </template>
-          新建
-        </NButton>
+    <template #header>
+      <NButton type="primary" @click="tableModalRef.openModal('add')">
+        <template #icon>
+          <icon-park-outline-add-one />
+        </template>
+        新建
+      </NButton>
+    </template>
 
-        <NButton type="primary" secondary class="ml-auto" @click="getAllRoutes">
+    <template #header-extra>
+      <n-flex>
+        <NButton type="primary" secondary @click="getAllRoutes">
           <template #icon>
             <icon-park-outline-refresh />
           </template>
           刷新
         </NButton>
-
         <NPopconfirm
           @positive-click="handlePositiveClick"
         >
@@ -162,15 +163,15 @@ async function handlePositiveClick() {
           </template>
           确认删除所有选中菜单？
         </NPopconfirm>
-      </div>
-      <n-data-table
-        v-model:checked-row-keys="checkedRowKeys"
-        :row-key="(row:AppRoute.RowRoute) => row.id" :columns="columns" :data="tableData"
-        :loading="loading"
-        size="small"
-        :scroll-x="1200"
-      />
-      <TableModal ref="tableModalRef" :all-routes="tableData" modal-name="菜单" />
-    </n-flex>
+      </n-flex>
+    </template>
+    <n-data-table
+      v-model:checked-row-keys="checkedRowKeys"
+      :row-key="(row:AppRoute.RowRoute) => row.id" :columns="columns" :data="tableData"
+      :loading="loading"
+      size="small"
+      :scroll-x="1200"
+    />
+    <TableModal ref="tableModalRef" :all-routes="tableData" modal-name="菜单" />
   </n-card>
 </template>

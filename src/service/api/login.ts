@@ -5,8 +5,8 @@ interface Ilogin {
   password: string
 }
 
-export function fetchLogin(params: Ilogin) {
-  const methodInstance = request.Post<Service.ResponseResult<Api.Login.Info>>('/login', params)
+export function fetchLogin(data: Ilogin) {
+  const methodInstance = request.Post<Service.ResponseResult<Api.Login.Info>>('/login', data)
   methodInstance.meta = {
     authRole: null,
   }

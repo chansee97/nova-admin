@@ -84,9 +84,9 @@
       "searchPlaceholder": "搜索图标",
       "clearIcon": "清除图标"
     },
-    "copyText":{
-      "tooltip":"复制",
-      "message":"复制成功"
+    "copyText": {
+      "tooltip": "复制",
+      "message": "复制成功"
     }
   },
   "login": {

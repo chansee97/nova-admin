@@ -199,19 +199,20 @@ const treeData = ref([
       </n-card>
 
       <n-card class="flex-1">
-        <NSpace vertical size="large">
-          <div class="flex gap-4">
-            <NButton type="primary" @click="modalRef.openModal('add')">
-              <template #icon>
-                <icon-park-outline-add-one />
-              </template>
-              新建用户
-            </NButton>
-          </div>
+        <template #header>
+          <NButton type="primary" @click="modalRef.openModal('add')">
+            <template #icon>
+              <icon-park-outline-add-one />
+            </template>
+            新建用户
+          </NButton>
+        </template>
+        <NSpace vertical>
           <n-data-table :columns="columns" :data="listData" :loading="loading" />
           <Pagination :count="count" @change="changePage" />
-          <TableModal ref="modalRef" modal-name="用户" />
         </NSpace>
+
+        <TableModal ref="modalRef" modal-name="用户" />
       </n-card>
     </NSpace>
   </n-flex>
