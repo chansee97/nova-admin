@@ -46,11 +46,13 @@ onMounted(() => {
 
   // 根据当前页面获取选中菜单和对应侧边菜单
   const currentMenuKey = pageRoute.matched[1].path
-  updateTopMenu(currentMenuKey)
+  handleSideMenu(currentMenuKey)
+  activeTopMenu.value = currentMenuKey
 })
 
 const sideMenu = ref<MenuOption[]>([])
 function handleSideMenu(key: string) {
+  // @ts-ignore
   const targetMenu = routeStore.menus.find(i => i.key === key)
   if (targetMenu) {
     sideMenu.value = targetMenu.children ? targetMenu.children : [targetMenu]

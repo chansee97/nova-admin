@@ -78,6 +78,9 @@ export function useEcharts(el: Ref<HTMLElement | null>, chartOptions: Ref<ECOpti
   const isRendered = computed(() => Boolean(el && chart))
 
   async function render() {
+    // 宽或高不存在时不渲染
+    if (!width || !height) return
+
     const chartTheme = appStore.colorMode ? 'dark' : 'light'
     await nextTick()
     if (el) {

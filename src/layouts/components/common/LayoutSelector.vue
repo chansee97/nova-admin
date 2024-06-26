@@ -12,11 +12,10 @@ const value = defineModel<LayoutMode>('value', { required: true })
           :class="{
             'outline outline-2': value === 'leftMenu',
           }"
-          class="grid grid-cols-[20%_1fr] grid-rows-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
+          class="grid grid-cols-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
           @click="value = 'leftMenu'"
         >
-          <div class="bg-[var(--primary-color)] row-span-2" />
-          <div class="bg-[var(--primary-color-suppl)]" />
+          <div class="bg-[var(--primary-color)]" />
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
@@ -45,16 +44,15 @@ const value = defineModel<LayoutMode>('value', { required: true })
           :class="{
             'outline outline-2': value === 'mixMenu',
           }"
-          class="grid grid-cols-[20%_1fr] grid-rows-[15%_15%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
+          class="grid grid-cols-[20%_1fr] grid-rows-[20%_1fr] outline-[var(--primary-color)] hover:(outline outline-2) cursor-pointer"
           @click="value = 'mixMenu'"
         >
-          <div class="bg-[var(--primary-color)] row-span-3" />
+          <div class="bg-[var(--primary-color)] row-span-2" />
           <div class="bg-[var(--primary-color)]" />
-          <div class="bg-[var(--primary-color-suppl)]" />
           <div class="bg-[var(--divider-color)]" />
         </n-el>
       </template>
-      <span> {{ $t('app.topMenu') }} </span>
+      <span> {{ $t('app.mixMenu') }} </span>
     </n-tooltip>
   </div>
 </template>

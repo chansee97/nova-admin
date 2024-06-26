@@ -59,7 +59,8 @@
     "getRouteError": "Failed to obtain route, please try again later.",
     "layoutSetting": "Layout settings",
     "leftMenu": "Left menu",
-    "topMenu": "Top menu"
+    "topMenu": "Top menu",
+    "mixMenu": "Mix menu"
   },
   "login": {
     "signInTitle": "Login",

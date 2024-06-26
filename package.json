@@ -58,6 +58,7 @@
     "md-editor-v3": "^4.15.2",
     "pinia": "^2.1.7",
     "pinia-plugin-persist": "^1.0.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "quill": "^2.0.2",
     "radash": "^12.1.0",
     "vue": "^3.4.29",

@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import piniaPluginPersist from 'pinia-plugin-persist'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 export * from './app/index'
 export * from './auth'
@@ -9,6 +9,6 @@ export * from './tab'
 // 安装pinia全局状态库
 export function installPinia(app: App) {
   const pinia = createPinia()
-  pinia.use(piniaPluginPersist)
+  pinia.use(piniaPluginPersistedstate)
   app.use(pinia)
 }

@@ -124,11 +124,6 @@ export const useAppStore = defineStore('app-store', {
     },
   },
   persist: {
-    enabled: true,
-    strategies: [
-      {
-        storage: localStorage,
-      },
-    ],
+    storage: localStorage,
   },
 })

@@ -97,11 +97,6 @@ export const useTabStore = defineStore('tab-store', {
     },
   },
   persist: {
-    enabled: true,
-    strategies: [
-      {
-        storage: sessionStorage,
-      },
-    ],
+    storage: sessionStorage,
   },
 })
