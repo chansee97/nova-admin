@@ -101,7 +101,7 @@ const rules = {
     message: '请输入字典名称',
     trigger: 'blur',
   },
-  aaa: {
+  dictValue: {
     required: true,
     message: '请输入字典值',
     trigger: 'blur',
