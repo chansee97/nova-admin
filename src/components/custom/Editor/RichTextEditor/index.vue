@@ -10,7 +10,7 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
-const model = defineModel()
+const model = defineModel<string>()
 
 let editorInst = null
 
@@ -62,18 +62,23 @@ function initEditor() {
     quill.enable(false)
 
   editorInst = quill
+
+  if (model.value)
+    setContents(model.value)
+}
+
+function setContents(html: string) {
+  editorInst!.setContents(editorInst!.clipboard.convert({ html }))
 }
 
 watch(
   () => model.value,
   (newValue, _oldValue) => {
     if (newValue && newValue !== editorModel.value) {
-      editorInst!.setContents(editorInst!.clipboard.convert({
-        html: newValue,
-      }))
+      setContents(newValue)
     }
     else if (!newValue) {
-      editorInst!.setContents([])
+      setContents('')
     }
   },
 )
