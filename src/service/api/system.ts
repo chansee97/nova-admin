@@ -14,13 +14,13 @@ export function fetchRoleList() {
   return request.Get<Service.ResponseResult<Entity.Role[]>>('/role/list')
 }
 
-// 获取所有字典列表
-export function fetchDictList() {
-  return request.Get<Service.ResponseResult<Entity.Dict[]>>('/dict/list')
-}
-
-// 获取所有字典列表
-export function fetchDictContent(id: number) {
-  const params = { id }
-  return request.Get<Service.ResponseResult<Entity.Dict[]>>('/dict/contentById', { params })
+/**
+ * 请求获取字典列表
+ *
+ * @param code - 字典编码，用于筛选特定的字典列表
+ * @returns 返回的字典列表数据
+ */
+export function fetchDictList(code?: string) {
+  const params = { code }
+  return request.Get<Service.ResponseResult<Entity.Dict[]>>('/dict/list', { params })
 }

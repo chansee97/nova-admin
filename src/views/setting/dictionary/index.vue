@@ -1,14 +1,17 @@
 <script setup lang="tsx">
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NFlex, NPopconfirm } from 'naive-ui'
-import TableModal from './components/TableModal.vue'
-import { fetchDictContent, fetchDictList } from '@/service'
+import DictModal from './components/DictModal.vue'
+import DictContentModal from './components/DictContentModal.vue'
+import { fetchDictList } from '@/service'
 import { useBoolean } from '@/hooks'
+import { useDictStore } from '@/store'
 
 const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
 const { bool: contentLoading, setTrue: startContentLoading, setFalse: endContentLoading } = useBoolean(false)
 
-const modalRef = ref<InstanceType<typeof TableModal>>()
+const dictRef = ref<InstanceType<typeof DictModal>>()
+const dictContentRef = ref<InstanceType<typeof DictContentModal>>()
 
 onMounted(() => {
   getDictList()
@@ -16,6 +19,8 @@ onMounted(() => {
 
 const dictData = ref<Entity.Dict[]>([])
 const dictContentData = ref<Entity.Dict[]>([])
+
+const { getDictByNet } = useDictStore()
 
 async function getDictList() {
   startDictLoading()
@@ -26,21 +31,21 @@ async function getDictList() {
   endDictLoading()
 }
 
-let lastDictId: number
-async function getDictContent(id: number) {
+let lastDictCode: string
+async function getDictContent(code: string) {
   startContentLoading()
-  const { data, isSuccess } = await fetchDictContent(id)
-  if (isSuccess) {
-    lastDictId = id
-    dictContentData.value = data
-  }
+  dictContentData.value = await getDictByNet(code)
   endContentLoading()
 }
 
 const dictColumns: DataTableColumns<Entity.Dict> = [
   {
-    title: '字典名称',
-    key: 'dictLabel',
+    title: '字典项',
+    key: 'label',
+  },
+  {
+    title: '字典码',
+    key: 'code',
   },
   {
     title: '操作',
@@ -51,13 +56,13 @@ const dictColumns: DataTableColumns<Entity.Dict> = [
         <NFlex justify="center">
           <NButton
             size="small"
-            onClick={() => getDictContent(row.id!)}
+            onClick={() => getDictContent(row.code)}
           >
             查看字典
           </NButton>
           <NButton
             size="small"
-            onClick={() => modalRef.value!.openModal('edit', row)}
+            onClick={() => dictRef.value!.openModal('edit', row)}
           >
             编辑
           </NButton>
@@ -66,7 +71,7 @@ const dictColumns: DataTableColumns<Entity.Dict> = [
               default: () => (
                 <span>
                   确认删除字典
-                  <b>{row.dictLabel}</b>
+                  <b>{row.label}</b>
                   {' '}
                   ？
                 </span>
@@ -83,11 +88,15 @@ const dictColumns: DataTableColumns<Entity.Dict> = [
 const contentColumns: DataTableColumns<Entity.Dict> = [
   {
     title: '字典名称',
-    key: 'dictLabel',
+    key: 'label',
+  },
+  {
+    title: '字典码',
+    key: 'code',
   },
   {
     title: '字典值',
-    key: 'dictValue',
+    key: 'value',
   },
   {
     title: '操作',
@@ -99,7 +108,7 @@ const contentColumns: DataTableColumns<Entity.Dict> = [
         <NFlex justify="center">
           <NButton
             size="small"
-            onClick={() => modalRef.value!.openModal('edit', row)}
+            onClick={() => dictContentRef.value!.openModal('edit', row)}
           >
             编辑
           </NButton>
@@ -108,7 +117,7 @@ const contentColumns: DataTableColumns<Entity.Dict> = [
               default: () => (
                 <span>
                   确认删除字典值
-                  <b>{row.dictLabel}</b>
+                  <b>{row.label}</b>
                   {' '}
                   ？
                 </span>
@@ -129,10 +138,10 @@ function deleteDict(id: number) {
 
 <template>
   <NFlex>
-    <div class="basis-1/3">
+    <div class="basis-2/5">
       <n-card>
         <template #header>
-          <NButton type="primary">
+          <NButton type="primary" @click="dictRef!.openModal('add')">
             <template #icon>
               <icon-park-outline-add-one />
             </template>
@@ -149,13 +158,16 @@ function deleteDict(id: number) {
             </NButton>
           </NFlex>
         </template>
-        <n-data-table :columns="dictColumns" :data="dictData" :loading="dictLoading" :pagination="false" :bordered="false" />
+        <n-data-table
+          :columns="dictColumns" :data="dictData" :loading="dictLoading" :pagination="false"
+          :bordered="false"
+        />
       </n-card>
     </div>
     <div class="flex-1">
       <n-card>
         <template #header>
-          <NButton type="primary">
+          <NButton type="primary" @click="dictContentRef!.openModal('add')">
             <template #icon>
               <icon-park-outline-add-one />
             </template>
@@ -164,7 +176,7 @@ function deleteDict(id: number) {
         </template>
         <template #header-extra>
           <NFlex>
-            <NButton type="primary" secondary @click="getDictContent(lastDictId)">
+            <NButton type="primary" secondary @click="getDictContent(lastDictCode)">
               <template #icon>
                 <icon-park-outline-refresh />
               </template>
@@ -172,11 +184,15 @@ function deleteDict(id: number) {
             </NButton>
           </NFlex>
         </template>
-        <n-data-table :columns="contentColumns" :data="dictContentData" :loading="contentLoading" :pagination="false" :bordered="false" />
+        <n-data-table
+          :columns="contentColumns" :data="dictContentData" :loading="contentLoading" :pagination="false"
+          :bordered="false"
+        />
       </n-card>
     </div>
 
-    <TableModal ref="modalRef" modal-name="字典" />
+    <DictModal ref="dictRef" modal-name="字典项" />
+    <DictContentModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" />
   </NFlex>
 </template>
 

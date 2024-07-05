@@ -19,8 +19,8 @@ const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoo
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 const formDefault: Entity.Dict = {
-  dictLabel: '',
-  dictValue: -1,
+  label: '',
+  code: '',
 }
 const formModel = ref<Entity.Dict>({ ...formDefault })
 
@@ -35,7 +35,7 @@ const modalTitle = computed(() => {
   return `${titleMap[modalType.value]}${props.modalName}`
 })
 
-async function openModal(type: ModalType = 'add', data: any) {
+async function openModal(type: ModalType = 'add', data?: any) {
   emit('open')
   modalType.value = type
   showModal()
@@ -96,12 +96,12 @@ async function submitModal() {
 }
 
 const rules = {
-  dictLabel: {
+  label: {
     required: true,
     message: '请输入字典名称',
     trigger: 'blur',
   },
-  dictValue: {
+  value: {
     required: true,
     message: '请输入字典值',
     trigger: 'blur',
@@ -122,11 +122,11 @@ const rules = {
     }"
   >
     <n-form ref="formRef" :rules="rules" label-placement="left" :model="formModel" :label-width="100" :disabled="modalType === 'view'">
-      <n-form-item label="字典名称" path="dictLabel">
-        <n-input v-model:value="formModel.dictLabel" />
+      <n-form-item label="字典名称" path="label">
+        <n-input v-model:value="formModel.label" />
       </n-form-item>
-      <n-form-item label="字典值" path="dictValue">
-        <n-input-number v-model:value="formModel.dictValue" />
+      <n-form-item label="字典码" path="code">
+        <n-input v-model:value="formModel.code" />
       </n-form-item>
     </n-form>
     <template #action>
