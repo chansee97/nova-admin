@@ -2,16 +2,16 @@
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NFlex, NPopconfirm } from 'naive-ui'
 import DictModal from './components/DictModal.vue'
-import DictContentModal from './components/DictContentModal.vue'
 import { fetchDictList } from '@/service'
 import { useBoolean } from '@/hooks'
 import { useDictStore } from '@/store'
+import CopyText from '@/components/custom/CopyText.vue'
 
 const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
 const { bool: contentLoading, setTrue: startContentLoading, setFalse: endContentLoading } = useBoolean(false)
 
 const dictRef = ref<InstanceType<typeof DictModal>>()
-const dictContentRef = ref<InstanceType<typeof DictContentModal>>()
+const dictContentRef = ref<InstanceType<typeof DictModal>>()
 
 onMounted(() => {
   getDictList()
@@ -31,10 +31,11 @@ async function getDictList() {
   endDictLoading()
 }
 
-let lastDictCode: string
+const lastDictCode = ref('')
 async function getDictContent(code: string) {
   startContentLoading()
   dictContentData.value = await getDictByNet(code)
+  lastDictCode.value = code
   endContentLoading()
 }
 
@@ -46,6 +47,11 @@ const dictColumns: DataTableColumns<Entity.Dict> = [
   {
     title: '字典码',
     key: 'code',
+    render: (row) => {
+      return (
+        <CopyText value={row.code} />
+      )
+    },
   },
   {
     title: '操作',
@@ -167,7 +173,7 @@ function deleteDict(id: number) {
     <div class="flex-1">
       <n-card>
         <template #header>
-          <NButton type="primary" @click="dictContentRef!.openModal('add')">
+          <NButton type="primary" :disabled="!lastDictCode" @click="dictContentRef!.openModal('add')">
             <template #icon>
               <icon-park-outline-add-one />
             </template>
@@ -176,7 +182,7 @@ function deleteDict(id: number) {
         </template>
         <template #header-extra>
           <NFlex>
-            <NButton type="primary" secondary @click="getDictContent(lastDictCode)">
+            <NButton type="primary" :disabled="!lastDictCode" secondary @click="getDictContent(lastDictCode)">
               <template #icon>
                 <icon-park-outline-refresh />
               </template>
@@ -191,8 +197,8 @@ function deleteDict(id: number) {
       </n-card>
     </div>
 
-    <DictModal ref="dictRef" modal-name="字典项" />
-    <DictContentModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" />
+    <DictModal ref="dictRef" modal-name="字典项" is-root />
+    <DictModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" />
   </NFlex>
 </template>
 

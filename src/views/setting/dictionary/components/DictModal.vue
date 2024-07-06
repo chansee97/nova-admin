@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import type { FormRules } from 'naive-ui'
 import { useBoolean } from '@/hooks'
 
 interface Props {
   modalName?: string
+  dictCode?: string
+  isRoot?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modalName: '',
+  isRoot: false,
 })
 
 const emit = defineEmits<{
@@ -42,6 +46,11 @@ async function openModal(type: ModalType = 'add', data?: any) {
   const handlers = {
     async add() {
       formModel.value = { ...formDefault }
+
+      formModel.value.isRoot = props.isRoot ? 1 : 0
+      if (props.dictCode) {
+        formModel.value.code = props.dictCode
+      }
     },
     async view() {
       if (!data)
@@ -95,16 +104,22 @@ async function submitModal() {
   await handlers[modalType.value]() && closeModal()
 }
 
-const rules = {
+const rules: FormRules = {
   label: {
     required: true,
     message: '请输入字典名称',
-    trigger: 'blur',
+    trigger: ['input', 'blur'],
+  },
+  code: {
+    required: true,
+    message: '请输入字典码',
+    trigger: ['input', 'blur'],
   },
   value: {
     required: true,
     message: '请输入字典值',
-    trigger: 'blur',
+    type: 'number',
+    trigger: ['input', 'blur'],
   },
 }
 </script>
@@ -126,7 +141,10 @@ const rules = {
         <n-input v-model:value="formModel.label" />
       </n-form-item>
       <n-form-item label="字典码" path="code">
-        <n-input v-model:value="formModel.code" />
+        <n-input v-model:value="formModel.code" :disabled="!isRoot" />
+      </n-form-item>
+      <n-form-item v-if="!isRoot" label="字典值" path="value">
+        <n-input-number v-model:value="formModel.value" :min="0" />
       </n-form-item>
     </n-form>
     <template #action>
