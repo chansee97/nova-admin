@@ -19,8 +19,8 @@
 
 [Nova-admin](https://github.com/chansee97/nova-admin) is a clean and concise back-end management template based on Vue3, Vite5, Typescript, and Naive UI. It implements complete functionality in a simple way, while also considering code standards, readability, and avoiding excessive encapsulation to facilitate secondary development.
 
-- [Nova-Admin preview](https://nova-admin-site.netlify.app/)
-- [Nova-Admin docs](https://nova-admin-docs.netlify.app/)
+- [Nova-Admin preview](https://nova-admin.pages.dev/)
+- [Nova-Admin docs](https://nova-admin-docs.pages.dev/)
 
 ## Features
 

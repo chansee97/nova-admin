@@ -19,8 +19,8 @@
 
 [Nova-admin](https://github.com/chansee97/nova-admin)是一个基于Vue3、Vite5、Typescript、Naive UI, 简洁干净后台管理模板，用简单的方式实现完整功能，并尽可能的考虑代码规范，易读易理解无过度封装，方便二次开发。
 
-- [Nova-Admin 预览](https://nova-admin-site.netlify.app/)
-- [Nova-Admin 文档](https://nova-admin-docs.netlify.app/)
+- [Nova-Admin 预览](https://nova-admin.pages.dev/)
+- [Nova-Admin 文档](https://nova-admin-docs.pages.dev/)
 
 ## 特性
 

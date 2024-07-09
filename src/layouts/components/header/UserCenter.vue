@@ -70,7 +70,7 @@ function handleSelect(key: string | number) {
     window.open('https://gitee.com/chansee97/nova-admin')
 
   if (key === 'docs')
-    window.open('https://nova-admin-docs.netlify.app/')
+    window.open('https://nova-admin-docs.pages.dev/')
 }
 </script>
 

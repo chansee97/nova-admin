@@ -25,7 +25,7 @@ body:
       options:
         - label: Ensure this issue neither a bug report nor a feature proposal.
           required: true
-        - label: Read the [docs](https://nova-admin-docs.netlify.app/).
+        - label: Read the [docs](https://nova-admin-docs.pages.dev/).
           required: true
         - label: Check that there isn't [already an issue](https://github.com/chansee97/nova-admin/issues) that descript the same thing to avoid creating a duplicate.
           required: true
