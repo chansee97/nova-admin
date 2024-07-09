@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import type { FormRules } from 'naive-ui'
 import { useBoolean } from '@/hooks'
 
 interface Props {
   modalName?: string
+  dictCode?: string
+  isRoot?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modalName: '',
+  isRoot: false,
 })
 
 const emit = defineEmits<{
@@ -19,8 +23,8 @@ const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoo
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
 const formDefault: Entity.Dict = {
-  dictLabel: '',
-  dictValue: -1,
+  label: '',
+  code: '',
 }
 const formModel = ref<Entity.Dict>({ ...formDefault })
 
@@ -35,13 +39,18 @@ const modalTitle = computed(() => {
   return `${titleMap[modalType.value]}${props.modalName}`
 })
 
-async function openModal(type: ModalType = 'add', data: any) {
+async function openModal(type: ModalType = 'add', data?: any) {
   emit('open')
   modalType.value = type
   showModal()
   const handlers = {
     async add() {
       formModel.value = { ...formDefault }
+
+      formModel.value.isRoot = props.isRoot ? 1 : 0
+      if (props.dictCode) {
+        formModel.value.code = props.dictCode
+      }
     },
     async view() {
       if (!data)
@@ -95,16 +104,22 @@ async function submitModal() {
   await handlers[modalType.value]() && closeModal()
 }
 
-const rules = {
-  dictLabel: {
+const rules: FormRules = {
+  label: {
     required: true,
     message: '请输入字典名称',
-    trigger: 'blur',
+    trigger: ['input', 'blur'],
   },
-  dictValue: {
+  code: {
+    required: true,
+    message: '请输入字典码',
+    trigger: ['input', 'blur'],
+  },
+  value: {
     required: true,
     message: '请输入字典值',
-    trigger: 'blur',
+    type: 'number',
+    trigger: ['input', 'blur'],
   },
 }
 </script>
@@ -122,11 +137,14 @@ const rules = {
     }"
   >
     <n-form ref="formRef" :rules="rules" label-placement="left" :model="formModel" :label-width="100" :disabled="modalType === 'view'">
-      <n-form-item label="字典名称" path="dictLabel">
-        <n-input v-model:value="formModel.dictLabel" />
+      <n-form-item label="字典名称" path="label">
+        <n-input v-model:value="formModel.label" />
       </n-form-item>
-      <n-form-item label="字典值" path="dictValue">
-        <n-input-number v-model:value="formModel.dictValue" />
+      <n-form-item label="字典码" path="code">
+        <n-input v-model:value="formModel.code" :disabled="!isRoot" />
+      </n-form-item>
+      <n-form-item v-if="!isRoot" label="字典值" path="value">
+        <n-input-number v-model:value="formModel.value" :min="0" />
       </n-form-item>
     </n-form>
     <template #action>

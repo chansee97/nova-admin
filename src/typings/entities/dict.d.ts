@@ -5,8 +5,9 @@ namespace Entity {
 
   interface Dict {
     id?: number
-    pid?: number
-    dictLabel?: string
-    dictValue?: number
+    isRoot?: 0 | 1
+    code: string
+    label: string
+    value?: number
   }
 }
