@@ -23,7 +23,7 @@ const appStore = useAppStore()
       embedded :native-scrollbar="false"
     >
       <n-layout-header bordered position="absolute" class="z-1">
-        <div class="h-60px flex-y-center justify-between shrink-0">
+        <div v-if="!appStore.contentFullScreen" class="h-60px flex-y-center justify-between shrink-0">
           <Logo v-if="appStore.showLogo" />
           <Menu mode="horizontal" responsive />
           <div class="flex-y-center gap-1 h-full p-x-xl">
@@ -38,9 +38,15 @@ const appStore = useAppStore()
         </div>
         <TabBar v-if="appStore.showTabs" class="h-45px" />
       </n-layout-header>
-      <div class="flex-1 p-16px flex flex-col">
-        <div class="h-60px" />
-        <div v-if="appStore.showTabs" class="h-45px" />
+      <div
+        class="flex-1 p-16px flex flex-col"
+        :class="{
+          'p-t-121px': appStore.showTabs,
+          'p-b-56px': appStore.showFooter && !appStore.contentFullScreen,
+          'p-t-76px': !appStore.showTabs,
+          'p-t-61px': appStore.contentFullScreen,
+        }"
+      >
         <router-view v-slot="{ Component, route }" class="flex-1">
           <transition :name="appStore.transitionAnimation" mode="out-in">
             <keep-alive :include="routeStore.cacheRoutes">
@@ -48,9 +54,11 @@ const appStore = useAppStore()
             </keep-alive>
           </transition>
         </router-view>
-        <div v-if="appStore.showFooter" class="h-40px" />
       </div>
-      <n-layout-footer v-if="appStore.showFooter" bordered position="absolute" class="h-40px flex-center">
+      <n-layout-footer
+        v-if="appStore.showFooter && !appStore.contentFullScreen"
+        bordered position="absolute" class="h-40px flex-center"
+      >
         {{ appStore.footerText }}
       </n-layout-footer>
       <BackTop />

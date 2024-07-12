@@ -20,6 +20,7 @@
     "backTop": "返回顶部",
     "toggleSider": "切换侧边栏",
     "toggleFullScreen": "切换全屏",
+    "togglContentFullScreen": "切换内容全屏",
     "notificationsTips": "消息通知",
     "notifications": "通知",
     "messages": "消息",

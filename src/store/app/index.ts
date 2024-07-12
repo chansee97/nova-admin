@@ -4,7 +4,7 @@ import { set } from 'radash'
 import themeConfig from './theme.json'
 import { local, setLocale } from '@/utils'
 
-type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
+export type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 export type LayoutMode = 'leftMenu' | 'topMenu' | 'mixMenu'
 
 const docEle = ref(document.documentElement)
@@ -36,6 +36,7 @@ export const useAppStore = defineStore('app-store', {
       showSetting: false,
       transitionAnimation: 'fade-slide' as TransitionAnimation,
       layoutMode: 'leftMenu' as LayoutMode,
+      contentFullScreen: false,
     }
   },
   getters: {
@@ -66,6 +67,7 @@ export const useAppStore = defineStore('app-store', {
       this.showWatermark = false
       this.transitionAnimation = 'fade-slide'
       this.layoutMode = 'leftMenu'
+      this.contentFullScreen = false
 
       // 重置所有配色
       this.setPrimaryColor(this.primaryColor)

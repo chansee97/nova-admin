@@ -25,6 +25,7 @@ const appStore = useAppStore()
     embedded
   >
     <n-layout-sider
+      v-if="!appStore.contentFullScreen"
       bordered
       :collapsed="appStore.collapsed"
       collapse-mode="width"
@@ -44,7 +45,7 @@ const appStore = useAppStore()
       :native-scrollbar="false"
     >
       <n-layout-header bordered position="absolute" class="z-1">
-        <div class="h-60px flex-y-center justify-between">
+        <div v-if="!appStore.contentFullScreen" class="h-60px flex-y-center justify-between">
           <div class="flex-y-center h-full">
             <CollapaseButton />
             <Breadcrumb />
@@ -61,9 +62,17 @@ const appStore = useAppStore()
         </div>
         <TabBar v-if="appStore.showTabs" class="h-45px" />
       </n-layout-header>
-      <div class="flex-1 p-16px flex flex-col">
-        <div class="h-60px" />
-        <div v-if="appStore.showTabs" class="h-45px" />
+      <!-- 121 = 16 + 45 + 60 45是面包屑高度 60是标签栏高度 -->
+      <!-- 56 = 16 + 40 40是页脚高度 -->
+      <div
+        class="flex-1 p-16px flex flex-col"
+        :class="{
+          'p-t-121px': appStore.showTabs,
+          'p-b-56px': appStore.showFooter && !appStore.contentFullScreen,
+          'p-t-76px': !appStore.showTabs,
+          'p-t-61px': appStore.contentFullScreen,
+        }"
+      >
         <router-view v-slot="{ Component, route }" class="flex-1">
           <transition
             :name="appStore.transitionAnimation"
@@ -78,10 +87,9 @@ const appStore = useAppStore()
             </keep-alive>
           </transition>
         </router-view>
-        <div v-if="appStore.showFooter" class="h-40px" />
       </div>
       <n-layout-footer
-        v-if="appStore.showFooter"
+        v-if="appStore.showFooter && !appStore.contentFullScreen"
         bordered
         position="absolute"
         class="h-40px flex-center"

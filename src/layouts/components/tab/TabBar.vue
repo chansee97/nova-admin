@@ -2,6 +2,7 @@
 import type { RouteLocationNormalized } from 'vue-router'
 import Reload from './Reload.vue'
 import DropTabs from './DropTabs.vue'
+import ContentFullScreen from './ContentFullScreen.vue'
 import { useAppStore, useTabStore } from '@/store'
 import IconRedo from '~icons/icon-park-outline/redo'
 import IconClose from '~icons/icon-park-outline/close'
@@ -135,6 +136,7 @@ function onClickoutside() {
       </n-tab>
       <template #suffix>
         <Reload />
+        <ContentFullScreen />
         <DropTabs />
       </template>
     </n-tabs>
