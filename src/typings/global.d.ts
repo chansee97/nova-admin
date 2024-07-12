@@ -30,7 +30,7 @@ declare namespace NaiveUI {
 
 declare namespace Storage {
   interface Session {
-    demoKey: string
+    dict: DictMap
   }
 
   interface Local {
@@ -49,4 +49,8 @@ declare namespace Storage {
 
 declare namespace App {
   type lang = 'zhCN' | 'enUS'
+}
+
+interface DictMap {
+  [key: string]: Entity.Dict[]
 }

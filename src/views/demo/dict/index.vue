@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { useDictStore } from '@/store'
 import { fetchDictList } from '@/service'
-
-const { dict } = useDictStore()
+import { dict } from '@/utils/dict'
 
 const dictKey = ref('')
 const options = ref()
 const subOptions = ref()
 const currentDict = ref()
+
 async function getAlldict() {
   const { data, isSuccess } = await fetchDictList()
   if (isSuccess) {
@@ -22,7 +21,7 @@ async function getAlldict() {
 function changeSelect(v: string) {
   dict(v).then((data) => {
     currentDict.value = data
-    subOptions.value = data.list()
+    subOptions.value = data.data()
   })
 }
 
@@ -32,23 +31,37 @@ onMounted(() => {
 
 const data = ref()
 async function getDict() {
-  data.value = currentDict.value.list()
+  data.value = currentDict.value.data()
+}
+
+async function getEnum() {
+  data.value = currentDict.value.enum()
 }
 
 async function getValueMap() {
-  data.value = currentDict.value.mapByValue()
+  data.value = currentDict.value.valueMap()
 }
+
 async function getLabelMap() {
-  data.value = currentDict.value.mapByLabel()
+  data.value = currentDict.value.labelMap()
 }
 
 const dictValue = ref()
 
 const dictLabel = computed(() => {
-  if (data.value && dictValue.value) {
+  if (data.value && data.value[dictValue.value]) {
     return data.value[dictValue.value].label
   }
-  return ''
+  return '--'
+})
+
+const enumValue = ref()
+
+const enumLabel = computed(() => {
+  if (data.value && data.value[enumValue.value]) {
+    return data.value[enumValue.value]
+  }
+  return '--'
 })
 </script>
 
@@ -64,6 +77,9 @@ const dictLabel = computed(() => {
         <n-button @click="getDict">
           获取当前字典数据
         </n-button>
+        <n-button @click="getEnum">
+          获取当前字典枚举
+        </n-button>
         <n-button @click="getValueMap">
           获取当前字典ValueMap
         </n-button>
@@ -77,9 +93,15 @@ const dictLabel = computed(() => {
         </pre>
 
       <n-flex align="center">
-        <n-input-number v-model:value="dictValue" />
-        <n-text v-if="data && dictValue" type="info">
-          回显结果 {{ dictLabel }}
+        <n-input-number v-model:value="dictValue" :min="0" />
+        <n-text type="info">
+          Map回显结果 {{ dictLabel }}
+        </n-text>
+      </n-flex>
+      <n-flex align="center">
+        <n-input-number v-model:value="enumValue" :min="0" />
+        <n-text type="info">
+          Enum回显结果 {{ enumLabel }}
         </n-text>
       </n-flex>
     </n-flex>
