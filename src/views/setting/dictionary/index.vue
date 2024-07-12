@@ -4,7 +4,7 @@ import { NButton, NFlex, NPopconfirm } from 'naive-ui'
 import DictModal from './components/DictModal.vue'
 import { fetchDictList } from '@/service'
 import { useBoolean } from '@/hooks'
-import { useDictStore } from '@/store'
+import { getDictByNet } from '@/utils'
 import CopyText from '@/components/custom/CopyText.vue'
 
 const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
@@ -19,8 +19,6 @@ onMounted(() => {
 
 const dictData = ref<Entity.Dict[]>([])
 const dictContentData = ref<Entity.Dict[]>([])
-
-const { getDictByNet } = useDictStore()
 
 async function getDictList() {
   startDictLoading()
