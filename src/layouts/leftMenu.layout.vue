@@ -44,7 +44,7 @@ const appStore = useAppStore()
       embedded
       :native-scrollbar="false"
     >
-      <n-layout-header bordered position="absolute" class="z-1">
+      <n-layout-header bordered position="absolute" class="z-999">
         <div v-if="!appStore.contentFullScreen" class="h-60px flex-y-center justify-between">
           <div class="flex-y-center h-full">
             <CollapaseButton />

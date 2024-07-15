@@ -22,7 +22,7 @@ const appStore = useAppStore()
       class="h-full flex flex-col" content-style="display: flex;flex-direction: column;min-height:100%;"
       embedded :native-scrollbar="false"
     >
-      <n-layout-header bordered position="absolute" class="z-1">
+      <n-layout-header bordered position="absolute" class="z-999">
         <div v-if="!appStore.contentFullScreen" class="h-60px flex-y-center justify-between shrink-0">
           <Logo v-if="appStore.showLogo" />
           <Menu mode="horizontal" responsive />
