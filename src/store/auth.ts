@@ -62,6 +62,7 @@ export const useAuthStore = defineStore('auth-store', {
         await this.handleLoginInfo(data)
       }
       catch (e) {
+        console.warn('[Login Error]:', e)
       }
     },
 
