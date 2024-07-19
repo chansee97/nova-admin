@@ -51,7 +51,7 @@
 ## 接口文档
 
 本项目使用ApiFox进行接口mock，查看在线文档以了解更多接口详情
-[在线apifox文档](https://apifox.com/apidoc/shared-2b1abeb5-6e78-425e-a4ff-d7277ae83bf0)
+[在线apifox文档](https://nova-admin.apifox.cn)
 
 ## 安装使用
 
