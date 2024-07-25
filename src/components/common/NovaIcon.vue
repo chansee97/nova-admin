@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue'
 
 interface iconPorps {
   /* 图标名称 */
-  icon?: string
+  icon: string
   /* 图标颜色 */
   color?: string
   /* 图标大小 */
@@ -13,11 +13,10 @@ interface iconPorps {
 }
 const props = withDefaults(defineProps<iconPorps>(), {
   size: 18,
-  isLocal: false,
 })
 
 const isLocal = computed(() => {
-  return props.icon && props.icon.startsWith('local:')
+  return props.icon.startsWith('local:')
 })
 
 function getLocalIcon(icon: string) {
@@ -28,25 +27,22 @@ function getLocalIcon(icon: string) {
     eager: true,
   })
 
-  const domparser = new DOMParser()
-  return domparser.parseFromString(svg[`/src/assets/svg-icons/${svgName}.svg`], 'image/svg+xml')
+  return svg[`/src/assets/svg-icons/${svgName}.svg`]
 }
 </script>
 
 <template>
   <n-icon
-    v-if="icon && !isLocal"
+    v-if="icon"
     :size="size"
     :depth="depth"
     :color="color"
   >
     <template v-if="isLocal">
-      {{ getLocalIcon(icon) }}
+      <i v-html="getLocalIcon(icon)" />
     </template>
     <template v-else>
       <Icon :icon="icon" />
     </template>
   </n-icon>
 </template>
-
-<style scoped></style>

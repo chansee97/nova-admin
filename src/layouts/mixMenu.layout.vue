@@ -52,8 +52,8 @@ onMounted(() => {
 
 const sideMenu = ref<MenuOption[]>([])
 function handleSideMenu(key: string) {
-  // @ts-expect-error no error at here
-  const targetMenu = routeStore.menus.find(i => i.key === key)
+  const routeMenu = routeStore.menus as MenuOption[]
+  const targetMenu = routeMenu.find(i => i.key === key)
   if (targetMenu) {
     sideMenu.value = targetMenu.children ? targetMenu.children : [targetMenu]
   }

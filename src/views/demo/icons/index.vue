@@ -24,6 +24,9 @@
       <div>
         大大大：<svg-icons-cool class="text-4em" />
       </div>
+      <div>
+        nova-icon组件加载：<nova-icon icon="local:cool" />
+      </div>
     </n-card>
   </n-space>
 </template>

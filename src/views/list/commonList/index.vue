@@ -81,8 +81,8 @@ const columns: DataTableColumns<Entity.DemoList> = [
       return (
         <NSwitch
           value={row.disabled}
-          onUpdateValue={disabled =>
-            handleUpdateDisabled(disabled, row.id)}
+          onUpdateValue={(value: boolean) =>
+            handleUpdateDisabled(value, row.id)}
         >
           {{ checked: () => '启用', unchecked: () => '禁用' }}
         </NSwitch>

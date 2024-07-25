@@ -74,7 +74,7 @@ const columns: DataTableColumns<Entity.User> = [
           value={row.status}
           checked-value={1}
           unchecked-value={0}
-          onUpdateValue={value =>
+          onUpdateValue={(value: 0 | 1) =>
             handleUpdateDisabled(value, row.id!)}
         >
           {{ checked: () => '启用', unchecked: () => '禁用' }}
