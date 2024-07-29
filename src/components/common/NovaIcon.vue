@@ -3,7 +3,7 @@ import { Icon } from '@iconify/vue'
 
 interface iconPorps {
   /* 图标名称 */
-  icon: string
+  icon?: string
   /* 图标颜色 */
   color?: string
   /* 图标大小 */
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<iconPorps>(), {
 })
 
 const isLocal = computed(() => {
-  return props.icon.startsWith('local:')
+  return props.icon && props.icon.startsWith('local:')
 })
 
 function getLocalIcon(icon: string) {
