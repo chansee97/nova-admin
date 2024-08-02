@@ -36,7 +36,7 @@ export function withoutToken() {
 /* 接口数据转换 */
 export function dictData() {
   return request.Get('/getDictData', {
-    transformData(rawData, _headers) {
+    transform(rawData, _headers) {
       const response = rawData as any
       return {
         ...response,
@@ -61,10 +61,7 @@ export function getBlob(url: string) {
 
 /* 带进度的下载文件 */
 export function downloadFile(url: string) {
-  const methodInstance = blankInstance.Get<Blob>(url, {
-    // 开启下载进度
-    enableDownload: true,
-  })
+  const methodInstance = blankInstance.Get<Blob>(url)
   methodInstance.meta = {
     // 标识为blob数据
     isBlob: true,

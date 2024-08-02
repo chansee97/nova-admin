@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useRequest } from 'alova'
+import { useRequest } from 'alova/client'
+
 import {
   fetchGet,
 } from '@/service'

@@ -15,6 +15,7 @@ async function expiredToken() {
 
 <template>
   <n-card title="Token Expiration" size="small">
+    注意观察第二次的请求，token已刷新
     <n-button type="error" @click="expiredToken">
       click
     </n-button>

@@ -1,7 +1,7 @@
 import { createAlova } from 'alova'
 import VueHook from 'alova/vue'
-import GlobalFetch from 'alova/GlobalFetch'
-import { createServerTokenAuthentication } from '@alova/scene-vue'
+import adapterFetch from 'alova/fetch'
+import { createServerTokenAuthentication } from 'alova/client'
 import {
   handleBusinessError,
   handleRefreshToken,
@@ -50,8 +50,8 @@ export function createAlovaInstance(
 
   return createAlova({
     statesHook: VueHook,
-    requestAdapter: GlobalFetch(),
-    localCache: null,
+    requestAdapter: adapterFetch(),
+    cacheFor: null,
     baseURL: _alovaConfig.baseURL,
     timeout: _alovaConfig.timeout,
 
