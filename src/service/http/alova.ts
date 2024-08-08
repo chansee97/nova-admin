@@ -1,5 +1,5 @@
 import { createAlova } from 'alova'
-import VueHook from 'alova/vue'
+import VueHook, { type VueHookType } from 'alova/vue'
 import adapterFetch from 'alova/fetch'
 import { createServerTokenAuthentication } from 'alova/client'
 import {
@@ -14,7 +14,7 @@ import {
 } from './config'
 import { local } from '@/utils'
 
-const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication({
+const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<VueHookType>({
   // 服务端判定token过期
   refreshTokenOnSuccess: {
     // 当服务端返回401时，表示token过期
