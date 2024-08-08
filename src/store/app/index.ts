@@ -7,6 +7,8 @@ import { local, setLocale } from '@/utils'
 export type TransitionAnimation = '' | 'fade-slide' | 'fade-bottom' | 'fade-scale' | 'zoom-fade' | 'zoom-out'
 export type LayoutMode = 'leftMenu' | 'topMenu' | 'mixMenu'
 
+const { VITE_DEFAULT_LANG, VITE_COPYRIGHT_INFO } = import.meta.env
+
 const docEle = ref(document.documentElement)
 
 const { isFullscreen, toggle } = useFullscreen(docEle)
@@ -18,8 +20,8 @@ const { system, store } = useColorMode({
 export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
-      footerText: import.meta.env.VITE_COPYRIGHT_INFO,
-      lang: 'enUS' as App.lang,
+      footerText: VITE_COPYRIGHT_INFO,
+      lang: VITE_DEFAULT_LANG,
       theme: themeConfig as GlobalThemeOverrides,
       primaryColor: themeConfig.common.primaryColor,
       collapsed: false,

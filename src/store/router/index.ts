@@ -38,7 +38,7 @@ export const useRouteStore = defineStore('route-store', {
     },
 
     async initRouteInfo() {
-      if (import.meta.env.VITE_AUTH_ROUTE_MODE === 'dynamic') {
+      if (import.meta.env.VITE_ROUTE_LOAD_MODE === 'dynamic') {
         const userInfo = local.get('userInfo')
 
         if (!userInfo || !userInfo.id) {
