@@ -6,3 +6,9 @@
 .v-x-scroll {
   height: 100%;
 }
+
+/* 解决二维码尺寸问题 */
+.n-qr-code{
+  height: unset !important;
+  width: unset !important;;
+}

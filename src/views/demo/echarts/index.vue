@@ -7,6 +7,7 @@ const pieOptions = ref<ECOption>({
   title: {
     text: '饼图',
   },
+  backgroundColor: 'transparent',
   color: [
     '#37a2da',
     '#32c5e9',
@@ -53,15 +54,36 @@ const pieOptions = ref<ECOption>({
       ],
     },
   ],
-}) as Ref<ECOption>
+})
 const pieRef = ref<HTMLElement | null>(null)
-useEcharts(pieRef, pieOptions)
+const { update } = useEcharts(pieRef, pieOptions)
+
+const randomValue = () => Math.round(Math.random() * 100)
+function updatePieChart() {
+  pieOptions.value.series = [
+    {
+      data: [
+        { value: randomValue(), name: 'rose1' },
+        { value: randomValue(), name: 'rose2' },
+        { value: randomValue(), name: 'rose3' },
+        { value: randomValue(), name: 'rose4' },
+        { value: randomValue(), name: 'rose5' },
+        { value: randomValue(), name: 'rose6' },
+        { value: randomValue(), name: 'rose7' },
+        { value: randomValue(), name: 'rose8' },
+      ],
+    },
+  ]
+
+  update(pieOptions.value)
+}
 
 // 折线图
 const lineOptions = ref<ECOption>({
   title: {
     text: '折线图',
   },
+  backgroundColor: 'transparent',
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -245,7 +267,7 @@ const lineOptions = ref<ECOption>({
       data: [820, 932, 901, 934, 1290, 1330, 1320],
     },
   ],
-}) as Ref<ECOption>
+})
 const lineRef = ref<HTMLElement | null>(null)
 useEcharts(lineRef, lineOptions)
 
@@ -254,6 +276,7 @@ const barOptions = ref<ECOption>({
   title: {
     text: '柱状图',
   },
+  backgroundColor: 'transparent',
   tooltip: {},
   grid: {
     top: '8%',
@@ -386,7 +409,7 @@ const barOptions = ref<ECOption>({
       data: [200, 382, 102, 267, 186, 315, 316],
     },
   ],
-}) as Ref<ECOption>
+})
 const barRef = ref<HTMLElement | null>(null)
 useEcharts(barRef, barOptions)
 
@@ -395,6 +418,7 @@ const radarOptions = ref<ECOption>({
   title: {
     text: 'Multiple Radar',
   },
+  backgroundColor: 'transparent',
   tooltip: {},
   legend: {
     left: 'center',
@@ -480,7 +504,7 @@ const radarOptions = ref<ECOption>({
       ],
     },
   ],
-}) as Ref<ECOption>
+})
 const radarRef = ref<HTMLElement | null>(null)
 useEcharts(radarRef, radarOptions)
 </script>
@@ -491,6 +515,9 @@ useEcharts(radarRef, radarOptions)
     :size="16"
   >
     <n-card>
+      <n-button @click="updatePieChart">
+        手动更新图表
+      </n-button>
       <div
         ref="pieRef"
         class="h-400px"
