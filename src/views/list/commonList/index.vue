@@ -2,7 +2,7 @@
 import type { DataTableColumns, FormInst } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 import TableModal from './components/TableModal.vue'
-import { fetchUserList } from '@/service'
+import { fetchUserPage } from '@/service'
 import { useBoolean } from '@/hooks'
 import { Gender } from '@/constants'
 
@@ -18,14 +18,14 @@ const initialModel = {
 const model = ref({ ...initialModel })
 
 const formRef = ref<FormInst | null>()
-function sendMail(id: number) {
+function sendMail(id?: number) {
   window.$message.success(`删除用户id:${id}`)
 }
-const columns: DataTableColumns<Entity.DemoList> = [
+const columns: DataTableColumns<Entity.User> = [
   {
     title: '姓名',
     align: 'center',
-    key: 'name',
+    key: 'userName',
   },
   {
     title: '年龄',
@@ -56,33 +56,17 @@ const columns: DataTableColumns<Entity.DemoList> = [
     key: 'email',
   },
   {
-    title: '地址',
-    align: 'center',
-    key: 'address',
-  },
-  {
-    title: '角色',
-    align: 'center',
-    key: 'role',
-    render: (row) => {
-      const tagType: Record<Entity.RoleType, NaiveUI.ThemeColor> = {
-        super: 'primary',
-        admin: 'warning',
-        user: 'success',
-      }
-      return <NTag type={tagType[row.role]}>{row.role}</NTag>
-    },
-  },
-  {
     title: '状态',
     align: 'center',
-    key: 'disabled',
+    key: 'status',
     render: (row) => {
       return (
         <NSwitch
-          value={row.disabled}
-          onUpdateValue={(value: boolean) =>
-            handleUpdateDisabled(value, row.id)}
+          value={row.status}
+          checked-value={1}
+          unchecked-value={0}
+          onUpdateValue={(value: 0 | 1) =>
+            handleUpdateDisabled(value, row.id!)}
         >
           {{ checked: () => '启用', unchecked: () => '禁用' }}
         </NSwitch>
@@ -114,11 +98,11 @@ const columns: DataTableColumns<Entity.DemoList> = [
   },
 ]
 
-const listData = ref<Entity.DemoList[]>([])
-function handleUpdateDisabled(disabled: boolean, id: number) {
+const listData = ref<Entity.User[]>([])
+function handleUpdateDisabled(value: 0 | 1, id: number) {
   const index = listData.value.findIndex(item => item.id === id)
   if (index > -1)
-    listData.value[index].disabled = disabled
+    listData.value[index].status = value
 }
 
 onMounted(() => {
@@ -126,7 +110,7 @@ onMounted(() => {
 })
 async function getUserList() {
   startLoading()
-  await fetchUserList().then((res: any) => {
+  await fetchUserPage().then((res: any) => {
     listData.value = res.data.list
     endLoading()
   })
@@ -144,12 +128,12 @@ function setModalType(type: ModalType) {
   modalType.value = type
 }
 
-const editData = ref<Entity.DemoList | null>(null)
-function setEditData(data: Entity.DemoList | null) {
+const editData = ref<Entity.User | null>(null)
+function setEditData(data: Entity.User | null) {
   editData.value = data
 }
 
-function handleEditTable(row: Entity.DemoList) {
+function handleEditTable(row: Entity.User) {
   setEditData(row)
   setModalType('edit')
   openModal()

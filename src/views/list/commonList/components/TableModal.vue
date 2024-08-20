@@ -1,18 +1,14 @@
 <script setup lang="ts">
-type FormModel = Pick<Entity.DemoList, 'name' | 'age' | 'gender' | 'address' | 'email' | 'role' | 'disabled'>
 const props = withDefaults(defineProps<Props>(), {
   type: 'add',
   modalData: null,
 })
 const emit = defineEmits<Emits>()
-const defaultFormModal: FormModel = {
-  name: '',
-  age: 0,
-  gender: null,
+const defaultFormModal: Entity.User = {
+  userName: '',
+  gender: 0,
   email: '',
-  address: '',
-  role: 'user',
-  disabled: true,
+  role: [],
 }
 const formModel = ref({ ...defaultFormModal })
 
@@ -81,25 +77,25 @@ watch(
     <n-form label-placement="left" :model="formModel" label-align="left" :label-width="80">
       <n-grid :cols="24" :x-gap="18">
         <n-form-item-grid-item :span="12" label="用户名" path="name">
-          <n-input v-model:value="formModel.name" />
+          <n-input v-model:value="formModel.userName" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="12" label="年龄" path="age">
-          <n-input-number v-model:value="formModel.age" />
+          <n-input-number v-model:value="formModel.gender" />
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="12" label="性别" path="gender">
-          <n-input v-model:value="formModel.gender" />
+          <n-radio-group v-model:value="formModel.gender">
+            <n-space>
+              <n-radio :value="1">
+                男
+              </n-radio>
+              <n-radio :value="0">
+                女
+              </n-radio>
+            </n-space>
+          </n-radio-group>
         </n-form-item-grid-item>
         <n-form-item-grid-item :span="12" label="邮箱" path="email">
           <n-input v-model:value="formModel.email" />
-        </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="地址" path="address">
-          <n-input v-model:value="formModel.address" />
-        </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="角色" path="role">
-          <n-input v-model:value="formModel.role" />
-        </n-form-item-grid-item>
-        <n-form-item-grid-item :span="12" label="状态" path="disabled">
-          <n-switch v-model:value="formModel.disabled" />
         </n-form-item-grid-item>
       </n-grid>
     </n-form>
