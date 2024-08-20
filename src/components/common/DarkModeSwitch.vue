@@ -12,7 +12,7 @@ const appStore = useAppStore()
 const options = computed(() => {
   return [
     {
-      label: t('app.lignt'),
+      label: t('app.light'),
       value: 'light',
       icon: IconSun,
     },
