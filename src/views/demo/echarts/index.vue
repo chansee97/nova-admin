@@ -7,7 +7,6 @@ const pieOptions = ref<ECOption>({
   title: {
     text: '饼图',
   },
-  backgroundColor: 'transparent',
   color: [
     '#37a2da',
     '#32c5e9',
@@ -83,7 +82,6 @@ const lineOptions = ref<ECOption>({
   title: {
     text: '折线图',
   },
-  backgroundColor: 'transparent',
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -276,7 +274,6 @@ const barOptions = ref<ECOption>({
   title: {
     text: '柱状图',
   },
-  backgroundColor: 'transparent',
   tooltip: {},
   grid: {
     top: '8%',
@@ -418,7 +415,6 @@ const radarOptions = ref<ECOption>({
   title: {
     text: 'Multiple Radar',
   },
-  backgroundColor: 'transparent',
   tooltip: {},
   legend: {
     left: 'center',

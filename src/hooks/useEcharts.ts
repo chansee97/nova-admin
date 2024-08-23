@@ -92,7 +92,7 @@ export function useEcharts(el: Ref<HTMLElement | null>, chartOptions: Ref<ECOpti
 
   function update(updateOptions: ECOption) {
     if (isRendered.value)
-      chart!.setOption({ ...updateOptions })
+      chart!.setOption({ backgroundColor: 'transparent', ...updateOptions })
   }
 
   function destroy() {
