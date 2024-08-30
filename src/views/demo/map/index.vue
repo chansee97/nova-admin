@@ -6,19 +6,19 @@ import AMap from './components/AMap.vue'
 import BMap from './components/BMap.vue'
 
 defineOptions({
-  name: 'PluginMap',
+  name: 'map',
 })
 
 const maps = [
   {
-    id: 'AMap',
-    label: '高德地图',
-    component: AMap,
-  },
-  {
     id: 'BMap',
     label: '百度地图',
     component: BMap,
+  },
+  {
+    id: 'AMap',
+    label: '高德地图',
+    component: AMap,
   },
 ]
 </script>

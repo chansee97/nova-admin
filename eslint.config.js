@@ -9,5 +9,11 @@ export default antfu(
         'ts/no-unused-expressions': ['error', { allowShortCircuit: true }],
       },
     },
+    vue: {
+      overrides: {
+        'vue/no-reserved-component-names': 'off',
+        'vue/component-definition-name-casing': 'off',
+      },
+    },
   },
 )
