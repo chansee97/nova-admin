@@ -5,9 +5,9 @@ interface Props {
   disabled?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  disabled: false,
-})
+const {
+  disabled = false,
+} = defineProps<Props>()
 
 interface IconList {
   prefix: string
@@ -125,13 +125,13 @@ function clearIcon() {
 
 <template>
   <n-input-group disabled>
-    <n-button v-if="value" :disabled="props.disabled" type="primary">
+    <n-button v-if="value" :disabled="disabled" type="primary">
       <template #icon>
         <nova-icon :icon="value" />
       </template>
     </n-button>
     <n-input :value="value" readonly :placeholder="$t('components.iconSelector.inputPlaceholder')" />
-    <n-button type="primary" ghost :disabled="props.disabled" @click="showModal = true">
+    <n-button type="primary" ghost :disabled="disabled" @click="showModal = true">
       {{ $t('common.choose') }}
     </n-button>
   </n-input-group>

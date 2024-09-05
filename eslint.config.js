@@ -11,6 +11,7 @@ export default antfu(
     },
     vue: {
       overrides: {
+        'vue/no-unused-refs': 'off', // 暂时关闭，等待vue-lint的分支合并
         'vue/no-reserved-component-names': 'off',
         'vue/component-definition-name-casing': 'off',
       },

@@ -8,10 +8,11 @@ interface Props {
   isRoot?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  modalName: '',
-  isRoot: false,
-})
+const {
+  modalName = '',
+  dictCode,
+  isRoot = false,
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   open: []
@@ -36,7 +37,7 @@ const modalTitle = computed(() => {
     view: '查看',
     edit: '编辑',
   }
-  return `${titleMap[modalType.value]}${props.modalName}`
+  return `${titleMap[modalType.value]}${modalName}`
 })
 
 async function openModal(type: ModalType = 'add', data?: any) {
@@ -47,9 +48,9 @@ async function openModal(type: ModalType = 'add', data?: any) {
     async add() {
       formModel.value = { ...formDefault }
 
-      formModel.value.isRoot = props.isRoot ? 1 : 0
-      if (props.dictCode) {
-        formModel.value.code = props.dictCode
+      formModel.value.isRoot = isRoot ? 1 : 0
+      if (dictCode) {
+        formModel.value.code = dictCode
       }
     },
     async view() {

@@ -3,16 +3,15 @@ interface Props {
   showWatermark: boolean
   text?: string
 }
-const props = withDefaults(defineProps<Props>(), {
-  showWatermark: false,
-  text: 'Watermark',
-})
+const {
+  text = 'Watermark',
+} = defineProps<Props>()
 </script>
 
 <template>
   <n-watermark
-    v-if="props.showWatermark"
-    :content="props.text"
+    v-if="showWatermark"
+    :content="text"
     cross
     fullscreen
     :font-size="16"

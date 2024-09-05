@@ -7,19 +7,9 @@ import { MdEditor } from 'md-editor-v3'
 import 'md-editor-v3/lib/style.css'
 import { useAppStore } from '@/store'
 
-const props = defineProps<{
-  modelValue: string
-}>()
-
-const emit = defineEmits(['update:modelValue'])
+const model = defineModel<string>()
 
 const appStore = useAppStore()
-
-const data = useVModel(props, 'modelValue', emit)
-
-const theme = computed(() => {
-  return appStore.colorMode ? 'dark' : 'light'
-})
 
 const toolbarsExclude: ToolbarNames[] = [
   'mermaid',
@@ -32,7 +22,7 @@ const toolbarsExclude: ToolbarNames[] = [
 
 <template>
   <MdEditor
-    v-model="data" :theme="theme" :toolbars-exclude="toolbarsExclude"
+    v-model="model" :theme="appStore.colorMode" :toolbars-exclude="toolbarsExclude"
   />
 </template>
 

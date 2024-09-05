@@ -12,9 +12,10 @@ interface Props {
   allRoutes: AppRoute.RowRoute[]
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  modalName: '',
-})
+const {
+  modalName = '',
+  allRoutes,
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   open: []
@@ -47,7 +48,7 @@ const modalTitle = computed(() => {
     view: '查看',
     edit: '编辑',
   }
-  return `${titleMap[modalType.value]}${props.modalName}`
+  return `${titleMap[modalType.value]}${modalName}`
 })
 
 async function openModal(type: ModalType = 'add', data: AppRoute.RowRoute) {
@@ -112,7 +113,7 @@ async function submitModal() {
 }
 
 const dirTreeOptions = computed(() => {
-  return filterDirectory(JSON.parse(JSON.stringify(props.allRoutes)))
+  return filterDirectory(JSON.parse(JSON.stringify(allRoutes)))
 })
 
 function filterDirectory(node: any[]) {

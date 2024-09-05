@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
+import { useTemplateRef } from 'vue'
 
 defineOptions({
   name: 'RichTextEditor',
 })
 
-const props = defineProps<{
+const { disabled } = defineProps<Props>()
+interface Props {
   disabled?: boolean
-}>()
-
+}
 const model = defineModel<string>()
 
 let editorInst = null
@@ -20,7 +21,7 @@ onMounted(() => {
   initEditor()
 })
 
-const editorRef = ref()
+const editorRef = useTemplateRef<HTMLInputElement>('editorRef')
 function initEditor() {
   const options = {
     modules: {
@@ -52,13 +53,13 @@ function initEditor() {
     placeholder: 'Insert text here ...',
     theme: 'snow',
   }
-  const quill = new Quill(editorRef.value, options)
+  const quill = new Quill(editorRef.value!, options)
 
   quill.on('text-change', (_delta, _oldDelta, _source) => {
     editorModel.value = quill.getSemanticHTML()
   })
 
-  if (props.disabled)
+  if (disabled)
     quill.enable(false)
 
   editorInst = quill
@@ -92,7 +93,7 @@ watch(editorModel, (newValue, oldValue) => {
 })
 
 watch(
-  () => props.disabled,
+  () => disabled,
   (newValue, _oldValue) => {
     editorInst!.enable(!newValue)
   },

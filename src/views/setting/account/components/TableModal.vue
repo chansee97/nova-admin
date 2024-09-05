@@ -6,9 +6,9 @@ interface Props {
   modalName?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  modalName: '',
-})
+const {
+  modalName = '',
+} = defineProps<Props>()
 
 const emit = defineEmits<{
   open: []
@@ -36,7 +36,7 @@ const modalTitle = computed(() => {
     view: '查看',
     edit: '编辑',
   }
-  return `${titleMap[modalType.value]}${props.modalName}`
+  return `${titleMap[modalType.value]}${modalName}`
 })
 
 async function openModal(type: ModalType = 'add', data: any) {

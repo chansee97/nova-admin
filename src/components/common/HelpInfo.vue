@@ -3,7 +3,7 @@ interface Props {
   message: string
 }
 
-const props = defineProps<Props>()
+const { message } = defineProps<Props>()
 </script>
 
 <template>
@@ -11,6 +11,6 @@ const props = defineProps<Props>()
     <template #trigger>
       <icon-park-outline-help class="op-50 cursor-help" />
     </template>
-    {{ props.message }}
+    {{ message }}
   </n-tooltip>
 </template>

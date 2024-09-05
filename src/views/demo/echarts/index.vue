@@ -54,8 +54,7 @@ const pieOptions = ref<ECOption>({
     },
   ],
 })
-const pieRef = ref<HTMLElement | null>(null)
-const { update } = useEcharts(pieRef, pieOptions)
+const { update } = useEcharts('pieRef', pieOptions)
 
 const randomValue = () => Math.round(Math.random() * 100)
 function updatePieChart() {
@@ -266,8 +265,7 @@ const lineOptions = ref<ECOption>({
     },
   ],
 })
-const lineRef = ref<HTMLElement | null>(null)
-useEcharts(lineRef, lineOptions)
+useEcharts('lineRef', lineOptions)
 
 // 柱状图
 const barOptions = ref<ECOption>({
@@ -407,8 +405,7 @@ const barOptions = ref<ECOption>({
     },
   ],
 })
-const barRef = ref<HTMLElement | null>(null)
-useEcharts(barRef, barOptions)
+useEcharts('barRef', barOptions)
 
 // 雷达图
 const radarOptions = ref<ECOption>({
@@ -501,8 +498,7 @@ const radarOptions = ref<ECOption>({
     },
   ],
 })
-const radarRef = ref<HTMLElement | null>(null)
-useEcharts(radarRef, radarOptions)
+useEcharts('radarRef', radarOptions)
 </script>
 
 <template>

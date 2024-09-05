@@ -1,6 +1,6 @@
 import * as echarts from 'echarts/core'
 import { BarChart, LineChart, PieChart, RadarChart } from 'echarts/charts'
-
+import { useTemplateRef } from 'vue'
 // 系列类型的定义后缀都为 SeriesOption
 import type {
   BarSeriesOption,
@@ -68,7 +68,9 @@ echarts.use([
  * Echarts hooks函数
  * @description 按需引入图表组件，没注册的组件需要先引入
  */
-export function useEcharts(el: Ref<HTMLElement | null>, chartOptions: Ref<ECOption>) {
+export function useEcharts(ref: string, chartOptions: Ref<ECOption>) {
+  const el = useTemplateRef<HTMLLIElement>(ref)
+
   const appStore = useAppStore()
 
   let chart: echarts.ECharts | null = null

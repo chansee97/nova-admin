@@ -11,12 +11,10 @@ interface iconPorps {
   /* 图标深度 */
   depth?: 1 | 2 | 3 | 4 | 5
 }
-const props = withDefaults(defineProps<iconPorps>(), {
-  size: 18,
-})
+const { size = 18, icon } = defineProps<iconPorps>()
 
 const isLocal = computed(() => {
-  return props.icon && props.icon.startsWith('local:')
+  return icon && icon.startsWith('local:')
 })
 
 function getLocalIcon(icon: string) {

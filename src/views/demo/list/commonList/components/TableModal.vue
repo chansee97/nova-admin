@@ -1,8 +1,15 @@
 <script setup lang="ts">
-const props = withDefaults(defineProps<Props>(), {
-  type: 'add',
-  modalData: null,
-})
+interface Props {
+  visible: boolean
+  type?: ModalType
+  modalData?: any
+}
+const {
+  visible,
+  type = 'add',
+  modalData = null,
+} = defineProps<Props>()
+
 const emit = defineEmits<Emits>()
 const defaultFormModal: Entity.User = {
   userName: '',
@@ -12,18 +19,13 @@ const defaultFormModal: Entity.User = {
 }
 const formModel = ref({ ...defaultFormModal })
 
-interface Props {
-  visible: boolean
-  type?: ModalType
-  modalData?: any
-}
 interface Emits {
   (e: 'update:visible', visible: boolean): void
 }
 
 const modalVisible = computed({
   get() {
-    return props.visible
+    return visible
   },
   set(visible) {
     closeModal(visible)
@@ -38,7 +40,7 @@ const title = computed(() => {
     add: '添加用户',
     edit: '编辑用户',
   }
-  return titles[props.type]
+  return titles[type]
 })
 
 function UpdateFormModelByModalType() {
@@ -47,14 +49,14 @@ function UpdateFormModelByModalType() {
       formModel.value = { ...defaultFormModal }
     },
     edit: () => {
-      if (props.modalData)
-        formModel.value = { ...props.modalData }
+      if (modalData)
+        formModel.value = { ...modalData }
     },
   }
-  handlers[props.type]()
+  handlers[type]()
 }
 watch(
-  () => props.visible,
+  () => visible,
   (newValue) => {
     if (newValue)
       UpdateFormModelByModalType()
