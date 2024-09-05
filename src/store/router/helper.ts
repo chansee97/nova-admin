@@ -104,8 +104,9 @@ export function createMenus(userRoutes: AppRoute.RowRoute[]) {
 // render the returned routing table as a sidebar
 function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
   const { hasPermission } = usePermission()
-  // Filter out side menus without permission
-  return userRoutes.filter(i => hasPermission(i.meta.roles))
+  return userRoutes
+    // Filter out side menus without permission
+    .filter(i => hasPermission(i.meta.roles))
     //  Sort the menu according to the order size
     .sort((a, b) => {
       if (a.meta && a.meta.order && b.meta && b.meta.order)
@@ -116,7 +117,6 @@ function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
         return 1
       else return 0
     })
-
     // Convert to side menu data structure
     .map((item) => {
       const target: MenuOption = {

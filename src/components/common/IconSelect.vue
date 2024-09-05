@@ -39,6 +39,16 @@ async function fetchIconAllList(nameList: string[]) {
     return i
   })
 }
+// 获取svg文件名
+function getSvgName(path: string) {
+  const regex = /\/([^/]+)\.svg$/
+  const match = path.match(regex)
+  if (match) {
+    const fileName = match[1]
+    return fileName
+  }
+  return path
+}
 
 // 获取所有本地图标
 function generateLocalIconList() {
@@ -48,15 +58,6 @@ function generateLocalIconList() {
     eager: true,
   })
 
-  function getSvgName(path: string) {
-    const regex = /\/([^/]+)\.svg$/
-    const match = path.match(regex)
-    if (match) {
-      const fileName = match[1]
-      return fileName
-    }
-    return path
-  }
   return mapEntries(localSvgList, (key, value) => {
     return [getSvgName(key), value]
   })
@@ -103,9 +104,8 @@ const icons = computed(() => {
 
 // 符合搜索条件的图标列表
 const visibleIcons = computed(() => {
-  return icons.value
-    ?.filter(i => i.includes(searchValue.value))
-    ?.slice((currentPage.value - 1) * 200, (currentPage.value) * 200)
+  return icons.value?.filter(i => i
+    .includes(searchValue.value))?.slice((currentPage.value - 1) * 200, (currentPage.value) * 200)
 })
 
 const showModal = ref(false)

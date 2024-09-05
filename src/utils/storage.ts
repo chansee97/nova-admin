@@ -39,9 +39,8 @@ function createLocalStorage<T extends Storage.Local>() {
     window.localStorage.removeItem(`${STORAGE_PREFIX}${String(key)}`)
   }
 
-  function clear() {
-    window.localStorage.clear()
-  }
+  const clear = window.localStorage.clear
+
   return {
     set,
     get,
@@ -73,9 +72,7 @@ function createSessionStorage<T extends Storage.Session>() {
   function remove(key: keyof T) {
     window.sessionStorage.removeItem(`${STORAGE_PREFIX}${String(key)}`)
   }
-  function clear() {
-    window.sessionStorage.clear()
-  }
+  const clear = window.sessionStorage.clear
 
   return {
     set,
