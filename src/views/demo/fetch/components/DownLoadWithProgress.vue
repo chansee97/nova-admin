@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useRequest } from 'alova/client'
 import {
   downloadFile,
 } from '@/service'
+import { useRequest } from 'alova/client'
 
 const emit = defineEmits<{
   update: [data: any]

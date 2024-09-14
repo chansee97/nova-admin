@@ -1,10 +1,10 @@
-import { clone, min, omit, pick } from 'radash'
-import type { RouteRecordRaw } from 'vue-router'
 import type { MenuOption } from 'naive-ui'
-import { RouterLink } from 'vue-router'
-import Layout from '@/layouts/index.vue'
+import type { RouteRecordRaw } from 'vue-router'
 import { usePermission } from '@/hooks'
+import Layout from '@/layouts/index.vue'
 import { $t, arrayToTree, renderIcon } from '@/utils'
+import { clone, min, omit, pick } from 'radash'
+import { RouterLink } from 'vue-router'
 
 const metaFields: AppRoute.MetaKeys[]
   = ['title', 'icon', 'requiresAuth', 'roles', 'keepAlive', 'hide', 'order', 'href', 'activeMenu', 'withoutTab', 'pinTab', 'menuType']

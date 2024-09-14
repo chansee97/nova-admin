@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Quill from 'quill'
-import 'quill/dist/quill.snow.css'
 import { useTemplateRef } from 'vue'
+import 'quill/dist/quill.snow.css'
 
 defineOptions({
   name: 'RichTextEditor',

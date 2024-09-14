@@ -3,8 +3,8 @@ import type {
   FormItemRule,
 } from 'naive-ui'
 import HelpInfo from '@/components/common/HelpInfo.vue'
-import { useBoolean } from '@/hooks'
 import { Regex } from '@/constants'
+import { useBoolean } from '@/hooks'
 import { fetchRoleList } from '@/service'
 
 interface Props {

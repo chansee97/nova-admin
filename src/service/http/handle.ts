@@ -1,10 +1,10 @@
+import { fetchUpdateToken } from '@/service'
+import { useAuthStore } from '@/store'
+import { local } from '@/utils'
 import {
   ERROR_NO_TIP_STATUS,
   ERROR_STATUS,
 } from './config'
-import { useAuthStore } from '@/store'
-import { fetchUpdateToken } from '@/service'
-import { local } from '@/utils'
 
 type ErrorStatus = keyof typeof ERROR_STATUS
 

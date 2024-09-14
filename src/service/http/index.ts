@@ -1,6 +1,6 @@
-import { createAlovaInstance } from './alova'
-import { serviceConfig } from '@/../service.config'
 import { generateProxyPattern } from '@/../build/proxy'
+import { serviceConfig } from '@/../service.config'
+import { createAlovaInstance } from './alova'
 
 const isHttpProxy = import.meta.env.DEV && import.meta.env.VITE_HTTP_PROXY === 'Y'
 

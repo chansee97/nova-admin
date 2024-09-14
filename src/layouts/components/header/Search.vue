@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useRouteStore } from '@/store'
 import { useBoolean } from '@/hooks'
+import { useRouteStore } from '@/store'
 
 const routeStore = useRouteStore()
 

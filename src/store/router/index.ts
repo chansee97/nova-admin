@@ -1,10 +1,10 @@
 import type { MenuOption } from 'naive-ui'
-import { createMenus, createRoutes, generateCacheRoutes } from './helper'
-import { $t, local } from '@/utils'
 import { router } from '@/router'
-import { fetchUserRoutes } from '@/service'
 import { staticRoutes } from '@/router/routes.static'
+import { fetchUserRoutes } from '@/service'
 import { useAuthStore } from '@/store/auth'
+import { $t, local } from '@/utils'
+import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean

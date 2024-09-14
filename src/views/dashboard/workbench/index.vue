@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Chart from './components/chart.vue'
 import { useAuthStore } from '@/store'
+import Chart from './components/chart.vue'
 
 const { userInfo } = useAuthStore()
 </script>

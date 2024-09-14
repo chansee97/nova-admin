@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/store'
 import { usePermission } from '@/hooks'
+import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
 const { hasPermission } = usePermission()

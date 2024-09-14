@@ -1,30 +1,30 @@
-import Logo from './sider/Logo.vue'
-import Menu from './sider/Menu.vue'
+import BackTop from './common/BackTop.vue'
+import Setting from './common/Setting.vue'
 
+import SettingDrawer from './common/SettingDrawer.vue'
 import Breadcrumb from './header/Breadcrumb.vue'
 import CollapaseButton from './header/CollapaseButton.vue'
 import FullScreen from './header/FullScreen.vue'
 import Notices from './header/Notices.vue'
-import UserCenter from './header/UserCenter.vue'
 import Search from './header/Search.vue'
 
+import UserCenter from './header/UserCenter.vue'
+
+import Logo from './sider/Logo.vue'
+import Menu from './sider/Menu.vue'
 import TabBar from './tab/TabBar.vue'
 
-import BackTop from './common/BackTop.vue'
-import Setting from './common/Setting.vue'
-import SettingDrawer from './common/SettingDrawer.vue'
-
 export {
+  BackTop,
   Breadcrumb,
   CollapaseButton,
-  Menu,
-  Logo,
   FullScreen,
+  Logo,
+  Menu,
+  Notices,
+  Search,
   Setting,
   SettingDrawer,
-  Notices,
-  UserCenter,
-  Search,
   TabBar,
-  BackTop,
+  UserCenter,
 }

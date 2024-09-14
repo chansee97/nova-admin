@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { graphic } from 'echarts'
 import { type ECOption, useEcharts } from '@/hooks'
+import { graphic } from 'echarts'
 
 // 饼状图
 const pieOptions = ref<ECOption>({

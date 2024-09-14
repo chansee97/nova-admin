@@ -1,8 +1,8 @@
+import { router } from '@/router'
+import { fetchLogin } from '@/service'
+import { local } from '@/utils'
 import { useRouteStore } from './router'
 import { useTabStore } from './tab'
-import { fetchLogin } from '@/service'
-import { router } from '@/router'
-import { local } from '@/utils'
 
 interface AuthStatus {
   userInfo: Api.Login.Info | null

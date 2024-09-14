@@ -1,11 +1,11 @@
 <script setup lang="tsx">
 import type { DataTableColumns } from 'naive-ui'
+import CopyText from '@/components/custom/CopyText.vue'
+import { useBoolean } from '@/hooks'
+import { fetchDictList } from '@/service'
+import { getDictByNet } from '@/utils'
 import { NButton, NFlex, NPopconfirm } from 'naive-ui'
 import DictModal from './components/DictModal.vue'
-import { fetchDictList } from '@/service'
-import { useBoolean } from '@/hooks'
-import { getDictByNet } from '@/utils'
-import CopyText from '@/components/custom/CopyText.vue'
 
 const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
 const { bool: contentLoading, setTrue: startContentLoading, setFalse: endContentLoading } = useBoolean(false)

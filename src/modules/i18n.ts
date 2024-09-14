@@ -1,8 +1,8 @@
-import { createI18n } from 'vue-i18n'
 import type { App } from 'vue'
+import { local } from '@/utils'
+import { createI18n } from 'vue-i18n'
 import enUS from '../../locales/en_US.json'
 import zhCN from '../../locales/zh_CN.json'
-import { local } from '@/utils'
 
 const { VITE_DEFAULT_LANG } = import.meta.env
 

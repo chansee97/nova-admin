@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { renderIcon } from '@/utils/icon'
 import { useAuthStore } from '@/store'
-import IconGithub from '~icons/icon-park-outline/github'
-import IconUser from '~icons/icon-park-outline/user'
-import IconLogout from '~icons/icon-park-outline/logout'
+import { renderIcon } from '@/utils/icon'
 import IconBookOpen from '~icons/icon-park-outline/book-open'
+import IconGithub from '~icons/icon-park-outline/github'
+import IconLogout from '~icons/icon-park-outline/logout'
+import IconUser from '~icons/icon-park-outline/user'
 
 const { t } = useI18n()
 

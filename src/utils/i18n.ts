@@ -1,6 +1,6 @@
 import type { NDateLocale, NLocale } from 'naive-ui'
-import { dateZhCN, zhCN } from 'naive-ui'
 import { i18n } from '@/modules/i18n'
+import { dateZhCN, zhCN } from 'naive-ui'
 
 export function setLocale(locale: App.lang) {
   i18n.global.locale.value = locale

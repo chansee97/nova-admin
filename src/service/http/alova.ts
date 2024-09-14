@@ -1,18 +1,18 @@
+import { local } from '@/utils'
 import { createAlova } from 'alova'
-import VueHook, { type VueHookType } from 'alova/vue'
-import adapterFetch from 'alova/fetch'
 import { createServerTokenAuthentication } from 'alova/client'
+import adapterFetch from 'alova/fetch'
+import VueHook, { type VueHookType } from 'alova/vue'
+import {
+  DEFAULT_ALOVA_OPTIONS,
+  DEFAULT_BACKEND_OPTIONS,
+} from './config'
 import {
   handleBusinessError,
   handleRefreshToken,
   handleResponseError,
   handleServiceResult,
 } from './handle'
-import {
-  DEFAULT_ALOVA_OPTIONS,
-  DEFAULT_BACKEND_OPTIONS,
-} from './config'
-import { local } from '@/utils'
 
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<VueHookType>({
   // 服务端判定token过期

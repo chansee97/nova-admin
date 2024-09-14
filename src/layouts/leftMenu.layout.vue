@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useAppStore, useRouteStore } from '@/store'
 import {
   BackTop,
   Breadcrumb,
@@ -12,7 +13,6 @@ import {
   TabBar,
   UserCenter,
 } from './components'
-import { useAppStore, useRouteStore } from '@/store'
 
 const routeStore = useRouteStore()
 const appStore = useAppStore()
