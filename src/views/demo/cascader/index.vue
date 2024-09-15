@@ -33,19 +33,19 @@ function handleValidateClick() {
 
     <div>
       <n-h2>回调value</n-h2>
-      <pre class="bg-#eee">
+      <pre class="bg-#eee:30">
       {{ cbValue }}
     </pre>
     </div>
     <div>
       <n-h2>回调option</n-h2>
-      <pre class="bg-#eee">
+      <pre class="bg-#eee:30">
       {{ cbOption }}
     </pre>
     </div>
     <div>
       <n-h2>回调pathValues</n-h2>
-      <pre class="bg-#eee">
+      <pre class="bg-#eee:30">
       {{ cbPathValues }}
     </pre>
     </div>

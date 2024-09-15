@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { fetchDictList } from '@/service'
-import { dict } from '@/utils/dict'
+import { useDictStore } from '@/store'
+
+const { dict } = useDictStore()
 
 const dictKey = ref('')
 const options = ref()
@@ -88,7 +90,7 @@ const enumLabel = computed(() => {
         </n-button>
       </n-flex>
 
-      <pre class="bg-#eee">
+      <pre class="bg-#eee:30">
           {{ data }}
         </pre>
 

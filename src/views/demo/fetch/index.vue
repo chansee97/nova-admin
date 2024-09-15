@@ -46,7 +46,7 @@ function handleUpdate(data: any) {
         </div>
       </template>
       <template #2>
-        <pre class="bg-#eee">
+        <pre class="bg-#eee:30">
       {{ msg }}
       </pre>
       </template>
