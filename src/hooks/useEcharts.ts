@@ -77,7 +77,7 @@ export function useEcharts(ref: string, chartOptions: Ref<ECOption>) {
 
   const { width, height } = useElementSize(el)
 
-  const isRendered = computed(() => Boolean(el && chart))
+  const isRendered = () => Boolean(el && chart)
 
   async function render() {
     // 宽或高不存在时不渲染
@@ -92,9 +92,10 @@ export function useEcharts(ref: string, chartOptions: Ref<ECOption>) {
     }
   }
 
-  function update(updateOptions: ECOption) {
-    if (isRendered.value)
+  async function update(updateOptions: ECOption) {
+    if (isRendered()) {
       chart!.setOption({ backgroundColor: 'transparent', ...updateOptions })
+    }
   }
 
   function destroy() {
@@ -103,7 +104,7 @@ export function useEcharts(ref: string, chartOptions: Ref<ECOption>) {
   }
 
   watch([width, height], async ([newWidth, newHeight]) => {
-    if (isRendered.value && newWidth && newHeight)
+    if (isRendered() && newWidth && newHeight)
       chart?.resize()
   })
 
