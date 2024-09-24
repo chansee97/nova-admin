@@ -435,4 +435,14 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     id: 43,
     pid: 13,
   },
+  {
+    name: 'draggableList',
+    path: '/list/draggableList',
+    title: '拖拽列表',
+    requiresAuth: true,
+    icon: 'icon-park-outline:menu-fold',
+    componentPath: '/demo/list/draggableList/index.vue',
+    id: 44,
+    pid: 10,
+  },
 ]

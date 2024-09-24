@@ -126,6 +126,7 @@
     "list": "列表页",
     "commonList": "常用列表",
     "cardList": "卡片列表",
+    "draggableList": "拖拽列表",
     "demo": "功能示例",
     "fetch": "请求示例",
     "echarts": "Echarts示例",

@@ -89,6 +89,7 @@
   "route": {
     "appRoot": "Home",
     "cardList": "Card list",
+    "draggableList": "Draggable list",
     "commonList": "Common list",
     "dashboard": "Dashboard",
     "demo": "Function example",
