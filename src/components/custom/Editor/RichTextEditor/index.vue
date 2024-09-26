@@ -21,7 +21,7 @@ onMounted(() => {
   initEditor()
 })
 
-const editorRef = useTemplateRef<HTMLInputElement>('editorRef')
+const editorRef = useTemplateRef<HTMLElement>('editorRef')
 function initEditor() {
   const options = {
     modules: {
