@@ -105,3 +105,14 @@ onBeforeUnmount(() => editorInst = null)
 <template>
   <div ref="editorRef" />
 </template>
+
+<style>
+html.dark .ql-editor,
+html.dark .ql-toolbar .ql-picker,
+html.dark .ql-toolbar .ql-stroke,
+html.dark .ql-toolbar .ql-fill {
+  color: #FFFFFFD1;
+  stroke: #FFFFFFD1;
+  fill: #FFFFFFD1;
+}
+</style>
