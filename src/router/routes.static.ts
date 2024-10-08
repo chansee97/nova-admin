@@ -58,7 +58,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
   {
     name: 'multi2Detail',
     path: '/multi/multi2/detail',
-    title: '多级菜单的详情页',
+    title: '菜单详情页',
     requiresAuth: true,
     icon: 'icon-park-outline:list',
     hide: true,

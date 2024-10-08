@@ -16,10 +16,7 @@ const appStore = useAppStore()
 
 const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
-  router.push(route.path)
-}
-function handleClose(path: string) {
-  tabStore.closeTab(path)
+  router.push(route.fullPath)
 }
 const { t } = useI18n()
 const options = computed(() => {
@@ -71,16 +68,16 @@ function handleSelect(key: string) {
       appStore.reloadPage()
     },
     closeCurrent() {
-      tabStore.closeTab(currentRoute.value.path)
+      tabStore.closeTab(currentRoute.value.fullPath)
     },
     closeOther() {
-      tabStore.closeOtherTabs(currentRoute.value.path)
+      tabStore.closeOtherTabs(currentRoute.value.fullPath)
     },
     closeLeft() {
-      tabStore.closeLeftTabs(currentRoute.value.path)
+      tabStore.closeLeftTabs(currentRoute.value.fullPath)
     },
     closeRight() {
-      tabStore.closeRightTabs(currentRoute.value.path)
+      tabStore.closeRightTabs(currentRoute.value.fullPath)
     },
     closeAll() {
       tabStore.closeAllTabs()
@@ -110,13 +107,13 @@ function onClickoutside() {
       size="small"
       :tabs-padding="10"
       :value="tabStore.currentTabPath"
-      @close="handleClose"
+      @close="tabStore.closeTab"
     >
       <n-tab
         v-for="item in tabStore.pinTabs"
-        :key="item.path"
-        :name="item.path"
-        @click="router.push(item.path)"
+        :key="item.fullPath"
+        :name="item.fullPath"
+        @click="router.push(item.fullPath)"
       >
         <div class="flex-x-center gap-2">
           <nova-icon :icon="item.meta.icon" /> {{ $t(`route.${String(item.name)}`, item.meta.title) }}
@@ -124,9 +121,9 @@ function onClickoutside() {
       </n-tab>
       <n-tab
         v-for="item in tabStore.tabs"
-        :key="item.path"
+        :key="item.fullPath"
         closable
-        :name="item.path"
+        :name="item.fullPath"
         @click="handleTab(item)"
         @contextmenu="handleContextMenu($event, item)"
       >
