@@ -71,6 +71,13 @@ pnpm build
 
 ```
 
+在生產環境也可以使用 docker-compose 部署 **nova-admin**
+```bash
+# Build product
+docker compose -f docker-compose.product.yml up --build -d
+```
+> 關於 nginx.conf 只供參考，你可以根據自己的需求進行調整。
+
 ## 相关项目
 
 - [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (开发中)基于TS, NestJs, typeorm的Nova-Admin配套后台项目

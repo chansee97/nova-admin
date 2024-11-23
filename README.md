@@ -71,6 +71,13 @@ pnpm build
 
 ```
 
+You can deploy **nova-admin** in a production environment using docker-compose.
+```bash
+# Build product
+docker compose -f docker-compose.product.yml up --build -d
+```
+> The nginx.conf provided is for reference only. You can adjust it according to your own needs.
+
 ## Related projects
 
 - [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
