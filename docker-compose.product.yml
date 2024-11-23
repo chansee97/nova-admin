@@ -1,0 +1,8 @@
+services:
+  nove-admin:
+    build:
+      context: .
+      dockerfile: ./docker/dockerfile.product
+    container_name: nove-admin
+    ports:
+      - 80:80
