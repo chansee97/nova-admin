@@ -71,12 +71,12 @@ pnpm build
 
 ```
 
-在生產環境也可以使用 docker-compose 部署 **nova-admin**
+在生产环境也可以使用 docker-compose 部署 **nova-admin**
 ```bash
 # Build product
 docker compose -f docker-compose.product.yml up --build -d
 ```
-> 關於 nginx.conf 只供參考，你可以根據自己的需求進行調整。
+> 关于 nginx.conf 只供参考，你可以根据自己的需求进行调整。
 
 ## 相关项目
 
