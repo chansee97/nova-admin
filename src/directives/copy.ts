@@ -11,12 +11,12 @@ export function install(app: App) {
 
   function clipboardEnable() {
     if (!isSupported.value) {
-      window.$message.error('Your browser does not support Clipboard API')
+      window.$message.error($t('components.copyText.unsupportedError'))
       return false
     }
 
     if (permissionWrite.value !== 'granted') {
-      window.$message.error('Currently not permitted to use Clipboard API')
+      window.$message.error($t('components.copyText.unpermittedError'))
       return false
     }
     return true

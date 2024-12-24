@@ -155,7 +155,9 @@
     },
     "copyText": {
       "message": "Copied successfully",
-      "tooltip": "Copy"
+      "tooltip": "Copy",
+      "unsupportedError": "Your browser does not support Clipboard API",
+      "unpermittedError": "Crrently not permitted to use Clipboard API"
     }
   }
 }
