@@ -7,6 +7,7 @@ export default antfu(
     typescript: {
       overrides: {
         'perfectionist/sort-exports': 'off',
+        'perfectionist/sort-imports': 'off',
         'ts/no-unused-expressions': ['error', { allowShortCircuit: true }],
       },
     },
