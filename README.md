@@ -86,11 +86,11 @@ docker compose -f docker-compose.product.yml up --build -d
 
 Nova-Admin is a completely open-source and free project. It is still being optimized and iterated. It is designed to help developers more conveniently develop medium and large management systems. If you have any questions, please ask questions in the QQ exchange group.
 
-| Q-Group | wechat-Group |wechat |
-| :--: |:--: |:--: |
-| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> | <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/wx-group.png" width=170>|<img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
+| Q-Group | wechat-Group |
+| :--: |:--: |
+| <img src="https://cdn.jsdelivr.net/gh/chansee97/static/nova-admin/q-group.png" width=170> |<img src="https://cdn.jsdelivr.net/gh/chansee97/static/wechat.png" width=170>|
 
-> The WeChat group QR code is invalid, please add me as a friend.
+> Please indicate the purpose of adding WeChat.
 
 ## Contribution
 
