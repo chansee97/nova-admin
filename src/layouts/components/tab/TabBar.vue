@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
+import { useDraggable } from 'vue-draggable-plus'
 import IconClose from '~icons/icon-park-outline/close'
 import IconDelete from '~icons/icon-park-outline/delete-four'
 import IconFullwith from '~icons/icon-park-outline/fullwidth'
@@ -10,6 +11,7 @@ import IconRight from '~icons/icon-park-outline/to-right'
 import ContentFullScreen from './ContentFullScreen.vue'
 import DropTabs from './DropTabs.vue'
 import Reload from './Reload.vue'
+import TabBarItem from './TabBarItem.vue'
 
 const tabStore = useTabStore()
 const appStore = useAppStore()
@@ -98,54 +100,49 @@ function handleContextMenu(e: MouseEvent, route: RouteLocationNormalized) {
 function onClickoutside() {
   showDropdown.value = false
 }
+
+// const [DefineTabItem, ReuseTabItem] = createReusableTemplate<{ route: RouteLocationNormalized }>()
+
+const el = ref()
+
+useDraggable(el, tabStore.tabs, {
+  animation: 150,
+  ghostClass: 'ghost',
+})
 </script>
 
 <template>
-  <div class="wh-full flex items-end">
-    <n-tabs
-      type="card"
-      size="small"
-      :tabs-padding="10"
-      :value="tabStore.currentTabPath"
-      @close="tabStore.closeTab"
-    >
-      <n-tab
-        v-for="item in tabStore.pinTabs"
-        :key="item.fullPath"
-        :name="item.fullPath"
-        @click="router.push(item.fullPath)"
-      >
-        <div class="flex-x-center gap-2">
-          <nova-icon :icon="item.meta.icon" /> {{ $t(`route.${String(item.name)}`, item.meta.title) }}
-        </div>
-      </n-tab>
-      <n-tab
-        v-for="item in tabStore.tabs"
-        :key="item.fullPath"
-        closable
-        :name="item.fullPath"
+  <div class="p-l-2 flex w-full relative">
+    <div class="flex items-end">
+      <TabBarItem
+        v-for="item in tabStore.pinTabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item"
+        @click="handleTab(item)"
+      />
+    </div>
+    <div ref="el" class="flex items-end flex-1">
+      <TabBarItem
+        v-for="item in tabStore.tabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item" closable
+        @close="tabStore.closeTab"
         @click="handleTab(item)"
         @contextmenu="handleContextMenu($event, item)"
-      >
-        <div class="flex-x-center gap-2">
-          <nova-icon :icon="item.meta.icon" /> {{ $t(`route.${String(item.name)}`, item.meta.title) }}
-        </div>
-      </n-tab>
-      <template #suffix>
-        <Reload />
-        <ContentFullScreen />
-        <DropTabs />
-      </template>
-    </n-tabs>
-    <n-dropdown
-      placement="bottom-start"
-      trigger="manual"
-      :x="x"
-      :y="y"
-      :options="options"
-      :show="showDropdown"
-      :on-clickoutside="onClickoutside"
-      @select="handleSelect"
-    />
+      />
+      <n-dropdown
+        placement="bottom-start" trigger="manual" :x="x" :y="y" :options="options" :show="showDropdown"
+        :on-clickoutside="onClickoutside" @select="handleSelect"
+      />
+    </div>
+    <!-- <span class="m-l-auto" /> -->
+    <n-el class="absolute right-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
+      <Reload />
+      <ContentFullScreen />
+      <DropTabs />
+    </n-el>
   </div>
 </template>
+
+<style scoped>
+.ghost {
+  opacity: 0.5;
+  background: #c4f6d5;
+}
+</style>
