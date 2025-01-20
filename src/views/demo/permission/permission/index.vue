@@ -4,7 +4,7 @@ import { useAuthStore } from '@/store'
 
 const authStore = useAuthStore()
 const { hasPermission } = usePermission()
-const { role } = authStore.userInfo!
+const { role } = authStore.userInfo
 
 const roleList: Entity.RoleType[] = ['super', 'admin', 'user']
 
@@ -23,7 +23,7 @@ function toggleUserRole(role: Entity.RoleType) {
     </n-button-group>
     <n-h2>v-permission 指令用法</n-h2>
     <n-space>
-      <n-button v-permission="'super'">
+      <n-button v-permission="['super']">
         仅super可见
       </n-button>
       <n-button v-permission="['admin']">
@@ -33,10 +33,10 @@ function toggleUserRole(role: Entity.RoleType) {
 
     <n-h2>usePermission 函数用法</n-h2>
     <n-space>
-      <n-button v-if="hasPermission('super')">
+      <n-button v-if="hasPermission(['super'])">
         super可见
       </n-button>
-      <n-button v-if="hasPermission('admin')">
+      <n-button v-if="hasPermission(['admin'])">
         admin可见
       </n-button>
       <n-button v-if="hasPermission(['admin', 'user'])">
@@ -45,5 +45,3 @@ function toggleUserRole(role: Entity.RoleType) {
     </n-space>
   </n-card>
 </template>
-
-<style scoped></style>
