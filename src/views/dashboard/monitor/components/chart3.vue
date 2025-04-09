@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type ECOption, useEcharts } from '@/hooks'
+import { useEcharts } from '@/hooks'
+import type { ECOption } from '@/hooks'
 
 const option = ref<ECOption>({
   tooltip: {
@@ -47,8 +48,7 @@ const option = ref<ECOption>({
         name: '小红书',
       },
     ],
-  },
-  ],
+  }],
 }) as Ref<ECOption>
 useEcharts('lineRef', option)
 </script>

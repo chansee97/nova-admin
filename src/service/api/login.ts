@@ -21,5 +21,5 @@ export function fetchUpdateToken(data: any) {
 }
 
 export function fetchUserRoutes(params: { id: number }) {
-  return request.Get<Service.ResponseResult<AppRoute.RowRoute[]> >('/getUserRoutes', { params })
+  return request.Get<Service.ResponseResult<AppRoute.RowRoute[]>>('/getUserRoutes', { params })
 }

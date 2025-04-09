@@ -14,6 +14,7 @@ import Reload from './Reload.vue'
 import TabBarItem from './TabBarItem.vue'
 
 const tabStore = useTabStore()
+const { tabs } = storeToRefs(useTabStore())
 const appStore = useAppStore()
 
 const router = useRouter()
@@ -101,11 +102,9 @@ function onClickoutside() {
   showDropdown.value = false
 }
 
-// const [DefineTabItem, ReuseTabItem] = createReusableTemplate<{ route: RouteLocationNormalized }>()
-
 const el = ref()
 
-useDraggable(el, tabStore.tabs, {
+useDraggable(el, tabs, {
   animation: 150,
   ghostClass: 'ghost',
 })

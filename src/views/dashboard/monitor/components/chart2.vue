@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type ECOption, useEcharts } from '@/hooks'
+import { useEcharts } from '@/hooks'
+import type { ECOption } from '@/hooks'
 import { graphic } from 'echarts'
 
 const chartData = [

@@ -28,6 +28,12 @@ declare namespace NaiveUI {
   type ThemeColor = 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
 }
 
+// 修复naive-ui的TabPane组件的slots类型 https://github.com/tusen-ai/naive-ui/issues/6779 ,但是直接这样会导致更多类型报错，也无法查看naive-ui的源码
+// declare module 'naive-ui' {
+//   interface TabPaneSlots {
+//     tab?: () => VNode[]
+//   }
+// }
 declare namespace Storage {
   interface Session {
     dict: DictMap
