@@ -24,7 +24,7 @@
 
 ## Features
 
-- Developed based on the latest technology stack including Vue3, Vite5, TypeScript, NaiveUI, Unocss, etc.
+- Developed based on the latest technology stack including Vue3, Vite6, TypeScript, NaiveUI, Unocss, etc.
 - Based on [alova](https://alova.js.org/) encapsulation and configuration, providing unified response handling and multi-scenario capabilities.
 - Comprehensive front-end and back-end permission management solution.
 - Supports local static routes and dynamically generated routes from the back end, with easy route configuration.
@@ -55,7 +55,7 @@ This project uses ApiFox for interface mock, check the online documentation for 
 
 ## Install and use
 
-The local development environment is recommended to use pnpm 8.x, Node.js must be version 20.x.
+The local development environment is recommended to use pnpm 10.x, Node.js version 21.x.
 
 It is recommended to directly download the compressed package from [Releases](https://github.com/chansee97/nova-admin/releases)
 

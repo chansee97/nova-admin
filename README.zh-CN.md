@@ -24,7 +24,7 @@
 
 ## 特性
 
-- 基于Vue3、Vite5、TypeScript、NaiveUI、Unocss等最新技术栈开发
+- 基于Vue3、Vite6、TypeScript、NaiveUI、Unocss等最新技术栈开发
 - 基于[alova](https://alova.js.org/)封装和配置，提供统一的响应处理和多场景能力
 - 完善的前后端权限管理方案
 - 支持本地静态路由和后台返回动态路由，路由简单易配置
@@ -55,7 +55,7 @@
 
 ## 安装使用
 
-本地开发环境建议使用 pnpm 8.x 、Node.js 必须 20.x
+本地开发环境建议使用 pnpm 10.x 、Node.js 21.x
 
 推荐直接下载[Releases](https://github.com/chansee97/nova-admin/releases)压缩包
 
