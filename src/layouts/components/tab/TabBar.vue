@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
+import { useTabScroll } from '@/hooks/useTabScroll'
 import { useDraggable } from 'vue-draggable-plus'
 import IconClose from '~icons/icon-park-outline/close'
 import IconDelete from '~icons/icon-park-outline/delete-four'
@@ -16,6 +17,8 @@ import TabBarItem from './TabBarItem.vue'
 const tabStore = useTabStore()
 const { tabs } = storeToRefs(useTabStore())
 const appStore = useAppStore()
+
+const {scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
 
 const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
@@ -111,32 +114,38 @@ useDraggable(el, tabs, {
 </script>
 
 <template>
-  <div class="p-l-2 flex w-full relative">
-    <div class="flex items-end">
-      <TabBarItem
-        v-for="item in tabStore.pinTabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item"
-        @click="handleTab(item)"
-      />
+  <n-scrollbar ref="scrollbar" class="relative flex tab-bar-scroller-wrapper" content-class="pr-34 tab-bar-scroller-content" :x-scrollable="true" @wheel="onWheel">
+    <div class="p-l-2 flex w-full relative">
+      <div class="flex items-end">
+        <TabBarItem
+          v-for="item in tabStore.pinTabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item"
+          @click="handleTab(item)"
+        />
+      </div>
+      <div ref="el" class="flex items-end flex-1">
+        <TabBarItem
+          v-for="item in tabStore.tabs"
+          :key="item.fullPath"
+          :value="tabStore.currentTabPath"
+          :route="item"
+          closable
+          :data-tab-path="item.fullPath"
+          @close="tabStore.closeTab"
+          @click="handleTab(item)"
+          @contextmenu="handleContextMenu($event, item)"
+        />
+        <n-dropdown
+          placement="bottom-start" trigger="manual" :x="x" :y="y" :options="options" :show="showDropdown"
+          :on-clickoutside="onClickoutside" @select="handleSelect"
+        />
+      </div>
     </div>
-    <div ref="el" class="flex items-end flex-1">
-      <TabBarItem
-        v-for="item in tabStore.tabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item" closable
-        @close="tabStore.closeTab"
-        @click="handleTab(item)"
-        @contextmenu="handleContextMenu($event, item)"
-      />
-      <n-dropdown
-        placement="bottom-start" trigger="manual" :x="x" :y="y" :options="options" :show="showDropdown"
-        :on-clickoutside="onClickoutside" @select="handleSelect"
-      />
-    </div>
-    <!-- <span class="m-l-auto" /> -->
-    <n-el class="absolute right-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
+    <n-el class="absolute right-0 top-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
       <Reload />
       <ContentFullScreen />
       <DropTabs />
     </n-el>
-  </div>
+  </n-scrollbar>
 </template>
 
 <style scoped>
