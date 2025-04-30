@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { NScrollbar } from 'naive-ui'
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
+import { useTabScroll } from '@/hooks/useTabScroll'
 import { useDraggable } from 'vue-draggable-plus'
 import IconClose from '~icons/icon-park-outline/close'
 import IconDelete from '~icons/icon-park-outline/delete-four'
@@ -14,11 +14,11 @@ import DropTabs from './DropTabs.vue'
 import Reload from './Reload.vue'
 import TabBarItem from './TabBarItem.vue'
 
-import { useTabScroll } from '@/hooks/useTabScroll'
-
 const tabStore = useTabStore()
 const { tabs } = storeToRefs(useTabStore())
 const appStore = useAppStore()
+
+const {scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
 
 const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
@@ -106,7 +106,6 @@ function onClickoutside() {
 }
 
 const el = ref()
-const {scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
 
 useDraggable(el, tabs, {
   animation: 150,
@@ -140,7 +139,6 @@ useDraggable(el, tabs, {
           :on-clickoutside="onClickoutside" @select="handleSelect"
         />
       </div>
-      <!-- <span class="m-l-auto" /> -->
     </div>
     <n-el class="absolute right-0 top-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
       <Reload />
