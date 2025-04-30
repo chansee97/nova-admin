@@ -25,9 +25,6 @@ export function useTabScroll(currentTabPath: Ref<string>) {
         const wrapperWidth = tabBarScrollWrapper.getBoundingClientRect().width
         const tabWidth = currentTabElement.getBoundingClientRect().width
         const containerPR = Number.parseFloat(window.getComputedStyle(tabBarScrollContent).paddingRight)
-        
-        console.log(tabLeft, tabBarLeft, wrapperWidth, tabWidth, containerPR,tabLeft + tabWidth + safeArea.value + containerPR > wrapperWidth + tabBarLeft,tabLeft - safeArea.value < tabBarLeft);
-        
 
         if (tabLeft + tabWidth + safeArea.value + containerPR > wrapperWidth + tabBarLeft) {
           handleTabSwitch(tabLeft + tabWidth + containerPR - wrapperWidth + safeArea.value)
