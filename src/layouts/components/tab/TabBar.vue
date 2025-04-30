@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import type { NScrollbar } from 'naive-ui'
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
 import { useDraggable } from 'vue-draggable-plus'
-import type { NScrollbar } from 'naive-ui'
 import IconClose from '~icons/icon-park-outline/close'
 import IconDelete from '~icons/icon-park-outline/delete-four'
 import IconFullwith from '~icons/icon-park-outline/fullwidth'
@@ -106,10 +106,17 @@ function onClickoutside() {
 const el = ref()
 const scrollbar = ref<InstanceType<typeof NScrollbar>>()
 
+/**
+ * [todo)
+ * radash 给滚动加上防抖
+ * 遮盖右侧操作区问题 may fixed it  √
+ *  添加 类名 基于宽度(对上面的区域) √
+ * 隐藏滚动条(添加到设置中)
+ * 定位当前tab 始终显示
+ */
 function onWheel(e: WheelEvent) {
   e.preventDefault()
   if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-    e.preventDefault()
     console.log('dddwdadad', e.deltaY)
     scrollbar.value?.scrollBy({
       left: e.deltaY,
@@ -124,7 +131,7 @@ useDraggable(el, tabs, {
 </script>
 
 <template>
-  <n-scrollbar ref="scrollbar" :x-scrollable="true" @wheel="onWheel">
+  <n-scrollbar ref="scrollbar" class="relative flex" content-class="pr-34" :x-scrollable="true" @wheel="onWheel">
     <div class="p-l-2 flex w-full relative">
       <div class="flex items-end">
         <TabBarItem
@@ -145,12 +152,12 @@ useDraggable(el, tabs, {
         />
       </div>
       <!-- <span class="m-l-auto" /> -->
-      <n-el class="absolute right-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
-        <Reload />
-        <ContentFullScreen />
-        <DropTabs />
-      </n-el>
     </div>
+    <n-el class="absolute right-0 top-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
+      <Reload />
+      <ContentFullScreen />
+      <DropTabs />
+    </n-el>
   </n-scrollbar>
 </template>
 
