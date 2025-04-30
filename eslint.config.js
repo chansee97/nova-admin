@@ -18,8 +18,5 @@ export default antfu(
         'vue/component-definition-name-casing': 'off',
       },
     },
-    rules: {
-      'no-console': 'off',
-    },
   },
 )
