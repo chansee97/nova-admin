@@ -13,7 +13,8 @@ import ContentFullScreen from './ContentFullScreen.vue'
 import DropTabs from './DropTabs.vue'
 import Reload from './Reload.vue'
 import TabBarItem from './TabBarItem.vue'
-import { throttle } from 'radash'
+
+import { useTabScroll } from '@/hooks/useTabScroll'
 
 const tabStore = useTabStore()
 const { tabs } = storeToRefs(useTabStore())
@@ -105,65 +106,7 @@ function onClickoutside() {
 }
 
 const el = ref()
-const scrollbar = ref<InstanceType<typeof NScrollbar>>()
-
-// 新增：滚动到当前tab的方法
-function scrollToCurrentTab() {
-  nextTick(() => {
-    const currentTabElement = document.querySelector(`[data-tab-path="${tabStore.currentTabPath}"]`) as HTMLElement
-    const tabBarScrollWrapper = document.querySelector('.tab-bar-scroller-wrapper .n-scrollbar-container')
-    const tabBarScrollContent = document.querySelector('.tab-bar-scroller-content')
-    if (currentTabElement && tabBarScrollContent && tabBarScrollWrapper) {
-      const tabLeft = currentTabElement.offsetLeft
-      const wrapper = tabBarScrollWrapper.getBoundingClientRect().width
-      const tabWidth = currentTabElement.getBoundingClientRect().width
-      const containerPR = Number.parseFloat(
-        window.getComputedStyle(tabBarScrollContent)
-          .getPropertyValue('padding-right'),
-      ) || 0
-      if (tabLeft + tabWidth + 160 + containerPR > wrapper + tabBarScrollWrapper.scrollLeft) {
-        scrollbar.value?.scrollTo({
-          left: tabLeft + tabWidth + containerPR - wrapper + 160,
-          behavior: 'smooth',
-        })
-      }
-      else if (tabLeft - 100 < tabBarScrollWrapper.scrollLeft) {
-        scrollbar.value?.scrollTo({
-          left: tabLeft - 160,
-          behavior: 'smooth',
-        })
-      }
-    }
-  })
-}
-
-// 监听当前tab变化
-watchEffect(() => {
-  if (tabStore.currentTabPath) {
-    scrollToCurrentTab()
-  }
-})
-
-/**
- * [todo)
- * radash 给滚动加上防抖 √
- * 遮盖右侧操作区问题 may fixed it  √
- *  添加 类名 基于宽度(对上面的区域) √
- * 定位当前tab 始终显示 √
- */
-const handleScroll = throttle({ interval: 120 }, (setp) => {
-  scrollbar.value?.scrollBy({
-    left: setp * 400,
-    behavior: 'smooth',
-  })
-})
-
-function onWheel(e: WheelEvent) {
-  e.preventDefault()
-  if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-    handleScroll(e.deltaY > 0 ? 1 : -1)
-  }
-}
+const {scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
 
 useDraggable(el, tabs, {
   animation: 150,
