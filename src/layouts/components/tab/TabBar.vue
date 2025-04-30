@@ -18,7 +18,7 @@ const tabStore = useTabStore()
 const { tabs } = storeToRefs(useTabStore())
 const appStore = useAppStore()
 
-const {scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
+const { scrollbar, onWheel } = useTabScroll(computed(() => tabStore.currentTabPath))
 
 const router = useRouter()
 function handleTab(route: RouteLocationNormalized) {
@@ -114,8 +114,8 @@ useDraggable(el, tabs, {
 </script>
 
 <template>
-  <n-scrollbar ref="scrollbar" class="relative flex tab-bar-scroller-wrapper" content-class="pr-34 tab-bar-scroller-content" :x-scrollable="true" @wheel="onWheel">
-    <div class="p-l-2 flex w-full relative">
+  <n-scrollbar ref="scrollbar" class="relative flex h-full tab-bar-scroller-wrapper" content-class="pr-34 tab-bar-scroller-content" :x-scrollable="true" @wheel="onWheel">
+    <div class="p-l-2 flex wh-full relative">
       <div class="flex items-end">
         <TabBarItem
           v-for="item in tabStore.pinTabs" :key="item.fullPath" :value="tabStore.currentTabPath" :route="item"
@@ -140,7 +140,7 @@ useDraggable(el, tabs, {
         />
       </div>
     </div>
-    <n-el class="absolute right-0 top-0 flex items-center gap-1 bg-[var(--base-color)] h-full">
+    <n-el class="absolute right-0 top-0 flex items-center gap-1 bg-[var(--card-color)] h-full">
       <Reload />
       <ContentFullScreen />
       <DropTabs />
