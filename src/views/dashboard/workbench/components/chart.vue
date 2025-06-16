@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEcharts } from '@/hooks'
 import type { ECOption } from '@/hooks'
+
 // 折线图
 const lineOptions = ref<ECOption>({
   tooltip: {

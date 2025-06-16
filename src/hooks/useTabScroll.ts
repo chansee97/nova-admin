@@ -1,5 +1,5 @@
 import type { NScrollbar } from 'naive-ui'
-import { ref, watchEffect, type Ref } from 'vue'
+import { ref, type Ref, watchEffect } from 'vue'
 import { throttle } from 'radash'
 
 export function useTabScroll(currentTabPath: Ref<string>) {
@@ -9,7 +9,7 @@ export function useTabScroll(currentTabPath: Ref<string>) {
   const handleTabSwitch = (distance: number) => {
     scrollbar.value?.scrollTo({
       left: distance,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   }
 
@@ -18,7 +18,7 @@ export function useTabScroll(currentTabPath: Ref<string>) {
       const currentTabElement = document.querySelector(`[data-tab-path="${currentTabPath.value}"]`) as HTMLElement
       const tabBarScrollWrapper = document.querySelector('.tab-bar-scroller-wrapper .n-scrollbar-container')
       const tabBarScrollContent = document.querySelector('.tab-bar-scroller-content')
-      
+
       if (currentTabElement && tabBarScrollContent && tabBarScrollWrapper) {
         const tabLeft = currentTabElement.offsetLeft
         const tabBarLeft = tabBarScrollWrapper.scrollLeft
@@ -28,7 +28,8 @@ export function useTabScroll(currentTabPath: Ref<string>) {
 
         if (tabLeft + tabWidth + safeArea.value + containerPR > wrapperWidth + tabBarLeft) {
           handleTabSwitch(tabLeft + tabWidth + containerPR - wrapperWidth + safeArea.value)
-        } else if (tabLeft - safeArea.value < tabBarLeft) {
+        }
+        else if (tabLeft - safeArea.value < tabBarLeft) {
           handleTabSwitch(tabLeft - safeArea.value)
         }
       }
@@ -38,7 +39,7 @@ export function useTabScroll(currentTabPath: Ref<string>) {
   const handleScroll = throttle({ interval: 120 }, (step: number) => {
     scrollbar.value?.scrollBy({
       left: step * 400,
-      behavior: 'smooth'
+      behavior: 'smooth',
     })
   })
 
@@ -59,6 +60,6 @@ export function useTabScroll(currentTabPath: Ref<string>) {
     scrollbar,
     onWheel,
     safeArea,
-    handleTabSwitch
+    handleTabSwitch,
   }
 }

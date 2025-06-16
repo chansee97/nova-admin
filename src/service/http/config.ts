@@ -1,4 +1,5 @@
 import { $t } from '@/utils'
+
 /** 默认实例的Aixos配置 */
 export const DEFAULT_ALOVA_OPTIONS = {
   // 请求超时时间,默认15秒

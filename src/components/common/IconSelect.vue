@@ -95,17 +95,22 @@ function handleSelectIconTag(icon: string) {
 
 // 包含当前分类或所有图标列表
 const icons = computed(() => {
+  if (!iconList.value[currentTab.value])
+    return []
   const hasTag = !!currentTag.value
-  if (hasTag)
-    return iconList.value[currentTab.value]?.categories[currentTag.value]
-  else
-    return iconList.value[currentTab.value].icons
+  return hasTag
+    ? iconList.value[currentTab.value]?.categories[currentTag.value] || []
+    : iconList.value[currentTab.value].icons || []
 })
 
 // 符合搜索条件的图标列表
+const filteredIcons = computed(() => {
+  return icons.value?.filter(i => i.includes(searchValue.value)) || []
+})
+
+// 当前页显示的图标
 const visibleIcons = computed(() => {
-  return icons.value?.filter(i => i
-    .includes(searchValue.value))?.slice((currentPage.value - 1) * 200, (currentPage.value) * 200)
+  return filteredIcons.value.slice((currentPage.value - 1) * 200, currentPage.value * 200)
 })
 
 const showModal = ref(false)
@@ -191,7 +196,7 @@ function clearIcon() {
           <n-flex justify="center">
             <n-pagination
               v-model:page="currentPage"
-              :item-count="icons?.length"
+              :item-count="filteredIcons.length"
               :page-size="200"
             />
           </n-flex>

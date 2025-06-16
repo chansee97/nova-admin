@@ -3,14 +3,15 @@ import {
   downloadFile,
 } from '@/service'
 import { useRequest } from 'alova/client'
+import { normalizeSizeUnits } from '@/utils'
 
 const emit = defineEmits<{
   update: [data: any]
 }>()
 
-const filePath = ref('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
+const fileURL = ref('https://images.unsplash.com/photo-1663529628961-80aa6ebcd157?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80')
 
-const { downloading, abort, send, data } = useRequest(downloadFile(filePath.value), {
+const { loading, downloading, abort, send, data } = useRequest(() => downloadFile(fileURL.value), {
   // 当immediate为false时，默认不发出
   immediate: false,
 })
@@ -24,7 +25,10 @@ const downloadProcess = computed(() => {
 async function handleDownloadFile() {
   await send()
   emit('update', 'fileOk')
-  downloadLink(data.value, 'fileOk')
+  const urlObj = new URL(fileURL.value)
+  const pathname = urlObj.pathname
+  const name = pathname.split('/')[1]
+  downloadLink(data.value, name)
 }
 
 function downloadLink(data: Blob, name: string) {
@@ -42,10 +46,10 @@ function downloadLink(data: Blob, name: string) {
 <template>
   <n-card title="带进度的下载文件" size="small">
     <n-space vertical>
-      <n-input v-model:value="filePath" />
-      <div>文件大小：{{ downloading.total }}B</div>
-      <div>已下载：{{ downloading.loaded }}B</div>
-      <n-progress type="line" indicator-placement="inside" :percentage="downloadProcess" />
+      <n-input v-model:value="fileURL" />
+      <div>文件大小：{{ normalizeSizeUnits(downloading.total) }}</div>
+      <div>已下载：{{ normalizeSizeUnits(downloading.loaded) }}</div>
+      <n-progress type="line" indicator-placement="inside" :processing="loading" :percentage="downloadProcess" />
       <n-space>
         <n-button strong secondary @click="handleDownloadFile">
           开始下载
