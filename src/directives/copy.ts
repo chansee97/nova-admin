@@ -15,7 +15,7 @@ export function install(app: App) {
       return false
     }
 
-    if (permissionWrite.value !== 'granted') {
+    if (permissionWrite.value === 'denied') {
       window.$message.error($t('components.copyText.unpermittedError'))
       return false
     }
