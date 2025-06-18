@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { mapEntries } from 'radash'
-
 interface Props {
   disabled?: boolean
 }
@@ -14,12 +12,13 @@ interface IconList {
   icons: string[]
   title: string
   total: number
-  categories: Record<string, string[]>
+  categories?: Record<string, string[]>
+  uncategorized?: string[]
 }
 const value = defineModel('value', { type: String })
 
-// 包含的图标库系列名
-const nameList = ['icon-park-outline', 'carbon']
+// 包含的图标库系列名，更多：https://icon-sets.iconify.design/
+const nameList = ['icon-park-outline', 'carbon', 'ant-design']
 
 // 获取单个图标库数据
 async function fetchIconList(name: string): Promise<IconList> {
@@ -28,47 +27,39 @@ async function fetchIconList(name: string): Promise<IconList> {
 
 // 获取所有图标库数据
 async function fetchIconAllList(nameList: string[]) {
-  const namePromises = nameList.map(name => fetchIconList(name))
-  const targets = await Promise.all(namePromises)
+  // 并行请求所有图标列表
+  const targets = await Promise.all(nameList.map(fetchIconList))
 
-  return targets.map((i) => {
-    i.icons = Object.entries(i.categories).reduce((prev, next) => {
-      const [_key, value] = next
-      return prev.concat(value)
-    }, [] as string[])
-    return i
-  })
-}
-// 获取svg文件名
-function getSvgName(path: string) {
-  const regex = /\/([^/]+)\.svg$/
-  const match = path.match(regex)
-  if (match) {
-    const fileName = match[1]
-    return fileName
-  }
-  return path
-}
-
-// 获取所有本地图标
-function generateLocalIconList() {
-  const localSvgList = import.meta.glob('@/assets/svg-icons/*.svg', {
-    query: '?raw',
-    import: 'default',
-    eager: true,
+  // 处理每个返回的图标数据
+  const iconList = targets.map((item) => {
+    const icons = [
+      ...(item.categories ? Object.values(item.categories).flat() : []),
+      ...(item.uncategorized ? Object.values(item.uncategorized).flat() : []),
+    ]
+    return { ...item, icons }
   })
 
-  return mapEntries(localSvgList, (key, value) => {
-    return [getSvgName(key), value]
+  // 处理本地图标
+  const svgNames = Object.keys(import.meta.glob('@/assets/svg-icons/*.svg')).map(
+    path => path.split('/').pop()?.replace('.svg', ''),
+  ).filter(Boolean) as string[] // 过滤掉 undefined 并断言为 string[]
+
+  // 在数组开头添加
+  iconList.unshift({
+    prefix: 'local',
+    title: 'Local Icons',
+    icons: svgNames,
+    total: svgNames.length,
+    uncategorized: svgNames,
   })
+
+  return iconList
 }
 
 const iconList = shallowRef<IconList[]>([])
-const LocalIconList = shallowRef({})
 
 onMounted(async () => {
   iconList.value = await fetchIconAllList(nameList)
-  LocalIconList.value = generateLocalIconList()
 })
 
 // 当前tab
@@ -76,16 +67,18 @@ const currentTab = shallowRef(0)
 // 当前tag
 const currentTag = shallowRef('')
 
-// 切换tab
-function handleChangeTab(index: number) {
-  currentTab.value = index
-  currentTag.value = ''
-}
 // 搜索图标输入框值
 const searchValue = ref('')
 
 // 当前页数
 const currentPage = shallowRef(1)
+
+// 切换tab
+function handleChangeTab(index: number) {
+  currentTab.value = index
+  currentTag.value = ''
+  currentPage.value = 1
+}
 
 // 选择分类tag
 function handleSelectIconTag(icon: string) {
@@ -99,7 +92,7 @@ const icons = computed(() => {
     return []
   const hasTag = !!currentTag.value
   return hasTag
-    ? iconList.value[currentTab.value]?.categories[currentTag.value] || []
+    ? iconList.value[currentTab.value]?.categories?.[currentTag.value] || [] // 使用可选链
     : iconList.value[currentTab.value].icons || []
 })
 
@@ -150,18 +143,6 @@ function clearIcon() {
     </template>
 
     <n-tabs :value="currentTab" type="line" animated placement="left" @update:value="handleChangeTab">
-      <n-tab-pane name="local" tab="local">
-        <n-flex :size="2">
-          <n-el
-            v-for="(_icon, key) in LocalIconList" :key="key"
-            class="hover:(text-[var(--primary-color)] ring-1) ring-[var(--primary-color)] p-1 rounded flex-center"
-            :title="`local:${key}`"
-            @click="handleSelectIcon(`local:${key}`)"
-          >
-            <nova-icon :icon="`local:${key}`" :size="24" />
-          </n-el>
-        </n-flex>
-      </n-tab-pane>
       <n-tab-pane v-for="(list, index) in iconList" :key="list.prefix" :name="index" :tab="list.title">
         <n-flex vertical>
           <n-flex size="small">
