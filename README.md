@@ -80,7 +80,7 @@ docker compose -f docker-compose.product.yml up --build -d
 
 ## Related projects
 
-- [Nova-admin-nest](https://github.com/chansee97/nove-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
+- [Nova-admin-nest](https://github.com/chansee97/nova-admin-nest) (under development) Nova-Admin supporting background project based on TS, NestJs, typeorm
 
 ## Learn to communicate
 
