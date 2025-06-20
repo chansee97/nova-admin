@@ -9,6 +9,7 @@ const { t } = useI18n()
 function renderDropTabsLabel(option: any) {
   return t(`route.${String(option.name)}`, option.meta.title)
 }
+
 function renderDropTabsIcon(option: any) {
   return renderIcon(option.meta.icon)!()
 }
@@ -26,6 +27,7 @@ function handleDropTabs(key: string, option: any) {
     :render-icon="renderDropTabsIcon"
     trigger="click"
     size="small"
+    key-field="fullPath"
     @select="handleDropTabs"
   >
     <CommonWrapper>
