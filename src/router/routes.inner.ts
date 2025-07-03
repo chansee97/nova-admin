@@ -19,6 +19,16 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/public',
+    name: 'publicAccess',
+    component: () => import('@/views/demo/publicAccess/index.vue'),
+    meta: {
+      title: '公共访问示例',
+      requiresAuth: false,
+      withoutTab: true,
+    },
+  },
+  {
     path: '/403',
     name: '403',
     component: () => import('@/views/error/403/index.vue'),
