@@ -13,22 +13,30 @@ export function setupRouterGuard(router: Router) {
     // 判断是否是外链，如果是直接打开网页并拦截跳转
     if (to.meta.href) {
       window.open(to.meta.href)
-      return false
+      next(false) // 取消当前导航
+      return
     }
     // 开始 loadingBar
     appStore.showProgress && window.$loadingBar?.start()
 
     // 判断有无TOKEN,登录鉴权
     const isLogin = Boolean(local.get('accessToken'))
-    if (!isLogin) {
-      if (to.name === 'login')
-        next()
 
-      if (to.name !== 'login') {
-        const redirect = to.name === '404' ? undefined : to.fullPath
-        next({ path: '/login', query: { redirect } })
-      }
-      return false
+    // 如果是login路由，直接放行
+    if (to.name === 'login') {
+      // login页面不需要任何认证检查，直接放行
+      // 继续执行后面的逻辑
+    }
+    // 如果路由明确设置了requiresAuth为false，直接放行
+    else if (to.meta.requiresAuth === false) {
+      // 明确设置为false的路由直接放行
+      // 继续执行后面的逻辑
+    }
+    // 如果路由设置了requiresAuth为true，且用户未登录，重定向到登录页
+    else if (to.meta.requiresAuth === true && !isLogin) {
+      const redirect = to.name === '404' ? undefined : to.fullPath
+      next({ path: '/login', query: { redirect } })
+      return
     }
 
     // 判断路由有无进行初始化
@@ -43,14 +51,14 @@ export function setupRouterGuard(router: Router) {
           query: to.query,
           hash: to.hash,
         })
-        return false
+        return
       }
     }
 
-    // 判断当前页是否在login,则定位去首页
-    if (to.name === 'login') {
+    // 如果用户已登录且访问login页面，重定向到首页
+    if (to.name === 'login' && isLogin) {
       next({ path: '/' })
-      return false
+      return
     }
 
     next()
