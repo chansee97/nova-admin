@@ -27,6 +27,7 @@ stats.html
 
 components.d.ts
 auto-imports.d.ts
+auto-proxy.d.ts
 
 # Lock files
 *-lock.yaml
