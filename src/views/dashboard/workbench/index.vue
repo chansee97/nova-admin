@@ -9,94 +9,102 @@ const { userInfo } = useAuthStore()
   <n-grid
     :x-gap="16"
     :y-gap="16"
+    :cols="3"
+    item-responsive
+    responsive="screen"
   >
-    <n-gi :span="16">
+    <!-- 左侧主要内容区 - 移动端全宽，桌面端2/3宽 -->
+    <n-gi span="3 m:2">
       <n-space
         vertical
         :size="16"
       >
+        <!-- 图表区域 -->
         <n-card style="--n-padding-left: 0;">
           <Chart />
         </n-card>
-        <n-card>
-          <n-grid
-            :x-gap="8"
-            :y-gap="8"
-          >
-            <n-gi :span="6">
-              <n-card>
-                <n-thing>
-                  <template #avatar>
-                    <n-el>
-                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <nova-icon :size="26" icon="icon-park-outline:user" />
-                      </n-icon-wrapper>
-                    </n-el>
-                  </template>
-                  <template #header>
-                    <n-statistic label="活跃用户">
-                      <n-number-animation show-separator :from="0" :to="12039" />
-                    </n-statistic>
-                  </template>
-                </n-thing>
-              </n-card>
-            </n-gi>
-            <n-gi :span="6">
-              <n-card>
-                <n-thing>
-                  <template #avatar>
-                    <n-el>
-                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <nova-icon :size="26" icon="icon-park-outline:every-user" />
-                      </n-icon-wrapper>
-                    </n-el>
-                  </template>
-                  <template #header>
-                    <n-statistic label="用户">
-                      <n-number-animation show-separator :from="0" :to="44039" />
-                    </n-statistic>
-                  </template>
-                </n-thing>
-              </n-card>
-            </n-gi>
-            <n-gi :span="6">
-              <n-card>
-                <n-thing>
-                  <template #avatar>
-                    <n-el>
-                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <nova-icon :size="26" icon="icon-park-outline:preview-open" />
-                      </n-icon-wrapper>
-                    </n-el>
-                  </template>
-                  <template #header>
-                    <n-statistic label="浏览量">
-                      <n-number-animation show-separator :from="0" :to="551039" />
-                    </n-statistic>
-                  </template>
-                </n-thing>
-              </n-card>
-            </n-gi>
-            <n-gi :span="6">
-              <n-card>
-                <n-thing>
-                  <template #avatar>
-                    <n-el>
-                      <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
-                        <nova-icon :size="26" icon="icon-park-outline:star" />
-                      </n-icon-wrapper>
-                    </n-el>
-                  </template>
-                  <template #header>
-                    <n-statistic label="收藏数">
-                      <n-number-animation show-separator :from="0" :to="7739" />
-                    </n-statistic>
-                  </template>
-                </n-thing>
-              </n-card>
-            </n-gi>
-          </n-grid>
-        </n-card>
+
+        <!-- 统计卡片区域 -->
+        <n-grid
+          :x-gap="16"
+          :y-gap="16"
+          :cols="4"
+          item-responsive
+          responsive="screen"
+        >
+          <n-gi span="2 l:1">
+            <n-card>
+              <n-thing>
+                <template #avatar>
+                  <n-el>
+                    <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                      <nova-icon :size="26" icon="icon-park-outline:user" />
+                    </n-icon-wrapper>
+                  </n-el>
+                </template>
+                <template #header>
+                  <n-statistic label="活跃用户">
+                    <n-number-animation show-separator :from="0" :to="12039" />
+                  </n-statistic>
+                </template>
+              </n-thing>
+            </n-card>
+          </n-gi>
+          <n-gi span="2 l:1">
+            <n-card>
+              <n-thing>
+                <template #avatar>
+                  <n-el>
+                    <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                      <nova-icon :size="26" icon="icon-park-outline:every-user" />
+                    </n-icon-wrapper>
+                  </n-el>
+                </template>
+                <template #header>
+                  <n-statistic label="用户">
+                    <n-number-animation show-separator :from="0" :to="44039" />
+                  </n-statistic>
+                </template>
+              </n-thing>
+            </n-card>
+          </n-gi>
+          <n-gi span="2 l:1">
+            <n-card>
+              <n-thing>
+                <template #avatar>
+                  <n-el>
+                    <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                      <nova-icon :size="26" icon="icon-park-outline:preview-open" />
+                    </n-icon-wrapper>
+                  </n-el>
+                </template>
+                <template #header>
+                  <n-statistic label="浏览量">
+                    <n-number-animation show-separator :from="0" :to="551039" />
+                  </n-statistic>
+                </template>
+              </n-thing>
+            </n-card>
+          </n-gi>
+          <n-gi span="2 l:1">
+            <n-card>
+              <n-thing>
+                <template #avatar>
+                  <n-el>
+                    <n-icon-wrapper :size="46" color="var(--success-color)" :border-radius="999">
+                      <nova-icon :size="26" icon="icon-park-outline:star" />
+                    </n-icon-wrapper>
+                  </n-el>
+                </template>
+                <template #header>
+                  <n-statistic label="收藏数">
+                    <n-number-animation show-separator :from="0" :to="7739" />
+                  </n-statistic>
+                </template>
+              </n-thing>
+            </n-card>
+          </n-gi>
+        </n-grid>
         <n-card title="动态">
           <template #header-extra>
             <n-button
@@ -167,7 +175,9 @@ const { userInfo } = useAuthStore()
         </n-card>
       </n-space>
     </n-gi>
-    <n-gi :span="8">
+
+    <!-- 右侧边栏 - 移动端全宽，桌面端1/3宽 -->
+    <n-gi span="3 m:1">
       <n-space
         vertical
         :size="16"
@@ -226,11 +236,14 @@ const { userInfo } = useAuthStore()
             </n-list-item>
           </n-list>
         </n-card>
+        <!-- 订单和待办统计 -->
         <n-grid
-          :x-gap="8"
-          :y-gap="8"
+          :x-gap="16"
+          :y-gap="16"
+          :cols="2"
         >
-          <n-gi :span="12">
+          <!-- 移动端和桌面端都是每行2个 -->
+          <n-gi :span="1">
             <n-card>
               <n-flex vertical align="center">
                 <n-text depth="3">
@@ -245,7 +258,7 @@ const { userInfo } = useAuthStore()
               </n-flex>
             </n-card>
           </n-gi>
-          <n-gi :span="12">
+          <n-gi :span="1">
             <n-card>
               <n-flex vertical align="center">
                 <n-text depth="3">

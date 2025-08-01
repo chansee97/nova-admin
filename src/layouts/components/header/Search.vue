@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { useRouteStore } from '@/store'
+import { useAppStore, useRouteStore } from '@/store'
 
+const appStore = useAppStore()
 const routeStore = useRouteStore()
 
 // 搜索值
@@ -143,13 +144,14 @@ function handleMouseEnter(index: number) {
 
 <template>
   <CommonWrapper @click="openModal">
-    <icon-park-outline-search /><n-tag round size="small" class="font-mono cursor-pointer">
+    <icon-park-outline-search />
+    <n-tag v-if="!appStore.isMobile" round size="small" class="font-mono cursor-pointer">
       CtrlK
     </n-tag>
   </CommonWrapper>
   <n-modal
     v-model:show="showModal"
-    class="w-560px fixed top-60px inset-x-0"
+    class="w-560px fixed top-60px inset-x-0 max-w-full"
     size="small"
     preset="card"
     :segmented="{

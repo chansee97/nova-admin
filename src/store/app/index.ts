@@ -17,6 +17,8 @@ const { system, store } = useColorMode({
   emitAuto: true,
 })
 
+const isMobile = useMediaQuery('(max-width: 700px)')
+
 export const useAppStore = defineStore('app-store', {
   state: () => {
     return {
@@ -49,6 +51,9 @@ export const useAppStore = defineStore('app-store', {
     },
     fullScreen() {
       return isFullscreen.value
+    },
+    isMobile() {
+      return isMobile.value
     },
   },
   actions: {

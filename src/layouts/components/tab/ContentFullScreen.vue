@@ -20,7 +20,7 @@ function exitFullContent() {
 </script>
 
 <template>
-  <n-tooltip placement="bottom" trigger="hover">
+  <n-tooltip v-if="!appStore.isMobile" placement="bottom" trigger="hover">
     <template #trigger>
       <CommonWrapper @click="enterFullContent">
         <icon-park-outline-full-screen-one />

@@ -6,6 +6,7 @@ import {
   CollapaseButton,
   FullScreen,
   Logo,
+  MobileDrawer,
   Notices,
   Search,
   Setting,
@@ -14,12 +15,12 @@ import {
   UserCenter,
 } from './components'
 import Content from './Content.vue'
-
 import { ProLayout, useLayoutMenu } from 'pro-naive-ui'
 
 const route = useRoute()
 const appStore = useAppStore()
 const routeStore = useRouteStore()
+
 const { layoutMode } = storeToRefs(useAppStore())
 
 const {
@@ -31,16 +32,19 @@ const {
   menus: routeStore.menus,
 })
 
-watch(() => route.path, (value) => {
+watch(() => route.path, (value: string) => {
   activeKey.value = value
 }, { immediate: true })
+
+// 移动端抽屉控制
+const showMobileDrawer = ref(false)
 
 const sidebarWidth = ref(240)
 const sidebarCollapsedWidth = ref(64)
 
 const hasHorizontalMenu = computed(() => ['horizontal', 'mixed-two-column', 'mixed-sidebar'].includes(layoutMode.value))
 
-const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.value))
+const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.value) || appStore.isMobile)
 </script>
 
 <template>
@@ -48,7 +52,8 @@ const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.v
   <ProLayout
     v-model:collapsed="appStore.collapsed"
     :mode="layoutMode"
-    :show-logo="appStore.showLogo"
+    :is-mobile="appStore.isMobile"
+    :show-logo="appStore.showLogo && !appStore.isMobile"
     :show-footer="appStore.showFooter"
     :show-tabbar="appStore.showTabs"
     nav-fixed
@@ -79,13 +84,30 @@ const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.v
 
     <template #nav-right>
       <div class="h-full flex-y-center gap-1 p-x-xl">
-        <Search />
-        <Notices />
-        <FullScreen />
-        <DarkModeSwitch />
-        <LangsSwitch />
-        <Setting />
-        <UserCenter />
+        <!-- 移动端：只显示菜单按钮 -->
+        <template v-if="appStore.isMobile">
+          <n-button
+            quaternary
+            @click="showMobileDrawer = true"
+          >
+            <template #icon>
+              <n-icon size="18">
+                <icon-park-outline-hamburger-button />
+              </n-icon>
+            </template>
+          </n-button>
+        </template>
+
+        <!-- 桌面端：显示完整功能组件 -->
+        <template v-else>
+          <Search />
+          <Notices />
+          <FullScreen />
+          <DarkModeSwitch />
+          <LangsSwitch />
+          <Setting />
+          <UserCenter />
+        </template>
       </div>
     </template>
 
@@ -111,5 +133,10 @@ const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.v
     <Content />
     <BackTop />
     <SettingDrawer />
+
+    <!-- 移动端功能抽屉 -->
+    <MobileDrawer v-model:show="showMobileDrawer">
+      <n-menu v-bind="layout.verticalMenuProps" />
+    </MobileDrawer>
   </ProLayout>
 </template>
