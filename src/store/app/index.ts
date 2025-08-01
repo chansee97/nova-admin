@@ -38,7 +38,6 @@ export const useAppStore = defineStore('app-store', {
       showSetting: false,
       transitionAnimation: 'fade-slide' as TransitionAnimation,
       layoutMode: 'vertical' as ProLayoutMode,
-      contentFullScreen: false,
     }
   },
   getters: {
@@ -68,8 +67,7 @@ export const useAppStore = defineStore('app-store', {
       this.showBreadcrumbIcon = true
       this.showWatermark = false
       this.transitionAnimation = 'fade-slide'
-      this.layoutMode = 'leftMenu'
-      this.contentFullScreen = false
+      this.layoutMode = 'vertical'
 
       // 重置所有配色
       this.setPrimaryColor(this.primaryColor)
