@@ -59,9 +59,12 @@
     "backHome": "Back to the homepage",
     "getRouteError": "Failed to obtain route, please try again later.",
     "layoutSetting": "Layout settings",
-    "leftMenu": "Left menu",
-    "topMenu": "Top menu",
-    "mixMenu": "Mix menu"
+    "verticalLayout": "Vertical layout",
+    "horizontalLayout": "Horizontal layout",
+    "twoColumnLayout": "Two column layout",
+    "mixedTwoColumnLayout": "Mixed two column layout",
+    "sidebarLayout": "Sidebar layout",
+    "mixedSidebarLayout": "Mixed sidebar layout"
   },
   "login": {
     "signInTitle": "Login",

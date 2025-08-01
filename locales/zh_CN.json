@@ -59,9 +59,12 @@
     "backHome": "回到首页",
     "getRouteError": "获取路由失败，请稍后再试",
     "layoutSetting": "布局设置",
-    "leftMenu": "左侧菜单",
-    "topMenu": "顶部菜单",
-    "mixMenu": "混合菜单"
+    "verticalLayout": "竖向布局",
+    "horizontalLayout": "横向布局",
+    "twoColumnLayout": "双栏布局",
+    "mixedTwoColumnLayout": "混合双栏布局",
+    "sidebarLayout": "侧边栏布局",
+    "mixedSidebarLayout": "双栏布局"
   },
   "http": {
     "400": "请求出现语法错误",

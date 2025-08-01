@@ -114,7 +114,7 @@ useDraggable(el, tabs, {
 </script>
 
 <template>
-  <n-scrollbar ref="scrollbar" class="relative flex h-full tab-bar-scroller-wrapper" content-class="pr-34 tab-bar-scroller-content" :x-scrollable="true" @wheel="onWheel">
+  <n-scrollbar ref="scrollbar" class="relative flex h-full tab-bar-scroller-wrapper" content-class="h-full pr-34 tab-bar-scroller-content" :x-scrollable="true" @wheel="onWheel">
     <div class="p-l-2 flex wh-full relative">
       <div class="flex items-end">
         <TabBarItem
