@@ -70,10 +70,16 @@ const hidenCollapaseButton = computed(() => ['horizontal'].includes(layoutMode.v
     </template>
 
     <template #nav-left>
-      <div v-if="!hasHorizontalMenu || !hidenCollapaseButton" class="h-full flex-y-center gap-1 p-x-sm">
-        <CollapaseButton v-if="!hidenCollapaseButton" />
-        <Breadcrumb v-if="!hasHorizontalMenu" />
-      </div>
+      <template v-if="appStore.isMobile">
+        <Logo />
+      </template>
+
+      <template v-else>
+        <div v-if="!hasHorizontalMenu || !hidenCollapaseButton" class="h-full flex-y-center gap-1 p-x-sm">
+          <CollapaseButton v-if="!hidenCollapaseButton" />
+          <Breadcrumb v-if="!hasHorizontalMenu" />
+        </div>
+      </template>
     </template>
 
     <template #nav-center>

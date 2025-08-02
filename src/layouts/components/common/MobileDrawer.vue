@@ -17,7 +17,7 @@ const showDrawer = defineModel<boolean>('show', { default: false })
   >
     <n-drawer-content :native-scrollbar="false" :body-content-style="{ padding: '0' }">
       <template #header>
-        <div class="flex">
+        <div class="flex items-center">
           <UserCenter />
           <div class="ml-auto" />
           <Search />
