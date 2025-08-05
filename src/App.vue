@@ -1,24 +1,18 @@
 <script setup lang="ts">
-import { naiveI18nOptions } from '@/utils'
-import { darkTheme } from 'naive-ui'
-import { useAppStore } from './store'
+import AppMain from './AppMain.vue'
+import AppLoading from './components/common/AppLoading.vue'
 
-const appStore = useAppStore()
-
-const naiveLocale = computed(() => {
-  return naiveI18nOptions[appStore.lang] ? naiveI18nOptions[appStore.lang] : naiveI18nOptions.enUS
-},
-)
+// 使用 Suspense 处理异步组件加载
 </script>
 
 <template>
-  <n-config-provider
-    class="wh-full" inline-theme-disabled :theme="appStore.colorMode === 'dark' ? darkTheme : null"
-    :locale="naiveLocale.locale" :date-locale="naiveLocale.dateLocale" :theme-overrides="appStore.theme"
-  >
-    <naive-provider>
-      <router-view />
-      <Watermark :show-watermark="appStore.showWatermark" />
-    </naive-provider>
-  </n-config-provider>
+  <Suspense>
+    <!-- 异步组件 -->
+    <AppMain />
+
+    <!-- 加载状态 -->
+    <template #fallback>
+      <AppLoading />
+    </template>
+  </Suspense>
 </template>
