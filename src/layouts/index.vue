@@ -32,8 +32,8 @@ const {
   menus: routeStore.menus,
 })
 
-watch(() => route.path, (value: string) => {
-  activeKey.value = value
+watch(() => route.path, () => {
+  activeKey.value = routeStore.activeMenu
 }, { immediate: true })
 
 // 移动端抽屉控制
