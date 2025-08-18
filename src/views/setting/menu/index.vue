@@ -1,10 +1,10 @@
 <script setup lang="tsx">
 import type { DataTableColumns } from 'naive-ui'
-import CopyText from '@/components/custom/CopyText.vue'
 import { useBoolean } from '@/hooks'
 import { fetchAllRoutes } from '@/service'
 import { arrayToTree, createIcon } from '@/utils'
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
+import { renderProCopyableText } from 'pro-naive-ui'
 import TableModal from './components/TableModal.vue'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
@@ -45,11 +45,7 @@ const columns: DataTableColumns<AppRoute.RowRoute> = [
   {
     title: '路径',
     key: 'path',
-    render: (row) => {
-      return (
-        <CopyText value={row.path} />
-      )
-    },
+    render: row => renderProCopyableText(row.path),
   },
   {
     title: '组件路径',

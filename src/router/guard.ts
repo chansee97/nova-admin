@@ -47,7 +47,7 @@ export function setupRouterGuard(router: Router) {
     }
     // 如果路由设置了requiresAuth为true，且用户未登录，重定向到登录页
     else if (to.meta.requiresAuth === true && !isLogin) {
-      const redirect = to.name === '404' ? undefined : to.fullPath
+      const redirect = to.name === 'not-found' ? undefined : to.fullPath
       next({ path: '/login', query: { redirect } })
       return
     }
@@ -57,7 +57,7 @@ export function setupRouterGuard(router: Router) {
       try {
         await routeStore.initAuthRoute()
         // 动态路由加载完回到根路由
-        if (to.name === '404') {
+        if (to.name === 'not-found') {
         // 等待权限路由加载好了，回到之前的路由,否则404
           next({
             path: to.fullPath,

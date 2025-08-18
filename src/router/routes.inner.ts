@@ -11,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/index.vue'), // 注意这里要带上 文件后缀.vue
+    component: () => import('@/views/build-in/login/index.vue'), // 注意这里要带上 文件后缀.vue
     meta: {
       title: '登录',
       withoutTab: true,
@@ -20,7 +20,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/public',
     name: 'publicAccess',
-    component: () => import('@/views/demo/publicAccess/index.vue'),
+    component: () => import('@/views/build-in/public-access/index.vue'),
     meta: {
       title: '公共访问示例',
       requiresAuth: false,
@@ -28,18 +28,9 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: '/403',
-    name: '403',
-    component: () => import('@/views/error/403/index.vue'),
-    meta: {
-      title: '用户无权限',
-      withoutTab: true,
-    },
-  },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/error/404/index.vue'),
+    path: '/not-found',
+    name: 'not-found',
+    component: () => import('@/views/build-in/not-found/index.vue'),
     meta: {
       title: '找不到页面',
       icon: 'icon-park-outline:ghost',
@@ -47,19 +38,9 @@ export const routes: RouteRecordRaw[] = [
     },
   },
   {
-    path: '/500',
-    name: '500',
-    component: () => import('@/views/error/500/index.vue'),
-    meta: {
-      title: '服务器错误',
-      icon: 'icon-park-outline:close-wifi',
-      withoutTab: true,
-    },
-  },
-  {
     path: '/:pathMatch(.*)*',
-    component: () => import('@/views/error/404/index.vue'),
-    name: '404',
+    component: () => import('@/views/build-in/not-found/index.vue'),
+    name: 'not-found',
     meta: {
       title: '找不到页面',
       icon: 'icon-park-outline:ghost',

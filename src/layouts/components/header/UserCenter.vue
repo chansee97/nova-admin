@@ -61,7 +61,7 @@ function handleSelect(key: string | number) {
     })
   }
   if (key === 'userCenter')
-    router.push('/userCenter')
+    router.push('/user-center')
 
   if (key === 'guthub')
     window.open('https://github.com/chansee97/nova-admin')

@@ -122,7 +122,7 @@ function handleResetSearch() {
   model.value = { ...initialModel }
 }
 
-  type ModalType = 'add' | 'edit'
+type ModalType = 'add' | 'edit'
 const modalType = ref<ModalType>('add')
 function setModalType(type: ModalType) {
   modalType.value = type
