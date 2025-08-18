@@ -39,23 +39,22 @@ export const useRouteStore = defineStore('route-store', {
 
     async initRouteInfo() {
       if (import.meta.env.VITE_ROUTE_LOAD_MODE === 'dynamic') {
-        const userInfo = local.get('userInfo')
+        try {
+          // Get user's route
+          const result = await fetchUserRoutes({
+            id: 1,
+          })
 
-        if (!userInfo || !userInfo.id) {
-          const authStore = useAuthStore()
-          authStore.logout()
-          return
+          if (!result.isSuccess || !result.data) {
+            throw new Error('Failed to fetch user routes')
+          }
+
+          return result.data
         }
-
-        // Get user's route
-        const { data } = await fetchUserRoutes({
-          id: userInfo.id,
-        })
-
-        if (!data)
-          return
-
-        return data
+        catch (error) {
+          console.error('Failed to initialize route info:', error)
+          throw error
+        }
       }
       else {
         this.rowRoutes = staticRoutes
@@ -65,25 +64,33 @@ export const useRouteStore = defineStore('route-store', {
     async initAuthRoute() {
       this.isInitAuthRoute = false
 
-      // Initialize route information
-      const rowRoutes = await this.initRouteInfo()
-      if (!rowRoutes) {
-        window.$message.error($t(`app.getRouteError`))
-        return
+      try {
+        // Initialize route information
+        const rowRoutes = await this.initRouteInfo()
+        if (!rowRoutes) {
+          const error = new Error('Failed to get route information')
+          window.$message.error($t(`app.getRouteError`))
+          throw error
+        }
+        this.rowRoutes = rowRoutes
+
+        // Generate actual route and insert
+        const routes = createRoutes(rowRoutes)
+        router.addRoute(routes)
+
+        // Generate side menu
+        this.menus = createMenus(rowRoutes)
+
+        // Generate the route cache
+        this.cacheRoutes = generateCacheRoutes(rowRoutes)
+
+        this.isInitAuthRoute = true
       }
-      this.rowRoutes = rowRoutes
-
-      // Generate actual route and insert
-      const routes = createRoutes(rowRoutes)
-      router.addRoute(routes)
-
-      // Generate side menu
-      this.menus = createMenus(rowRoutes)
-
-      // Generate the route cache
-      this.cacheRoutes = generateCacheRoutes(rowRoutes)
-
-      this.isInitAuthRoute = true
+      catch (error) {
+        // 重置状态并重新抛出错误
+        this.isInitAuthRoute = false
+        throw error
+      }
     },
   },
 })

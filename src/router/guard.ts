@@ -22,6 +22,19 @@ export function setupRouterGuard(router: Router) {
     // 判断有无TOKEN,登录鉴权
     const isLogin = Boolean(local.get('accessToken'))
 
+    // 处理根路由重定向
+    if (to.name === 'root') {
+      if (isLogin) {
+        // 已登录，重定向到首页
+        next({ path: import.meta.env.VITE_HOME_PATH, replace: true })
+      }
+      else {
+        // 未登录，重定向到登录页
+        next({ path: '/login', replace: true })
+      }
+      return
+    }
+
     // 如果是login路由，直接放行
     if (to.name === 'login') {
       // login页面不需要任何认证检查，直接放行
@@ -40,17 +53,25 @@ export function setupRouterGuard(router: Router) {
     }
 
     // 判断路由有无进行初始化
-    if (!routeStore.isInitAuthRoute) {
-      await routeStore.initAuthRoute()
-      // 动态路由加载完回到根路由
-      if (to.name === '404') {
-      // 等待权限路由加载好了，回到之前的路由,否则404
-        next({
-          path: to.fullPath,
-          replace: true,
-          query: to.query,
-          hash: to.hash,
-        })
+    if (!routeStore.isInitAuthRoute && to.name !== 'login') {
+      try {
+        await routeStore.initAuthRoute()
+        // 动态路由加载完回到根路由
+        if (to.name === '404') {
+        // 等待权限路由加载好了，回到之前的路由,否则404
+          next({
+            path: to.fullPath,
+            replace: true,
+            query: to.query,
+            hash: to.hash,
+          })
+          return
+        }
+      }
+      catch {
+        // 如果路由初始化失败（比如 401 错误），重定向到登录页
+        const redirect = to.fullPath !== '/' ? to.fullPath : undefined
+        next({ path: '/login', query: redirect ? { redirect } : undefined })
         return
       }
     }

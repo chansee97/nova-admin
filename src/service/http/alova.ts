@@ -19,9 +19,11 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
   // 服务端判定token过期
   refreshTokenOnSuccess: {
     // 当服务端返回401时，表示token过期
-    isExpired: (response, method) => {
+    isExpired: async (response, method) => {
+      const res = await response.clone().json()
+
       const isExpired = method.meta && method.meta.isExpired
-      return response.status === 401 && !isExpired
+      return (response.status === 401 || res.code === 401) && !isExpired
     },
 
     // 当token过期时触发，在此函数中触发刷新token
