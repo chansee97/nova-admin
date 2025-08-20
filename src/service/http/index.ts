@@ -1,7 +1,7 @@
 import { createAlovaInstance } from './alova'
 
 export const request = createAlovaInstance({
-  baseURL: __PROXY_MAPPING__.url.path,
+  baseURL: __URL_MAP__.url.path,
 })
 
 export const blankInstance = createAlovaInstance({

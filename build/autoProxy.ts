@@ -38,7 +38,7 @@ export interface ServiceProxyPluginOptions {
   devEnvName?: ServiceEnvType
   /** 是否启用代理配置 */
   enableProxy?: boolean
-  /** 环境变量名（可选，默认为 '__PROXY_MAPPING__'） */
+  /** 环境变量名（可选，默认为 '__URL_MAP__'） */
   envName?: string
   /** d.ts 类型文件生成路径（可选，如果传入路径则在该路径生成 d.ts 类型文件） */
   dts?: string
@@ -50,7 +50,7 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
     devEnvName = 'development',
     proxyPrefix = 'proxy-',
     enableProxy = true,
-    envName = '__PROXY_MAPPING__',
+    envName = '__URL_MAP__',
     dts,
   } = options
 
