@@ -3,7 +3,7 @@
  * - dev: 后台开发环境
  * - prod: 后台生产环境
  */
-type ServiceEnvType = 'dev' | 'prod'
+type ServiceEnvType = 'dev' | 'production'
 
 interface ImportMetaEnv {
   /** 项目基本地址 */

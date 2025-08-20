@@ -38,8 +38,8 @@
   ],
   "scripts": {
     "dev": "vite --mode dev --port 9980",
-    "dev:prod": "vite --mode prod",
-    "build": "vite build --mode prod",
+    "dev:prod": "vite --mode production",
+    "build": "vite build",
     "build:dev": "vite build --mode dev",
     "preview": "vite preview --port 9981",
     "lint": "eslint . && vue-tsc --noEmit",

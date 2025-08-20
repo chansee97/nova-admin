@@ -56,7 +56,7 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
 
   return {
     name: 'vite-auto-proxy',
-    config(config: UserConfig, { command }: { mode: string, command: 'build' | 'serve' }) {
+    config(config: UserConfig, { mode, command }: { mode: string, command: 'build' | 'serve' }) {
       // 只在开发环境（serve命令）时生成代理配置
       const isDev = command === 'serve'
 
@@ -66,9 +66,11 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
       }
 
       if (!enableProxy || !isDev) {
-        // 在非开发环境下，生成原始地址映射（path 和 rawPath 都是原始地址）
+        // 在非开发环境下，根据构建模式选择正确的环境配置
+        const targetEnv = isDev ? devEnvName : mode
         const rawMapping: ProxyMapping = {}
-        const envConfig = serviceConfig[devEnvName]
+        const envConfig = serviceConfig[targetEnv]
+
         if (envConfig) {
           Object.entries(envConfig).forEach(([serviceName, serviceUrl]) => {
             rawMapping[serviceName] = {
@@ -76,7 +78,12 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
               rawPath: serviceUrl,
             }
           })
+          console.warn(`[auto-proxy] 已加载 ${Object.keys(envConfig).length} 个服务地址`)
         }
+        else {
+          console.warn(`[auto-proxy] 未找到环境 "${targetEnv}" 的配置`)
+        }
+
         config.define[envName] = JSON.stringify(rawMapping)
 
         // 生成 d.ts 类型文件（如果指定了路径）
