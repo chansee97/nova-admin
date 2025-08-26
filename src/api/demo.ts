@@ -1,4 +1,4 @@
-import { request } from '../http'
+import { request } from '../utils/alova'
 
 /* 示例列表接口 */
 export function fetchUserList() {

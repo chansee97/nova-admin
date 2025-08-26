@@ -31,15 +31,14 @@ export function createRoutes(routes: AppRoute.RowRoute[]) {
   // Generate routes, no need to import files for those with redirect
   const modules = import.meta.glob('@/views/**/*.vue')
   resultRouter = resultRouter.map((item: AppRoute.Route) => {
-    if (item.componentPath && !item.redirect)
-      item.component = modules[`/src/views${item.componentPath}`]
+    if (item.component && !item.redirect)
+      item.component = modules[`/src/views${item.component}`]
     return item
   })
 
   // Generate route tree
   resultRouter = arrayToTree(resultRouter, {
     parentProperty: 'parentId',
-    customID: 'id',
   }) as AppRoute.Route[]
 
   const appRootRoute: RouteRecordRaw = {
@@ -104,7 +103,6 @@ export function createMenus(userRoutes: AppRoute.RowRoute[]) {
   // generate side menu
   return arrayToTree(transformAuthRoutesToMenus(visibleMenus), {
     parentProperty: 'parentId',
-    customID: 'id',
   })
 }
 

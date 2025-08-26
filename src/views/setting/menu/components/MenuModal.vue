@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { createMenu, getMenuById, selectMenuTree, updateMenu } from '@/service'
+import { createMenu, getMenuById, selectMenuTree, updateMenu } from '@/api'
 import { createProModalForm } from 'pro-naive-ui'
 import DirectoryForm from './DirectoryForm.vue'
 import PageForm from './PageForm.vue'
@@ -72,14 +72,14 @@ async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
   const handlers = {
     async add() {
       // 如果新建传入了menuId，设置为父级菜单
-      if (data?.menuId) {
-        modalForm.values.value.parentId = data.menuId
+      if (data?.id) {
+        modalForm.values.value.parentId = data.id
       }
     },
     async edit() {
-      if (!data?.menuId)
+      if (!data?.id)
         return
-      const response = await getMenuById(data.menuId)
+      const response = await getMenuById(data.id)
       modalForm.values.value = response.data
     },
   }
@@ -99,7 +99,7 @@ async function submitModal(filedValues: Partial<Entity.Menu>) {
     },
     async edit() {
       try {
-        await updateMenu(modalForm.values.value.menuId!, filedValues)
+        await updateMenu(modalForm.values.value.id!, filedValues)
         window.$message.success('菜单更新成功')
       }
       catch (error) {
@@ -157,10 +157,7 @@ defineExpose({
         title="标题"
         path="title"
       />
-      <component
-        :is="currentFormComponent"
-        :tree-data="treeData"
-      />
+      <component :is="currentFormComponent" />
       <pro-textarea
         title="备注"
         path="remark"

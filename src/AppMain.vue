@@ -40,6 +40,10 @@ const naiveLocale = computed(() => {
 })
 
 const propOverrides = {
+  ProSearchForm: {
+    labelPlacement: 'left',
+    cols: 4,
+  },
   ProModalForm: {
     labelWidth: 120,
     labelPlacement: 'left',

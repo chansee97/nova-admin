@@ -1,4 +1,4 @@
-import { fetchDictList } from '@/service'
+import { fetchDictList } from '@/api'
 import { session } from '@/utils'
 
 export const useDictStore = defineStore('dict-store', {

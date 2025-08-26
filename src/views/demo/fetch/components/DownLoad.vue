@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   getBlob,
-} from '@/service'
+} from '@/api'
 
 const emit = defineEmits<{
   update: [data: any]

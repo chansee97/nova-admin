@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { useAuthStore } from '@/store'
-import { fetchCaptchaImage } from '@/service'
+import { fetchCaptchaImage } from '@/api'
 import { local } from '@/utils'
 import { useBoolean } from '@/hooks'
 

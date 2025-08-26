@@ -39,7 +39,7 @@ declare namespace AppRoute {
     /** 路由重定向 */
     redirect?: string
     /* 页面组件地址 */
-    componentPath?: string | null
+    component?: string | null
     /* 路由id */
     id: number
     /* 父级路由id，顶级页面为null */

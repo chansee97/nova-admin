@@ -1,4 +1,4 @@
-import { request } from '../../http'
+import { request } from '../../utils/alova'
 
 /**
  * 创建菜单

@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { deleteMenu, getMenuList } from '@/service'
+import { deleteMenu, getMenuList } from '@/api'
 import { createMenuColumns } from './columns'
 import MenuModal from './components/MenuModal.vue'
 import arrayToTree from 'array-to-tree'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
+
+const menuModalRef = ref()
+
+// 菜单管理columns配置
+const columns = createMenuColumns({
+  onEdit: row => menuModalRef.value.openModal('edit', row),
+  onDelete: deleteData,
+  onAdd: row => menuModalRef.value.openModal('add', row),
+})
 
 async function deleteData(id: number) {
   try {
@@ -17,17 +26,6 @@ async function deleteData(id: number) {
     console.error('删除菜单失败', error)
   }
 }
-
-const menuModalRef = ref()
-
-// 菜单管理columns配置
-const columns = createMenuColumns({
-  onEdit: row => menuModalRef.value.openModal('edit', row),
-  onDelete: deleteData,
-  onAdd: row => menuModalRef.value.openModal('add', row),
-})
-
-const tableData = ref<Entity.Menu[]>([])
 
 // 递归排序菜单树结构
 function sortMenuTree(menus: Entity.Menu[]): Entity.Menu[] {
@@ -45,13 +43,13 @@ function sortMenuTree(menus: Entity.Menu[]): Entity.Menu[] {
   }))
 }
 
+const tableData = ref<Entity.Menu[]>([])
 async function getAllRoutes() {
   startLoading()
   try {
     const { data } = await getMenuList()
     const treeData = arrayToTree(data, {
       parentProperty: 'parentId',
-      customID: 'menuId',
     })
 
     // 对树形结构按sort值排序

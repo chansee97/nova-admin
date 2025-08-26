@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { FormRules } from 'naive-ui'
 import { useBoolean } from '@/hooks'
-import { createDictData, createDictType, updateDictData, updateDictType } from '@/service'
+import { createDictData, createDictType, updateDictData, updateDictType } from '@/api'
 
 interface Props {
   modalName?: string

@@ -1,4 +1,4 @@
-import { blankInstance, request } from '../http'
+import { blankInstance, request } from '@/utils/alova'
 
 /* get方法测试 */
 export function fetchGet(params?: any) {

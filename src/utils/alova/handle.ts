@@ -1,4 +1,4 @@
-import { fetchRefreshToken } from '@/service'
+import { fetchRefreshToken } from '@/api'
 import { useAuthStore } from '@/store'
 import { local } from '@/utils'
 

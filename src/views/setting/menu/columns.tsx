@@ -95,7 +95,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
             >
               编辑
             </NButton>
-            <NPopconfirm onPositiveClick={() => onDelete(row.menuId)}>
+            <NPopconfirm onPositiveClick={() => onDelete(row.id)}>
               {{
                 default: () => '确认删除',
                 trigger: () => <NButton text type="error">删除</NButton>,

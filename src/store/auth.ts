@@ -1,16 +1,16 @@
 import { router } from '@/router'
-import { fetchLogin, fetchUserInfo } from '@/service'
+import { fetchLogin, fetchUserInfo } from '@/api'
 import { local } from '@/utils'
 import { useRouteStore } from './router'
 import { useTabStore } from './tab'
 
 interface AuthStatus {
-  userInfo: Entity.User | null
+  userInfo: Entity.User | Record<string, any>
 }
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthStatus => {
     return {
-      userInfo: null,
+      userInfo: {},
     }
   },
   getters: {

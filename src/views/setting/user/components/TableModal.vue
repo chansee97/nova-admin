@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { createUser, fetchRoleList, updateUser } from '@/service'
+import { createUser, fetchRoleList, updateUser } from '@/api'
 
 interface Props {
   modalName?: string

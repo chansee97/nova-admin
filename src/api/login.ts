@@ -1,4 +1,4 @@
-import { request } from '../http'
+import { request } from '../utils/alova'
 
 interface LoginParams {
   userName: string

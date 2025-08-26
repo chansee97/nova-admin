@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { useBoolean } from '@/hooks'
-import { deleteDictData, deleteDictType, getDictDataByType, getDictTypeList } from '@/service'
+import { deleteDictData, deleteDictType, getDictDataByType, getDictTypeList } from '@/api'
 import { createDictDataColumns, createDictTypeColumns } from './columns'
 import DictModal from './components/DictModal.vue'
 

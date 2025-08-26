@@ -119,9 +119,7 @@
   },
   "route": {
     "appRoot": "首页",
-    "dashboard": "仪表盘",
-    "workbench": "工作台",
-    "monitor": "监控页",
+    "home": "概览",
     "multi": "多级菜单演示",
     "multi2": "多级菜单子页",
     "multi2Detail": "多级菜单的详情页",

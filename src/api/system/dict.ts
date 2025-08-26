@@ -1,4 +1,4 @@
-import { request } from '../../http'
+import { request } from '../../utils/alova'
 
 // 字典类型查询参数接口
 interface DictTypeQueryParams {

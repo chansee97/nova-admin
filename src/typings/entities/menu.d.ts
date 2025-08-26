@@ -5,7 +5,7 @@ namespace Entity {
   type MenuType = 'directory' | 'page' | 'permission'
 
   interface Menu {
-    menuId: number
+    id: number
     /**
      * 组件路径
      */

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { fetchDictList } from '@/service'
+import { fetchDictList } from '@/api'
 import { useDictStore } from '@/store'
 
 const { dict } = useDictStore()

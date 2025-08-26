@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   downloadFile,
-} from '@/service'
+} from '@/api'
 import { useRequest } from 'alova/client'
 import { normalizeSizeUnits } from '@/utils'
 

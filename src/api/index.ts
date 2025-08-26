@@ -1,0 +1,7 @@
+export * from './login'
+export * from './demo'
+export * from './test'
+export * from './system/user'
+export * from './system/menu'
+export * from './system/role'
+export * from './system/dict'

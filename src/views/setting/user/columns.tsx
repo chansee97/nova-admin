@@ -1,6 +1,36 @@
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
-import CopyText from '@/components/custom/CopyText.vue'
+import type { ProSearchFormColumns } from 'pro-naive-ui'
+import { renderProCopyableText, renderProDateText } from 'pro-naive-ui'
+
+export const searchColumns: ProSearchFormColumns<Entity.User> = [
+  {
+    title: '用户名',
+    path: 'username',
+  },
+  {
+    title: '手机号',
+    path: 'phone',
+  },
+  {
+    title: '状态',
+    path: 'userStatus',
+    field: 'select',
+    fieldProps: {
+      options: [
+        {
+          label: '启用',
+          value: 1,
+        },
+        {
+          label: '禁用',
+          value: 0,
+        },
+      ],
+    },
+  },
+
+]
 
 // 用户管理columns配置函数
 interface UserColumnActions {
@@ -11,12 +41,6 @@ interface UserColumnActions {
 
 export function createUserColumns(actions: UserColumnActions): DataTableColumns<Entity.User> {
   return [
-    {
-      title: 'ID',
-      align: 'center',
-      key: 'userId',
-      width: 80,
-    },
     {
       title: '用户名',
       align: 'center',
@@ -53,9 +77,7 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
       title: '手机号',
       align: 'center',
       key: 'phone',
-      render: (row) => {
-        return row.phone ? <CopyText value={row.phone} /> : '-'
-      },
+      render: row => renderProCopyableText(row.phone),
     },
     {
       title: '状态',
@@ -65,8 +87,8 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
         return (
           <NSwitch
             value={row.userStatus}
-            checked-value={1}
-            unchecked-value={0}
+            checked-value={0}
+            unchecked-value={1}
             onUpdateValue={(value: 0 | 1) =>
               actions.onStatusChange(value, row.userId)}
           >
@@ -79,9 +101,9 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
       title: '创建时间',
       align: 'center',
       key: 'createTime',
-      render: (row) => {
-        return row.createTime ? new Date(row.createTime).toLocaleDateString() : '-'
-      },
+      render: row => renderProDateText(row.createTime, {
+        pattern: 'datetime',
+      }),
     },
     {
       title: '操作',
@@ -91,7 +113,7 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
         return (
           <NSpace justify="center">
             <NButton
-              size="small"
+              text
               onClick={() => actions.onEdit(row)}
             >
               编辑
@@ -99,7 +121,7 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
             <NPopconfirm onPositiveClick={() => actions.onDelete(row.userId)}>
               {{
                 default: () => '确认删除',
-                trigger: () => <NButton size="small" type="error">删除</NButton>,
+                trigger: () => <NButton text type="error">删除</NButton>,
               }}
             </NPopconfirm>
           </NSpace>

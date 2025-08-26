@@ -1,7 +1,7 @@
 import type { MenuOption } from 'naive-ui'
 import { router } from '@/router'
 import { staticRoutes } from '@/router/routes.static'
-import { fetchUserRoutes } from '@/service'
+import { fetchUserRoutes } from '@/api'
 import { $t } from '@/utils'
 import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 

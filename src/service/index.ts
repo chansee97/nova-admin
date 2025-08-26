@@ -1,7 +1,0 @@
-export * from './api/login'
-export * from './api/demo'
-export * from './api/test'
-export * from './api/system/user'
-export * from './api/system/menu'
-export * from './api/system/role'
-export * from './api/system/dict'
