@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   fetchGet,
-} from '@/service'
+} from '@/api'
 
 import { useRequest } from 'alova/client'
 

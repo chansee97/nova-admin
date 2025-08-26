@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {
   FailedResponseWithoutTip,
-} from '@/service'
+} from '@/api'
 
 const emit = defineEmits<{
   update: [data: any] // 具名元组语法

@@ -3,7 +3,7 @@ import type { DataTableColumns, FormInst, NDataTable } from 'naive-ui'
 import { Gender } from '@/constants'
 import { useBoolean } from '@/hooks'
 import { useTableDrag } from '@/hooks/useTableDrag'
-import { fetchUserPage } from '@/service'
+import { fetchUserPage } from '@/api'
 import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
