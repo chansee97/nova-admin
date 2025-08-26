@@ -14,7 +14,7 @@ function toggleUserRole(role: Entity.RoleType) {
 
 <template>
   <n-card title="权限示例">
-    <n-h1> 当前权限：{{ authStore.userInfo!.role }}</n-h1>
+    <n-h1> 当前权限：{{ authStore.userInfo!.roles.map(r => r.roleName) }}</n-h1>
     <n-button-group>
       <n-button v-for="item in roleList" :key="item" type="default" @click="toggleUserRole(item)">
         {{ item }}

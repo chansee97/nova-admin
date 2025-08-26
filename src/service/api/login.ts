@@ -1,25 +1,50 @@
 import { request } from '../http'
 
-interface Ilogin {
+interface LoginParams {
   userName: string
   password: string
+  captchaId?: string
+  captcha?: string
 }
 
-export function fetchLogin(data: Ilogin) {
-  const methodInstance = request.Post<Service.ResponseResult<Api.Login.Info>>('/login', data)
-  methodInstance.meta = {
-    authRole: null,
-  }
-  return methodInstance
+interface ResponseLogin {
+  accessToken: string
+  refreshToken?: string
 }
-export function fetchUpdateToken(data: any) {
-  const method = request.Post<Service.ResponseResult<Api.Login.Info>>('/updateToken', data)
-  method.meta = {
-    authRole: 'refreshToken',
-  }
-  return method
+
+interface ResponseRefreshToken {
+  accessToken: string
+  refreshToken: string
+}
+
+interface ResponseCaptchaImage {
+  captchaId: string
+  captchaImage: string
+  enabled: boolean
+}
+
+export function fetchLogin(data: LoginParams) {
+  return request.Post<Api.Response<ResponseLogin>>('/login', data, {
+    meta: { authRole: null },
+  })
+}
+
+export function fetchCaptchaImage() {
+  return request.Get<Api.Response<ResponseCaptchaImage>>('/captcha', {
+    meta: { authRole: null },
+  })
+}
+
+export function fetchUserInfo() {
+  return request.Get<Api.Response<Entity.User>>('/userInfo')
+}
+
+export function fetchRefreshToken(data: any) {
+  return request.Post<Api.Response<ResponseRefreshToken>>('/refreshToken', data, {
+    meta: { authRole: 'refreshToken' },
+  })
 }
 
 export function fetchUserRoutes(params: { id: number }) {
-  return request.Get<Service.ResponseResult<AppRoute.RowRoute[]>>('/getUserRoutes', { params })
+  return request.Get<Api.Response<AppRoute.RowRoute[]>>('/getUserRoutes', { params })
 }

@@ -30,6 +30,3 @@ export const ERROR_STATUS = {
   504: $t('http.504'),
   505: $t('http.505'),
 }
-
-/** 没有错误提示的code */
-export const ERROR_NO_TIP_STATUS = [10000]

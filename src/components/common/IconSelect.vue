@@ -20,9 +20,96 @@ const value = defineModel('value', { type: String })
 // 包含的图标库系列名，更多：https://icon-sets.iconify.design/
 const nameList = ['icon-park-outline', 'carbon', 'ant-design']
 
+interface CacheItem {
+  data: IconList
+}
+
 // 获取单个图标库数据
 async function fetchIconList(name: string): Promise<IconList> {
-  return await fetch(`https://api.iconify.design/collection?prefix=${name}`).then(res => res.json())
+  const cacheKey = `icon_list_${name}`
+
+  try {
+    // 先从sessionStorage读取缓存
+    const cachedData = sessionStorage.getItem(cacheKey)
+    if (cachedData) {
+      const cache: CacheItem = JSON.parse(cachedData)
+
+      // 如果缓存数据存在，直接返回
+      if (cache.data) {
+        return cache.data
+      }
+    }
+  }
+  catch (error) {
+    console.warn(`读取图标库缓存失败: ${name}`, error)
+  }
+
+  try {
+    // 缓存不存在，从API获取数据
+    const data = await fetch(`https://api.iconify.design/collection?prefix=${name}`)
+      .then(res => res.json())
+
+    // 将数据缓存到sessionStorage
+    try {
+      const cacheItem: CacheItem = {
+        data,
+      }
+      sessionStorage.setItem(cacheKey, JSON.stringify(cacheItem))
+    }
+    catch (cacheError) {
+      console.warn(`缓存图标库数据失败: ${name}`, cacheError)
+    }
+
+    return data
+  }
+  catch (error) {
+    console.error(`获取图标库数据失败: ${name}`, error)
+
+    // 如果API请求失败，尝试使用缓存数据作为降级方案
+    try {
+      const cachedData = sessionStorage.getItem(cacheKey)
+      if (cachedData) {
+        const cache: CacheItem = JSON.parse(cachedData)
+        if (cache.data) {
+          return cache.data
+        }
+      }
+    }
+    catch (fallbackError) {
+      console.warn(`读取降级缓存失败: ${name}`, fallbackError)
+    }
+
+    // 如果所有方法都失败，返回空的图标库数据
+    return {
+      prefix: name,
+      icons: [],
+      title: name,
+      total: 0,
+      categories: {},
+      uncategorized: [],
+    }
+  }
+}
+
+// 清除指定图标库的缓存
+function clearIconCache(name?: string) {
+  try {
+    if (name) {
+      // 清除指定图标库的缓存
+      const cacheKey = `icon_list_${name}`
+      sessionStorage.removeItem(cacheKey)
+    }
+    else {
+      // 清除所有图标库缓存
+      nameList.forEach((iconName) => {
+        const cacheKey = `icon_list_${iconName}`
+        sessionStorage.removeItem(cacheKey)
+      })
+    }
+  }
+  catch (error) {
+    console.warn('清除图标库缓存失败:', error)
+  }
 }
 
 // 获取所有图标库数据
@@ -61,6 +148,12 @@ const iconList = shallowRef<IconList[]>([])
 onMounted(async () => {
   iconList.value = await fetchIconAllList(nameList)
 })
+
+// 在开发环境下暴露清除缓存函数到全局，方便调试
+if (import.meta.env.DEV) {
+  // @ts-expect-error 开发环境下扩展window对象
+  window.clearIconCache = clearIconCache
+}
 
 // 当前tab
 const currentTab = shallowRef(0)

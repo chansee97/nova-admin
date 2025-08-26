@@ -2,8 +2,7 @@ import type { MenuOption } from 'naive-ui'
 import { router } from '@/router'
 import { staticRoutes } from '@/router/routes.static'
 import { fetchUserRoutes } from '@/service'
-import { useAuthStore } from '@/store/auth'
-import { $t, local } from '@/utils'
+import { $t } from '@/utils'
 import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 
 interface RoutesStatus {
@@ -41,15 +40,14 @@ export const useRouteStore = defineStore('route-store', {
       if (import.meta.env.VITE_ROUTE_LOAD_MODE === 'dynamic') {
         try {
           // Get user's route
-          const result = await fetchUserRoutes({
+          const { data } = await fetchUserRoutes({
             id: 1,
           })
-
-          if (!result.isSuccess || !result.data) {
+          if (!data) {
             throw new Error('Failed to fetch user routes')
           }
 
-          return result.data
+          return data
         }
         catch (error) {
           console.error('Failed to initialize route info:', error)

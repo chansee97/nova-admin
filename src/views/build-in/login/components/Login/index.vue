@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import type { FormInst } from 'naive-ui'
 import { useAuthStore } from '@/store'
+import { fetchCaptchaImage } from '@/service'
 import { local } from '@/utils'
+import { useBoolean } from '@/hooks'
 
 const emit = defineEmits(['update:modelValue'])
-
+const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 const authStore = useAuthStore()
 
 function toOtherForm(type: any) {
@@ -12,8 +14,16 @@ function toOtherForm(type: any) {
 }
 
 const { t } = useI18n()
+
+// 验证码相关状态
+const captchaData = ref({
+  captchaId: '',
+  captchaImage: '',
+  enabled: false,
+})
+
 const rules = computed(() => {
-  return {
+  const baseRules = {
     account: {
       required: true,
       trigger: 'blur',
@@ -25,13 +35,45 @@ const rules = computed(() => {
       message: t('login.passwordRuleTip'),
     },
   }
+
+  // 如果启用验证码，添加验证码验证规则
+  if (captchaData.value.enabled) {
+    (baseRules as any).captcha = {
+      required: true,
+      trigger: 'blur',
+      message: '请输入验证码',
+    }
+  }
+
+  return baseRules
 })
 const formValue = ref({
-  account: 'super',
-  pwd: '123456',
+  account: 'admin',
+  pwd: '12345',
+  captcha: '',
 })
 const isRemember = ref(false)
-const isLoading = ref(false)
+
+// 获取验证码
+async function getCaptcha() {
+  try {
+    const { data } = await fetchCaptchaImage()
+    captchaData.value = {
+      captchaId: data.captchaId,
+      captchaImage: data.captchaImage,
+      enabled: data.enabled,
+    }
+  }
+  catch (error) {
+    console.error('获取验证码失败:', error)
+  }
+}
+
+// 刷新验证码
+function refreshCaptcha() {
+  formValue.value.captcha = ''
+  getCaptcha()
+}
 
 const formRef = ref<FormInst | null>(null)
 function handleLogin() {
@@ -39,19 +81,29 @@ function handleLogin() {
     if (errors)
       return
 
-    isLoading.value = true
-    const { account, pwd } = formValue.value
+    startLoading()
+    const { account, pwd, captcha } = formValue.value
 
-    if (isRemember.value)
+    if (isRemember.value) {
       local.set('loginAccount', { account, pwd })
-    else local.remove('loginAccount')
+    }
+    else {
+      local.remove('loginAccount')
+    }
 
-    await authStore.login(account, pwd)
-    isLoading.value = false
+    // 传递验证码相关参数
+    try {
+      await authStore.login(account, pwd, captchaData.value.captchaId, captcha)
+    }
+    catch {
+      refreshCaptcha()
+    }
+    endLoading()
   })
 }
 onMounted(() => {
   checkUserAccount()
+  getCaptcha()
 })
 function checkUserAccount() {
   const loginAccount = local.get('loginAccount')
@@ -82,6 +134,25 @@ function checkUserAccount() {
           </template>
         </n-input>
       </n-form-item>
+      <n-form-item v-if="captchaData.enabled" path="captcha">
+        <div class="flex w-full gap-2">
+          <n-input
+            v-model:value="formValue.captcha"
+            placeholder="请输入验证码"
+            clearable
+            class="flex-1"
+          />
+          <div
+            class="flex items-center justify-center w-24 h-10 border border-gray-300 rounded cursor-pointer hover:border-primary-500 transition-colors"
+            @click="refreshCaptcha"
+          >
+            <div
+              class="w-full h-full flex items-center justify-center"
+              v-html="captchaData.captchaImage"
+            />
+          </div>
+        </div>
+      </n-form-item>
       <n-space vertical :size="20">
         <div class="flex-y-center justify-between">
           <n-checkbox v-model:checked="isRemember">
@@ -91,7 +162,7 @@ function checkUserAccount() {
             {{ $t('login.forgotPassword') }}
           </n-button>
         </div>
-        <n-button block type="primary" size="large" :loading="isLoading" :disabled="isLoading" @click="handleLogin">
+        <n-button block type="primary" size="large" :loading="loading" :disabled="loading" @click="handleLogin">
           {{ $t('login.signIn') }}
         </n-button>
         <n-flex>
@@ -102,26 +173,6 @@ function checkUserAccount() {
         </n-flex>
       </n-space>
     </n-form>
-    <n-divider>
-      <span op-80>{{ $t('login.or') }}</span>
-    </n-divider>
-    <n-space justify="center">
-      <n-button circle>
-        <template #icon>
-          <n-icon><icon-park-outline-wechat /></n-icon>
-        </template>
-      </n-button>
-      <n-button circle>
-        <template #icon>
-          <n-icon><icon-park-outline-tencent-qq /></n-icon>
-        </template>
-      </n-button>
-      <n-button circle>
-        <template #icon>
-          <n-icon><icon-park-outline-github-one /></n-icon>
-        </template>
-      </n-button>
-    </n-space>
   </div>
 </template>
 

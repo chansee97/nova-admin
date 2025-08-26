@@ -1,16 +1,11 @@
 <script setup lang="tsx">
-import type { DataTableColumns } from 'naive-ui'
-import CopyText from '@/components/custom/CopyText.vue'
 import { useBoolean } from '@/hooks'
-import { fetchDictList } from '@/service'
-import { useDictStore } from '@/store'
-import { NButton, NFlex, NPopconfirm } from 'naive-ui'
+import { deleteDictData, deleteDictType, getDictDataByType, getDictTypeList } from '@/service'
+import { createDictDataColumns, createDictTypeColumns } from './columns'
 import DictModal from './components/DictModal.vue'
 
 const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
 const { bool: contentLoading, setTrue: startContentLoading, setFalse: endContentLoading } = useBoolean(false)
-
-const { getDictByNet } = useDictStore()
 
 const dictRef = ref<InstanceType<typeof DictModal>>()
 const dictContentRef = ref<InstanceType<typeof DictModal>>()
@@ -19,126 +14,70 @@ onMounted(() => {
   getDictList()
 })
 
-const dictData = ref<Entity.Dict[]>([])
-const dictContentData = ref<Entity.Dict[]>([])
+const dictData = ref<Entity.DictType[]>([])
+const dictContentData = ref<Entity.DictData[]>([])
 
 async function getDictList() {
   startDictLoading()
-  const { data, isSuccess } = await fetchDictList()
-  if (isSuccess) {
-    dictData.value = data
+  try {
+    const { data } = await getDictTypeList()
+    dictData.value = data.list
   }
-  endDictLoading()
+  catch (error) {
+    console.error('获取字典类型列表失败', error)
+  }
+  finally {
+    endDictLoading()
+  }
 }
 
 const lastDictCode = ref('')
 async function getDictContent(code: string) {
   startContentLoading()
-  dictContentData.value = await getDictByNet(code)
-  lastDictCode.value = code
-  endContentLoading()
+  try {
+    const { data } = await getDictDataByType(code)
+    dictContentData.value = data
+    lastDictCode.value = code
+  }
+  catch (error) {
+    console.error('获取字典数据失败', error)
+  }
+  finally {
+    endContentLoading()
+  }
 }
 
-const dictColumns: DataTableColumns<Entity.Dict> = [
-  {
-    title: '字典项',
-    key: 'label',
-  },
-  {
-    title: '字典码',
-    key: 'code',
-    render: (row) => {
-      return (
-        <CopyText value={row.code} />
-      )
-    },
-  },
-  {
-    title: '操作',
-    key: 'actions',
-    align: 'center',
-    render: (row) => {
-      return (
-        <NFlex justify="center">
-          <NButton
-            size="small"
-            onClick={() => getDictContent(row.code)}
-          >
-            查看字典
-          </NButton>
-          <NButton
-            size="small"
-            onClick={() => dictRef.value!.openModal('edit', row)}
-          >
-            编辑
-          </NButton>
-          <NPopconfirm onPositiveClick={() => deleteDict(row.id!)}>
-            {{
-              default: () => (
-                <span>
-                  确认删除字典
-                  <b>{row.label}</b>
-                  {' '}
-                  ？
-                </span>
-              ),
-              trigger: () => <NButton size="small" type="error">删除</NButton>,
-            }}
-          </NPopconfirm>
-        </NFlex>
-      )
-    },
-  },
-]
+// 字典类型columns配置
+const dictColumns = createDictTypeColumns({
+  onView: getDictContent,
+  onEdit: row => dictRef.value!.openModal('edit', row),
+  onDelete: id => deleteDict(id, true),
+})
 
-const contentColumns: DataTableColumns<Entity.Dict> = [
-  {
-    title: '字典名称',
-    key: 'label',
-  },
-  {
-    title: '字典码',
-    key: 'code',
-  },
-  {
-    title: '字典值',
-    key: 'value',
-  },
-  {
-    title: '操作',
-    key: 'actions',
-    align: 'center',
-    width: '15em',
-    render: (row) => {
-      return (
-        <NFlex justify="center">
-          <NButton
-            size="small"
-            onClick={() => dictContentRef.value!.openModal('edit', row)}
-          >
-            编辑
-          </NButton>
-          <NPopconfirm onPositiveClick={() => deleteDict(row.id!)}>
-            {{
-              default: () => (
-                <span>
-                  确认删除字典值
-                  <b>{row.label}</b>
-                  {' '}
-                  ？
-                </span>
-              ),
-              trigger: () => <NButton size="small" type="error">删除</NButton>,
-            }}
-          </NPopconfirm>
-        </NFlex>
-      )
-    },
-  },
-]
+// 字典数据columns配置
+const contentColumns = createDictDataColumns({
+  onEdit: row => dictContentRef.value!.openModal('edit', row),
+  onDelete: id => deleteDict(id, false),
+})
 
-function deleteDict(id: number) {
-  window.$message.error(`删除字典${id}`)
+async function deleteDict(id: number, isType: boolean = false) {
+  try {
+    if (isType) {
+      await deleteDictType(id)
+      window.$message.success('删除字典类型成功')
+      getDictList() // 重新加载字典类型列表
+    }
+    else {
+      await deleteDictData(id)
+      window.$message.success('删除字典数据成功')
+      if (lastDictCode.value) {
+        getDictContent(lastDictCode.value) // 重新加载字典数据
+      }
+    }
+  }
+  catch (error) {
+    console.error(`删除${isType ? '字典类型' : '字典数据'}失败`, error)
+  }
 }
 </script>
 
@@ -197,8 +136,8 @@ function deleteDict(id: number) {
       </n-card>
     </div>
 
-    <DictModal ref="dictRef" modal-name="字典项" is-root />
-    <DictModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" />
+    <DictModal ref="dictRef" modal-name="字典项" is-root @success="getDictList" />
+    <DictModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" @success="() => getDictContent(lastDictCode)" />
   </NFlex>
 </template>
 

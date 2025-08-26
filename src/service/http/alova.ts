@@ -7,13 +7,14 @@ import type { VueHookType } from 'alova/vue'
 import {
   DEFAULT_ALOVA_OPTIONS,
   DEFAULT_BACKEND_OPTIONS,
+  ERROR_STATUS,
+
 } from './config'
 import {
-  handleBusinessError,
   handleRefreshToken,
-  handleResponseError,
-  handleServiceResult,
 } from './handle'
+
+import type { AlovaConfig, BackendConfig, ErrorStatus } from './type'
 
 const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthentication<VueHookType>({
   // 服务端判定token过期
@@ -45,8 +46,8 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 
 // docs path of alova.js https://alova.js.org/
 export function createAlovaInstance(
-  alovaConfig: Service.AlovaConfig,
-  backendConfig?: Service.BackendConfig,
+  alovaConfig: AlovaConfig,
+  backendConfig?: BackendConfig,
 ) {
   const _backendConfig = { ...DEFAULT_BACKEND_OPTIONS, ...backendConfig }
   const _alovaConfig = { ...DEFAULT_ALOVA_OPTIONS, ...alovaConfig }
@@ -63,12 +64,13 @@ export function createAlovaInstance(
         method.config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
         method.data = new URLSearchParams(method.data as URLSearchParams).toString()
       }
-      alovaConfig.beforeRequest?.(method)
+      alovaConfig.beforeRequest?.(method as any)
     }),
     responded: onResponseRefreshToken({
       // 请求成功的拦截器
       onSuccess: async (response, method) => {
         const { status } = response
+        let errorMessage = ''
 
         if (status === 200) {
           // 返回blob数据
@@ -79,19 +81,23 @@ export function createAlovaInstance(
           const apiData = await response.json()
           // 请求成功
           if (apiData[_backendConfig.codeKey] === _backendConfig.successCode)
-            return handleServiceResult(apiData)
+            return apiData
 
           // 业务请求失败
-          const errorResult = handleBusinessError(apiData, _backendConfig)
-          return handleServiceResult(errorResult, false)
+          errorMessage = apiData[_backendConfig.msgKey]
         }
-        // 接口请求失败
-        const errorResult = handleResponseError(response)
-        return handleServiceResult(errorResult, false)
+        else {
+          // 接口请求失败
+          const errorCode = response.status as ErrorStatus
+          errorMessage = ERROR_STATUS[errorCode] || ERROR_STATUS.default
+        }
+        window.$message?.error(errorMessage)
+        throw new Error(errorMessage)
       },
       onError: (error, method) => {
         const tip = `[${method.type}] - [${method.url}] - ${error.message}`
         window.$message?.warning(tip)
+        throw new Error(tip)
       },
 
       onComplete: async (_method) => {

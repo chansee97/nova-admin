@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {
-  fetchUpdateToken,
+  fetchRefreshToken,
 } from '@/service'
 
 const emit = defineEmits<{
@@ -8,7 +8,7 @@ const emit = defineEmits<{
 }>()
 
 async function updataToken() {
-  const res = await fetchUpdateToken({ token: 'test token' })
+  const res = await fetchRefreshToken({ token: 'test token' })
   emit('update', res)
 }
 </script>

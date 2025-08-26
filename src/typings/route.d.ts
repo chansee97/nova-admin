@@ -43,7 +43,7 @@ declare namespace AppRoute {
     /* 路由id */
     id: number
     /* 父级路由id，顶级页面为null */
-    pid: number | null
+    parentId: number | null
   }
 
   /** 单个路由的类型结构(动态路由模式：后端返回此类型结构的路由) */

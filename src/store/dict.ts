@@ -36,16 +36,11 @@ export const useDictStore = defineStore('dict-store', {
     },
 
     async getDictByNet(code: string) {
-      const { data, isSuccess } = await fetchDictList(code)
-      if (isSuccess) {
-        Reflect.set(this.dictMap, code, data)
-        // 同步至session
-        session.set('dict', this.dictMap)
-        return data
-      }
-      else {
-        throw new Error(`Failed to get ${code} dictionary from network, check ${code} field or network`)
-      }
+      const { data } = await fetchDictList(code)
+      Reflect.set(this.dictMap, code, data)
+      // 同步至session
+      session.set('dict', this.dictMap)
+      return data
     },
     initDict() {
       const dict = session.get('dict')
@@ -54,5 +49,8 @@ export const useDictStore = defineStore('dict-store', {
       }
       this.isInitDict = true
     },
+  },
+  persist: {
+    storage: sessionStorage,
   },
 })

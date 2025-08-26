@@ -8,7 +8,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 1,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'workbench',
@@ -20,7 +20,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'page',
     componentPath: '/dashboard/workbench/index.vue',
     id: 101,
-    pid: 1,
+    parentId: 1,
   },
   {
     name: 'monitor',
@@ -31,7 +31,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'page',
     componentPath: '/dashboard/monitor/index.vue',
     id: 102,
-    pid: 1,
+    parentId: 1,
   },
   {
     name: 'multi',
@@ -42,7 +42,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 2,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'multi2',
@@ -53,7 +53,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'page',
     componentPath: '/demo/multi/multi-2/index.vue',
     id: 201,
-    pid: 2,
+    parentId: 2,
   },
   {
     name: 'multi2-detail',
@@ -66,7 +66,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'page',
     componentPath: '/demo/multi/multi-2/detail/index.vue',
     id: 20101,
-    pid: 2,
+    parentId: 2,
   },
   {
     name: 'multi3',
@@ -77,7 +77,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 202,
-    pid: 2,
+    parentId: 2,
   },
   {
     name: 'multi4',
@@ -87,7 +87,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:list',
     componentPath: '/demo/multi/multi-3/multi-4/index.vue',
     id: 20201,
-    pid: 202,
+    parentId: 202,
   },
   {
     name: 'list',
@@ -98,7 +98,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 3,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'commonList',
@@ -108,7 +108,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:list-view',
     componentPath: '/demo/list/common-list/index.vue',
     id: 301,
-    pid: 3,
+    parentId: 3,
   },
   {
     name: 'cardList',
@@ -118,7 +118,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:view-grid-list',
     componentPath: '/demo/list/card-list/index.vue',
     id: 302,
-    pid: 3,
+    parentId: 3,
   },
   {
     name: 'draggableList',
@@ -128,7 +128,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:menu-fold',
     componentPath: '/demo/list/draggable-list/index.vue',
     id: 303,
-    pid: 3,
+    parentId: 3,
   },
   {
     name: 'demo',
@@ -139,7 +139,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 4,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'fetch',
@@ -149,7 +149,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:international',
     componentPath: '/demo/fetch/index.vue',
     id: 401,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'echarts',
@@ -159,7 +159,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:chart-proportion',
     componentPath: '/demo/echarts/index.vue',
     id: 402,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'map',
@@ -170,7 +170,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     keepAlive: true,
     componentPath: '/demo/map/index.vue',
     id: 403,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'editor',
@@ -181,7 +181,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 404,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'editorMd',
@@ -191,7 +191,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'ri:markdown-line',
     componentPath: '/demo/editor/md/index.vue',
     id: 40401,
-    pid: 404,
+    parentId: 404,
   },
   {
     name: 'editorRich',
@@ -201,7 +201,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:edit-one',
     componentPath: '/demo/editor/rich/index.vue',
     id: 40402,
-    pid: 404,
+    parentId: 404,
   },
   {
     name: 'clipboard',
@@ -211,7 +211,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:clipboard',
     componentPath: '/demo/clipboard/index.vue',
     id: 405,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'icons',
@@ -221,7 +221,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'local:cool',
     componentPath: '/demo/icons/index.vue',
     id: 406,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'QRCode',
@@ -231,7 +231,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:two-dimensional-code',
     componentPath: '/demo/qr-code/index.vue',
     id: 407,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'cascader',
@@ -241,7 +241,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:add-subset',
     componentPath: '/demo/cascader/index.vue',
     id: 408,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'dict',
@@ -251,7 +251,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:book-one',
     componentPath: '/demo/dict/index.vue',
     id: 409,
-    pid: 4,
+    parentId: 4,
   },
   {
     name: 'documents',
@@ -262,7 +262,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 5,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'documentsVue',
@@ -272,7 +272,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'logos:vue',
     componentPath: '/demo/documents/vue/index.vue',
     id: 501,
-    pid: 5,
+    parentId: 5,
   },
   {
     name: 'documentsVite',
@@ -282,7 +282,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'logos:vitejs',
     componentPath: '/demo/documents/vite/index.vue',
     id: 502,
-    pid: 5,
+    parentId: 5,
   },
   {
     name: 'documentsVueuse',
@@ -293,7 +293,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     href: 'https://vueuse.org/guide/',
     componentPath: 'null',
     id: 503,
-    pid: 5,
+    parentId: 5,
   },
 
   {
@@ -305,7 +305,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     href: 'https://nova-admin-docs.netlify.app/',
     componentPath: '2333333',
     id: 504,
-    pid: 5,
+    parentId: 5,
   },
   {
     name: 'documentsPublic',
@@ -316,7 +316,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     href: '/public',
     componentPath: 'null',
     id: 505,
-    pid: 5,
+    parentId: 5,
   },
   {
     name: 'permission',
@@ -327,7 +327,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 6,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'permissionDemo',
@@ -337,7 +337,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:right-user',
     componentPath: '/demo/permission/permission/index.vue',
     id: 601,
-    pid: 6,
+    parentId: 6,
   },
   {
     name: 'justSuper',
@@ -350,7 +350,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:wrong-user',
     componentPath: '/demo/permission/just-super/index.vue',
     id: 602,
-    pid: 6,
+    parentId: 6,
   },
   {
     name: 'setting',
@@ -361,7 +361,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     menuType: 'dir',
     componentPath: null,
     id: 7,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'accountSetting',
@@ -371,7 +371,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:every-user',
     componentPath: '/setting/account/index.vue',
     id: 701,
-    pid: 7,
+    parentId: 7,
   },
   {
     name: 'dictionarySetting',
@@ -381,7 +381,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:book-one',
     componentPath: '/setting/dictionary/index.vue',
     id: 702,
-    pid: 7,
+    parentId: 7,
   },
   {
     name: 'menuSetting',
@@ -391,7 +391,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:application-menu',
     componentPath: '/setting/menu/index.vue',
     id: 703,
-    pid: 7,
+    parentId: 7,
   },
   {
     name: 'about',
@@ -401,7 +401,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'icon-park-outline:info',
     componentPath: '/demo/about/index.vue',
     id: 8,
-    pid: null,
+    parentId: null,
   },
   {
     name: 'userCenter',
@@ -412,7 +412,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     icon: 'carbon:user-avatar-filled-alt',
     componentPath: '/build-in/user-center/index.vue',
     id: 999,
-    pid: null,
+    parentId: null,
   },
 
 ]

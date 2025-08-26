@@ -1,10 +1,8 @@
 <script setup lang="tsx">
-import type { DataTableColumns, FormInst } from 'naive-ui'
-import CopyText from '@/components/custom/CopyText.vue'
-import { Gender } from '@/constants'
+import type { FormInst } from 'naive-ui'
 import { useBoolean } from '@/hooks'
-import { fetchUserPage } from '@/service'
-import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
+import { deleteUser, getUserList, updateUser } from '@/service'
+import { createUserColumns } from './columns'
 import TableModal from './components/TableModal.vue'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
@@ -21,111 +19,58 @@ function handleResetSearch() {
 const formRef = ref<FormInst | null>()
 const modalRef = ref()
 
-function delteteUser(id: number) {
-  window.$message.success(`删除用户id:${id}`)
+async function delteteUser(id: number) {
+  try {
+    await deleteUser(id)
+    window.$message.success('用户删除成功')
+    getUserPageList() // 重新加载列表
+  }
+  catch {
+  }
 }
 
-const columns: DataTableColumns<Entity.User> = [
-  {
-    title: '姓名',
-    align: 'center',
-    key: 'userName',
-  },
-  {
-    title: '性别',
-    align: 'center',
-    key: 'gender',
-    render: (row) => {
-      const tagType = {
-        0: 'primary',
-        1: 'success',
-      } as const
-      if (row.gender) {
-        return (
-          <NTag type={tagType[row.gender]}>
-            {Gender[row.gender]}
-          </NTag>
-        )
-      }
-    },
-  },
-  {
-    title: '邮箱',
-    align: 'center',
-    key: 'email',
-  },
-  {
-    title: '联系方式',
-    align: 'center',
-    key: 'tel',
-    render: (row) => {
-      return (
-        <CopyText value={row.tel} />
-      )
-    },
-  },
-  {
-    title: '状态',
-    align: 'center',
-    key: 'status',
-    render: (row) => {
-      return (
-        <NSwitch
-          value={row.status}
-          checked-value={1}
-          unchecked-value={0}
-          onUpdateValue={(value: 0 | 1) =>
-            handleUpdateDisabled(value, row.id!)}
-        >
-          {{ checked: () => '启用', unchecked: () => '禁用' }}
-        </NSwitch>
-      )
-    },
-  },
-  {
-    title: '操作',
-    align: 'center',
-    key: 'actions',
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          <NButton
-            size="small"
-            onClick={() => modalRef.value.openModal('edit', row)}
-          >
-            编辑
-          </NButton>
-          <NPopconfirm onPositiveClick={() => delteteUser(row.id!)}>
-            {{
-              default: () => '确认删除',
-              trigger: () => <NButton size="small" type="error">删除</NButton>,
-            }}
-          </NPopconfirm>
-        </NSpace>
-      )
-    },
-  },
-]
+// 用户管理columns配置
+const columns = createUserColumns({
+  onEdit: row => modalRef.value?.openModal('edit', row),
+  onDelete: delteteUser,
+  onStatusChange: handleUpdateDisabled,
+})
 
 const count = ref(0)
 const listData = ref<Entity.User[]>([])
-function handleUpdateDisabled(value: 0 | 1, id: number) {
-  const index = listData.value.findIndex(item => item.id === id)
-  if (index > -1)
-    listData.value[index].status = value
+async function handleUpdateDisabled(value: 0 | 1, id: number) {
+  try {
+    // 使用updateUser接口更新用户状态
+    await updateUser(id, { userStatus: value })
+    const index = listData.value.findIndex(item => item.userId === id)
+    if (index > -1) {
+      listData.value[index].userStatus = value
+    }
+    window.$message.success('用户状态更新成功')
+  }
+  catch {
+  }
 }
 
-async function getUserList() {
+async function getUserPageList() {
   startLoading()
-  await fetchUserPage().then((res: any) => {
+  try {
+    const res = await getUserList({
+      pageNum: 1,
+      pageSize: 20,
+      username: model.value.condition_1,
+      gender: model.value.condition_2 as any,
+    })
     listData.value = res.data.list
-    count.value = res.data.count
+    count.value = res.data.total
+  }
+  finally {
     endLoading()
-  })
+  }
 }
 
 onMounted(() => {
-  getUserList()
+  getUserPageList()
 })
 
 function changePage(page: number, size: number) {
@@ -181,7 +126,7 @@ const treeData = ref([
               <n-input v-model:value="model.condition_2" placeholder="请输入" />
             </n-form-item>
             <n-flex class="ml-auto">
-              <NButton type="primary" @click="getUserList">
+              <NButton type="primary" @click="getUserPageList">
                 <template #icon>
                   <icon-park-outline-search />
                 </template>
@@ -212,7 +157,7 @@ const treeData = ref([
           <Pagination :count="count" @change="changePage" />
         </NSpace>
 
-        <TableModal ref="modalRef" modal-name="用户" />
+        <TableModal ref="modalRef" modal-name="用户" @success="getUserPageList" />
       </n-card>
     </NSpace>
   </n-flex>

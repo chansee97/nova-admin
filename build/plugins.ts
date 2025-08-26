@@ -7,6 +7,7 @@ import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import { ProNaiveUIResolver } from 'pro-naive-ui-resolver'
 import Components from 'unplugin-vue-components/vite'
 import viteCompression from 'vite-plugin-compression'
 import VueDevTools from 'vite-plugin-vue-devtools'
@@ -65,6 +66,7 @@ export function createVitePlugins(env: ImportMetaEnv) {
           ],
         }),
         NaiveUiResolver(),
+        ProNaiveUIResolver(),
       ],
     }),
 

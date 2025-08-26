@@ -1,13 +1,34 @@
 /// <reference path="../global.d.ts"/>
 
-/* 角色数据库表字段 */
+/* 数据库表字段 */
 namespace Entity {
-  type RoleType = 'super' | 'admin' | 'user'
+  type RoleType = string
 
   interface Role {
-    /** 用户id */
-    id?: number
-    /** 用户名 */
-    role?: RoleType
+    /**
+     * 菜单ID数组
+     */
+    menuIds?: number[]
+    /**
+     * 备注信息
+     */
+    remark?: string
+    /**
+     * 角色权限字符串
+     */
+    roleKey: string
+    /**
+     * 角色名称
+     */
+    roleName: string
+    /**
+     * 角色状态
+     */
+    roleStatus?: number
+    /**
+     * 显示顺序
+     */
+    sort: number
+    [property: string]: any
   }
 }

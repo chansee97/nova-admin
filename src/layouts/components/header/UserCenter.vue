@@ -83,7 +83,7 @@ function handleSelect(key: string | number) {
     <n-avatar
       round
       class="cursor-pointer"
-      :src="userInfo?.avatar"
+      :src="userInfo?.avatar || `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${userInfo!.username}`"
     >
       <template #fallback>
         <div class="wh-full flex-center">

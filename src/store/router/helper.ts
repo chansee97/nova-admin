@@ -2,9 +2,10 @@ import type { MenuOption } from 'naive-ui'
 import type { RouteRecordRaw } from 'vue-router'
 import { usePermission } from '@/hooks'
 import Layout from '@/layouts/index.vue'
-import { $t, arrayToTree, renderIcon } from '@/utils'
+import { $t, renderIcon } from '@/utils'
 import { clone, min, omit, pick } from 'radash'
 import { RouterLink } from 'vue-router'
+import arrayToTree from 'array-to-tree'
 
 const metaFields: AppRoute.MetaKeys[]
   = ['title', 'icon', 'requiresAuth', 'roles', 'keepAlive', 'hide', 'order', 'href', 'activeMenu', 'withoutTab', 'pinTab', 'menuType']
@@ -36,7 +37,10 @@ export function createRoutes(routes: AppRoute.RowRoute[]) {
   })
 
   // Generate route tree
-  resultRouter = arrayToTree(resultRouter) as AppRoute.Route[]
+  resultRouter = arrayToTree(resultRouter, {
+    parentProperty: 'parentId',
+    customID: 'id',
+  }) as AppRoute.Route[]
 
   const appRootRoute: RouteRecordRaw = {
     path: '/appRoot',
@@ -98,7 +102,10 @@ export function createMenus(userRoutes: AppRoute.RowRoute[]) {
   const visibleMenus = resultMenus.filter(route => !route.meta.hide)
 
   // generate side menu
-  return arrayToTree(transformAuthRoutesToMenus(visibleMenus))
+  return arrayToTree(transformAuthRoutesToMenus(visibleMenus), {
+    parentProperty: 'parentId',
+    customID: 'id',
+  })
 }
 
 // render the returned routing table as a sidebar
@@ -121,7 +128,7 @@ function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
     .map((item) => {
       const target: MenuOption = {
         id: item.id,
-        pid: item.pid,
+        parentId: item.parentId,
         label:
           (!item.meta.menuType || item.meta.menuType === 'page')
             ? () =>

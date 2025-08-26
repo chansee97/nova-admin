@@ -38,11 +38,20 @@ const appStore = useAppStore()
 const naiveLocale = computed(() => {
   return naiveI18nOptions[appStore.lang] ? naiveI18nOptions[appStore.lang] : naiveI18nOptions.enUS
 })
+
+const propOverrides = {
+  ProModalForm: {
+    labelWidth: 120,
+    labelPlacement: 'left',
+    preset: 'card',
+  },
+}
 </script>
 
 <template>
-  <n-config-provider
-    class="wh-full"
+  <pro-config-provider
+    :prop-overrides="propOverrides"
+    abstract
     inline-theme-disabled
     :theme="appStore.colorMode === 'dark' ? darkTheme : null"
     :locale="naiveLocale.locale"
@@ -53,5 +62,5 @@ const naiveLocale = computed(() => {
       <router-view />
       <Watermark :show-watermark="appStore.showWatermark" />
     </naive-provider>
-  </n-config-provider>
+  </pro-config-provider>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { FormRules } from 'naive-ui'
 import { useBoolean } from '@/hooks'
+import { createDictData, createDictType, updateDictData, updateDictType } from '@/service'
 
 interface Props {
   modalName?: string
@@ -17,17 +18,18 @@ const {
 const emit = defineEmits<{
   open: []
   close: []
+  success: []
 }>()
 
 const { bool: modalVisible, setTrue: showModal, setFalse: hiddenModal } = useBoolean(false)
 
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const formDefault: Entity.Dict = {
+const formDefault: any = {
   label: '',
   code: '',
 }
-const formModel = ref<Entity.Dict>({ ...formDefault })
+const formModel = ref<any>({ ...formDefault })
 
 type ModalType = 'add' | 'view' | 'edit'
 const modalType = shallowRef<ModalType>('add')
@@ -81,20 +83,54 @@ const formRef = ref()
 async function submitModal() {
   const handlers = {
     async add() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          window.$message.success('模拟新增成功')
-          resolve(true)
-        }, 2000)
-      })
+      try {
+        if (isRoot) {
+          // 创建字典类型
+          await createDictType({
+            dictType: formModel.value.label,
+            dictName: formModel.value.code,
+          })
+          window.$message.success('字典类型创建成功')
+        }
+        else {
+          // 创建字典数据
+          await createDictData({
+            dictType: formModel.value.label,
+            dictValue: formModel.value.value,
+          })
+          window.$message.success('字典数据创建成功')
+        }
+        emit('success')
+        return true
+      }
+      catch {
+        return false
+      }
     },
     async edit() {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          window.$message.success('模拟编辑成功')
-          resolve(true)
-        }, 2000)
-      })
+      try {
+        if (isRoot) {
+          // 更新字典类型
+          await updateDictType(formModel.value.id!, {
+            dictType: formModel.value.label as any,
+            dictName: formModel.value.code,
+          })
+          window.$message.success('字典类型更新成功')
+        }
+        else {
+          // 更新字典数据
+          await updateDictData(formModel.value.id!, {
+            dictType: formModel.value.label,
+            dictValue: formModel.value.value,
+          })
+          window.$message.success('字典数据更新成功')
+        }
+        emit('success')
+        return true
+      }
+      catch {
+        return false
+      }
     },
     async view() {
       return true
@@ -102,7 +138,11 @@ async function submitModal() {
   }
   await formRef.value?.validate()
   startLoading()
-  await handlers[modalType.value]() && closeModal()
+  const success = await handlers[modalType.value]()
+  endLoading()
+  if (success) {
+    closeModal()
+  }
 }
 
 const rules: FormRules = {

@@ -10,15 +10,13 @@ const subOptions = ref()
 const currentDict = ref()
 
 async function getAlldict() {
-  const { data, isSuccess } = await fetchDictList()
-  if (isSuccess) {
-    options.value = data.map((item) => {
-      return {
-        label: item.label,
-        value: item.code,
-      }
-    })
-  }
+  const { data } = await fetchDictList()
+  options.value = data.map((item) => {
+    return {
+      label: item.label,
+      value: item.code,
+    }
+  })
 }
 function changeSelect(v: string) {
   dict(v).then((data) => {

@@ -1,173 +1,102 @@
-<script setup lang="tsx">
-import type { DataTableColumns } from 'naive-ui'
+<script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { fetchAllRoutes } from '@/service'
-import { arrayToTree, createIcon } from '@/utils'
-import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
-import { renderProCopyableText } from 'pro-naive-ui'
-import TableModal from './components/TableModal.vue'
+import { deleteMenu, getMenuList } from '@/service'
+import { createMenuColumns } from './columns'
+import MenuModal from './components/MenuModal.vue'
+import arrayToTree from 'array-to-tree'
 
 const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-function deleteData(id: number) {
-  window.$message.success(`删除菜单id:${id}`)
+async function deleteData(id: number) {
+  try {
+    await deleteMenu(id)
+    window.$message.success('删除菜单成功')
+    getAllRoutes() // 重新加载列表
+  }
+  catch (error) {
+    console.error('删除菜单失败', error)
+  }
 }
 
-const tableModalRef = ref()
+const menuModalRef = ref()
 
-const columns: DataTableColumns<AppRoute.RowRoute> = [
-  {
-    type: 'selection',
-    width: 30,
-  },
-  {
-    title: '名称',
-    key: 'name',
-    width: 200,
-  },
-  {
-    title: '图标',
-    align: 'center',
-    key: 'icon',
-    width: '6em',
-    render: (row) => {
-      return row.icon && createIcon(row.icon, { size: 20 })
-    },
-  },
-  {
-    title: '标题',
-    align: 'center',
-    key: 'title',
-    ellipsis: {
-      tooltip: true,
-    },
-  },
-  {
-    title: '路径',
-    key: 'path',
-    render: row => renderProCopyableText(row.path),
-  },
-  {
-    title: '组件路径',
-    key: 'componentPath',
-    ellipsis: {
-      tooltip: true,
-    },
-    render: (row) => {
-      return row.componentPath || '-'
-    },
-  },
-  {
-    title: '排序值',
-    key: 'order',
-    align: 'center',
-    width: '6em',
-  },
-  {
-    title: '菜单类型',
-    align: 'center',
-    key: 'menuType',
-    width: '6em',
-    render: (row) => {
-      const menuType = row.menuType || 'page'
-      const menuTagType: Record<AppRoute.MenuType, NaiveUI.ThemeColor> = {
-        dir: 'primary',
-        page: 'warning',
-      }
-      return <NTag type={menuTagType[menuType]}>{menuType}</NTag>
-    },
-  },
-  {
-    title: '操作',
-    align: 'center',
-    key: 'actions',
-    width: '15em',
-    render: (row) => {
-      return (
-        <NSpace justify="center">
-          <NButton
-            size="small"
-            onClick={() => tableModalRef.value.openModal('view', row)}
-          >
-            查看
-          </NButton>
-          <NButton
-            size="small"
-            onClick={() => tableModalRef.value.openModal('edit', row)}
-          >
-            编辑
-          </NButton>
-          <NPopconfirm onPositiveClick={() => deleteData(row.id)}>
-            {{
-              default: () => '确认删除',
-              trigger: () => <NButton size="small" type="error">删除</NButton>,
-            }}
-          </NPopconfirm>
-        </NSpace>
-      )
-    },
-  },
-]
+// 菜单管理columns配置
+const columns = createMenuColumns({
+  onEdit: row => menuModalRef.value.openModal('edit', row),
+  onDelete: deleteData,
+  onAdd: row => menuModalRef.value.openModal('add', row),
+})
 
-const tableData = ref<AppRoute.RowRoute[]>([])
+const tableData = ref<Entity.Menu[]>([])
+
+// 递归排序菜单树结构
+function sortMenuTree(menus: Entity.Menu[]): Entity.Menu[] {
+  // 对当前级别的菜单按sort值排序（升序）
+  const sortedMenus = menus.sort((a, b) => {
+    const sortA = a.sort || 0
+    const sortB = b.sort || 0
+    return sortA - sortB
+  })
+
+  // 递归排序子菜单
+  return sortedMenus.map(menu => ({
+    ...menu,
+    children: menu.children ? sortMenuTree(menu.children) : undefined,
+  }))
+}
+
+async function getAllRoutes() {
+  startLoading()
+  try {
+    const { data } = await getMenuList()
+    const treeData = arrayToTree(data, {
+      parentProperty: 'parentId',
+      customID: 'menuId',
+    })
+
+    // 对树形结构按sort值排序
+    tableData.value = sortMenuTree(treeData)
+  }
+  catch {
+    window.$message.error('获取菜单列表失败')
+  }
+  finally {
+    endLoading()
+  }
+}
 
 onMounted(() => {
   getAllRoutes()
 })
-async function getAllRoutes() {
-  startLoading()
-  const { data } = await fetchAllRoutes()
-  tableData.value = arrayToTree(data)
-  endLoading()
-}
-
-const checkedRowKeys = ref<number[]>([])
-async function handlePositiveClick() {
-  window.$message.success(`批量删除id:${checkedRowKeys.value.join(',')}`)
-}
 </script>
 
 <template>
-  <n-card>
-    <template #header>
-      <NButton type="primary" @click="tableModalRef.openModal('add')">
-        <template #icon>
-          <icon-park-outline-add-one />
-        </template>
-        新建
-      </NButton>
-    </template>
+  <div>
+    <pro-data-table
+      row-key="menuId"
+      :columns="columns"
+      :data="tableData"
+      :loading="loading"
+    >
+      <template #title>
+        <n-button type="primary" @click="menuModalRef.openModal('add')">
+          <template #icon>
+            <icon-park-outline-add-one />
+          </template>
+          新建
+        </n-button>
+      </template>
 
-    <template #header-extra>
-      <n-flex>
-        <NButton type="primary" secondary @click="getAllRoutes">
+      <template #toolbar>
+        <n-button type="primary" secondary @click="getAllRoutes">
           <template #icon>
             <icon-park-outline-refresh />
           </template>
           刷新
-        </NButton>
-        <NPopconfirm
-          @positive-click="handlePositiveClick"
-        >
-          <template #trigger>
-            <NButton type="error" secondary>
-              <template #icon>
-                <icon-park-outline-delete-five />
-              </template>
-              批量删除
-            </NButton>
-          </template>
-          确认删除所有选中菜单？
-        </NPopconfirm>
-      </n-flex>
-    </template>
-    <n-data-table
-      v-model:checked-row-keys="checkedRowKeys"
-      :row-key="(row:AppRoute.RowRoute) => row.id" :columns="columns" :data="tableData"
-      :loading="loading"
-      size="small"
-      :scroll-x="1200"
-    />
-    <TableModal ref="tableModalRef" :all-routes="tableData" modal-name="菜单" />
-  </n-card>
+        </n-button>
+      </template>
+    </pro-data-table>
+
+    <MenuModal ref="menuModalRef" modal-name="菜单" @success="getAllRoutes" />
+  </div>
 </template>

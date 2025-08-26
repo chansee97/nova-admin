@@ -1,10 +1,30 @@
 /* 存放数据库实体表类型， 具体内容在 ./entities */
 declare namespace Entity {
+  interface TreeNode {
+    id: number
+    label: string
+    children: TreeNode[]
+  }
 }
 
 /* 各类接口返回的数据类型， 具体内容在 ./api */
 declare namespace Api {
+  interface Response<T> {
+    /** 业务状态码 */
+    code: number
+    /** 业务信息 */
+    message: string
+    /** 业务数据 */
+    data: T
+  }
 
+  interface ListResponse<T> extends Response {
+    /** 业务数据 */
+    data: {
+      list: T[]
+      total: number
+    }
+  }
 }
 
 interface Window {
@@ -35,7 +55,7 @@ declare namespace Storage {
 
   interface Local {
     /* 存储用户信息 */
-    userInfo: Api.Login.Info
+    userInfo: Entity.User
     /* 存储访问token */
     accessToken: string
     /* 存储刷新token */

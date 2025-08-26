@@ -1,24 +1,22 @@
 import { router } from '@/router'
-import { fetchLogin } from '@/service'
+import { fetchLogin, fetchUserInfo } from '@/service'
 import { local } from '@/utils'
 import { useRouteStore } from './router'
 import { useTabStore } from './tab'
 
 interface AuthStatus {
-  userInfo: Api.Login.Info | null
-  token: string
+  userInfo: Entity.User | null
 }
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthStatus => {
     return {
-      userInfo: local.get('userInfo'),
-      token: local.get('accessToken') || '',
+      userInfo: null,
     }
   },
   getters: {
     /** 是否登录 */
     isLogin(state) {
-      return Boolean(state.token)
+      return Boolean(state.userInfo)
     },
   },
   actions: {
@@ -52,28 +50,32 @@ export const useAuthStore = defineStore('auth-store', {
     },
 
     /* 用户登录 */
-    async login(userName: string, password: string) {
-      try {
-        const { isSuccess, data } = await fetchLogin({ userName, password })
-        if (!isSuccess)
-          return
+    async login(userName: string, password: string, captchaId?: string, captcha?: string) {
+      const loginData: any = { userName, password }
 
-        // 处理登录信息
-        await this.handleLoginInfo(data)
+      // 如果提供了验证码相关参数，则添加到登录数据中
+      if (captchaId && captcha) {
+        loginData.captchaId = captchaId
+        loginData.captcha = captcha
       }
-      catch (e) {
-        console.warn('[Login Error]:', e)
-      }
+
+      const { data } = await fetchLogin(loginData)
+
+      // 处理登录信息
+
+      await this.handleLoginInfo(data)
     },
 
     /* 处理登录返回的数据 */
-    async handleLoginInfo(data: Api.Login.Info) {
-      // 将token和userInfo保存下来
-      local.set('userInfo', data)
+    async handleLoginInfo(data: any) {
+      // 将token保存下来
       local.set('accessToken', data.accessToken)
-      local.set('refreshToken', data.refreshToken)
-      this.token = data.accessToken
-      this.userInfo = data
+      if (data.refreshToken) {
+        local.set('refreshToken', data.refreshToken)
+      }
+
+      const res = await fetchUserInfo()
+      this.userInfo = res.data
 
       // 添加路由和菜单
       const routeStore = useRouteStore()
@@ -86,5 +88,8 @@ export const useAuthStore = defineStore('auth-store', {
         path: query.redirect || '/',
       })
     },
+  },
+  persist: {
+    storage: localStorage,
   },
 })
