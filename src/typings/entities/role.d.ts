@@ -6,6 +6,10 @@ namespace Entity {
 
   interface Role {
     /**
+     * 角色ID
+     */
+    roleId: number
+    /**
      * 菜单ID数组
      */
     menuIds?: number[]
@@ -29,6 +33,14 @@ namespace Entity {
      * 显示顺序
      */
     sort: number
+    /**
+     * 创建时间
+     */
+    createTime?: string
+    /**
+     * 更新时间
+     */
+    updateTime?: string
     [property: string]: any
   }
 }

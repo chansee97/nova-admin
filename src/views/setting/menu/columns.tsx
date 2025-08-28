@@ -17,7 +17,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
     {
       title: '菜单名称',
       key: 'title',
-      width: 200,
+      width: 400,
     },
     {
       title: '图标',
@@ -55,7 +55,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
         const menuTypeMap = {
           directory: { label: '目录', type: 'primary' },
           page: { label: '菜单', type: 'warning' },
-          permission: { label: '按钮', type: 'success' },
+          permission: { label: '权限', type: 'info' },
         } as const
         const menuInfo = menuTypeMap[row.menuType]
         return <NTag type={menuInfo.type} bordered={false}>{menuInfo.label}</NTag>
@@ -82,13 +82,15 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
       render: (row) => {
         return (
           <NSpace justify="center">
-            <NButton
-              text
-              type="primary"
-              onClick={() => onAdd(row)}
-            >
-              新建
-            </NButton>
+            {row.menuType !== 'permission' && (
+              <NButton
+                text
+                type="primary"
+                onClick={() => onAdd(row)}
+              >
+                新建
+              </NButton>
+            )}
             <NButton
               text
               onClick={() => onEdit(row)}

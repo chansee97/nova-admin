@@ -38,7 +38,6 @@ export function setupRouterGuard(router: Router) {
     // 如果是login路由，直接放行
     if (to.name === 'login') {
       // login页面不需要任何认证检查，直接放行
-      // 继续执行后面的逻辑
     }
     // 如果路由明确设置了requiresAuth为false，直接放行
     else if (to.meta.requiresAuth === false) {
@@ -70,6 +69,7 @@ export function setupRouterGuard(router: Router) {
       }
       catch {
         // 如果路由初始化失败（比如 401 错误），重定向到登录页
+        local.remove('accessToken')
         const redirect = to.fullPath !== '/' ? to.fullPath : undefined
         next({ path: '/login', query: redirect ? { redirect } : undefined })
         return

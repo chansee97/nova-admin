@@ -26,6 +26,14 @@ export function getRoleList(params?: RoleQueryParams) {
 }
 
 /**
+ * 查询角色选项
+ * GET /role/options
+ */
+export function getRoleOptions() {
+  return request.Get<Api.Response<Entity.TreeNode[]>>('/role/options')
+}
+
+/**
  * 查询角色详情
  * GET /role/{id}
  */

@@ -351,13 +351,23 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     parentId: 7,
   },
   {
+    name: 'roleSetting',
+    path: '/setting/role',
+    title: '角色设置',
+    requiresAuth: true,
+    icon: 'icon-park-outline:every-user',
+    component: '/setting/role/index.vue',
+    id: 702,
+    parentId: 7,
+  },
+  {
     name: 'dictionarySetting',
     path: '/setting/dict',
     title: '字典设置',
     requiresAuth: true,
     icon: 'icon-park-outline:book-one',
     component: '/setting/dict/index.vue',
-    id: 702,
+    id: 703,
     parentId: 7,
   },
   {
@@ -367,7 +377,7 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     requiresAuth: true,
     icon: 'icon-park-outline:application-menu',
     component: '/setting/menu/index.vue',
-    id: 703,
+    id: 704,
     parentId: 7,
   },
   {

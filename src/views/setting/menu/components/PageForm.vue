@@ -22,6 +22,7 @@
     path="path"
     class="col-span-2"
     placeholder="Eg: /system/user"
+    @update:value="$emit('path', $event)"
   />
   <pro-input
     title="高亮菜单路径"

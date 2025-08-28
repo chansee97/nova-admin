@@ -2,7 +2,7 @@
 import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
 import { deleteUser, getUserList } from '@/api'
 import { createUserColumns, searchColumns } from './columns'
-import TableModal from './components/TableModal.vue'
+import UserModal from './components/UserModal.vue'
 
 const searchForm = createProSearchForm({
   initialValues: {
@@ -39,11 +39,11 @@ const tablecolumns = createUserColumns({
   onStatusChange: () => {},
 })
 
-async function getUserPage({ curent, pageSize }, formData) {
+async function getUserPage({ current, pageSize }: any, formData: Entity.User[]) {
   try {
     const { data } = await getUserList({
       ...formData,
-      pageNum: curent,
+      pageNum: current,
       pageSize,
     })
     return {
@@ -121,6 +121,6 @@ const treeData = ref([
         </template>
       </pro-data-table>
     </n-space>
-    <TableModal ref="modalRef" modal-name="用户" @success="refresh" />
+    <UserModal ref="modalRef" modal-name="用户" @success="refresh" />
   </n-flex>
 </template>

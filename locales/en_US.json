@@ -125,6 +125,7 @@
     "setting": "System settings",
     "userCenter": "Personal Center",
     "accountSetting": "User settings",
+    "roleSetting": "Role settings",
     "cascader": "Administrative region selection",
     "dict": "Dictionary example"
   },

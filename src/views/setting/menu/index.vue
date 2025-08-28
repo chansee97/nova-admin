@@ -71,7 +71,7 @@ onMounted(() => {
 <template>
   <div>
     <pro-data-table
-      row-key="menuId"
+      row-key="id"
       :columns="columns"
       :data="tableData"
       :loading="loading"

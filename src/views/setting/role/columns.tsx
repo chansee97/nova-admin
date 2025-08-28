@@ -1,20 +1,20 @@
 import type { DataTableColumns } from 'naive-ui'
-import { NButton, NPopconfirm, NSpace, NSwitch, NTag } from 'naive-ui'
+import { NButton, NPopconfirm, NSpace, NSwitch } from 'naive-ui'
 import type { ProSearchFormColumns } from 'pro-naive-ui'
 import { renderProCopyableText, renderProDateText } from 'pro-naive-ui'
 
-export const searchColumns: ProSearchFormColumns<Entity.User> = [
+export const searchColumns: ProSearchFormColumns<Entity.Role> = [
   {
-    title: '用户名',
-    path: 'username',
+    title: '角色名称',
+    path: 'roleName',
   },
   {
-    title: '手机号',
-    path: 'phone',
+    title: '角色权限',
+    path: 'roleKey',
   },
   {
     title: '状态',
-    path: 'userStatus',
+    path: 'roleStatus',
     field: 'select',
     fieldProps: {
       options: [
@@ -29,70 +29,59 @@ export const searchColumns: ProSearchFormColumns<Entity.User> = [
       ],
     },
   },
-
 ]
 
-// 用户管理columns配置函数
-interface UserColumnActions {
-  onEdit: (row: Entity.User) => void
+// 角色管理columns配置函数
+interface RoleColumnActions {
+  onEdit: (row: Entity.Role) => void
   onDelete: (id: number) => void
   onStatusChange: (value: 0 | 1, id: number) => void
 }
 
-export function createUserColumns(actions: UserColumnActions): DataTableColumns<Entity.User> {
+export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<Entity.Role> {
   return [
     {
-      title: '用户名',
+      title: '角色ID',
       align: 'center',
-      key: 'username',
+      key: 'roleId',
+      width: 80,
     },
     {
-      title: '昵称',
+      title: '角色名称',
       align: 'center',
-      key: 'nickName',
+      key: 'roleName',
     },
     {
-      title: '性别',
+      title: '角色权限',
       align: 'center',
-      key: 'gender',
-      render: (row) => {
-        const genderMap = {
-          male: '男',
-          female: '女',
-          unknown: '未知',
-        }
-        return (
-          <NTag size="small">
-            {genderMap[row.gender || 'unknown']}
-          </NTag>
-        )
-      },
+      key: 'roleKey',
+      render: row => renderProCopyableText(row.roleKey),
     },
     {
-      title: '邮箱',
+      title: '备注',
       align: 'center',
-      key: 'email',
-      render: row => renderProCopyableText(row.email),
+      key: 'remark',
+      width: 200,
     },
     {
-      title: '手机号',
+      title: '排序',
       align: 'center',
-      key: 'phone',
-      render: row => renderProCopyableText(row.phone),
+      key: 'sort',
+      width: 80,
     },
     {
       title: '状态',
       align: 'center',
-      key: 'userStatus',
+      key: 'roleStatus',
       width: 100,
       render: (row) => {
         return (
           <NSwitch
-            value={row.userStatus}
-            checked-value={0}
-            unchecked-value={1}
+            value={row.roleStatus || 1}
+            checked-value={1}
+            unchecked-value={0}
             onUpdateValue={(value: 0 | 1) =>
-              actions.onStatusChange(value, row.userId)}
+              actions.onStatusChange(value, row.roleId)}
           >
             {{ checked: () => '启用', unchecked: () => '禁用' }}
           </NSwitch>
@@ -112,20 +101,27 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
       title: '操作',
       align: 'center',
       key: 'actions',
-      width: 120,
+      width: 200,
       render: (row) => {
         return (
           <NSpace justify="center">
             <NButton
-              text
+              size="small"
+              type="primary"
               onClick={() => actions.onEdit(row)}
             >
               编辑
             </NButton>
-            <NPopconfirm onPositiveClick={() => actions.onDelete(row.userId)}>
+            <NPopconfirm
+              onPositiveClick={() => actions.onDelete(row.roleId)}
+            >
               {{
-                default: () => '确认删除',
-                trigger: () => <NButton text type="error">删除</NButton>,
+                default: () => '确认删除该角色？',
+                trigger: () => (
+                  <NButton size="small" type="error">
+                    删除
+                  </NButton>
+                ),
               }}
             </NPopconfirm>
           </NSpace>

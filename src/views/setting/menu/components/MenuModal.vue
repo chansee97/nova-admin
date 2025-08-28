@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { createMenu, getMenuById, selectMenuTree, updateMenu } from '@/api'
+import { createMenu, getMenuById, getMenuOptions, updateMenu } from '@/api'
 import { createProModalForm } from 'pro-naive-ui'
 import DirectoryForm from './DirectoryForm.vue'
 import PageForm from './PageForm.vue'
@@ -63,7 +63,7 @@ const currentFormComponent = computed(() => {
 })
 
 async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
-  selectMenuTree().then((res) => {
+  getMenuOptions().then((res) => {
     treeData.value = res.data
   })
 
@@ -74,6 +74,7 @@ async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
       // 如果新建传入了menuId，设置为父级菜单
       if (data?.id) {
         modalForm.values.value.parentId = data.id
+        modalForm.values.value.path = `${data.path}/`
       }
     },
     async edit() {
