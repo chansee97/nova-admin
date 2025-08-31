@@ -1,7 +1,7 @@
 import type { DataTableColumns } from 'naive-ui'
-import { NButton, NPopconfirm, NSpace } from 'naive-ui'
+import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import type { ProSearchFormColumns } from 'pro-naive-ui'
-import { renderProCopyableText, renderProTags } from 'pro-naive-ui'
+import { renderProCopyableText } from 'pro-naive-ui'
 
 interface DictDataColumnActions {
   onEdit: (row: Entity.DictData) => void
@@ -14,17 +14,13 @@ export const dictDataSearchColumns: ProSearchFormColumns<Entity.DictData> = [
     path: 'name',
   },
   {
-    title: '数据键值',
-    path: 'value',
-  },
-  {
     title: '状态',
     path: 'status',
     field: 'select',
     fieldProps: {
       options: [
-        { label: '正常', value: 1 },
-        { label: '停用', value: 0 },
+        { label: '正常', value: 0 },
+        { label: '停用', value: 1 },
       ],
     },
   },
@@ -53,7 +49,7 @@ export function createDictDataColumns(actions: DictDataColumnActions): DataTable
       key: 'dictType',
       title: '字典类型',
       align: 'center',
-      render: row => renderProTags(row.dictType),
+      render: row => renderProCopyableText(row.dictType),
     },
     {
       key: 'sort',
@@ -62,8 +58,24 @@ export function createDictDataColumns(actions: DictDataColumnActions): DataTable
       width: 100,
     },
     {
+      key: 'status',
+      title: '状态',
+      align: 'center',
+      width: 100,
+      render: (row: Entity.DictData) => (
+        <NTag type={row.status === 0 ? 'success' : 'error'} bordered={false}>
+          {row.status === 0 ? '正常' : '停用'}
+        </NTag>
+      ),
+    },
+    {
       key: 'remark',
       title: '备注',
+      align: 'center',
+    },
+    {
+      key: 'updateTime',
+      title: '更新时间',
       align: 'center',
     },
     {

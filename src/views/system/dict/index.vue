@@ -11,7 +11,6 @@ const dictTypeListRef = ref<InstanceType<typeof DictTypeList>>()
 const dictDataSearchForm = createProSearchForm<Partial<Entity.DictData>>({
   initialValues: {},
 })
-const { values } = dictDataSearchForm
 
 const {
   table: {
@@ -79,7 +78,7 @@ async function getDictDataPage({ current, pageSize }: any, formData: Partial<Ent
 <template>
   <div class="flex h-full gap-2">
     <!-- 左侧字典类型列表 -->
-    <div class="w-1/3">
+    <div class="w-1/5">
       <DictTypeList
         ref="dictTypeListRef"
         @select="handleDictTypeSelect"
@@ -103,9 +102,9 @@ async function getDictDataPage({ current, pageSize }: any, formData: Partial<Ent
       >
         <template #title>
           <n-button
-            v-if="values.dictType"
+            v-if="currentDictType?.type"
             type="primary"
-            @click="dictDataModalRef?.openModal('add', { dictType: values.dictType })"
+            @click="dictDataModalRef?.openModal('add', { dictType: currentDictType.type })"
           >
             <template #icon>
               <icon-park-outline-plus />

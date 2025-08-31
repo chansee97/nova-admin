@@ -1,5 +1,6 @@
 import { request } from '../../utils/alova'
 
+export type SearchQuery = Partial<Pick<Entity.Menu, 'title' | 'status'>>
 /**
  * 创建菜单
  * POST /menu
@@ -12,8 +13,8 @@ export function createMenu(data: Partial<Entity.Menu>) {
  * 分页查询菜单
  * GET /menu
  */
-export function getMenuList() {
-  return request.Get<Api.Response<Entity.Menu[]>>('/menu')
+export function getMenuList(params?: SearchQuery) {
+  return request.Get<Api.Response<Entity.Menu[]>>('/menu', { params })
 }
 
 /**

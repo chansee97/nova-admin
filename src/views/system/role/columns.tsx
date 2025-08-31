@@ -9,7 +9,7 @@ export const searchColumns: ProSearchFormColumns<Entity.Role> = [
     path: 'roleName',
   },
   {
-    title: '权限标识',
+    title: '角色标识',
     path: 'roleKey',
   },
   {
@@ -46,7 +46,7 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       key: 'roleName',
     },
     {
-      title: '权限标识',
+      title: '角色标识',
       align: 'center',
       key: 'roleKey',
       render: row => renderProCopyableText(row.roleKey),

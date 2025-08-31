@@ -151,14 +151,7 @@ defineExpose({
       <pro-input
         title="手机号"
         path="phone"
-        placeholder="11位手机号"
-        :rule="[
-          {
-            pattern: new RegExp(Regex.Phone),
-            message: '请输入正确的手机号格式',
-            trigger: 'blur',
-          },
-        ]"
+        max-length="11"
       />
       <pro-select
         title="角色"

@@ -61,7 +61,7 @@ namespace Entity {
     /**
      * 状态
      */
-    status?: number
+    status: number
     /**
      * 创建时间
      */

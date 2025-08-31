@@ -49,6 +49,9 @@ const propOverrides = {
     labelPlacement: 'left',
     preset: 'card',
   },
+  ProDataTable: {
+    paginateSinglePage: false,
+  },
 }
 </script>
 

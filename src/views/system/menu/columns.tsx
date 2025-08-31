@@ -2,6 +2,8 @@ import type { DataTableColumns } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import { createIcon } from '@/utils'
 import { renderProCopyableText } from 'pro-naive-ui'
+import type { ProSearchFormColumns } from 'pro-naive-ui'
+import type { SearchQuery } from '@/api'
 
 // 菜单管理columns配置函数
 interface MenuColumnActions {
@@ -10,6 +12,23 @@ interface MenuColumnActions {
   onAdd: (row: Entity.Menu) => void
 }
 
+export const searchColumns: ProSearchFormColumns<SearchQuery> = [
+  {
+    title: '菜单名称',
+    path: 'title',
+  },
+  {
+    title: '状态',
+    path: 'status',
+    field: 'select',
+    fieldProps: {
+      options: [
+        { label: '正常', value: 0 },
+        { label: '停用', value: 1 },
+      ],
+    },
+  },
+]
 export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<Entity.Menu> {
   const { onEdit, onDelete, onAdd } = actions
 
@@ -23,7 +42,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
       title: '图标',
       align: 'center',
       key: 'icon',
-      width: '6em',
+      width: '100px',
       render: (row) => {
         return row.icon && createIcon(row.icon, { size: 20 })
       },
@@ -85,7 +104,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
             {row.menuType !== 'permission' && (
               <NButton
                 text
-                type="primary"
+                type="info"
                 onClick={() => onAdd(row)}
               >
                 新增
@@ -93,6 +112,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
             )}
             <NButton
               text
+              type="primary"
               onClick={() => onEdit(row)}
             >
               编辑

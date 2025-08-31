@@ -15,7 +15,7 @@ export const i18n = createI18n({
     enUS,
   },
   // 缺失国际化键警告
-  // missingWarn: false,
+  missingWarn: false,
 
   // 缺失回退内容警告
   fallbackWarn: false,

@@ -2,7 +2,7 @@
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace } from 'naive-ui'
 import type { ProSearchFormColumns } from 'pro-naive-ui'
-import { createProSearchForm, renderProCopyableText, useNDataTable } from 'pro-naive-ui'
+import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
 import { deleteDictType, getDictTypeList } from '@/api'
 import DictTypeModal from './DictTypeModal.vue'
 
@@ -21,10 +21,6 @@ const dictTypeSearchColumns: ProSearchFormColumns<Entity.DictType> = [
   {
     title: '字典名称',
     path: 'name',
-  },
-  {
-    title: '字典类型',
-    path: 'type',
   },
 ]
 
@@ -81,11 +77,6 @@ const columns: DataTableColumns<Entity.DictType> = [
     },
   },
   {
-    key: 'type',
-    title: '字典类型',
-    render: row => renderProCopyableText(row.type),
-  },
-  {
     key: 'actions',
     title: '操作',
     align: 'center',
@@ -131,7 +122,7 @@ const columns: DataTableColumns<Entity.DictType> = [
         :columns="dictTypeSearchColumns"
         :collapse-button-props="false"
         v-bind="dictTypeSearchProps"
-        :cols="3"
+        :cols="2"
       />
     </n-card>
 

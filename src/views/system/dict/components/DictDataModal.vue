@@ -130,7 +130,7 @@ defineExpose({
       <pro-switch
         title="状态"
         path="status"
-        :field-props="{ checkedValue: 1, uncheckedValue: 0 }"
+        :field-props="{ checkedValue: 0, uncheckedValue: 1 }"
       />
       <pro-textarea
         class="col-span-2"
