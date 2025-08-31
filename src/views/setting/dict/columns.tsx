@@ -1,144 +1,98 @@
 import type { DataTableColumns } from 'naive-ui'
-import { NButton, NFlex, NPopconfirm } from 'naive-ui'
-import CopyText from '@/components/custom/CopyText.vue'
+import { NButton, NPopconfirm, NSpace } from 'naive-ui'
+import type { ProSearchFormColumns } from 'pro-naive-ui'
+import { renderProCopyableText, renderProTags } from 'pro-naive-ui'
 
-// 字典类型columns配置函数
-interface DictTypeColumnActions {
-  onView: (code: string) => void
-  onEdit: (row: Entity.DictType) => void
-  onDelete: (id: number) => void
-}
-
-export function createDictTypeColumns(actions: DictTypeColumnActions): DataTableColumns<Entity.DictType> {
-  return [
-    {
-      title: '字典项',
-      key: 'dictName',
-    },
-    {
-      title: '字典码',
-      key: 'dictType',
-      render: (row) => {
-        return (
-          <CopyText value={row.dictType} />
-        )
-      },
-    },
-    {
-      title: '状态',
-      key: 'status',
-      align: 'center',
-      render: (row) => {
-        return (
-          <span>{row.status === 1 ? '正常' : '停用'}</span>
-        )
-      },
-    },
-    {
-      title: '操作',
-      key: 'actions',
-      align: 'center',
-      render: (row) => {
-        return (
-          <NFlex justify="center">
-            <NButton
-              size="small"
-              onClick={() => actions.onView(row.dictType)}
-            >
-              查看字典
-            </NButton>
-            <NButton
-              size="small"
-              onClick={() => actions.onEdit(row)}
-            >
-              编辑
-            </NButton>
-            <NPopconfirm onPositiveClick={() => actions.onDelete(row.id!)}>
-              {{
-                default: () => (
-                  <span>
-                    确认删除字典类型
-                    <b>{row.dictName}</b>
-                    {' '}
-                    ？
-                  </span>
-                ),
-                trigger: () => <NButton size="small" type="error">删除</NButton>,
-              }}
-            </NPopconfirm>
-          </NFlex>
-        )
-      },
-    },
-  ]
-}
-
-// 字典数据columns配置函数
 interface DictDataColumnActions {
   onEdit: (row: Entity.DictData) => void
   onDelete: (id: number) => void
 }
 
+export const dictDataSearchColumns: ProSearchFormColumns<Entity.DictData> = [
+  {
+    title: '数据名称',
+    path: 'name',
+  },
+  {
+    title: '数据键值',
+    path: 'value',
+  },
+  {
+    title: '状态',
+    path: 'status',
+    field: 'select',
+    fieldProps: {
+      options: [
+        { label: '正常', value: 1 },
+        { label: '停用', value: 0 },
+      ],
+    },
+  },
+]
+
 export function createDictDataColumns(actions: DictDataColumnActions): DataTableColumns<Entity.DictData> {
   return [
+
     {
-      title: '字典名称',
-      key: 'dictLabel',
+      key: 'name',
+      title: '数据名称',
+      align: 'left',
+      minWidth: 120,
+      ellipsis: {
+        tooltip: true,
+      },
     },
     {
-      title: '字典码',
+      key: 'value',
+      title: '数据键值',
+      align: 'center',
+      width: 120,
+      render: row => renderProCopyableText(row.value),
+    },
+    {
       key: 'dictType',
+      title: '字典类型',
+      align: 'center',
+      render: row => renderProTags(row.dictType),
     },
     {
-      title: '字典值',
-      key: 'dictValue',
-    },
-    {
+      key: 'sort',
       title: '排序',
-      key: 'dictSort',
       align: 'center',
-      width: '80px',
+      width: 100,
     },
     {
-      title: '状态',
-      key: 'status',
+      key: 'remark',
+      title: '备注',
       align: 'center',
-      render: (row) => {
-        return (
-          <span>{row.status === 1 ? '正常' : '停用'}</span>
-        )
-      },
     },
     {
-      title: '操作',
       key: 'actions',
+      title: '操作',
       align: 'center',
-      width: '15em',
-      render: (row) => {
-        return (
-          <NFlex justify="center">
-            <NButton
-              size="small"
-              onClick={() => actions.onEdit(row)}
-            >
-              编辑
-            </NButton>
-            <NPopconfirm onPositiveClick={() => actions.onDelete(row.id!)}>
-              {{
-                default: () => (
-                  <span>
-                    确认删除字典数据
-                    <b>{row.dictLabel}</b>
-                    {' '}
-                    ？
-                  </span>
-                ),
-                trigger: () => <NButton size="small" type="error">删除</NButton>,
-              }}
-            </NPopconfirm>
-          </NFlex>
-        )
-      },
+      width: 150,
+      render: (row: Entity.DictData) => (
+        <NSpace justify="center">
+          <NButton
+            type="primary"
+            text
+            onClick={() => actions.onEdit(row)}
+          >
+            编辑
+          </NButton>
+          <NPopconfirm
+            onPositiveClick={() => actions.onDelete(row.id!)}
+            v-slots={{
+              trigger: () => (
+                <NButton type="error" text>
+                  删除
+                </NButton>
+              ),
+              default: () => `确定删除字典数据"${row.name}"吗？`,
+            }}
+          />
+        </NSpace>
+      ),
     },
   ]
 }

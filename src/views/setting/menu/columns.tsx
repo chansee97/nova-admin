@@ -88,7 +88,7 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
                 type="primary"
                 onClick={() => onAdd(row)}
               >
-                新建
+                新增
               </NButton>
             )}
             <NButton

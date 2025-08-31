@@ -185,7 +185,7 @@ function handleAddTable() {
             <template #icon>
               <icon-park-outline-add-one />
             </template>
-            新建
+            新增
           </NButton>
           <NButton strong secondary>
             <template #icon>

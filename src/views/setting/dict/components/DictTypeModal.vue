@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { createRole, getRoleById, updateRole } from '@/api'
+import { createDictType, getDictTypeById, updateDictType } from '@/api'
 import { createProModalForm } from 'pro-naive-ui'
 
 interface Props {
@@ -17,10 +17,13 @@ const emit = defineEmits<{
 
 const { bool: submitLoading, setTrue: startLoading, setFalse: endLoading } = useBoolean(false)
 
-const modalForm = createProModalForm<Partial<Entity.Role>>({
+const modalForm = createProModalForm<Partial<Entity.DictType>>({
   omitEmptyString: false,
   initialValues: {
-    status: 0,
+    name: '',
+    type: '',
+    remark: '',
+    status: 1,
   },
   onSubmit: submitModal,
 })
@@ -35,9 +38,8 @@ const modalTitle = computed(() => {
   return `${titleMap[modalType.value]}${modalName}`
 })
 
-async function openModal(type: ModalType = 'add', data?: Partial<Entity.Role>) {
+async function openModal(type: ModalType = 'add', data?: Partial<Entity.DictType>) {
   modalType.value = type
-
   modalForm.open()
   const handlers = {
     async add() {
@@ -47,34 +49,34 @@ async function openModal(type: ModalType = 'add', data?: Partial<Entity.Role>) {
       if (!data)
         return
 
-      const { data: role } = await getRoleById(data.id!)
-      modalForm.values.value = role
+      const { data: dictType } = await getDictTypeById(data.id!)
+      modalForm.values.value = dictType
     },
   }
   await handlers[type]()
 }
 
-async function submitModal(filedValues: Partial<Entity.Role>) {
+async function submitModal(filedValues: Partial<Entity.DictType>) {
   const handlers = {
     async add() {
       try {
-        await createRole(filedValues)
-        window.$message.success('角色创建成功')
+        await createDictType(filedValues)
+        window.$message.success('字典类型创建成功')
         return true
       }
       catch (error) {
-        console.error('创建角色失败', error)
+        console.error('创建字典类型失败', error)
         return false
       }
     },
     async edit() {
       try {
-        await updateRole(modalForm.values.value.id!, filedValues)
-        window.$message.success('角色更新成功')
+        await updateDictType(modalForm.values.value.id!, filedValues)
+        window.$message.success('字典类型更新成功')
         return true
       }
       catch (error) {
-        console.error('更新角色失败', error)
+        console.error('更新字典类型失败', error)
         return false
       }
     },
@@ -104,23 +106,27 @@ defineExpose({
     <div class="grid grid-cols-2 gap-4">
       <pro-input
         required
-        title="角色名称"
-        path="roleName"
+        title="字典名称"
+        path="name"
+        placeholder="请输入字典名称"
       />
       <pro-input
         required
-        title="权限标识"
-        path="roleKey"
-      />
-      <pro-switch
-        title="状态"
-        path="status"
-        :field-props="{ checkedValue: 0, uncheckedValue: 1 }"
+        title="字典类型"
+        path="type"
+        placeholder="请输入字典类型"
+        :readonly="modalType === 'edit'"
       />
       <pro-textarea
         class="col-span-2"
         title="备注"
         path="remark"
+        placeholder="请输入备注信息"
+      />
+      <pro-switch
+        title="状态"
+        path="status"
+        :field-props="{ checkedValue: 1, uncheckedValue: 0 }"
       />
     </div>
   </pro-modal-form>

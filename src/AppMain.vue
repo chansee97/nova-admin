@@ -45,7 +45,7 @@ const propOverrides = {
     cols: 4,
   },
   ProModalForm: {
-    labelWidth: 120,
+    labelWidth: 100,
     labelPlacement: 'left',
     preset: 'card',
   },

@@ -79,9 +79,9 @@ onMounted(() => {
       <template #title>
         <n-button type="primary" @click="menuModalRef.openModal('add')">
           <template #icon>
-            <icon-park-outline-add-one />
+            <icon-park-outline-plus />
           </template>
-          新建
+          新增
         </n-button>
       </template>
 

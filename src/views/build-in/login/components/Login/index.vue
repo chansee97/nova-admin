@@ -49,7 +49,7 @@ const rules = computed(() => {
 })
 const formValue = ref({
   account: 'admin',
-  pwd: '12345',
+  pwd: '123456',
   captcha: '',
 })
 const isRemember = ref(false)

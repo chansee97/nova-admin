@@ -4,13 +4,17 @@
 namespace Entity {
   interface DictType {
     /**
+     * 主键ID
+     */
+    id?: number
+    /**
      * 字典名称
      */
-    dictName: string
+    name: string
     /**
      * 字典类型
      */
-    dictType: string
+    type: string
     /**
      * 备注信息
      */
@@ -19,21 +23,29 @@ namespace Entity {
      * 状态
      */
     status?: number
+    /**
+     * 创建时间
+     */
+    createTime?: string
+    /**
+     * 更新时间
+     */
+    updateTime?: string
   }
 
   interface DictData {
     /**
-     * 样式属性
+     * 主键ID
      */
-    cssClass?: string
+    id?: number
     /**
-     * 字典标签
+     * 字典名称
      */
-    dictLabel: string
+    name: string
     /**
      * 字典排序
      */
-    dictSort?: number
+    sort?: number
     /**
      * 字典类型
      */
@@ -41,15 +53,7 @@ namespace Entity {
     /**
      * 字典键值
      */
-    dictValue: string
-    /**
-     * 是否默认
-     */
-    isDefault?: number
-    /**
-     * 表格回显样式
-     */
-    listClass?: string
+    value: string
     /**
      * 备注信息
      */
@@ -58,5 +62,13 @@ namespace Entity {
      * 状态
      */
     status?: number
+    /**
+     * 创建时间
+     */
+    createTime?: string
+    /**
+     * 更新时间
+     */
+    updateTime?: string
   }
 }

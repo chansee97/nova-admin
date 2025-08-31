@@ -8,7 +8,7 @@ namespace Entity {
     /**
      * 角色ID
      */
-    roleId: number
+    id: number
     /**
      * 菜单ID数组
      */
@@ -28,7 +28,7 @@ namespace Entity {
     /**
      * 角色状态
      */
-    roleStatus?: number
+    status?: number
     /**
      * 显示顺序
      */

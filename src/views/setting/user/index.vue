@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
-import { deleteUser, getUserList } from '@/api'
+import { deleteUser, getUserList, updateUser } from '@/api'
 import { createUserColumns, searchColumns } from './columns'
 import UserModal from './components/UserModal.vue'
 
@@ -33,10 +33,21 @@ async function delteteUser(id: number) {
   }
 }
 
+async function updateUserStatus(id: number, value: 0 | 1) {
+  try {
+    await updateUser(id, { status: value })
+    window.$message.success('用户状态更新成功')
+    refresh() // 重新加载列表
+  }
+  catch {
+    window.$message.error('角色状态更新失败')
+  }
+}
+
 const tablecolumns = createUserColumns({
   onEdit: row => modalRef.value?.openModal('edit', row),
   onDelete: delteteUser,
-  onStatusChange: () => {},
+  onStatusChange: updateUserStatus,
 })
 
 async function getUserPage({ current, pageSize }: any, formData: Entity.User[]) {
@@ -46,10 +57,7 @@ async function getUserPage({ current, pageSize }: any, formData: Entity.User[]) 
       pageNum: current,
       pageSize,
     })
-    return {
-      list: data.list,
-      total: data.total,
-    }
+    return data
   }
   catch {
     return {
@@ -116,7 +124,7 @@ const treeData = ref([
             <template #icon>
               <icon-park-outline-plus />
             </template>
-            新建用户
+            新增用户
           </n-button>
         </template>
       </pro-data-table>

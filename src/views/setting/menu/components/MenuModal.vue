@@ -71,7 +71,7 @@ async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
   modalForm.open()
   const handlers = {
     async add() {
-      // 如果新建传入了menuId，设置为父级菜单
+      // 如果新增传入了menuId，设置为父级菜单
       if (data?.id) {
         modalForm.values.value.parentId = data.id
         modalForm.values.value.path = `${data.path}/`
@@ -93,27 +93,34 @@ async function submitModal(filedValues: Partial<Entity.Menu>) {
       try {
         await createMenu(filedValues)
         window.$message.success('菜单创建成功')
+        return true
       }
       catch (error) {
         console.error('创建菜单失败', error)
+        return false
       }
     },
     async edit() {
       try {
         await updateMenu(modalForm.values.value.id!, filedValues)
         window.$message.success('菜单更新成功')
+        return true
       }
       catch (error) {
         console.error('更新菜单失败', error)
+        return false
       }
     },
   }
 
   startLoading()
-  await handlers[modalType.value]()
-  emit('success')
-  modalForm.close()
+  const success = await handlers[modalType.value]()
   endLoading()
+
+  if (success) {
+    emit('success')
+    modalForm.close()
+  }
 }
 
 defineExpose({
@@ -127,6 +134,7 @@ defineExpose({
     :form="modalForm"
     :loading="submitLoading"
     width="700px"
+    label-width="120px"
   >
     <pro-field
       path="menuType"

@@ -72,24 +72,23 @@ export function createAlovaInstance(
         const { status } = response
         let errorMessage = ''
 
+        const res = await response.clone().json()
         if (status === 200) {
           // 返回blob数据
           if (method.meta?.isBlob)
             return response.blob()
 
-          // 返回json数据
-          const apiData = await response.json()
           // 请求成功
-          if (apiData[_backendConfig.codeKey] === _backendConfig.successCode)
-            return apiData
+          if (res[_backendConfig.codeKey] === _backendConfig.successCode)
+            return res
 
           // 业务请求失败
-          errorMessage = apiData[_backendConfig.msgKey]
+          errorMessage = res[_backendConfig.msgKey]
         }
         else {
           // 接口请求失败
           const errorCode = response.status as ErrorStatus
-          errorMessage = ERROR_STATUS[errorCode] || ERROR_STATUS.default
+          errorMessage = res[_backendConfig.msgKey] || ERROR_STATUS[errorCode] || ERROR_STATUS.default
         }
         window.$message?.error(errorMessage)
         throw new Error(errorMessage)

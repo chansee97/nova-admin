@@ -4,7 +4,7 @@
 namespace Entity {
   interface User {
     /** 用户id */
-    userId: number
+    id: number
     /** 部门id */
     deptId?: any
     /** 用户名 */
@@ -22,13 +22,9 @@ namespace Entity {
     /** 头像 */
     avatar?: string
     /** 用户状态 */
-    userStatus: number
-    /** 创建人 */
-    createBy?: string
+    status: number
     /** 创建时间 */
     createTime: string
-    /** 更新人 */
-    updateBy?: string
     /** 更新时间 */
     updateTime: string
     /** 备注 */

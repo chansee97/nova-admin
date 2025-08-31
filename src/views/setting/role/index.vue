@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
-import { deleteRole, getRoleList } from '@/api'
+import { deleteRole, getRoleList, updateRole } from '@/api'
 import { createRoleColumns, searchColumns } from './columns'
 import RoleModal from './components/RoleModal.vue'
 
@@ -34,10 +34,21 @@ async function deleteRoleData(id: number) {
   }
 }
 
+async function updateRoleStatus(id: number, value: 0 | 1) {
+  try {
+    await updateRole(id, { status: value })
+    window.$message.success('角色状态更新成功')
+    refresh() // 重新加载列表
+  }
+  catch {
+    window.$message.error('角色状态更新失败')
+  }
+}
+
 const tablecolumns = createRoleColumns({
   onEdit: (row: Entity.Role) => modalRef.value?.openModal('edit', row),
   onDelete: deleteRoleData,
-  onStatusChange: () => {},
+  onStatusChange: updateRoleStatus,
 })
 
 async function getRolePage({ current, pageSize }: any, formData: Entity.Role[]) {
@@ -47,10 +58,7 @@ async function getRolePage({ current, pageSize }: any, formData: Entity.Role[]) 
       pageNum: current,
       pageSize,
     })
-    return {
-      list: data.list,
-      total: data.total,
-    }
+    return data
   }
   catch {
     return {
@@ -81,7 +89,7 @@ async function getRolePage({ current, pageSize }: any, formData: Entity.Role[]) 
           <template #icon>
             <icon-park-outline-plus />
           </template>
-          新建角色
+          新增角色
         </n-button>
       </template>
     </pro-data-table>

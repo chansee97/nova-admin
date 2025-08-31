@@ -9,12 +9,12 @@ export const searchColumns: ProSearchFormColumns<Entity.Role> = [
     path: 'roleName',
   },
   {
-    title: '角色权限',
+    title: '权限标识',
     path: 'roleKey',
   },
   {
     title: '状态',
-    path: 'roleStatus',
+    path: 'status',
     field: 'select',
     fieldProps: {
       options: [
@@ -35,24 +35,18 @@ export const searchColumns: ProSearchFormColumns<Entity.Role> = [
 interface RoleColumnActions {
   onEdit: (row: Entity.Role) => void
   onDelete: (id: number) => void
-  onStatusChange: (value: 0 | 1, id: number) => void
+  onStatusChange: (id: number, value: 0 | 1) => void
 }
 
 export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<Entity.Role> {
   return [
-    {
-      title: '角色ID',
-      align: 'center',
-      key: 'roleId',
-      width: 80,
-    },
     {
       title: '角色名称',
       align: 'center',
       key: 'roleName',
     },
     {
-      title: '角色权限',
+      title: '权限标识',
       align: 'center',
       key: 'roleKey',
       render: row => renderProCopyableText(row.roleKey),
@@ -64,24 +58,17 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       width: 200,
     },
     {
-      title: '排序',
-      align: 'center',
-      key: 'sort',
-      width: 80,
-    },
-    {
       title: '状态',
       align: 'center',
-      key: 'roleStatus',
+      key: 'status',
       width: 100,
       render: (row) => {
         return (
           <NSwitch
-            value={row.roleStatus || 1}
-            checked-value={1}
-            unchecked-value={0}
-            onUpdateValue={(value: 0 | 1) =>
-              actions.onStatusChange(value, row.roleId)}
+            value={row.status}
+            checked-value={0}
+            unchecked-value={1}
+            onUpdateValue={(value: 0 | 1) => actions.onStatusChange(row.id, value)}
           >
             {{ checked: () => '启用', unchecked: () => '禁用' }}
           </NSwitch>
@@ -106,19 +93,19 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
         return (
           <NSpace justify="center">
             <NButton
-              size="small"
+              text
               type="primary"
               onClick={() => actions.onEdit(row)}
             >
               编辑
             </NButton>
             <NPopconfirm
-              onPositiveClick={() => actions.onDelete(row.roleId)}
+              onPositiveClick={() => actions.onDelete(row.id)}
             >
               {{
                 default: () => '确认删除该角色？',
                 trigger: () => (
-                  <NButton size="small" type="error">
+                  <NButton text type="error">
                     删除
                   </NButton>
                 ),

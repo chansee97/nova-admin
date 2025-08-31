@@ -14,17 +14,17 @@ export const searchColumns: ProSearchFormColumns<Entity.User> = [
   },
   {
     title: '状态',
-    path: 'userStatus',
+    path: 'status',
     field: 'select',
     fieldProps: {
       options: [
         {
           label: '启用',
-          value: 1,
+          value: 0,
         },
         {
           label: '禁用',
-          value: 0,
+          value: 1,
         },
       ],
     },
@@ -36,7 +36,7 @@ export const searchColumns: ProSearchFormColumns<Entity.User> = [
 interface UserColumnActions {
   onEdit: (row: Entity.User) => void
   onDelete: (id: number) => void
-  onStatusChange: (value: 0 | 1, id: number) => void
+  onStatusChange: (id: number, value: 0 | 1) => void
 }
 
 export function createUserColumns(actions: UserColumnActions): DataTableColumns<Entity.User> {
@@ -83,16 +83,15 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
     {
       title: '状态',
       align: 'center',
-      key: 'userStatus',
+      key: 'status',
       width: 100,
       render: (row) => {
         return (
           <NSwitch
-            value={row.userStatus}
+            value={row.status}
             checked-value={0}
             unchecked-value={1}
-            onUpdateValue={(value: 0 | 1) =>
-              actions.onStatusChange(value, row.userId)}
+            onUpdateValue={(value: 0 | 1) => actions.onStatusChange(row.id, value)}
           >
             {{ checked: () => '启用', unchecked: () => '禁用' }}
           </NSwitch>
@@ -122,7 +121,7 @@ export function createUserColumns(actions: UserColumnActions): DataTableColumns<
             >
               编辑
             </NButton>
-            <NPopconfirm onPositiveClick={() => actions.onDelete(row.userId)}>
+            <NPopconfirm onPositiveClick={() => actions.onDelete(row.id)}>
               {{
                 default: () => '确认删除',
                 trigger: () => <NButton text type="error">删除</NButton>,

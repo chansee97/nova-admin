@@ -1,144 +1,124 @@
-<script setup lang="tsx">
-import { useBoolean } from '@/hooks'
-import { deleteDictData, deleteDictType, getDictDataByType, getDictTypeList } from '@/api'
-import { createDictDataColumns, createDictTypeColumns } from './columns'
-import DictModal from './components/DictModal.vue'
+<script setup lang="ts">
+import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
+import { deleteDictData, getDictDataList } from '@/api'
+import { createDictDataColumns, dictDataSearchColumns } from './columns'
+import DictTypeList from './components/DictTypeList.vue'
+import DictDataModal from './components/DictDataModal.vue'
 
-const { bool: dictLoading, setTrue: startDictLoading, setFalse: endDictLoading } = useBoolean(false)
-const { bool: contentLoading, setTrue: startContentLoading, setFalse: endContentLoading } = useBoolean(false)
+const dictTypeListRef = ref<InstanceType<typeof DictTypeList>>()
 
-const dictRef = ref<InstanceType<typeof DictModal>>()
-const dictContentRef = ref<InstanceType<typeof DictModal>>()
+// 字典数据相关
+const dictDataSearchForm = createProSearchForm<Partial<Entity.DictData>>({
+  initialValues: {},
+})
+const { values } = dictDataSearchForm
 
-onMounted(() => {
-  getDictList()
+const {
+  table: {
+    tableProps: dictDataTableProps,
+  },
+  search: {
+    proSearchFormProps: dictDataSearchProps,
+  },
+  refresh: refreshDictData,
+} = useNDataTable(getDictDataPage, {
+  form: dictDataSearchForm,
 })
 
-const dictData = ref<Entity.DictType[]>([])
-const dictContentData = ref<Entity.DictData[]>([])
+const dictDataModalRef = ref<InstanceType<typeof DictDataModal>>()
 
-async function getDictList() {
-  startDictLoading()
+// 选择字典类型
+const currentDictType = ref<Entity.DictType | null>(null)
+function handleDictTypeSelect(dictType: Entity.DictType) {
+  currentDictType.value = dictType
+  refreshDictData()
+}
+
+// 删除字典数据
+async function deleteDictDataItem(id: number) {
   try {
-    const { data } = await getDictTypeList()
-    dictData.value = data.list
+    await deleteDictData(id)
+    window.$message.success('字典数据删除成功')
+    refreshDictData()
   }
-  catch (error) {
-    console.error('获取字典类型列表失败', error)
-  }
-  finally {
-    endDictLoading()
+  catch {
+    window.$message.error('字典数据删除失败')
   }
 }
 
-const lastDictCode = ref('')
-async function getDictContent(code: string) {
-  startContentLoading()
-  try {
-    const { data } = await getDictDataByType(code)
-    dictContentData.value = data
-    lastDictCode.value = code
-  }
-  catch (error) {
-    console.error('获取字典数据失败', error)
-  }
-  finally {
-    endContentLoading()
-  }
-}
-
-// 字典类型columns配置
-const dictColumns = createDictTypeColumns({
-  onView: getDictContent,
-  onEdit: row => dictRef.value!.openModal('edit', row),
-  onDelete: id => deleteDict(id, true),
+// 字典数据表格列配置
+const dictDataColumns = createDictDataColumns({
+  onEdit: (row: Entity.DictData) => dictDataModalRef.value?.openModal('edit', row),
+  onDelete: deleteDictDataItem,
 })
 
-// 字典数据columns配置
-const contentColumns = createDictDataColumns({
-  onEdit: row => dictContentRef.value!.openModal('edit', row),
-  onDelete: id => deleteDict(id, false),
-})
-
-async function deleteDict(id: number, isType: boolean = false) {
-  try {
-    if (isType) {
-      await deleteDictType(id)
-      window.$message.success('删除字典类型成功')
-      getDictList() // 重新加载字典类型列表
-    }
-    else {
-      await deleteDictData(id)
-      window.$message.success('删除字典数据成功')
-      if (lastDictCode.value) {
-        getDictContent(lastDictCode.value) // 重新加载字典数据
-      }
-    }
+// 获取字典数据分页
+async function getDictDataPage({ current, pageSize }: any, formData: Partial<Entity.DictData>) {
+  if (!currentDictType.value) {
+    return { list: [], total: 0 }
   }
-  catch (error) {
-    console.error(`删除${isType ? '字典类型' : '字典数据'}失败`, error)
+
+  try {
+    const { data } = await getDictDataList({
+      ...formData,
+      dictType: currentDictType.value.type,
+      pageNum: current || 1,
+      pageSize,
+    })
+    return data
+  }
+  catch {
+    return {
+      list: [],
+      total: 0,
+    }
   }
 }
 </script>
 
 <template>
-  <NFlex>
-    <div class="basis-2/5">
-      <n-card>
-        <template #header>
-          <NButton type="primary" @click="dictRef!.openModal('add')">
-            <template #icon>
-              <icon-park-outline-add-one />
-            </template>
-            新建
-          </NButton>
-        </template>
-        <template #header-extra>
-          <NFlex>
-            <NButton type="primary" secondary @click="getDictList">
-              <template #icon>
-                <icon-park-outline-refresh />
-              </template>
-              刷新
-            </NButton>
-          </NFlex>
-        </template>
-        <n-data-table
-          :columns="dictColumns" :data="dictData" :loading="dictLoading" :pagination="false"
-          :bordered="false"
-        />
-      </n-card>
-    </div>
-    <div class="flex-1">
-      <n-card>
-        <template #header>
-          <NButton type="primary" :disabled="!lastDictCode" @click="dictContentRef!.openModal('add')">
-            <template #icon>
-              <icon-park-outline-add-one />
-            </template>
-            新建
-          </NButton>
-        </template>
-        <template #header-extra>
-          <NFlex>
-            <NButton type="primary" :disabled="!lastDictCode" secondary @click="getDictContent(lastDictCode)">
-              <template #icon>
-                <icon-park-outline-refresh />
-              </template>
-              刷新
-            </NButton>
-          </NFlex>
-        </template>
-        <n-data-table
-          :columns="contentColumns" :data="dictContentData" :loading="contentLoading" :pagination="false"
-          :bordered="false"
-        />
-      </n-card>
+  <div class="flex h-full gap-2">
+    <!-- 左侧字典类型列表 -->
+    <div class="w-1/3">
+      <DictTypeList
+        ref="dictTypeListRef"
+        @select="handleDictTypeSelect"
+      />
     </div>
 
-    <DictModal ref="dictRef" modal-name="字典项" is-root @success="getDictList" />
-    <DictModal ref="dictContentRef" modal-name="字典值" :dict-code="lastDictCode" @success="() => getDictContent(lastDictCode)" />
-  </NFlex>
+    <!-- 右侧字典数据表格 -->
+    <n-space class="flex-1" vertical>
+      <n-card>
+        <pro-search-form
+          :form="dictDataSearchForm"
+          :columns="dictDataSearchColumns"
+          v-bind="dictDataSearchProps"
+          :collapse-button-props="false"
+        />
+      </n-card>
+
+      <pro-data-table
+        :columns="dictDataColumns"
+        v-bind="dictDataTableProps"
+      >
+        <template #title>
+          <n-button
+            v-if="values.dictType"
+            type="primary"
+            @click="dictDataModalRef?.openModal('add', { dictType: values.dictType })"
+          >
+            <template #icon>
+              <icon-park-outline-plus />
+            </template>
+            新增字典数据
+          </n-button>
+        </template>
+      </pro-data-table>
+    </n-space>
+    <!-- 字典数据弹窗 -->
+    <DictDataModal
+      ref="dictDataModalRef"
+      @success="refreshDictData"
+    />
+  </div>
 </template>
-
-<style scoped></style>

@@ -6,7 +6,7 @@ interface UserQueryParams {
   pageSize?: number
   username?: string
   gender?: 'male' | 'female' | 'unknown'
-  userStatus?: number
+  status?: number
   deptId?: number
 }
 
