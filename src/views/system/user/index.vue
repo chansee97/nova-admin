@@ -1,11 +1,20 @@
 <script setup lang="tsx">
 import { createProSearchForm, useNDataTable } from 'pro-naive-ui'
-import { deleteUser, getUserList, updateUser } from '@/api'
+import type { TreeOption } from 'naive-ui'
+import { deleteUser, getDeptOptions, getUserList, updateUser } from '@/api'
 import { createUserColumns, searchColumns } from './columns'
 import UserModal from './components/UserModal.vue'
 
+const modalRef = ref()
+const treeData = ref<any[]>([])
+const deptPattern = ref('')
+const selectedDeptId = ref<number>()
+
 const searchForm = createProSearchForm({
   initialValues: {
+  },
+  onReset() {
+    selectedDeptId.value = undefined
   },
 })
 
@@ -20,8 +29,6 @@ const {
 } = useNDataTable(getUserPage, {
   form: searchForm,
 })
-
-const modalRef = ref()
 
 async function delteteUser(id: number) {
   try {
@@ -40,7 +47,6 @@ async function updateUserStatus(id: number, value: 0 | 1) {
     refresh() // 重新加载列表
   }
   catch {
-    window.$message.error('角色状态更新失败')
   }
 }
 
@@ -54,6 +60,7 @@ async function getUserPage({ current, pageSize }: any, formData: Entity.User[]) 
   try {
     const { data } = await getUserList({
       ...formData,
+      deptId: selectedDeptId.value,
       pageNum: current,
       pageSize,
     })
@@ -67,41 +74,53 @@ async function getUserPage({ current, pageSize }: any, formData: Entity.User[]) 
   }
 }
 
-const treeData = ref([
-  {
-    id: '1',
-    label: '安徽总公司',
-    children: [
-      {
-        id: '2',
-        label: '合肥分公司',
-        children: [
-          {
-            id: '4',
-            label: '财务部门',
-          },
-          {
-            id: '5',
-            label: '采购部门',
-          },
-        ],
-      },
-      {
-        id: '3',
-        label: '芜湖分公司',
-      },
-    ],
-  },
-])
+// 加载部门树数据
+async function loadDeptTree() {
+  try {
+    const { data } = await getDeptOptions()
+    treeData.value = data
+  }
+  catch (error) {
+    console.error('加载部门数据失败:', error)
+    treeData.value = []
+  }
+}
+
+// 处理树节点点击
+function handleTreeNodeClick(deptId: number) {
+  selectedDeptId.value = deptId
+  // 触发搜索
+  refresh()
+}
+
+// 组件挂载时加载部门树
+onMounted(() => {
+  loadDeptTree()
+})
 </script>
 
 <template>
   <n-flex>
     <n-card class="w-70">
+      <template #header>
+        <n-input v-model:value="deptPattern" placeholder="部门搜索">
+          <template #prefix>
+            <n-icon>
+              <icon-park-outline-search />
+            </n-icon>
+          </template>
+        </n-input>
+      </template>
       <n-tree
         block-line
         :data="treeData"
-        key-field="id"
+        key-field="value"
+        :pattern="deptPattern"
+        :node-props="({ option }: { option: TreeOption }) => {
+          return {
+            onClick: () => handleTreeNodeClick(option.value as number),
+          }
+        }"
       />
     </n-card>
 

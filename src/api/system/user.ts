@@ -1,11 +1,10 @@
 import { request } from '../../utils/alova'
 
 // 用户查询参数接口
-interface UserQueryParams {
+export interface UserQueryParams {
   pageNum?: number
   pageSize?: number
   username?: string
-  gender?: 'male' | 'female' | 'unknown'
   status?: number
   deptId?: number
 }
