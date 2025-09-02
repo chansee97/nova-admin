@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
-import { createUser, getRoleOptions, getUserById, updateUser } from '@/api'
+import { createUser, getDeptOptions, getRoleOptions, getUserById, updateUser } from '@/api'
 import { createProModalForm } from 'pro-naive-ui'
 import { Regex } from '@/constants'
 
@@ -37,11 +37,15 @@ const modalTitle = computed(() => {
   return `${titleMap[modalType.value]}${modalName}`
 })
 const roleOptions = ref<Entity.TreeNode[]>([])
+const deptOptions = ref<any[]>([])
 
 async function openModal(type: ModalType = 'add', data?: Partial<Entity.User>) {
   modalType.value = type
   getRoleOptions().then((res) => {
     roleOptions.value = res.data
+  })
+  getDeptOptions().then((res) => {
+    deptOptions.value = res.data
   })
   modalForm.open()
   const handlers = {
@@ -132,9 +136,14 @@ defineExpose({
           ],
         }"
       />
-      <pro-digit
-        title="部门ID"
+      <pro-tree-select
+        title="部门"
         path="deptId"
+        :field-props="{
+          options: deptOptions,
+          keyField: 'value',
+          clearable: true,
+        }"
       />
       <pro-input
         title="邮箱"

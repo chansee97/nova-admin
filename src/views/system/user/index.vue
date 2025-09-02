@@ -113,6 +113,7 @@ onMounted(() => {
       </template>
       <n-tree
         block-line
+        show-line
         :data="treeData"
         key-field="value"
         :pattern="deptPattern"

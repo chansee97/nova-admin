@@ -1,7 +1,7 @@
 import type { DataTableColumns } from 'naive-ui'
 import { NButton, NPopconfirm, NSpace, NSwitch } from 'naive-ui'
 import type { ProSearchFormColumns } from 'pro-naive-ui'
-import { renderProCopyableText, renderProDateText } from 'pro-naive-ui'
+import { renderProCopyableText, renderProTags } from 'pro-naive-ui'
 
 export const searchColumns: ProSearchFormColumns<Entity.Role> = [
   {
@@ -52,10 +52,24 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       render: row => renderProCopyableText(row.roleKey),
     },
     {
+      title: '数据范围',
+      align: 'center',
+      key: 'dataScope',
+      render: (row) => {
+        const dataScopeMap: Record<number, string> = {
+          1: '全部数据权限',
+          2: '自定数据权限',
+          3: '本部门数据权限',
+          4: '本部门及以下数据权限',
+          5: '仅本人数据权限',
+        }
+        return renderProTags(dataScopeMap[row.dataScope])
+      },
+    },
+    {
       title: '备注',
       align: 'center',
       key: 'remark',
-      width: 200,
     },
     {
       title: '状态',
@@ -80,9 +94,6 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       align: 'center',
       key: 'createTime',
       width: 200,
-      render: row => renderProDateText(row.createTime, {
-        pattern: 'datetime',
-      }),
     },
     {
       title: '操作',
