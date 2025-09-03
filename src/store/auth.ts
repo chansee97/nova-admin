@@ -6,11 +6,13 @@ import { useTabStore } from './tab'
 
 interface AuthStatus {
   userInfo: Entity.User | Record<string, any>
+  permissions: string[]
 }
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthStatus => {
     return {
       userInfo: {},
+      permissions: [],
     }
   },
   getters: {

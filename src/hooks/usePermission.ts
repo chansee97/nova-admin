@@ -1,32 +1,25 @@
 import { useAuthStore } from '@/store'
-import { isArray, isString } from 'radash'
 
 /** 权限判断 */
 export function usePermission() {
   const authStore = useAuthStore()
 
   function hasPermission(
-    permission?: Entity.RoleType | Entity.RoleType[],
+    permissions?: string | string[],
   ) {
-    if (!permission)
+    if (!permissions)
       return true
 
-    if (!authStore.userInfo)
-      return false
-    const { roles } = authStore.userInfo
+    // 全部权限
+    if (permissions === '*:*:*')
+      return true
 
-    // 角色为super可直接通过
-    let has = roles.includes('super')
-    if (!has) {
-      if (isArray(permission))
-        // 角色为数组, 判断是否有交集
-        has = permission.some(i => roles.includes(i))
+    const { permissions: userPermissions } = authStore
 
-      if (isString(permission))
-        // 角色为字符串, 判断是否包含
-        has = roles.includes(permission)
-    }
-    return has
+    // 确保 permissions 是数组
+    const permissionArray = Array.isArray(permissions) ? permissions : [permissions]
+
+    return permissionArray.some(i => userPermissions.includes(i))
   }
 
   return {
