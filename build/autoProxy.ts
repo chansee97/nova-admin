@@ -34,8 +34,6 @@ export interface ServiceProxyPluginOptions {
   serviceConfig: FullServiceConfig
   /** 代理路径前缀（可选，默认为 'proxy-'） */
   proxyPrefix?: string
-  /** 开发环境名称（可选，默认为 'development'） */
-  devEnvName?: ServiceEnvType
   /** 是否启用代理配置 */
   enableProxy?: boolean
   /** 环境变量名（可选，默认为 '__URL_MAP__'） */
@@ -47,7 +45,6 @@ export interface ServiceProxyPluginOptions {
 export default function createServiceProxyPlugin(options: ServiceProxyPluginOptions) {
   const {
     serviceConfig,
-    devEnvName = 'development',
     proxyPrefix = 'proxy-',
     enableProxy = true,
     envName = '__URL_MAP__',
@@ -66,10 +63,8 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
       }
 
       if (!enableProxy || !isDev) {
-        // 在非开发环境下，根据构建模式选择正确的环境配置
-        const targetEnv = isDev ? devEnvName : mode
         const rawMapping: ProxyMapping = {}
-        const envConfig = serviceConfig[targetEnv]
+        const envConfig = serviceConfig[mode]
 
         if (envConfig) {
           Object.entries(envConfig).forEach(([serviceName, serviceUrl]) => {
@@ -81,7 +76,7 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
           console.warn(`[auto-proxy] 已加载 ${Object.keys(envConfig).length} 个服务地址`)
         }
         else {
-          console.warn(`[auto-proxy] 未找到环境 "${targetEnv}" 的配置`)
+          console.warn(`[auto-proxy] 未找到环境 "${mode}" 的配置`)
         }
 
         config.define[envName] = JSON.stringify(rawMapping)
@@ -93,9 +88,9 @@ export default function createServiceProxyPlugin(options: ServiceProxyPluginOpti
         return
       }
 
-      console.warn(`[auto-proxy] 已加载${devEnvName}模式 ${Object.keys(serviceConfig[devEnvName]).length} 个服务地址`)
+      console.warn(`[auto-proxy] 已加载${mode}模式 ${Object.keys(serviceConfig[mode]).length} 个服务地址`)
 
-      const { proxyConfig, proxyMapping } = generateProxyFromServiceConfig(serviceConfig, devEnvName, proxyPrefix)
+      const { proxyConfig, proxyMapping } = generateProxyFromServiceConfig(serviceConfig, mode, proxyPrefix)
 
       Object.entries(proxyMapping).forEach(([serviceName, proxyItem]) => {
         console.warn(`[auto-proxy] 服务: ${serviceName} | 代理地址: ${proxyItem.path} | 实际地址: ${proxyItem.rawPath}`)
