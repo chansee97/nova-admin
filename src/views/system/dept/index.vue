@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
 import { deleteDept, getDeptList } from '@/api'
-import type { SearchQuery } from '@/api'
+import type { MenuSearchQuery } from '@/api'
 import { createDeptColumns, deptSearchColumns } from './columns'
 import DeptModal from './components/DeptModal.vue'
 import arrayToTree from 'array-to-tree'
@@ -12,7 +12,7 @@ const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolea
 const deptModalRef = ref<InstanceType<typeof DeptModal>>()
 
 // 搜索表单
-const searchForm = createProSearchForm<SearchQuery>({
+const searchForm = createProSearchForm<MenuSearchQuery>({
   initialValues: {},
   onSubmit: getAllDepts,
   onReset: getAllDepts,
@@ -40,7 +40,7 @@ const deptColumns = createDeptColumns({
 const tableData = ref<Entity.Dept[]>([])
 
 // 获取所有部门数据并构建树形结构
-async function getAllDepts(params?: SearchQuery) {
+async function getAllDepts(params?: MenuSearchQuery) {
   startLoading()
   try {
     const { data } = await getDeptList(params)

@@ -1,6 +1,6 @@
 import { request } from '../../utils/alova'
 
-export type SearchQuery = Partial<Pick<Entity.Dept, 'deptName' | 'status'>>
+export type DeptSearchQuery = Partial<Pick<Entity.Dept, 'deptName' | 'status'>>
 
 /**
  * 创建部门
@@ -14,7 +14,7 @@ export function createDept(data: Partial<Entity.Dept>) {
  * 分页查询部门
  * GET /dept
  */
-export function getDeptList(params?: SearchQuery) {
+export function getDeptList(params?: DeptSearchQuery) {
   return request.Get<Api.Response<Entity.Dept[]>>('/dept', { params })
 }
 

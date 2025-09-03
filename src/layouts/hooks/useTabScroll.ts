@@ -1,5 +1,6 @@
 import type { NScrollbar } from 'naive-ui'
-import { ref, type Ref, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
+import type { Ref } from 'vue'
 import { throttle } from 'radash'
 
 export function useTabScroll(currentTabPath: Ref<string>) {

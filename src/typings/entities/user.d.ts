@@ -31,5 +31,7 @@ namespace Entity {
     remark?: string
     /** 用户角色类型 */
     roles: Entity.Role[]
+    /** 所属部门 */
+    dept: Entity.Dept
   }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useBoolean } from '@/hooks'
 import { deleteMenu, getMenuList } from '@/api'
-import type { SearchQuery } from '@/api'
+import type { MenuSearchQuery } from '@/api'
 import { createMenuColumns, searchColumns } from './columns'
 import MenuModal from './components/MenuModal.vue'
 import arrayToTree from 'array-to-tree'
@@ -12,7 +12,7 @@ const { bool: loading, setTrue: startLoading, setFalse: endLoading } = useBoolea
 const menuModalRef = ref()
 
 // 搜索表单
-const searchForm = createProSearchForm<SearchQuery>({
+const searchForm = createProSearchForm<MenuSearchQuery>({
   initialValues: {},
   onSubmit: getAllRoutes,
   onReset: getAllRoutes,
@@ -37,7 +37,7 @@ async function deleteData(id: number) {
 }
 
 const tableData = ref<Entity.Menu[]>([])
-async function getAllRoutes(params?: SearchQuery) {
+async function getAllRoutes(params?: MenuSearchQuery) {
   startLoading()
   try {
     const { data } = await getMenuList(params)

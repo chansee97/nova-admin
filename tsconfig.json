@@ -6,12 +6,17 @@
     "lib": ["ESNext", "DOM"],
     "baseUrl": ".",
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "paths": {
       "@/*": ["src/*"]
     },
     "resolveJsonModule": true,
-    "types": ["node", "vite/client", "naive-ui/volar", "unplugin-icons/types/vue"],
+    "types": [
+      "node",
+      "vite/client",
+      "naive-ui/volar",
+      "unplugin-icons/types/vue"
+    ],
     "allowJs": true,
     "strict": true,
     "strictNullChecks": true,
@@ -21,5 +26,5 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist", "eslint.config.js"]
+  "exclude": ["node_modules", "eslint.config.js"]
 }

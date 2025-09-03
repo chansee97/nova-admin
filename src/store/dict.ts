@@ -1,53 +1,70 @@
-import { fetchDictList } from '@/api'
-import { session } from '@/utils'
+import { getDictDataByType } from '@/api'
+
+// 字典缓存项接口
+interface DictCacheItem {
+  data: Entity.DictData[]
+  timestamp: number
+  expireTime: number
+}
+
+// 默认缓存时间：60分钟
+const DICT_CACHE_TIME = 60 * 60 * 1000
 
 export const useDictStore = defineStore('dict-store', {
   state: () => {
     return {
-      dictMap: {} as DictMap,
-      isInitDict: false,
+      dictMap: {} as Record<string, DictCacheItem>,
     }
   },
   actions: {
-    async dict(code: string) {
-      // 调用前初始化
-      if (!this.dictMap) {
-        this.initDict()
+
+    async getDict(code: string): Promise<Entity.DictData[]> {
+      const cachedItem = this.dictMap[code]
+      const now = Date.now()
+
+      // 如果缓存存在且未过期，直接返回缓存数据
+      if (cachedItem && now < cachedItem.expireTime) {
+        return cachedItem.data
       }
 
-      const targetDict = await this.getDict(code)
-
-      return {
-        data: () => targetDict,
-        enum: () => Object.fromEntries(targetDict.map(({ value, label }) => [value, label])),
-        valueMap: () => Object.fromEntries(targetDict.map(({ value, ...data }) => [value, data])),
-        labelMap: () => Object.fromEntries(targetDict.map(({ label, ...data }) => [label, data])),
-      }
-    },
-    async getDict(code: string) {
-      const isExist = Reflect.has(this.dictMap, code)
-
-      if (isExist) {
-        return this.dictMap[code]
-      }
-      else {
+      // 如果缓存不存在或已过期，尝试重新获取数据
+      try {
         return await this.getDictByNet(code)
       }
+      catch (error) {
+        // 如果有旧的缓存数据，返回旧数据
+        if (cachedItem) {
+          return cachedItem.data
+        }
+
+        // 如果没有缓存数据，抛出错误
+        throw error
+      }
     },
 
-    async getDictByNet(code: string) {
-      const { data } = await fetchDictList(code)
-      Reflect.set(this.dictMap, code, data)
-      // 同步至session
-      session.set('dict', this.dictMap)
+    async getDictByNet(type: string): Promise<Entity.DictData[]> {
+      const { data } = await getDictDataByType(type)
+      const now = Date.now()
+
+      // 创建缓存项
+      const cacheItem: DictCacheItem = {
+        data,
+        timestamp: now,
+        expireTime: now + DICT_CACHE_TIME,
+      }
+
+      this.dictMap[type] = cacheItem
       return data
     },
-    initDict() {
-      const dict = session.get('dict')
-      if (dict) {
-        Object.assign(this.dictMap, dict)
-      }
-      this.isInitDict = true
+
+    // 清理字典缓存
+    cleanDict() {
+      this.dictMap = {}
+    },
+
+    // 移除指定字典缓存
+    removeDict(dictType: string) {
+      delete this.dictMap[dictType]
     },
   },
   persist: {

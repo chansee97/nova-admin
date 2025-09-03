@@ -46,7 +46,6 @@ export const useAuthStore = defineStore('auth-store', {
     clearAuthStorage() {
       local.remove('accessToken')
       local.remove('refreshToken')
-      local.remove('userInfo')
     },
 
     /* 用户登录 */
@@ -62,10 +61,15 @@ export const useAuthStore = defineStore('auth-store', {
       const { data } = await fetchLogin(loginData)
 
       // 处理登录信息
-
       await this.handleLoginInfo(data)
-    },
 
+      // 更新用户信息
+      await this.updataUserInfo()
+    },
+    async updataUserInfo() {
+      const { data } = await fetchUserInfo()
+      this.userInfo = data
+    },
     /* 处理登录返回的数据 */
     async handleLoginInfo(data: any) {
       // 将token保存下来
@@ -74,12 +78,9 @@ export const useAuthStore = defineStore('auth-store', {
         local.set('refreshToken', data.refreshToken)
       }
 
-      const res = await fetchUserInfo()
-      this.userInfo = res.data
-
       // 添加路由和菜单
-      const routeStore = useRouteStore()
-      await routeStore.initAuthRoute()
+      const { initAuthRoute } = useRouteStore()
+      await initAuthRoute()
 
       // 进行重定向跳转
       const route = unref(router.currentRoute)

@@ -78,16 +78,6 @@ export const staticRoutes: AppRoute.RowRoute[] = [
     parentId: null,
   },
   {
-    name: 'commonList',
-    path: '/list/common-list',
-    title: '常用列表',
-    requiresAuth: true,
-    icon: 'icon-park-outline:list-view',
-    component: '/demo/list/common-list/index.vue',
-    id: 301,
-    parentId: 3,
-  },
-  {
     name: 'cardList',
     path: '/list/card-list',
     title: '卡片列表',

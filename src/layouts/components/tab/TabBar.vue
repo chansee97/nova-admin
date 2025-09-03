@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RouteLocationNormalized } from 'vue-router'
 import { useAppStore, useTabStore } from '@/store'
-import { useTabScroll } from '@/hooks/useTabScroll'
+import { useTabScroll } from '@/layouts/hooks/useTabScroll'
 import { useDraggable } from 'vue-draggable-plus'
 import IconClose from '~icons/icon-park-outline/close'
 import IconDelete from '~icons/icon-park-outline/delete-four'

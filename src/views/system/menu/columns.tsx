@@ -3,7 +3,7 @@ import { NButton, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import { createIcon } from '@/utils'
 import { renderProCopyableText } from 'pro-naive-ui'
 import type { ProSearchFormColumns } from 'pro-naive-ui'
-import type { SearchQuery } from '@/api'
+import type { MenuSearchQuery } from '@/api'
 
 // 菜单管理columns配置函数
 interface MenuColumnActions {
@@ -12,7 +12,7 @@ interface MenuColumnActions {
   onAdd: (row: Entity.Menu) => void
 }
 
-export const searchColumns: ProSearchFormColumns<SearchQuery> = [
+export const searchColumns: ProSearchFormColumns<MenuSearchQuery> = [
   {
     title: '菜单名称',
     path: 'title',

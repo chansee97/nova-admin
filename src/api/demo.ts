@@ -27,5 +27,5 @@ export function fetchRoleList() {
  */
 export function fetchDictList(code?: string) {
   const params = { code }
-  return request.Get<Api.Response<Entity.Dict[]>>('/dict/list', { params })
+  return request.Get<Api.Response<Entity.DictType[]>>('/dict/list', { params })
 }
