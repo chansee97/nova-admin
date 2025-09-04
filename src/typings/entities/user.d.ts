@@ -33,5 +33,7 @@ namespace Entity {
     roles: Entity.Role[]
     /** 所属部门 */
     dept: Entity.Dept
+    /** 用户权限, 登陆时返回该字段 */
+    permissions: string[]
   }
 }

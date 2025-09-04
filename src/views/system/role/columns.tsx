@@ -78,14 +78,16 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       width: 100,
       render: (row) => {
         return (
-          <NSwitch
-            value={row.status}
-            checked-value={0}
-            unchecked-value={1}
-            onUpdateValue={(value: 0 | 1) => actions.onStatusChange(row.id, value)}
-          >
-            {{ checked: () => '启用', unchecked: () => '禁用' }}
-          </NSwitch>
+          row.roleKey !== 'admin' && (
+            <NSwitch
+              value={row.status}
+              checked-value={0}
+              unchecked-value={1}
+              onUpdateValue={(value: 0 | 1) => actions.onStatusChange(row.id, value)}
+            >
+              {{ checked: () => '启用', unchecked: () => '禁用' }}
+            </NSwitch>
+          )
         )
       },
     },
@@ -102,27 +104,29 @@ export function createRoleColumns(actions: RoleColumnActions): DataTableColumns<
       width: 200,
       render: (row) => {
         return (
-          <NSpace justify="center">
-            <NButton
-              text
-              type="primary"
-              onClick={() => actions.onEdit(row)}
-            >
-              编辑
-            </NButton>
-            <NPopconfirm
-              onPositiveClick={() => actions.onDelete(row.id)}
-            >
-              {{
-                default: () => '确认删除该角色？',
-                trigger: () => (
-                  <NButton text type="error">
-                    删除
-                  </NButton>
-                ),
-              }}
-            </NPopconfirm>
-          </NSpace>
+          row.roleKey !== 'admin' && (
+            <NSpace justify="center">
+              <NButton
+                text
+                type="primary"
+                onClick={() => actions.onEdit(row)}
+              >
+                编辑
+              </NButton>
+              <NPopconfirm
+                onPositiveClick={() => actions.onDelete(row.id)}
+              >
+                {{
+                  default: () => '确认删除该角色？',
+                  trigger: () => (
+                    <NButton text type="error">
+                      删除
+                    </NButton>
+                  ),
+                }}
+              </NPopconfirm>
+            </NSpace>
+          )
         )
       },
     },

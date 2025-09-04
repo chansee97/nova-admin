@@ -46,9 +46,6 @@ async function getAllRoutes(params?: MenuSearchQuery) {
       parentProperty: 'parentId',
     })
   }
-  catch {
-    window.$message.error('获取菜单列表失败')
-  }
   finally {
     endLoading()
   }

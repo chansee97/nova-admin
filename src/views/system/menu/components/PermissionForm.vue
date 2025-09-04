@@ -2,7 +2,7 @@
   <pro-input
     required
     title="权限标识"
-    tooltip="按钮权限唯一标识符"
+    tooltip="后端装饰器一致，如@RequirePermissions('system:user:add')"
     path="perms"
     placeholder="Eg: system:user:add"
   />

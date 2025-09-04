@@ -86,7 +86,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <n-card>
+  <n-card class="max-w-1024px m-auto">
     <n-flex :wrap="false" style="height: 100%;">
       <!-- 左侧区域 -->
       <div class="w-[220px] border-r border-[var(--n-border-color)] flex flex-col">

@@ -8,12 +8,11 @@ const preferences = ref({
 
 <template>
   <div class="space-y-4">
+    <n-alert type="warning" style="margin-bottom: 16px;">
+      示例组件，实际功能未实现
+    </n-alert>
     <!-- 实验性功能 -->
     <n-card title="实验性功能" size="small">
-      <n-alert type="warning" style="margin-bottom: 16px;">
-        以下功能仍在测试阶段，可能会影响系统稳定性
-      </n-alert>
-
       <n-list>
         <n-list-item>
           <n-thing>

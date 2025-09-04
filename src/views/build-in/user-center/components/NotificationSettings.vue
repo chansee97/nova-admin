@@ -8,6 +8,9 @@ const settings = ref({
 
 <template>
   <div class="space-y-4">
+    <n-alert type="warning" style="margin-bottom: 16px;">
+      示例组件，实际功能未实现
+    </n-alert>
     <!-- 邮件通知 -->
     <n-card title="邮件通知" size="small">
       <n-list>

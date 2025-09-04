@@ -6,12 +6,14 @@ import { useTabStore } from './tab'
 
 interface AuthStatus {
   userInfo: Entity.User | Record<string, any>
+  roles: string[]
   permissions: string[]
 }
 export const useAuthStore = defineStore('auth-store', {
   state: (): AuthStatus => {
     return {
       userInfo: {},
+      roles: [],
       permissions: [],
     }
   },
@@ -71,6 +73,8 @@ export const useAuthStore = defineStore('auth-store', {
     async updataUserInfo() {
       const { data } = await fetchUserInfo()
       this.userInfo = data
+      this.roles = data.roles.map((role: Entity.Role) => role.roleKey)
+      this.permissions = data.permissions
     },
     /* 处理登录返回的数据 */
     async handleLoginInfo(data: any) {
