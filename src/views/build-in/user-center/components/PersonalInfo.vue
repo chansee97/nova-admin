@@ -61,7 +61,6 @@ async function updateUserInfo() {
     :model="formData"
     label-placement="left"
     label-width="80px"
-    class="max-w-400px"
   >
     <n-grid :cols="1">
       <n-grid-item>

@@ -48,3 +48,14 @@ export function updateUser(id: number, data: Partial<Entity.User>) {
 export function deleteUser(id: number) {
   return request.Delete<Api.Response<boolean>>(`/user/${id}`)
 }
+/**
+ * 更新用户密码
+ * Patch /user/password
+ */
+export interface UserPasswordParams {
+  oldPassword: string
+  newPassword: string
+}
+export function updateUserPassword(data: UserPasswordParams) {
+  return request.Patch<Api.Response<boolean>>(`/user/password`, data)
+}
