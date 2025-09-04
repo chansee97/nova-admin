@@ -21,7 +21,7 @@ const modalForm = createProModalForm<Partial<Entity.DictData>>({
   omitEmptyString: false,
   initialValues: {
     sort: 0,
-    status: 1,
+    status: 0,
   },
   onSubmit: submitModal,
 })
