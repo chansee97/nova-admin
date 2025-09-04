@@ -38,7 +38,7 @@ export function getUserById(id: number) {
  * PUT /user/{id}
  */
 export function updateUser(id: number, data: Partial<Entity.User>) {
-  return request.Put<Api.Response<Entity.User>>(`/user/${id}`, data)
+  return request.Patch<Api.Response<Entity.User>>(`/user/${id}`, data)
 }
 
 /**

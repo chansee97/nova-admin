@@ -30,7 +30,7 @@ export function getMenuById(id: number) {
  * PUT /menu/{id}
  */
 export function updateMenu(id: number, data: Partial<Entity.Menu>) {
-  return request.Put<Api.Response<Entity.Menu>>(`/menu/${id}`, data)
+  return request.Patch<Api.Response<Entity.Menu>>(`/menu/${id}`, data)
 }
 
 /**

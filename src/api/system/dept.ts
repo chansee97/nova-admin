@@ -39,7 +39,7 @@ export function getDeptById(id: number) {
  * PUT /dept/{id}
  */
 export function updateDept(id: number, data: Partial<Entity.Dept>) {
-  return request.Put<Api.Response<Entity.Dept>>(`/dept/${id}`, data)
+  return request.Patch<Api.Response<Entity.Dept>>(`/dept/${id}`, data)
 }
 
 /**

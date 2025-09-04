@@ -46,7 +46,7 @@ export function getRoleById(id: number) {
  * PUT /role/{id}
  */
 export function updateRole(id: number, data: Partial<Entity.Role>) {
-  return request.Put<Api.Response<Entity.Role>>(`/role/${id}`, data)
+  return request.Patch<Api.Response<Entity.Role>>(`/role/${id}`, data)
 }
 
 /**

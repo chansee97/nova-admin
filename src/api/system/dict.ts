@@ -51,7 +51,7 @@ export function getDictTypeById(id: number) {
  * PUT /dict/types/{id}
  */
 export function updateDictType(id: number, data: Partial<Entity.DictType>) {
-  return request.Put<Api.Response<Entity.DictType>>(`/dict/types/${id}`, data)
+  return request.Patch<Api.Response<Entity.DictType>>(`/dict/types/${id}`, data)
 }
 
 /**
@@ -95,7 +95,7 @@ export function getDictDataById(id: number) {
  * PUT /dict/data/{id}
  */
 export function updateDictData(id: number, data: Partial<Entity.DictData>) {
-  return request.Put<Api.Response<Entity.DictData>>(`/dict/data/${id}`, data)
+  return request.Patch<Api.Response<Entity.DictData>>(`/dict/data/${id}`, data)
 }
 
 /**

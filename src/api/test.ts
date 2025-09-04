@@ -23,7 +23,7 @@ export function fetchDelete() {
 }
 /* put方法测试 */
 export function fetchPut(data: any) {
-  return request.Put('/putAPI', data)
+  return request.Patch('/putAPI', data)
 }
 /* 不携带token的接口 */
 export function withoutToken() {
