@@ -9,19 +9,19 @@ namespace Entity {
     /**
      * 组件路径
      */
-    component: string
+    component?: string
     /**
      * 菜单图标
      */
-    icon: string
+    icon?: string
     /**
      * 是否缓存
      */
-    keepAlive: boolean
+    keepAlive?: boolean
     /**
      * 是否为外链
      */
-    isLink: boolean
+    isLink?: boolean
     /**
      * 菜单名称
      */
@@ -29,11 +29,11 @@ namespace Entity {
     /**
      * 国际化标识Key
      */
-    i18nKey: string
+    i18nKey?: string
     /**
      * 菜单类型
      */
-    menuType: MenuType
+    menuType?: MenuType
     /**
      * 父菜单ID
      */
@@ -45,31 +45,35 @@ namespace Entity {
     /**
      * 高亮菜单路径
      */
-    activePath: string
+    activePath?: string
     /**
      * 权限标识
      */
-    perms: string
+    perms?: string
     /**
      * 备注信息
      */
-    remark: string
+    remark?: string
     /**
      * 显示顺序
      */
-    sort: number
+    sort?: number
     /**
      * 菜单状态
      */
-    status: number
+    status?: number
     /**
      * 菜单显示状态
      */
-    menuVisible: boolean
+    menuVisible?: boolean
     /**
      * 标签栏显示状态
      */
-    tabVisible: boolean
+    tabVisible?: boolean
+    /**
+     * 标签栏固定
+     */
+    pinTab?: boolean
     /**
      * 子菜单
      */

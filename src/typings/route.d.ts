@@ -1,6 +1,6 @@
 declare namespace AppRoute {
 
-  type MenuType = 'dir' | 'page'
+  type MenuType = 'directory' | 'page' | 'permission'
   /** 单个路由所携带的meta标识 */
   interface RouteMeta {
     /* 页面标题，通常必选。 */
@@ -13,6 +13,22 @@ declare namespace AppRoute {
     roles?: Entity.RoleType[]
     /* 是否开启页面缓存 */
     keepAlive?: boolean
+    /* 菜单显示状态 - 适配新菜单实体 */
+    menuVisible?: boolean
+    /* 菜单排序 - 适配新菜单实体 */
+    sort?: number
+    /* 是否为外链 - 适配新菜单实体 */
+    isLink?: boolean
+    /* 高亮菜单路径 - 适配新菜单实体 */
+    activePath?: string
+    /* 标签栏显示状态 - 适配新菜单实体 */
+    tabVisible?: boolean
+    /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
+    pinTab?: boolean
+    /** 当前路由在左侧菜单是目录还是页面,不设置默认为page */
+    menuType?: MenuType
+    
+    /* 以下字段保持向后兼容 */
     /* 有些路由我们并不想在菜单中显示，比如某些编辑页面。 */
     hide?: boolean
     /* 菜单排序。 */
@@ -23,10 +39,6 @@ declare namespace AppRoute {
     activeMenu?: string
     /** 当前路由是否会被添加到Tab中 */
     withoutTab?: boolean
-    /** 当前路由是否会被固定在Tab中,用于一些常驻页面 */
-    pinTab?: boolean
-    /** 当前路由在左侧菜单是目录还是页面,不设置默认为page */
-    menuType?: MenuType
   }
 
   type MetaKeys = keyof RouteMeta

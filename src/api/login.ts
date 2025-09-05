@@ -45,6 +45,6 @@ export function fetchRefreshToken(data: any) {
   })
 }
 
-export function fetchUserRoutes(params: { id: number }) {
-  return request.Get<Api.Response<AppRoute.RowRoute[]>>('/getUserRoutes', { params })
+export function fetchUserMenus() {
+  return request.Get<Api.Response<Entity.Menu[]>>('/userMenu')
 }

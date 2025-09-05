@@ -1,14 +1,14 @@
 import type { MenuOption } from 'naive-ui'
 import { router } from '@/router'
 import { staticRoutes } from '@/router/routes.static'
-import { fetchUserRoutes } from '@/api'
+import { fetchUserMenus } from '@/api'
 import { $t } from '@/utils'
 import { createMenus, createRoutes, generateCacheRoutes } from './helper'
 
 interface RoutesStatus {
   isInitAuthRoute: boolean
   menus: MenuOption[]
-  rowRoutes: AppRoute.RowRoute[]
+  rowRoutes: Entity.Menu[]
   activeMenu: string | null
   cacheRoutes: string[]
 }
@@ -40,9 +40,7 @@ export const useRouteStore = defineStore('route-store', {
       if (import.meta.env.VITE_ROUTE_LOAD_MODE === 'dynamic') {
         try {
           // Get user's route
-          const { data } = await fetchUserRoutes({
-            id: 1,
-          })
+          const { data } = await fetchUserMenus()
           if (!data) {
             throw new Error('Failed to fetch user routes')
           }
