@@ -7,7 +7,7 @@ interface StorageData<T> {
 /**
  * LocalStorage部分操作
  */
-function createLocalStorage<T extends Storage.Local>() {
+function createLocalStorage<T extends App.Local>() {
   // 默认缓存期限为7天
 
   function set<K extends keyof T>(key: K, value: T[K], expire: number = 60 * 60 * 24 * 7) {
@@ -52,7 +52,7 @@ function createLocalStorage<T extends Storage.Local>() {
  * sessionStorage部分操作
  */
 
-function createSessionStorage<T extends Storage.Session>() {
+function createSessionStorage<T extends App.Session>() {
   function set<K extends keyof T>(key: K, value: T[K]) {
     const json = JSON.stringify(value)
     window.sessionStorage.setItem(`${STORAGE_PREFIX}${String(key)}`, json)

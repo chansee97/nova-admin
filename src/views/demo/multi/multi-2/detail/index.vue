@@ -6,7 +6,7 @@ const { modifyTab } = useTabStore()
 const { fullPath, query } = useRoute()
 
 modifyTab(fullPath, (target) => {
-  target.meta.title = `详情页${query.id}`
+  target.meta.title = `详情页${query.id || ''}`
 })
 </script>
 

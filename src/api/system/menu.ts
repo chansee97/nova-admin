@@ -45,6 +45,10 @@ export function deleteMenu(id: number) {
  * 查询菜单树
  * GET /menu/selectTree
  */
-export function getMenuOptions() {
-  return request.Get<Api.Response<Entity.TreeNode[]>>('/menu/options')
+export function getMenuOptions(excludePermissions?: boolean) {
+  return request.Get<Api.Response<Entity.TreeNode[]>>('/menu/options', {
+    params: {
+      excludePermissions,
+    },
+  })
 }

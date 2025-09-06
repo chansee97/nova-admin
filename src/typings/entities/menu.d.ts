@@ -9,7 +9,7 @@ namespace Entity {
     /**
      * 组件路径
      */
-    component?: string
+    component?: string | (() => Promise<unknown>)
     /**
      * 菜单图标
      */
@@ -33,7 +33,7 @@ namespace Entity {
     /**
      * 菜单类型
      */
-    menuType?: MenuType
+    menuType: MenuType
     /**
      * 父菜单ID
      */
@@ -50,6 +50,10 @@ namespace Entity {
      * 权限标识
      */
     perms?: string
+    /**
+     * 外链地址
+     */
+    linkPath?: string
     /**
      * 备注信息
      */

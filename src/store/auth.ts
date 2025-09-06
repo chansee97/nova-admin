@@ -5,7 +5,7 @@ import { useRouteStore } from './router'
 import { useTabStore } from './tab'
 
 interface AuthStatus {
-  userInfo: Entity.User | Record<string, any>
+  userInfo: Entity.User
   roles: string[]
   permissions: string[]
 }
@@ -65,7 +65,13 @@ export const useAuthStore = defineStore('auth-store', {
       const { data } = await fetchLogin(loginData)
 
       // 处理登录信息
-      await this.handleLoginInfo(data)
+      try {
+        await this.handleLoginInfo(data)
+      }
+      catch (error) {
+        console.error('Failed to handle login info:', error)
+        throw error
+      }
 
       // 更新用户信息
       await this.updataUserInfo()

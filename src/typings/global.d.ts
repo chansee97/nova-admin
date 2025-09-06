@@ -48,9 +48,13 @@ declare namespace NaiveUI {
   type ThemeColor = 'default' | 'error' | 'primary' | 'info' | 'success' | 'warning'
 }
 
-declare namespace Storage {
+declare namespace App {
+  type lang = 'zhCN' | 'enUS'
+
   interface Session {
-    dict: DictMap
+    dict: {
+      [key: string]: Entity.Dict[]
+    }
   }
 
   interface Local {
@@ -65,12 +69,13 @@ declare namespace Storage {
     /* 存储当前语言 */
     lang: App.lang
   }
-}
 
-declare namespace App {
-  type lang = 'zhCN' | 'enUS'
-}
-
-interface DictMap {
-  [key: string]: Entity.Dict[]
+  interface RouteRecord {
+    name: string
+    path: string
+    redirect?: string
+    component?: string | (() => Promise<unknown>)
+    meta: Entity.Menu
+    children?: RouteRecord[]
+  }
 }

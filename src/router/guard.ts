@@ -11,8 +11,8 @@ export function setupRouterGuard(router: Router) {
 
   router.beforeEach(async (to, from, next) => {
     // 判断是否是外链，如果是直接打开网页并拦截跳转
-    if (to.meta.href) {
-      window.open(to.meta.href)
+    if (to.meta.isLink) {
+      window.open(to.meta.linkPath)
       next(false) // 取消当前导航
       return
     }
@@ -23,7 +23,7 @@ export function setupRouterGuard(router: Router) {
     const isLogin = Boolean(local.get('accessToken'))
 
     // 处理根路由重定向
-    if (to.name === 'root') {
+    if (to.path === '/') {
       if (isLogin) {
         // 已登录，重定向到首页
         next({ path: import.meta.env.VITE_HOME_PATH, replace: true })
@@ -35,19 +35,16 @@ export function setupRouterGuard(router: Router) {
       return
     }
 
-    // 如果是login路由，直接放行
-    if (to.name === 'login') {
-      // login页面不需要任何认证检查，直接放行
-    }
-    // 如果路由明确设置了requiresAuth为false，直接放行
-    else if (to.meta.requiresAuth === false) {
-      // 明确设置为false的路由直接放行
-      // 继续执行后面的逻辑
-    }
-    // 如果路由设置了requiresAuth为true，且用户未登录，重定向到登录页
-    else if (to.meta.requiresAuth === true && !isLogin) {
+    // 如果用户未登录，重定向到登录页
+    if (!isLogin) {
       const redirect = to.name === 'not-found' ? undefined : to.fullPath
       next({ path: '/login', query: { redirect } })
+      return
+    }
+
+    // 如果用户已登录且访问login页面，重定向到首页
+    if (to.name === 'login' && isLogin) {
+      next({ path: '/' })
       return
     }
 
@@ -76,17 +73,11 @@ export function setupRouterGuard(router: Router) {
       }
     }
 
-    // 如果用户已登录且访问login页面，重定向到首页
-    if (to.name === 'login' && isLogin) {
-      next({ path: '/' })
-      return
-    }
-
     next()
   })
   router.beforeResolve((to) => {
     // 设置菜单高亮
-    routeStore.setActiveMenu(to.meta.activeMenu ?? to.fullPath)
+    routeStore.setActiveMenu(to.meta.activePath ?? to.fullPath)
     // 添加tabs
     tabStore.addTab(to)
     // 设置高亮标签;

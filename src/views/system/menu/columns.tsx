@@ -36,7 +36,6 @@ export function createMenuColumns(actions: MenuColumnActions): DataTableColumns<
     {
       title: '菜单名称',
       key: 'title',
-      width: 400,
     },
     {
       title: '图标',

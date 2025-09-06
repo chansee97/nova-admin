@@ -26,5 +26,10 @@
     "isolatedModules": true,
     "skipLibCheck": true
   },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./**/*.vue"
+  ],
   "exclude": ["node_modules", "eslint.config.js"]
 }

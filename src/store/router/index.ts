@@ -41,9 +41,6 @@ export const useRouteStore = defineStore('route-store', {
         try {
           // Get user's route
           const { data } = await fetchUserMenus()
-          if (!data) {
-            throw new Error('Failed to fetch user routes')
-          }
 
           return data
         }
@@ -59,7 +56,6 @@ export const useRouteStore = defineStore('route-store', {
     },
     async initAuthRoute() {
       this.isInitAuthRoute = false
-
       try {
         // Initialize route information
         const rowRoutes = await this.initRouteInfo()
@@ -72,7 +68,10 @@ export const useRouteStore = defineStore('route-store', {
 
         // Generate actual route and insert
         const routes = createRoutes(rowRoutes)
-        router.addRoute(routes)
+        // Add each route as a child of appRoot
+        routes.forEach((route) => {
+          router.addRoute('appRoot', route as any)
+        })
 
         // Generate side menu
         this.menus = createMenus(rowRoutes)

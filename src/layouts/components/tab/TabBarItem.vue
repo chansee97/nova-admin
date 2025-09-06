@@ -24,7 +24,7 @@ const emit = defineEmits<{
   >
     <div class="flex-center gap-2 text-nowrap">
       <nova-icon :icon="route.meta.icon" />
-      <span>{{ $t(`route.${String(route.name)}`, route.meta.title) }}</span>
+      <span>{{ $t(`${String(route.meta.i18nKey)}`, route.meta.title) }}</span>
       <button
         v-if="closable"
         type="button"

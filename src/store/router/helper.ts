@@ -1,88 +1,66 @@
+/// <reference path="../../typings/global.d.ts" />
 import type { MenuOption } from 'naive-ui'
-import type { RouteRecordRaw } from 'vue-router'
-import { usePermission } from '@/hooks'
-import Layout from '@/layouts/index.vue'
 import { $t, renderIcon } from '@/utils'
-import { clone, min, omit, pick } from 'radash'
+import { clone, isEmpty, min, pick } from 'radash'
 import { RouterLink } from 'vue-router'
 import arrayToTree from 'array-to-tree'
 
-const metaFields: AppRoute.MetaKeys[]
-  = ['title', 'icon', 'requiresAuth', 'roles', 'keepAlive', 'hide', 'order', 'href', 'activeMenu', 'withoutTab', 'pinTab', 'menuType']
+const metaFields: (keyof Entity.Menu)[]
+  = ['title', 'icon', 'keepAlive', 'activePath', 'tabVisible', 'pinTab', 'menuType', 'linkPath', 'isLink', 'i18nKey']
 
-function standardizedRoutes(route: AppRoute.RowRoute[]) {
-  return clone(route).map((i) => {
-    const route = omit(i, metaFields)
-
-    Reflect.set(route, 'meta', pick(i, metaFields))
-    return route
-  }) as AppRoute.Route[]
-}
-
-export function createRoutes(routes: AppRoute.RowRoute[]) {
-  const { hasPermission } = usePermission()
-
+export function createRoutes(routes: Entity.Menu[]) {
   // Structure the meta field
-  let resultRouter = standardizedRoutes(routes)
-
-  // Route permission filtering
-  resultRouter = resultRouter.filter(i => hasPermission(i.meta.roles))
+  const routerWithMeta: App.RouteRecord[] = clone(routes).map((i) => {
+    const meta = pick(i, metaFields)
+    return {
+      name: `${i.title}_${i.id}`,
+      path: i.path,
+      component: i.component,
+      meta,
+      id: i.id,
+      parentId: i.parentId || 0,
+    }
+  })
 
   // Generate routes, no need to import files for those with redirect
   const modules = import.meta.glob('@/views/**/*.vue')
-  resultRouter = resultRouter.map((item: AppRoute.Route) => {
-    if (item.component && !item.redirect)
+  let resultRouter = routerWithMeta.map((item) => {
+    if (item.component)
       item.component = modules[`/src/views${item.component}`]
     return item
   })
-
   // Generate route tree
   resultRouter = arrayToTree(resultRouter, {
     parentProperty: 'parentId',
-  }) as AppRoute.Route[]
-
-  const appRootRoute: RouteRecordRaw = {
-    path: '/appRoot',
-    name: 'appRoot',
-    redirect: import.meta.env.VITE_HOME_PATH,
-    component: Layout,
-    meta: {
-      title: '',
-      icon: 'icon-park-outline:home',
-    },
-    children: [],
-  }
-
+  })
   // Set the correct redirect path for the route
   setRedirect(resultRouter)
 
-  // Insert the processed route into the root route
-  appRootRoute.children = resultRouter as unknown as RouteRecordRaw[]
-  return appRootRoute
+  return resultRouter
 }
 
 // Generate an array of route names that need to be kept alive
-export function generateCacheRoutes(routes: AppRoute.RowRoute[]) {
+export function generateCacheRoutes(routes: Entity.Menu[]) {
   return routes
     .filter(i => i.keepAlive)
-    .map(i => i.name)
+    .map(i => i.title)
 }
 
-function setRedirect(routes: AppRoute.Route[]) {
+function setRedirect(routes: App.RouteRecord[]) {
   routes.forEach((route) => {
     if (route.children) {
       if (!route.redirect) {
         // Filter out a collection of child elements that are not hidden
-        const visibleChilds = route.children.filter(child => !child.meta.hide)
+        const visibleChilds = route.children.filter(child => !child.meta?.menuVisible)
 
         // Redirect page to the path of the first child element by default
         let target = visibleChilds[0]
 
         // Filter out pages with the order attribute
-        const orderChilds = visibleChilds.filter(child => child.meta.order)
+        const orderChilds = visibleChilds.filter(child => !isEmpty(child.meta.sort))
 
         if (orderChilds.length > 0)
-          target = min(orderChilds, i => i.meta.order!) as AppRoute.Route
+          target = min(orderChilds, i => i.meta.sort!)!
 
         if (target)
           route.redirect = target.path
@@ -94,31 +72,36 @@ function setRedirect(routes: AppRoute.Route[]) {
 }
 
 /* 生成侧边菜单的数据 */
-export function createMenus(userRoutes: AppRoute.RowRoute[]) {
-  const resultMenus = standardizedRoutes(userRoutes)
-
-  // filter menus that do not need to be displayed
-  const visibleMenus = resultMenus.filter(route => !route.meta.hide)
-
+export function createMenus(userRoutes: Entity.Menu[]): MenuOption[] {
+  const menus = transformAuthRoutesToMenus(userRoutes)
   // generate side menu
-  return arrayToTree(transformAuthRoutesToMenus(visibleMenus), {
+  return arrayToTree(menus, {
     parentProperty: 'parentId',
   })
 }
 
 // render the returned routing table as a sidebar
-function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
-  const { hasPermission } = usePermission()
+function transformAuthRoutesToMenus(userRoutes: Entity.Menu[]) {
+  const homeRoute: Entity.Menu = {
+    id: 9999999999999,
+    parentId: 0,
+    path: '/home',
+    title: '首页',
+    icon: 'icon-park-outline:analysis',
+    menuVisible: true,
+    menuType: 'page',
+  }
+  userRoutes.unshift(homeRoute)
   return userRoutes
-    // Filter out side menus without permission
-    .filter(i => hasPermission(i.meta.roles))
+    // filter menus that do not need to be displayed
+    .filter(route => route.menuVisible !== false)
     //  Sort the menu according to the order size
     .sort((a, b) => {
-      if (a.meta && a.meta.order && b.meta && b.meta.order)
-        return a.meta.order - b.meta.order
-      else if (a.meta && a.meta.order)
+      if (a.sort && b.sort)
+        return a.sort - b.sort
+      else if (a.sort)
         return -1
-      else if (b.meta && b.meta.order)
+      else if (b.sort)
         return 1
       else return 0
     })
@@ -128,7 +111,7 @@ function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
         id: item.id,
         parentId: item.parentId,
         label:
-          (!item.meta.menuType || item.meta.menuType === 'page')
+          (item.menuType !== 'directory')
             ? () =>
                 h(
                   RouterLink,
@@ -137,11 +120,11 @@ function transformAuthRoutesToMenus(userRoutes: AppRoute.Route[]) {
                       path: item.path,
                     },
                   },
-                  { default: () => $t(`route.${String(item.name)}`, item.meta.title) },
+                  { default: () => $t(String(item.i18nKey), item.title) },
                 )
-            : () => $t(`route.${String(item.name)}`, item.meta.title),
+            : () => $t(String(item.i18nKey), item.title),
         key: item.path,
-        icon: item.meta.icon ? renderIcon(item.meta.icon) : undefined,
+        icon: item.icon ? renderIcon(item.icon) : undefined,
       }
       return target
     })

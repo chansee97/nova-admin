@@ -2,9 +2,6 @@
 import { useBoolean } from '@/hooks'
 import { createMenu, getMenuById, getMenuOptions, updateMenu } from '@/api'
 import { createProModalForm } from 'pro-naive-ui'
-import DirectoryForm from './DirectoryForm.vue'
-import PageForm from './PageForm.vue'
-import PermissionForm from './PermissionForm.vue'
 
 interface Props {
   modalName?: string
@@ -49,21 +46,8 @@ const modalTitle = computed(() => {
 
 const treeData = ref<Entity.TreeNode[]>([])
 
-// 动态组件映射
-const formComponents = {
-  directory: DirectoryForm,
-  page: PageForm,
-  permission: PermissionForm,
-}
-
-// 当前使用的表单组件
-const currentFormComponent = computed(() => {
-  const menuType = modalForm.values.value?.menuType || 'directory'
-  return formComponents[menuType as keyof typeof formComponents]
-})
-
 async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
-  getMenuOptions().then((res) => {
+  getMenuOptions(true).then((res) => {
     treeData.value = res.data
   })
 
@@ -75,6 +59,14 @@ async function openModal(type: ModalType = 'add', data?: Partial<Entity.Menu>) {
       if (data?.id) {
         modalForm.values.value.parentId = data.id
         modalForm.values.value.path = `${data.path}/`
+      }
+
+      if (data?.menuType === 'directory') {
+        modalForm.values.value.menuType = 'page'
+      }
+
+      if (data?.menuType === 'page') {
+        modalForm.values.value.menuType = 'permission'
       }
     },
     async edit() {
@@ -123,6 +115,9 @@ async function submitModal(filedValues: Partial<Entity.Menu>) {
   }
 }
 
+function handlePathChange(path: string) {
+  modalForm.values.value.component = `${path}/index.vue`
+}
 defineExpose({
   openModal,
 })
@@ -163,15 +158,119 @@ defineExpose({
       />
       <pro-input
         required
-        title="标题"
+        title="名称"
         path="title"
       />
-      <component :is="currentFormComponent" />
+      <pro-input
+        v-if="modalForm.values.value.menuType !== 'permission'"
+        title="国际化标识Key"
+        path="i18nKey"
+        placeholder="Eg: system.user"
+      />
+      <pro-field
+        v-if="modalForm.values.value.menuType !== 'permission'"
+        title="菜单图标"
+        path="icon"
+      >
+        <template #input="{ inputProps }">
+          <icon-select
+            :value="inputProps.value"
+            @update:value="inputProps.onUpdateValue"
+          />
+        </template>
+      </pro-field>
+      <pro-input
+        v-if="modalForm.values.value.menuType !== 'permission'"
+        required
+        title="路由路径"
+        tooltip="页面路由路径，与组件路径对应"
+        path="path"
+        class="col-span-2"
+        placeholder="Eg: /system/user"
+        @change="handlePathChange"
+      />
+      <pro-input
+        v-if="modalForm.values.value.menuType === 'page'"
+        required
+        title="组件路径"
+        tooltip="页面组件的文件路径"
+        path="component"
+        class="col-span-2"
+        placeholder="Eg: /system/user/index.vue"
+      />
+
+      <pro-digit
+        title="排序"
+        tooltip="数字越小，同级中越靠前， 默认为0"
+        path="sort"
+      />
+      <pro-input
+        title="权限标识"
+        tooltip="需与后端装饰器一致，如@RequirePermissions('system:user:list')"
+        path="perms"
+        placeholder="Eg: system:user:list"
+      />
+      <pro-switch
+        title="启用"
+        path="status"
+        :field-props="{
+          checkedValue: 0,
+          uncheckedValue: 1,
+        }"
+      />
       <pro-textarea
         title="备注"
         path="remark"
         class="col-span-2"
       />
+      <n-collapse v-if="modalForm.values.value.menuType === 'page'" class="col-span-2">
+        <n-collapse-item>
+          <template #header>
+            <icon-park-outline-setting class="mr-2" />
+            高级设置
+          </template>
+          <div class="grid grid-cols-2">
+            <pro-input
+              title="高亮菜单路径"
+              tooltip="当前路由不在侧边菜单显示，但需要高亮为某个菜单"
+              path="activePath"
+              class="col-span-2"
+              placeholder="Eg: /system/user"
+            />
+            <pro-switch
+              title="菜单可见"
+              path="menuVisible"
+            />
+            <pro-switch
+              title="标签栏可见"
+              path="tabVisible"
+            />
+            <pro-switch
+              title="页面缓存"
+              tooltip="开启配置后，切换页面数据不会清空"
+              path="keepAlive"
+            />
+            <pro-switch
+              title="常驻标签栏"
+              path="pinTab"
+            />
+            <pro-switch
+              title="跳转外链"
+              tooltip="开启配置后，点击菜单会跳转到外链地址"
+              path="isLink"
+            />
+            <pro-input
+              v-if="modalForm.values.value.isLink"
+              required
+              title="外链地址"
+              tooltip="开启跳转外链配置后，点击菜单会跳转到外链地址"
+              path="linkPath"
+              class="col-span-2"
+              placeholder="Eg: https://www.baidu.com"
+            />
+          </div>
+        </n-collapse-item>
+      </n-collapse>
     </div>
   </pro-modal-form>
 </template>

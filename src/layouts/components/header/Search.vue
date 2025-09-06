@@ -39,13 +39,13 @@ const options = computed(() => {
 
   return routeStore.rowRoutes.filter((item) => {
     const conditions = [
-      t(`route.${String(item.name)}`, item.title || item.name)?.includes(searchValue.value),
+      t(`${String(item.i18nKey)}`, item.title)?.includes(searchValue.value),
       item.path?.includes(searchValue.value),
     ]
-    return conditions.some(condition => !item.hide && condition)
+    return conditions.some(condition => !item.menuVisible && condition)
   }).map((item) => {
     return {
-      label: t(`route.${String(item.name)}`, item.title || item.name),
+      label: t(`${String(item.i18nKey)}`, item.title),
       value: item.path,
       icon: item.icon,
     }

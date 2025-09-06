@@ -7,7 +7,7 @@ const dictStore = useDictStore()
 
 const selectedDictType = ref('')
 const selectedDictValue = ref('')
-const dictTypeOptions = ref<Array<{ label: string; value: string }>>([])
+const dictTypeOptions = ref<Array<{ label: string, value: string }>>([])
 const displayData = ref<Entity.DictData[] | Record<string, any>>([])
 
 // 使用 useDict hook 获取字典数据
@@ -18,7 +18,7 @@ const dictUtils = computed(() => {
       enumMap: ref({}),
       valueMap: ref({}),
       labelMap: ref({}),
-      options: ref([])
+      options: ref([]),
     }
   }
   return useDict(selectedDictType.value)
@@ -81,7 +81,8 @@ function showOptions() {
 
 // 根据值获取标签（使用 enumMap）
 const dictLabel = computed(() => {
-  if (!selectedDictValue.value || !dictUtils.value.enumMap.value) return '--'
+  if (!selectedDictValue.value || !dictUtils.value.enumMap.value)
+    return '--'
   return dictUtils.value.enumMap.value[selectedDictValue.value] || '--'
 })
 
@@ -104,19 +105,19 @@ function removeCache() {
   <n-card title="字典演示">
     <n-flex vertical>
       <n-flex align="center">
-        <n-select 
-          v-model:value="selectedDictType" 
-          :options="dictTypeOptions" 
-          placeholder="请选择字典类型" 
-          @update:value="changeSelect" 
+        <n-select
+          v-model:value="selectedDictType"
+          :options="dictTypeOptions"
+          placeholder="请选择字典类型"
+          @update:value="changeSelect"
         />
-        <n-select 
-          v-model:value="selectedDictValue" 
-          :options="dictUtils.options.value" 
-          placeholder="请选择字典项" 
+        <n-select
+          v-model:value="selectedDictValue"
+          :options="dictUtils.options.value"
+          placeholder="请选择字典项"
         />
       </n-flex>
-      
+
       <n-flex>
         <n-button @click="showRawData">
           显示原始数据 (rawData)
@@ -134,36 +135,62 @@ function removeCache() {
           显示选项格式 (options)
         </n-button>
       </n-flex>
-      
+
       <n-flex>
-        <n-button @click="clearCache" type="warning">
+        <n-button type="warning" @click="clearCache">
           清理所有缓存
         </n-button>
-        <n-button @click="removeCache" type="error" :disabled="!selectedDictType">
+        <n-button type="error" :disabled="!selectedDictType" @click="removeCache">
           移除当前字典缓存
         </n-button>
       </n-flex>
 
       <pre class="bg-gray-100 p-4 rounded text-sm overflow-auto max-h-96">
-{{ JSON.stringify(displayData, null, 2) }}</pre>
+      {{ JSON.stringify(displayData, null, 2) }}</pre>
 
-      <n-flex align="center" v-if="selectedDictValue">
+      <n-flex v-if="selectedDictValue" align="center">
         <n-text>选中值: {{ selectedDictValue }}</n-text>
         <n-text type="info">
           对应标签: {{ dictLabel }}
         </n-text>
       </n-flex>
-      
+
       <n-divider />
-      
-      <n-text depth="3">useDict Hook 使用说明：</n-text>
+
+      <n-text depth="3">
+        useDict Hook 使用说明：
+      </n-text>
       <n-ul>
-        <n-li><n-text code>useDict(dictType)</n-text> - 使用字典类型获取字典工具对象</n-li>
-        <n-li><n-text code>rawData</n-text> - 原始字典数据数组 Entity.DictData[]</n-li>
-        <n-li><n-text code>enumMap</n-text> - 枚举映射 { value: name }</n-li>
-        <n-li><n-text code>valueMap</n-text> - 值映射 { value: dictData }</n-li>
-        <n-li><n-text code>labelMap</n-text> - 标签映射 { name: dictData }</n-li>
-        <n-li><n-text code>options</n-text> - 选项数组 [{ label: name, value }]</n-li>
+        <n-li>
+          <n-text code>
+            useDict(dictType)
+          </n-text> - 使用字典类型获取字典工具对象
+        </n-li>
+        <n-li>
+          <n-text code>
+            rawData
+          </n-text> - 原始字典数据数组 Entity.DictData[]
+        </n-li>
+        <n-li>
+          <n-text code>
+            enumMap
+          </n-text> - 枚举映射 { value: name }
+        </n-li>
+        <n-li>
+          <n-text code>
+            valueMap
+          </n-text> - 值映射 { value: dictData }
+        </n-li>
+        <n-li>
+          <n-text code>
+            labelMap
+          </n-text> - 标签映射 { name: dictData }
+        </n-li>
+        <n-li>
+          <n-text code>
+            options
+          </n-text> - 选项数组 [{ label: name, value }]
+        </n-li>
         <n-li>字典数据会自动缓存60分钟，支持手动清理缓存</n-li>
         <n-li>推荐使用 useDict hook 而不是直接调用 API 或 store</n-li>
       </n-ul>
