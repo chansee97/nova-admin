@@ -82,6 +82,7 @@ export function createMenus(userRoutes: Entity.Menu[]): MenuOption[] {
 
 // render the returned routing table as a sidebar
 function transformAuthRoutesToMenus(userRoutes: Entity.Menu[]) {
+  const routes = clone(userRoutes)
   const homeRoute: Entity.Menu = {
     id: 9999999999999,
     parentId: 0,
@@ -91,8 +92,8 @@ function transformAuthRoutesToMenus(userRoutes: Entity.Menu[]) {
     menuVisible: true,
     menuType: 'page',
   }
-  userRoutes.unshift(homeRoute)
-  return userRoutes
+  routes.unshift(homeRoute)
+  return routes
     // filter menus that do not need to be displayed
     .filter(route => route.menuVisible !== false)
     //  Sort the menu according to the order size

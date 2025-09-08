@@ -8,7 +8,7 @@ import IconUser from '~icons/icon-park-outline/user'
 
 const { t } = useI18n()
 
-const { userInfo, logout } = useAuthStore()
+const authStore = useAuthStore()
 const router = useRouter()
 
 const options = computed(() => {
@@ -56,7 +56,7 @@ function handleSelect(key: string | number) {
       positiveText: t('common.confirm'),
       negativeText: t('common.cancel'),
       onPositiveClick: () => {
-        logout()
+        authStore.logout()
       },
     })
   }
@@ -72,6 +72,10 @@ function handleSelect(key: string | number) {
   if (key === 'docs')
     window.open('https://nova-admin-docs.pages.dev/')
 }
+
+const avatarUrl = computed(() => {
+  return authStore.userInfo?.avatar || `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${authStore.userInfo?.username}`
+})
 </script>
 
 <template>
@@ -83,7 +87,7 @@ function handleSelect(key: string | number) {
     <n-avatar
       round
       class="cursor-pointer"
-      :src="userInfo?.avatar || `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${userInfo!.username}`"
+      :src="avatarUrl"
     >
       <template #fallback>
         <div class="wh-full flex-center">

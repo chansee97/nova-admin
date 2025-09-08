@@ -11,6 +11,7 @@ interface RoutesStatus {
   rowRoutes: Entity.Menu[]
   activeMenu: string | null
   cacheRoutes: string[]
+  dynamicRouteNames: string[]
 }
 export const useRouteStore = defineStore('route-store', {
   state: (): RoutesStatus => {
@@ -20,6 +21,7 @@ export const useRouteStore = defineStore('route-store', {
       menus: [],
       rowRoutes: [],
       cacheRoutes: [],
+      dynamicRouteNames: [],
     }
   },
   actions: {
@@ -28,8 +30,14 @@ export const useRouteStore = defineStore('route-store', {
       this.$reset()
     },
     resetRoutes() {
-      if (router.hasRoute('appRoot'))
-        router.removeRoute('appRoot')
+      // Remove only dynamically added routes, preserve built-in routes
+      this.dynamicRouteNames.forEach((routeName) => {
+        if (router.hasRoute(routeName)) {
+          router.removeRoute(routeName)
+        }
+      })
+      // Clear the dynamic route names array
+      this.dynamicRouteNames = []
     },
     // set the currently highlighted menu key
     setActiveMenu(key: string) {
@@ -68,9 +76,10 @@ export const useRouteStore = defineStore('route-store', {
 
         // Generate actual route and insert
         const routes = createRoutes(rowRoutes)
-        // Add each route as a child of appRoot
+        // Add each route as a child of appRoot and track their names
         routes.forEach((route) => {
           router.addRoute('appRoot', route as any)
+          this.dynamicRouteNames.push(route.name)
         })
 
         // Generate side menu

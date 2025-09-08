@@ -5,7 +5,7 @@ import { useRouteStore } from './router'
 import { useTabStore } from './tab'
 
 interface AuthStatus {
-  userInfo: Entity.User
+  userInfo: Partial<Entity.User>
   roles: string[]
   permissions: string[]
 }
@@ -38,14 +38,12 @@ export const useAuthStore = defineStore('auth-store', {
       // 重置当前存储库
       this.$reset()
       // 重定向到登录页
-      if (route.meta.requiresAuth) {
-        router.push({
-          name: 'login',
-          query: {
-            redirect: route.fullPath,
-          },
-        })
-      }
+      router.push({
+        name: 'login',
+        query: {
+          redirect: route.fullPath,
+        },
+      })
     },
     clearAuthStorage() {
       local.remove('accessToken')
@@ -65,13 +63,7 @@ export const useAuthStore = defineStore('auth-store', {
       const { data } = await fetchLogin(loginData)
 
       // 处理登录信息
-      try {
-        await this.handleLoginInfo(data)
-      }
-      catch (error) {
-        console.error('Failed to handle login info:', error)
-        throw error
-      }
+      await this.handleLoginInfo(data)
 
       // 更新用户信息
       await this.updataUserInfo()
