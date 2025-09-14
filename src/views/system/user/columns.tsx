@@ -18,14 +18,8 @@ export const searchColumns: ProSearchFormColumns<Entity.User> = [
     field: 'select',
     fieldProps: {
       options: [
-        {
-          label: '启用',
-          value: 0,
-        },
-        {
-          label: '禁用',
-          value: 1,
-        },
+        { label: '正常', value: 0 },
+        { label: '停用', value: 1 },
       ],
     },
   },
