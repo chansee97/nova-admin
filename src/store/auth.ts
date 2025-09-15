@@ -51,8 +51,8 @@ export const useAuthStore = defineStore('auth-store', {
     },
 
     /* 用户登录 */
-    async login(userName: string, password: string, captchaId?: string, captcha?: string) {
-      const loginData: any = { userName, password }
+    async login(username: string, password: string, captchaId?: string, captcha?: string) {
+      const loginData: any = { username, password }
 
       // 如果提供了验证码相关参数，则添加到登录数据中
       if (captchaId && captcha) {
