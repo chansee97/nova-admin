@@ -20,6 +20,10 @@ const propOverrides = {
     preset: 'card',
   },
   ProDataTable: {
+    tableCardProps: {
+      size: 'small',
+    },
+    size: 'small',
     paginateSinglePage: false,
   },
 }

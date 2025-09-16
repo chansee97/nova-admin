@@ -127,7 +127,7 @@ export function setupRouterGuard(router: Router) {
 
   router.beforeResolve((to) => {
     // 设置菜单高亮
-    routeStore.setActiveMenu(to.meta.activePath ?? to.fullPath)
+    routeStore.setActiveMenu(to.meta.activePath || to.fullPath)
     // 添加tabs
     tabStore.addTab(to)
     // 设置高亮标签

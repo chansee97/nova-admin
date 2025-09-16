@@ -9,6 +9,11 @@ declare namespace Entity {
 
 /* 各类接口返回的数据类型， 具体内容在 ./api */
 declare namespace Api {
+  interface PageParams {
+    pageNum: number
+    pageSize: number
+  }
+
   interface Response<T> {
     /** 业务状态码 */
     code: number
