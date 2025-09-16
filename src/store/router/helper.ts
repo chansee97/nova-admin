@@ -1,7 +1,7 @@
 /// <reference path="../../typings/global.d.ts" />
 import type { MenuOption } from 'naive-ui'
 import { $t, renderIcon } from '@/utils'
-import { clone, isEmpty, min, pick } from 'radash'
+import { clone, isEmpty, isNumber, min, pick } from 'radash'
 import { RouterLink } from 'vue-router'
 import arrayToTree from 'array-to-tree'
 
@@ -98,13 +98,11 @@ function transformAuthRoutesToMenus(userRoutes: Entity.Menu[]) {
     .filter(route => route.menuVisible !== false)
     //  Sort the menu according to the order size
     .sort((a, b) => {
-      if (a.sort && b.sort)
-        return a.sort - b.sort
-      else if (a.sort)
-        return -1
-      else if (b.sort)
-        return 1
-      else return 0
+      const aHas = isNumber(a.sort)
+      const bHas = isNumber(b.sort)
+      if (aHas && bHas)
+        return (a.sort as number) - (b.sort as number)
+      return 0
     })
     // Convert to side menu data structure
     .map((item) => {

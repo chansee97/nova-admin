@@ -6,7 +6,7 @@ import { renderProCopyableText } from 'pro-naive-ui'
 // 登录日志搜索表单数据类型
 export interface LoginLogSearchFormData {
   ipaddr?: string
-  userName?: string
+  username?: string
   status?: number
   loginTime?: string
 }
@@ -47,7 +47,7 @@ export const searchColumns: ProSearchFormColumns<LoginLogSearchFormData> = [
     field: 'date-time-range',
     fieldProps: {
       clearable: true,
-      format: 'yyyy-MM-dd HH:mm:ss',
+      format: 'yyyy-MM-dd',
       valueFormat: 'yyyy-MM-dd HH:mm:ss',
       defaultTime: ['00:00:00', '23:59:59'],
     },

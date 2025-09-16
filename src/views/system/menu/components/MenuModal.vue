@@ -152,6 +152,7 @@ defineExpose({
         title="父级目录"
         path="parentId"
         :field-props="{
+          clearable: true,
           options: treeData,
           keyField: 'value',
         }"
