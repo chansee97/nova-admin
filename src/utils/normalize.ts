@@ -9,8 +9,8 @@
  * normalizeSizeUnits(1048576)
  * ```
  */
-export function normalizeSizeUnits(bytes: number): string {
-  if (bytes === 0)
+export function normalizeSizeUnits(bytes?: number): string {
+  if (bytes === 0 || !bytes)
     return '0 bytes'
 
   const units = ['bytes', 'KB', 'MB', 'GB']
