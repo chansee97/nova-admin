@@ -51,7 +51,7 @@
 ## Interface document
 
 This project uses ApiFox for interface mock, check the online documentation for more interface details
-[online aipfox docs](https://
+[online aipfox docs](https://nova-nest.apifox.cn)
 
 ## Install and use
 
