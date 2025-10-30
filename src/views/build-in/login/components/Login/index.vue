@@ -70,10 +70,10 @@ function checkUserAccount() {
     </n-h2>
     <n-form ref="formRef" :rules="rules" :model="formValue" :show-label="false" size="large">
       <n-form-item path="account">
-        <n-input v-model:value="formValue.account" clearable :placeholder="$t('login.accountPlaceholder')" />
+        <n-input v-model:value="formValue.account" clearable :placeholder="$t('login.accountPlaceholder')" :input-props="{autocomplete:'username'}" />
       </n-form-item>
       <n-form-item path="pwd">
-        <n-input v-model:value="formValue.pwd" type="password" :placeholder="$t('login.passwordPlaceholder')" clearable show-password-on="click">
+        <n-input v-model:value="formValue.pwd" type="password" :placeholder="$t('login.passwordPlaceholder')" clearable show-password-on="click" :input-props="{autocomplete:'current-password'}" >
           <template #password-invisible-icon>
             <icon-park-outline-preview-close-one />
           </template>
