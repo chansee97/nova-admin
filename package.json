@@ -83,6 +83,7 @@
     "unplugin-vue-components": "^28.8.0",
     "vite": "^7.0.6",
     "vite-bundle-visualizer": "^1.2.1",
+    "vite-plugin-auto-proxy": "^1.0.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-vue-devtools": "8.0.0",
     "vue-tsc": "^3.0.5"
